@@ -1,8 +1,8 @@
-export class Post {
+export interface Post {
     id:string;
-    nombre:string;
-    direcion:string;
-    correo:string;
-    telefono:string;
+    name:string;
+    address:string;
+    email:string;
+    fono:number;
 
 }

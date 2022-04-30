@@ -1,0 +1,33 @@
+<h2>componenete show</h2>
+<div class="d-grip gap-2 mt-4">
+    <a routerLink="/create" class="btn btn-primary" type="button"> Create</a>
+    <hr>
+</div>
+<table class="table table-hover table-striped">
+    <thead class="bg-gradient text-white">
+        <tr>
+            <th>nombre</th>
+            <th>direcicon</th>
+            <th>email</th>
+            <th>telefono</th>
+            <th>ACCION</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let post of Post">
+            <td>{{post.name}}</td>
+            <td>{{post.address}}</td>
+            <td>{{post.email}}</td>
+            <td>{{post.fono}}</td>
+
+            <td>
+                <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
+                        class="fa-solid fa-pen"></i></button>
+                <button (click)="deleteRow(post)" class="btn btn-outline-danger"><i
+                        class="fa-solid fa-trash"></i></button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>

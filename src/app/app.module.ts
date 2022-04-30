@@ -19,13 +19,26 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 
 
 import { AngularFireModule } from '@angular/fire/compat';
-import { PerfilesComponent } from './auth/perfiles/perfiles.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PerfilesModule } from './auth/perfiles/perfiles.module';
+import { CreateComponent } from './auth/create/create.component';
+import { EditComponent } from './auth/edit/edit.component';
+import { ShowComponent } from './auth/show/show.component';
+import { FormsModule } from '@angular/forms';
+import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
 
 @NgModule({
   declarations: [
     AppComponent,
    NavbarComponent,
-   PerfilesComponent
+   
+   CreateComponent,
+   EditComponent,
+   ShowComponent,
+   EditComponent,
+   RegisAsiComponent
+   
   ],
   imports: [
     BrowserModule,
@@ -39,6 +52,9 @@ import { PerfilesComponent } from './auth/perfiles/perfiles.component';
     provideStorage(() => getStorage()),
     provideFirebaseApp(()=>initializeApp(environment.firebaseConfig)),
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    BrowserAnimationsModule,
+    PerfilesModule,
+    FormsModule
     
   ],
   providers: [],
