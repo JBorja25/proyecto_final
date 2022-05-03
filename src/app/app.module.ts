@@ -2,6 +2,8 @@ import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+// import { HTTP } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,12 +29,17 @@ import { EditComponent } from './auth/edit/edit.component';
 import { ShowComponent } from './auth/show/show.component';
 import { FormsModule } from '@angular/forms';
 import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
+import { CookieService } from 'ngx-cookie-service';
+import { LoginModule } from './auth/login/login.module';
+import { RegisterModule } from './auth/register/register.module';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthasilosGuard } from './guards/authasilos.guard';
+import { AuthService } from './auth/services/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
    NavbarComponent,
-   
    CreateComponent,
    EditComponent,
    ShowComponent,
@@ -54,10 +61,12 @@ import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule,
     PerfilesModule,
-    FormsModule
+    FormsModule,
+    LoginModule,
+    RegisterModule
     
   ],
-  providers: [],
+  providers: [CookieService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

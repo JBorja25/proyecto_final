@@ -4,5 +4,6 @@ export interface Post {
     address:string;
     email:string;
     fono:number;
-
+    confirmacion: boolean,
+    idDoc: string;
 }

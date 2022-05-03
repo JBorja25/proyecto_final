@@ -8,6 +8,11 @@ import { ShowComponent } from './auth/show/show.component';
 import { CreateComponent } from './auth/create/create.component';
 import { EditComponent } from './auth/edit/edit.component';
 import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { PerfilesComponent } from './auth/perfiles/perfiles.component';
+import { AuthasilosGuard } from './guards/authasilos.guard';
 
 
 
@@ -15,17 +20,33 @@ import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
 
 const routes: Routes = [
  
-  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) }, 
-  { path: 'login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule) },
-   { path: 'register', loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule) },
+  { path: 'home', component: HomeComponent }, 
+  { path: 'login', component: LoginComponent },
+   { path: 'register', component: RegisterComponent },
 
    {path:'',component:HomeComponent},
+
+   { 
+     path: 'asilo',
+     canActivate: [AuthasilosGuard],
+    //  component: RegisAsiComponent,
+     children: [
+       { path: 'regis-asi', component: RegisAsiComponent},
+     ],
+   },
+
+   {
+     path: 'gerente',
+     canActivate: [AuthGuard],
+    //  component: ShowComponent,
+     children: [
+       { path: 'show', component: ShowComponent },
+       { path: 'edit/:id', component: EditComponent},
+       { path: 'create', component: CreateComponent},
+     ],
+   },
  
-  { path: 'perfiles', loadChildren: () => import('./auth/perfiles/perfiles.module').then(m => m.PerfilesModule) },
-  { path: 'show', component: ShowComponent },
-  { path: 'create', component: CreateComponent},
-  { path: 'edit/:id', component: EditComponent},
-  { path: 'regis-asi', component: RegisAsiComponent},
+  { path: 'perfiles', component: PerfilesComponent },
 
 
  

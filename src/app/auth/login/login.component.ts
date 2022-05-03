@@ -52,15 +52,22 @@ export class LoginComponent implements OnInit {
       .subscribe((respData: any) =>{
         console.log(respData);
 
-        for(let f of respData){
-          if(f.tipo == 'admin' || f?.tipo){
-            this.router.navigateByUrl('admin');
-            localStorage.setItem('tipo', f.tipo);
-          }else{
-            
-            this.router.navigateByUrl('asilo');
-          }
+        for(let d of respData.docs){
+          if(d.data().tipo == 'admin'){
+              this.authSvc.guardarCookie('admin', resp.user.uid);
+              this.router.navigateByUrl('/gerente/show');
+              // localStorage.setItem('tipo', f.tipo);
+            }else{
+              
+              this.authSvc.guardarCookie('asilos', resp.user.uid);
+              this.router.navigateByUrl('/asilo/regis-asi');
+            }
+          
         }
+
+
+        
+
         
       });
       

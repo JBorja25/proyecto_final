@@ -24,16 +24,10 @@ export class PostService {
                 .doc(id)
                 .valueChanges()
   }
-  createPosts(post:Post){
-      return new Promise<any>((resolve, reject)=>{
-        this.angularFirestore.collection("post")
-        .add(post).then((response)=>{
-          console.log(response)
-        },
-        (error)=>{
-          reject(error)
-        })
-      })
+  createPosts(post: any){
+      // return new Promise<any>((resolve, reject)=>{
+        return this.angularFirestore.collection("post").add(post);
+      // })
   }
   updatePosts(post:Post, id){
     return this.angularFirestore.collection("post")

@@ -11,11 +11,12 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { first } from 'rxjs';
 import { Firestore } from '@angular/fire/firestore/firebase';
+import { CookieService } from 'ngx-cookie-service';
 @Injectable()
 export class AuthService {
   //public user:User;
 
-  constructor(public afAuth: AngularFireAuth, private _f:AngularFirestore ) { }
+  constructor(public afAuth: AngularFireAuth, private _f:AngularFirestore, private _cookie: CookieService ) { }
 
   async login(email: string, password: string) {
     try {
@@ -42,18 +43,40 @@ export class AuthService {
 
   }
 
+  guardarCookie(tipo: any, token: any){
+    console.log('entra en guardar');
+    
+    if(tipo === 'admin'){
+      this._cookie.set('tipo', tipo, { path: '/', sameSite: 'Lax' });
+      this._cookie.set('uid', token, { path: '/', sameSite: 'Lax' });
+    }else{
+      this._cookie.set('tipo', tipo, { path: '/', sameSite: 'Lax' });
+      this._cookie.set('uid', token, { path: '/', sameSite: 'Lax' });
+    }
+  }
+
+  guardarInfoRegistro(dataRegistro: any){
+    return this._f.collection('registro').add(dataRegistro);
+  }
+
   traerDataFirebase(uid: string){
-    return this._f.collection('registro', ref => ref.where('uid', '==', uid)).valueChanges();
+    return this._f.collection('registro', ref => ref.where('uid', '==', uid)).get();
   }
 
   async logout() {
     try {
+      // this._cookie.deleteAll();
+      this._cookie.deleteAll();
       await this.afAuth.signOut();
     } catch (error) {
       console.log(error);
     }
 
 
+  }
+
+  getPost(uid: string){
+    return this._f.collection('post', ref => ref.where('uid', '==', uid)).get();
   }
   getCurrentUser() {
     return this.afAuth.authState.pipe(first()).toPromise();
