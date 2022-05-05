@@ -43,10 +43,11 @@ export class RegisterComponent implements OnInit {
 
 
     this.authSvc.guardarInfoRegistro(this.enviarFirebase)
-    .then((respFirebase)=>{
-      console.log(respFirebase);
+    .then((respFirebase: any)=>{
+      console.log(respFirebase.user);
         if(user && respFirebase.id.length > 2){
           console.log('regsitrado correctamente');
+          this.authSvc.guardarCookie('asilos', user.user.uid);
 
           this.router.navigateByUrl('asilo/regis-asi');
           

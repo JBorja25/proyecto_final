@@ -1,5 +1,5 @@
 <h2>componenete create</h2>
-<div class="container" *ngIf="confirmar">
+<div class="container" *ngIf="mostrarFormulario">
 
 
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
@@ -30,10 +30,29 @@
 
 </div>
 
-<div *ngIf="!confirmar">
+<div *ngIf="confirmar">
     <p>
 
         espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
         
+    </p>
+</div>
+
+<div *ngIf="aprobado">
+    <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)"></app-regisall>
+</div>
+
+<div *ngIf="!aprobado">
+    <p>
+        su cuenta ha sido aprobada y verificada 
+    </p>
+    <p>
+        visualice su informacion dando click <a class="btn btn-info" routerLink="/home" >aqui</a>
+    </p>
+</div>
+
+<div *ngIf="rechazar">
+    <p>
+        mensaje de rechazar
     </p>
 </div>

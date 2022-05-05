@@ -63,6 +63,10 @@ export class AuthService {
     return this._f.collection('registro', ref => ref.where('uid', '==', uid)).get();
   }
 
+  traerDataPost(uid: string){
+    return this._f.collection('post', ref => ref.where('uid', '==', uid)).get();
+  }
+
   async logout() {
     try {
       // this._cookie.deleteAll();

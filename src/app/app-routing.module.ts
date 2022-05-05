@@ -21,43 +21,41 @@ import { RegisallComponent } from './auth/regisall/regisall.component';
 
 
 const routes: Routes = [
- 
-  { path: 'home', component: HomeComponent }, 
+
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-   { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'asilo',
+    canActivate: [AuthasilosGuard],
+    children: [
+      { path: 'regisall', component: RegisallComponent },
+      { path: 'regis-asi', component: RegisAsiComponent }
+    ]
+  },
 
-   {path:'',component:HomeComponent},
+  {
+    path: 'gerente',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'show', component: ShowComponent },
+      { path: 'edit/:id', component: EditComponent },
+      { path: 'create', component: CreateComponent },
+    ]
+  },
 
-   { 
-     path: 'asilo',
-     canActivate: [AuthasilosGuard],
-     children: [
-       { path: 'prueba', component:HomeComponent },
-      //  { path: 'regis-asi', component: RegisAsiComponent}
-     ]
-   },
-
-   {
-     path: 'gerente',
-     canActivate: [AuthGuard],
-     children: [
-       { path: 'show', component: ShowComponent },
-       { path: 'edit/:id', component: EditComponent},
-       { path: 'create', component: CreateComponent},
-     ]
-   },
- 
   { path: 'perfiles', component: PerfilesComponent },
- 
-  // { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.module').then(m => m.ProformaModule) },
- 
+  { path: '', component: HomeComponent },
 
- 
+  { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.module').then(m => m.ProformaModule) },
 
 
 
-  ];
-   
+
+
+
+];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

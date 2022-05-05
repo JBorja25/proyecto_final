@@ -6,6 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { PostService } from 'src/app/models/post.service';
 import { AuthService } from '../services/auth.service';
 
+import { Post } from '../../models/post.model';
+
 @Component({
   selector: 'app-regis-asi',
   templateUrl: './regis-asi.component.html',
@@ -15,6 +17,11 @@ export class RegisAsiComponent implements OnInit {
   public postForm:FormGroup;
   uuid: string = '';
   confirmar: boolean = false;
+  rechazar: boolean = false;
+  mostrarFormulario: boolean = true;
+  aprobado: boolean = false;
+  public registroAnterior: any = {};
+  idDoc: string = '';
   constructor(
     public postService:PostService,
     public formBuilder:FormBuilder,
@@ -29,23 +36,30 @@ export class RegisAsiComponent implements OnInit {
       fono:[''],
     });
     this.uuid = this._cookie.get('uid');
-   }
-
-  ngOnInit(): void {
+    this.registroAnterior = 'prueba de envio';
+  }
+  
+  async ngOnInit() {
     this.getDataFirebase();
   }
 
   getDataFirebase(){
+    // console.log(this.re);
+    
     this._auth.getPost(this.uuid)
     .subscribe((respData: any) =>{
       console.log(respData);
       if(respData.docs.length > 0){
         for(let f of respData.docs){
+          console.log(f.data());
+          this.mostrarFormulario = f.data().mostrarRegistroAsilo;
           this.confirmar = f.data()?.confirmacion;
+          this.rechazar = f.data().rechazar;
+          this.aprobado = f.data().aprobado;
+          this.registroAnterior = f.data();
+          this.idDoc = f.id;
         }
-
-      }else{
-        this.confirmar = true;
+        
       }
     });
   }
@@ -56,10 +70,13 @@ export class RegisAsiComponent implements OnInit {
     .subscribe((respData) =>{
       console.log(respData);
       for(let f of respData.docs){
-        let enviarFirebase = {
+        let enviarFirebase: Post = {
           ...this.postForm.value,
           uid: this.uuid,
-          confirmacion: false
+          mostrarRegistroAsilo: false,
+          rechazar: false,
+          confirmacion: true,
+          aprobado: false
         }
         this.postService.createPosts(enviarFirebase)
         .then((resp) =>{
@@ -72,4 +89,14 @@ export class RegisAsiComponent implements OnInit {
     // // this.router.navigate(['/home'])
     // alert("registro realizado\muchas gracias ");
   }
+
+
+  llenadoFormulario(evento: any){
+    console.log(evento);
+    this.getDataFirebase();
+    
+  }
+
+
+
 }

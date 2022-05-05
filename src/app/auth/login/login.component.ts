@@ -53,14 +53,27 @@ export class LoginComponent implements OnInit {
         console.log(respData);
 
         for(let d of respData.docs){
-          if(d.data().tipo == 'admin'){
+          if(d.data().tipo === 'admin'){
               this.authSvc.guardarCookie('admin', resp.user.uid);
               this.router.navigateByUrl('/gerente/show');
               // localStorage.setItem('tipo', f.tipo);
             }else{
+              console.log('entra en asilo ', d.data());
+
+              this.authSvc.traerDataPost(d.data().uid)
+              .subscribe((respPost: any) =>{
+                for(let f of respPost.docs){
+
+                  if(f.data()?.aprobado == true){
+                    this.authSvc.guardarCookie('asilos', resp.user.uid);
+                    this.router.navigateByUrl('/asilo/regis-asi');
+                  }else{
+                    this.authSvc.guardarCookie('asilos', resp.user.uid);
+                    this.router.navigateByUrl('/home');
+                  }
+                }
+              })
               
-              this.authSvc.guardarCookie('asilos', resp.user.uid);
-              this.router.navigateByUrl('/asilo/regis-asi');
             }
           
         }

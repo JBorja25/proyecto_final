@@ -10,19 +10,47 @@ import { PostService } from 'src/app/models/post.service';
   styleUrls: ['./show.component.css']
 })
 export class ShowComponent implements OnInit {
-  Post: Post[]
+  Post: any[] = [];
     constructor(private postService:PostService) { }
   
     ngOnInit(): void {
-      this.postService.getPosts().subscribe((res)=>{
+      this.postService.getPostId()
+      .subscribe((resp) =>{
+        console.log(resp);
+        for(let f of resp.docs){
+          // console.log(f);
+          
+          this.Post.push({data: f.data(), idDoc: f.id});
+        }
+        
+      });
+      /* this.postService.getPosts().subscribe((res)=>{
         this.Post= res.map((e)=>{
           return {
             id:e.payload.doc.id,
             ...(e.payload.doc.data() as Post)
           };
         });
-      });
+      }); */
     }
+
+
+    
+
+
+
     deleteRow=(post)=> this.postService.deletePosts(post);
+
+    aprobar(post: any){
+      console.log(post);
+
+      this.postService.actualizarAprobacion(true, false, post.idDoc)
+      .then((resp) =>{
+        console.log(resp);
+        
+      });
+      
+    }
+
   }
   

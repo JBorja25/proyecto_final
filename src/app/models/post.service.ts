@@ -15,9 +15,13 @@ export class PostService {
   constructor(private angularFirestore:AngularFirestore) {}
 
   //metodos para el crud
-  getPosts(){
+  /* getPosts(){
     return this.angularFirestore.collection("post")
                 .snapshotChanges()
+  } */
+  getPostId(){
+    return this.angularFirestore.collection("post")
+                .get();
   }
   getPostsById(id){
     return this.angularFirestore.collection("post")
@@ -27,6 +31,11 @@ export class PostService {
   createPosts(post: any){
       // return new Promise<any>((resolve, reject)=>{
         return this.angularFirestore.collection("post").add(post);
+      // })
+  }
+  updatePost(post: any, idDoc: string){
+      // return new Promise<any>((resolve, reject)=>{
+        return this.angularFirestore.collection("post").doc(idDoc).update(post);
       // })
   }
   updatePosts(post:Post, id){
@@ -47,5 +56,13 @@ export class PostService {
     .collection("post")
     .doc(post.id)
     .delete();
+  }
+
+
+  actualizarAprobacion(aprobado: boolean, confirmacion: boolean, idDoc: string){
+    return this.angularFirestore.collection('post').doc(idDoc).update({
+      aprobado,
+      confirmacion
+    });
   }
 }

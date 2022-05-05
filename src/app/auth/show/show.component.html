@@ -16,19 +16,19 @@
     </thead>
     <tbody>
         <tr *ngFor="let post of Post">
-            <td>{{post.name}}</td>
-            <td>{{post.address}}</td>
-            <td>{{post.email}}</td>
-            <td>{{post.fono}}</td>
+            <td>{{post.data.name}}</td>
+            <td>{{post.data.address}}</td>
+            <td>{{post.data.email}}</td>
+            <td>{{post.data.fono}}</td>
 
             <td>
-                <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
-                        class="fa-solid fa-pen"></i></button>
-                        <button (click)="deleteRow(post)" class="btn btn-outline-danger">
-                            <i class="fa-solid fa-check"></i></button>
-                            <button (click)="deleteRow(post)" class="btn btn-outline-danger">
-                                <i class="fa-light fa-x"></i></button>
-                           
+                <!-- <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
+                        class="fa-solid fa-pen"></i></button> -->
+                <button (click)="aprobar(post)" class="btn btn-outline-danger">
+                    <i class="fa-solid fa-check"></i></button>
+                <button (click)="deleteRow(post)" class="btn btn-outline-danger">
+                    <i class="fa-light fa-x"></i></button>
+
                 <button (click)="deleteRow(post)" class="btn btn-outline-danger"><i
                         class="fa-solid fa-trash"></i></button>
 

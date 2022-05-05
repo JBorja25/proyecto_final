@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'login';
 
   constructor(private _cookie: CookieService, private _router: Router, public authSvc:AuthService){
-    let uuid: string = this._cookie.get('uid');
+    /* let uuid: string = this._cookie.get('uid');
     if(uuid.length > 2){
       if(this._cookie.get('tipo') == 'admin'){
         this._router.navigateByUrl('/gerente/show');
@@ -22,6 +22,6 @@ export class AppComponent {
       }
     }else{
       this.authSvc.logout();
-    }
+    } */
   }
 }
