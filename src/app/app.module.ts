@@ -1,3 +1,4 @@
+
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormsModule} from '@angular/forms';
 import { initializeApp, provideFirebaseApp  }from '@angular/fire/app';
 import { Component } from '@angular/core';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -27,7 +28,6 @@ import { PerfilesModule } from './auth/perfiles/perfiles.module';
 import { CreateComponent } from './auth/create/create.component';
 import { EditComponent } from './auth/edit/edit.component';
 import { ShowComponent } from './auth/show/show.component';
-import { FormsModule } from '@angular/forms';
 import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginModule } from './auth/login/login.module';
@@ -35,6 +35,8 @@ import { RegisterModule } from './auth/register/register.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthasilosGuard } from './guards/authasilos.guard';
 import { AuthService } from './auth/services/auth.service';
+import { RegisallComponent } from './auth/regisall/regisall.component';
+
 
 @NgModule({
   declarations: [
@@ -44,14 +46,15 @@ import { AuthService } from './auth/services/auth.service';
    EditComponent,
    ShowComponent,
    EditComponent,
-   RegisAsiComponent
+   RegisAsiComponent,
+   RegisallComponent,
+
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule,
     AngularFireAuthModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
@@ -62,6 +65,7 @@ import { AuthService } from './auth/services/auth.service';
     BrowserAnimationsModule,
     PerfilesModule,
     FormsModule,
+    ReactiveFormsModule,
     LoginModule,
     RegisterModule
     
