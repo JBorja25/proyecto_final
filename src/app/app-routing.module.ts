@@ -1,4 +1,5 @@
 
+
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,6 +14,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { PerfilesComponent } from './auth/perfiles/perfiles.component';
 import { AuthasilosGuard } from './guards/authasilos.guard';
+import { RegisallComponent } from './auth/regisall/regisall.component';
 
 
 
@@ -29,27 +31,29 @@ const routes: Routes = [
    { 
      path: 'asilo',
      canActivate: [AuthasilosGuard],
-    //  component: RegisAsiComponent,
      children: [
-       { path: 'regis-asi', component: RegisAsiComponent},
-     ],
+       { path: 'prueba', component:HomeComponent },
+      //  { path: 'regis-asi', component: RegisAsiComponent}
+     ]
    },
 
    {
      path: 'gerente',
      canActivate: [AuthGuard],
-    //  component: ShowComponent,
      children: [
        { path: 'show', component: ShowComponent },
        { path: 'edit/:id', component: EditComponent},
        { path: 'create', component: CreateComponent},
-     ],
+     ]
    },
  
   { path: 'perfiles', component: PerfilesComponent },
-
+ 
+  // { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.module').then(m => m.ProformaModule) },
+ 
 
  
+
 
 
   ];
@@ -60,26 +64,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-/* {
-    path: 'a',
-    component:,
-    children: [
-      {
 
-      }
-    ]
-  }
-   { 
-    path: '',
-    component:ShowComponent,
-    children: [
-      { path: '', loadChildren: () => import('./auth/show/show.component').then(m => m.ShowComponent)},
-      {path: 'create', loadChildren: () => import('./auth/create/create.component').then(m => m.CreateComponent)},
-      {path: 'edit/:id', loadChildren: () => import('./auth/edit/edit.component').then(m => m.EditComponent)},
- 
-
-    ]
-  }
-  
-  
-  */

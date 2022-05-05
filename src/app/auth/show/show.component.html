@@ -24,6 +24,11 @@
             <td>
                 <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
                         class="fa-solid fa-pen"></i></button>
+                        <button (click)="deleteRow(post)" class="btn btn-outline-danger">
+                            <i class="fa-solid fa-check"></i></button>
+                            <button (click)="deleteRow(post)" class="btn btn-outline-danger">
+                                <i class="fa-light fa-x"></i></button>
+                           
                 <button (click)="deleteRow(post)" class="btn btn-outline-danger"><i
                         class="fa-solid fa-trash"></i></button>
 
