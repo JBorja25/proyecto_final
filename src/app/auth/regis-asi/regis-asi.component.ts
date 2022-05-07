@@ -20,6 +20,7 @@ export class RegisAsiComponent implements OnInit {
   rechazar: boolean = false;
   mostrarFormulario: boolean = true;
   aprobado: boolean = false;
+  cuentaVerificada:boolean = false;
   public registroAnterior: any = {};
   idDoc: string = '';
   constructor(
@@ -57,6 +58,7 @@ export class RegisAsiComponent implements OnInit {
           this.rechazar = f.data().rechazar;
           this.aprobado = f.data().aprobado;
           this.registroAnterior = f.data();
+          this.cuentaVerificada=f.data().cuentaVerificada;
           this.idDoc = f.id;
         }
         
@@ -76,7 +78,8 @@ export class RegisAsiComponent implements OnInit {
           mostrarRegistroAsilo: false,
           rechazar: false,
           confirmacion: true,
-          aprobado: false
+          aprobado: false,
+          cuentaVerificada:false
         }
         this.postService.createPosts(enviarFirebase)
         .then((resp) =>{

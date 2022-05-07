@@ -59,10 +59,11 @@ export class PostService {
   }
 
 
-  actualizarAprobacion(aprobado: boolean, confirmacion: boolean, idDoc: string){
+  actualizarAprobacion(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, idDoc: string){
     return this.angularFirestore.collection('post').doc(idDoc).update({
       aprobado,
-      confirmacion
+      confirmacion,
+      cuentaVerificada
     });
   }
 }

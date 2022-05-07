@@ -75,8 +75,6 @@ export class AuthService {
     } catch (error) {
       console.log(error);
     }
-
-
   }
 
   getPost(uid: string){

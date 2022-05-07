@@ -6,98 +6,145 @@
      <div class="row">
           <div class="col-sm-6">
                <article>
-                    <h1>UBICACION</h1>
+                    <h1>UBICACION </h1>
                     <h2><span>Seleccione la opcion:</span></h2>
-                    <select (change)="selectChangeHandler($event)">
-                         <option value="Monday">Monday</option>
-                         <option value="Tuesday">Tuesday</option>
-                         <option value="Wednesday">Wednesday</option>
-                         <option value="Thursday">Thursday</option>
-                         <option value="Friday">Friday</option>
+                    <select (change)="selectChangeHandler($event)" [(ngModel)]="selectedDay">
+                         <option value="norte">NORTE</option>
+                         <option value="sur">SUR</option>
+                         <option value="valle">VALLE</option>
+                         <option value="centro">CENTRO</option>
                     </select>
-                    <p><span>You selected: </span><b>{{selectedDay}}</b></p>
+
                </article>
           </div>
           <div class="col-sm-6">
 
                <form>
-                    <h1>TIpo de Ubicacion</h1>
+                    <h1>TIpo de Habitacion</h1>
                     <h2><span>Seleccione la opcion:</span></h2>
-                    <input type="radio" id="html" name="fav_language" value="HTML">
-                    <label for="html">HTML</label><br>
-                    <input type="radio" id="css" name="fav_language" value="CSS">
-                    <label for="css">CSS</label><br>
-                    <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-                    <label for="javascript">JavaScript</label>
+                    <input type="radio" id="html" name="fav_language" value="Individual"  [(ngModel)]="habitacion">
+                    <label for="html">Individual</label><br>
+                    <input type="radio" id="css" name="fav_language" value="Compartida" [(ngModel)]="habitacion">
+                    <label for="css">Compartida</label><br>
+                    <input type="radio" id="javascript" name="fav_language" value="Individual con baño privado" [(ngModel)]="habitacion">
+                    <label for="javascript">Individual con baño privado</label>
+               </form>
+          </div>
+
+
+          
+          
+     </div>
+     <div class="row">
+          <div class="col-sm-6">
+               <article>
+                    <h1>AMOBLADO</h1>
+                    <h2><span>Seleccione la opcion:</span></h2>
+                    <select (change)="selectChangeHandle($event)"  [(ngModel)]="selectedDa">
+                         <option value="si">Si </option>
+                         <option value="no">No </option>
+
+                    </select>
+              
+               </article>
+          </div>
+          <div class="col-sm-6">
+
+               <form>
+                    <h1>Cuidado Fisico</h1>
+                    <h2><span>Seleccione la opcion:</span></h2>
+                    <input type="radio" id="html" name="fav_language" value="Es independiente"[(ngModel)]="fisico">
+                    <label for="html">Es independiente</label><br>
+                    <input type="radio" id="css" name="fav_language" value="Se le Dificulta" [(ngModel)]="fisico">
+                    <label for="css">Se le Dificulta</label><br>
+                    <input type="radio" id="javascript" name="fav_language" value="Acompañamiento Permanente" [(ngModel)]="fisico">
+                    <label for="javascript">Acompañamiento Permanente</label>
                </form>
           </div>
      </div>
+     <div class="row">
+          <div class="col-sm-6">
+               <form>
+                    <h1>Servicios Médicos</h1>
+                    <h2><span>Seleccione la opcion:</span></h2>
+                    <ng-container *ngFor="let s of serviciosMedicos; let i =index;">
 
-</div>
-<div class="container-fluid">
-               
-          <div class="row">
-               <div class="col-sm-6">
-                    <article>
-                         <h1>Angular Get Selected Option Value</h1>
-                         <h2><span>Seleccione la opcion:</span></h2>
-                         <select (change)="selectChangeHandle($event)">
-                              <option value="Monday">Monday</option>
-                              <option value="Tuesday">Tuesday</option>
-                              <option value="Wednesday">Wednesday</option>
-                              <option value="Thursday">Thursday</option>
-                              <option value="Friday">Friday</option>
-                         </select>
-                         <p><span>You selected: </span><b>{{selectedDa}}</b></p>
-                    </article>
-               </div>
-               <div class="col-sm-6">
-     
-                    <form>
-                         <h1>Cuidado Fisico</h1>
-                         <h2><span>Seleccione la opcion:</span></h2>
-                         <input type="radio" id="html" name="fav_language" value="HTML">
-                         <label for="html">HTML</label><br>
-                         <input type="radio" id="css" name="fav_language" value="CSS">
-                         <label for="css">CSS</label><br>
-                         <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-                         <label for="javascript">JavaScript</label>
-                    </form>
-               </div>
+                         <input  type="checkbox" [id]="s" name="fav_language" [value]="s" (change)="serviciosmedicos($event)" >
+                         <label [for]="s">{{s}}</label><br>
+                    </ng-container>
+               </form>
           </div>
-          </div>
+          <div class="col-sm-6">
+               <form>
+                    <h1>Cuidado Cognitivo</h1>
+                    <h2><span>Seleccione la opcion:</span></h2>
+                    <input type="radio" id="html" name="fav_language" value="Capacidad Mental Plena" [(ngModel)]="cognitivo">
+                    <label for="html">Capacidad Mental Plena</label><br>
+                    <input type="radio" id="css" name="fav_language" value="Deterioro Mental Moderado" [(ngModel)]="cognitivo">
+                    <label for="css">Deterioro Mental Moderado</label><br>
+                    <input type="radio" id="javascript" name="fav_language" value="Demencia Severa" [(ngModel)]="cognitivo">
+                    <label for="javascript">Demencia Severa</label>
+               </form>
 
-<div class="container-fluid">
+          </div>
+     </div>
      <div class="row">
           <div class="col-sm-6">
 
                <form>
-                    <h1>Angular Get Selected Option Value</h1>
+                    <h1>Servicios Adicionales</h1>
                     <h2><span>Seleccione la opcion:</span></h2>
-                    <input type="radio" id="html" name="fav_language" value="HTML">
-                    <label for="html">HTML</label><br>
-                    <input type="radio" id="css" name="fav_language" value="CSS">
-                    <label for="css">CSS</label><br>
-                    <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-                    <label for="javascript">JavaScript</label>
+
+                    <ng-container *ngFor="let s of serviciosAdicionales; let i =index;">
+
+                         <input  type="checkbox" [id]="s" name="fav_language" [value]="s" (change)="serviciosadicionales($event)" >
+                         <label [for]="s">{{s}}</label><br>
+                    </ng-container>
+                    <!--input type="radio" id="html" name="fav_language" value="HTML" [(ngModel)]="medico">
+                    <label for="html">Peluqueria</label><br>
+                    <input type="radio" id="css" name="fav_language" value="Reclamo de Medicamentos"[(ngModel)]="medico">
+                    <label for="css">Reclamo de Medicamentos</label><br>
+                    <input type="radio" id="html" name="fav_language" value="Acompañamiento a Citas Medicas"[(ngModel)]="medico">
+                    <label for="html">Acompañamiento a Citas Medicas</label><br>
+                    <input type="radio" id="html" name="fav_language" value="Dieta Especial"[(ngModel)]="medico">
+                    <label for="html">Dieta Especial</label><br>
+                    <input type="radio" id="javascript" name="fav_language" value="Cama Hospitalaria">
+                    <label for="javascript">Cama Hospitalaria</label><br-->
                </form>
           </div>
+
+
           <div class="col-sm-6">
                <article>
-                    <h1>Angular Get Selected Option Value</h1>
+                    <h1>¿Cuántos Hijos/Responsables tiene la persona Mayor?</h1>
                     <h2><span>Seleccione la opcion:</span></h2>
-                    <select (change)="selectChangeHandlr($event)">
-                         <option value="Monday">Monday</option>
-                         <option value="Tuesday">Tuesday</option>
-                         <option value="Wednesday">Wednesday</option>
-                         <option value="Thursday">Thursday</option>
-                         <option value="Friday">Friday</option>
-                    </select>
-                    <p><span>You selected: </span><b>{{selectedDays}}</b></p>
-               </article>
-             
-          </div>
-     </div>    
-<br>
+                    <select (change)="selectChangeHandlr($event)" [(ngModel)]="selectedDays">
+                         <option value="1">1 </option>
+                         <option value="2">2 </option>
+                         <option value="3">3 </option>
+                         <option value="4">4 </option>
+                         <option value="5">5 </option>
+                         <option value="6">6 </option>
+                         <option value="7">7 </option>
+                         <option value="8">8 </option>
+                         <option value="9">9 </option>
+                         <option value="10">10 </option>
 
-     <h2 align="center"><span>¡Felicitaciones! Ya tienes una cotización estimada del Asilo</span></h2>
+
+                    </select>
+              
+               </article>
+          </div>
+     </div>
+</div>
+<br>
+<p><span>You selected: </span><b>{{selectedDay}}</b></p>
+<p><span>You selected: </span><b>{{habitacion}}</b></p>
+<p><span>You selected: </span><b>{{selectedDa}}</b></p>
+<p><span>You selected: </span><b>{{fisico}}</b></p>
+<p><span>You selected: </span><b *ngFor="let serv of servicioMedAux">{{serv}}<br></b></p>
+<p><span>You selected: </span><b>{{cognitivo}}</b></p>
+<p><span>You selected: </span><b *ngFor="let serv of servicioAdiAux">{{serv}}<br></b></p>
+<p><span>You selected: </span><b>{{selectedDays}}</b></p>
+
+<h2 align="center"><span>¡Felicitaciones! Ya tienes una cotización estimada del Asilo</span></h2>
