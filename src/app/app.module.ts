@@ -37,6 +37,9 @@ import { AuthasilosGuard } from './guards/authasilos.guard';
 import { AuthService } from './auth/services/auth.service';
 import { RegisallComponent } from './auth/regisall/regisall.component';
 
+import { MatStepperModule } from '@angular/material/stepper';
+import { ProformaModule } from './auth/proforma/proforma.module';
+
 
 @NgModule({
   declarations: [
@@ -67,7 +70,9 @@ import { RegisallComponent } from './auth/regisall/regisall.component';
     FormsModule,
     ReactiveFormsModule,
     LoginModule,
-    RegisterModule
+    RegisterModule,
+    MatStepperModule,
+    ProformaModule
     
   ],
   providers: [CookieService, AuthService],
