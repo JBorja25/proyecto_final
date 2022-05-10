@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-proforma',
@@ -28,6 +29,10 @@ export class ProformaComponent implements OnInit {
   cambioCognitivoBool: boolean = false;
 
 
+  firstFormGroup: FormGroup;
+  SecondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+  FourthFormGroup: FormGroup;
 
                     
   serviciosMedicos: any[] = [
@@ -92,10 +97,33 @@ export class ProformaComponent implements OnInit {
   cognitivo: string = '';
   medico: string = '';
 
-  constructor() { }
+  constructor(
+    private _fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
- 
+    this.crearFormulario();
+  }
+
+  crearFormulario(){
+    this.firstFormGroup = this._fb.group({
+      selectUbi: ['', Validators.required],
+      habitaciones: ['', Validators.required]
+    });
+
+    this.SecondFormGroup = this._fb.group({
+      amobladoType: ['', Validators.required],
+      cuidadoFisicoForm: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._fb.group({
+      servMed: ['', Validators.required],
+      servCogni: ['', Validators.required]
+    });
+
+    this.FourthFormGroup = this._fb.group({
+      servAdicionales: ['', Validators.required],
+      hijos: ['', Validators.required]
+    });
   }
 
 
@@ -112,9 +140,9 @@ export class ProformaComponent implements OnInit {
       
     });
     // console.log(this.selectedDay);
-    if(this.tipoHabitacionBool && this.amobladoBool){
+    if(this.tipoHabitacionBool && this.amobladoBool && this.cuidadoFisicoBool){
       this.sumaTotalProforma = 0;
-      this.sumaTotalProforma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value;
+      this.sumaTotalProforma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value + this.cuidadoFisicoObj.value;
       
     }else{
       // this.sumaTotalProforma = 0;
@@ -132,7 +160,8 @@ export class ProformaComponent implements OnInit {
     if(this.selectedDa == '0'){
       this.sumaTotalProforma += this.amobladoObj.value;
     }else{
-      this.sumaTotalProforma -=this.amobladoObj.value;
+      this.sumaTotalProforma -= 30;
+      // this.sumaTotalProforma -=this.amobladoObj.value;
     }
   }
   selectChangeHandlr (event: any) {
@@ -144,9 +173,9 @@ export class ProformaComponent implements OnInit {
     // console.log(this.habitacion);
     this.tipoHabitacionBool = true;
     this.tipoHabitacionObj = this.tipoHabitacion.find((v, index) => index==parseInt(this.habitacion) && v);
-    if(this.ubicacionBool && this.amobladoBool){
+    if(this.ubicacionBool && this.amobladoBool && this.cuidadoFisicoBool){
       this.sumaTotalProforma = 0;
-      this.sumaTotalProforma = this.tipoHabitacionObj.value + this.ubicacionObj.value + this.amobladoObj.value;
+      this.sumaTotalProforma = this.tipoHabitacionObj.value + this.ubicacionObj.value + this.amobladoObj.value + this.cuidadoFisicoObj.value;
     }else{
       // this.sumaTotalProforma = 0;
       this.sumaTotalProforma += this.tipoHabitacionObj.value;
@@ -155,13 +184,22 @@ export class ProformaComponent implements OnInit {
   //eventos del imput
   // funciona paraobtener el valor de los ervicios medicos
   serviciosmedicos(evento :any){
-    console.log(evento);
+    console.log(evento.checked);
+    console.log(evento.source.value);
+    if(evento.checked){
+      this.servicioMedAux.push(evento.source.value);
+
+    }else{
+      let findObj = this.serviciosMedicos.find((v, index) => index === parseInt(evento.target.value) && v)
+      let index = this.servicioMedAux.findIndex((v, index) => v == findObj);
+      this.servicioMedAux.splice(index, 1);
+    }
     /* this.serviciosMedicos.forEach((v, index) => {
       console.log(v, index)
       console.log(evento.target.value);
       
     }); */
-    if(evento.target.checked){
+    /* if(evento.target.checked){
       // console.log('entra agregar', this.servicio.find((v, index) => index === i), i);
       
       this.servicioMedAux.push(this.serviciosMedicos.find((v, index) => index===parseInt(evento.target.value) && v));
@@ -186,19 +224,37 @@ export class ProformaComponent implements OnInit {
       this.sumaTotalProforma +=this.sumaTotalServMedicos;
       
     }
+
+    if (this.ubicacionBool  && this.tipoHabitacionBool && this.amobladoBool) {
+      this.sumaTotalProforma = 0;
+      this.sumaTotalProforma=   this.cuidadoFisicoObj.value +this.tipoHabitacionObj.value + this.amobladoObj.value + this.ubicacionObj.value + this.sumaTotalServMedicos;
+      
+    } else {
+      this.sumaTotalProforma += this.cuidadoFisicoObj.value;
+
+    } */
     
     
   }
   serviciosadicionales(evento :any){
-    console.log(evento);
+    console.log(evento.checked);
+    console.log(evento.source.value);
+
+    if(evento.checked){
+      this.servicioAdiAux.push(evento.source.value);
+    }else{
+      let findObj = this.serviciosAdicionales.find((v, index) => v === (evento.source.value) && v)
+      let index = this.servicioAdiAux.findIndex(v => v == findObj);
+      this.servicioAdiAux.splice(index, 1);
+    }
     /* this.serviciosMedicos.forEach((v, index) => {
       console.log(v, index)
       console.log(evento.target.value);
       
     }); */
-    if(evento.target.checked){
+    /* if(evento.checked){
       // console.log('entra agregar', this.servicio.find((v, index) => index === i), i);
-      this.servicioAdiAux.push(this.serviciosAdicionales.find((v,index) => index===parseInt(evento.target.value) && v));
+      this.servicioAdiAux.push(this.serviciosAdicionales.find((v,index) => v===evento.source.value.value && v));
       console.log(this.servicioAdiAux);
       this.sumaTotalServAdicionales = 0;
       for(let i = 0; i < this.servicioAdiAux.length; i++){
@@ -206,7 +262,7 @@ export class ProformaComponent implements OnInit {
       }
     }else{
       console.log('entra borrar');
-      let findObj = this.serviciosAdicionales.find((v, index) => index === parseInt(evento.target.value) && v)
+      let findObj = this.serviciosAdicionales.find((v, index) => v === (evento.source.value.value) && v)
       let index = this.servicioAdiAux.findIndex(v => v == findObj);
       this.servicioAdiAux.splice(index, 1);
       this.sumaTotalServAdicionales = 0;
@@ -217,6 +273,15 @@ export class ProformaComponent implements OnInit {
       this.sumaTotalProforma += this.sumaTotalServAdicionales;
       
     }
+
+    if (this.ubicacionBool  && this.tipoHabitacionBool && this.amobladoBool) {
+      this.sumaTotalProforma = 0;
+      this.sumaTotalProforma=   this.cuidadoFisicoObj.value +this.tipoHabitacionObj.value + this.amobladoObj.value + this.ubicacionObj.value + this.sumaTotalServMedicos + this.sumaTotalServAdicionales;
+      
+    } else {
+      this.sumaTotalProforma += this.cuidadoFisicoObj.value;
+
+    } */
     
     
   }
@@ -227,11 +292,12 @@ export class ProformaComponent implements OnInit {
 
     if (this.ubicacionBool  && this.tipoHabitacionBool && this.amobladoBool ) {
       this.sumaTotalProforma = 0;
-      this.sumaTotalProforma=this.cuidadoFisicoObj.value +this.tipoHabitacionObj.value+this.amobladoObj.value+ this.ubicacionObj.value;
+      this.sumaTotalProforma=   this.cuidadoFisicoObj.value +this.tipoHabitacionObj.value + this.amobladoObj.value + this.ubicacionObj.value;
       
     } else {
       this.sumaTotalProforma += this.cuidadoFisicoObj.value;
-  }
+
+    }
   }
 
   cambioCognitivo(){
@@ -246,6 +312,35 @@ export class ProformaComponent implements OnInit {
     } else {
       this.sumaTotalProforma +=this.cuidadoCogObj.value;
   }
+  }
+
+  calcular(){
+    console.log(this.firstFormGroup.value);
+    console.log(this.SecondFormGroup);
+    console.log(this.thirdFormGroup.value);
+    console.log(this.FourthFormGroup.value);
+
+    let ubicaciones = this.ubicaciones.find((v, index) => index === this.firstFormGroup.value.selectUbi);
+    let hab = this.tipoHabitacion.find((v, index) => index === this.firstFormGroup.value.habitaciones);
+    let amob = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType);
+    let fisico = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm);
+    let cog = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni);
+    console.log(ubicaciones, hab);
+    console.log(fisico, amob);
+    console.log(this.servicioMedAux, this.servicioAdiAux);
+    console.log(cog);
+
+    console.log(ubicaciones.value + hab.value);
+    
+    
+
+    
+
+
+    
+    
+    
+    
   }
 
 }

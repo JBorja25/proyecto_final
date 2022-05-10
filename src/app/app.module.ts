@@ -36,6 +36,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthasilosGuard } from './guards/authasilos.guard';
 import { AuthService } from './auth/services/auth.service';
 import { RegisallComponent } from './auth/regisall/regisall.component';
+
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
@@ -50,6 +51,13 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { Prueba2Component } from './shared/prueba2/prueba2/prueba2.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+
+
+import { MatStepperModule } from '@angular/material/stepper';
+import { ProformaModule } from './auth/proforma/proforma.module';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +90,7 @@ import { MatListModule } from '@angular/material/list';
     ReactiveFormsModule,
     LoginModule,
     RegisterModule,
+
     MatSidenavModule,
     MatIconModule,
     MatTableModule,
@@ -93,9 +102,12 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     LayoutModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
     
-    
+
+    MatStepperModule,
+    ProformaModule
+
   ],
   providers: [CookieService, AuthService],
   bootstrap: [AppComponent]
