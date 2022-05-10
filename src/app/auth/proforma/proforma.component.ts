@@ -25,6 +25,7 @@ export class ProformaComponent implements OnInit {
   ubicacionBool: boolean = false;
   amobladoBool: boolean = false;
   cuidadoFisicoBool: boolean = false;
+  cambioCognitivoBool: boolean = false;
 
 
 
@@ -233,15 +234,20 @@ export class ProformaComponent implements OnInit {
       this.sumaTotalProforma += this.cuidadoFisicoObj.value;
 
     }
-    
- 
-
-
   }
 
   cambioCognitivo(){
+    this.cambioCognitivoBool=true;
     this.cuidadoCogObj = this.cuidadoCog.find((v, index) => index=== parseInt(this.cognitivo) && v);
-    this.sumaTotalProforma +=this.cuidadoCogObj.value;
+    
+
+    if (this.ubicacionBool  && this.tipoHabitacionBool && this.amobladoBool  && this.cuidadoFisicoBool) {
+      this.sumaTotalProforma = 0;
+      this.sumaTotalProforma=this.cuidadoCogObj.value +this.tipoHabitacionObj.value+this.amobladoObj.value+ this.ubicacionObj.value+this.cuidadoFisicoObj.value;
+      
+    } else {
+      this.sumaTotalProforma +=this.cuidadoCogObj.value;
+  }
   }
 
 }
