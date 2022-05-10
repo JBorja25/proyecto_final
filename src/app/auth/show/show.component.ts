@@ -34,17 +34,12 @@ export class ShowComponent implements OnInit {
       }); */
     }
 
-
-    
-
-
-
     deleteRow=(post)=> this.postService.deletePosts(post);
 
     aprobar(post: any){
       console.log(post);
 
-      this.postService.actualizarAprobacion(true, false, post.idDoc)
+      this.postService.actualizarAprobacion(true, false, false, post.idDoc)
       .then((resp) =>{
         console.log(resp);
         

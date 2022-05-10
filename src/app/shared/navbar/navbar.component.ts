@@ -22,12 +22,10 @@ export class NavbarComponent implements AfterViewInit {
   constructor(public authSvc:AuthService ,private router:Router, private _cookie: CookieService) {
     
    }
-
    ngAfterViewInit(): void {
     // this.tipo = localStorage.getItem('tipo');
-     
+ 
    }
-
   async onLogout(){
     try {
       // this._cookie.delete('tipo');
@@ -36,6 +34,7 @@ export class NavbarComponent implements AfterViewInit {
       await  this.authSvc.logout();
       //  this.router.navigate(['/login']);
       // this._cookie.deleteAll();
+     
     } catch (error) {
       console.log(error);
       this._cookie.deleteAll();

@@ -42,7 +42,7 @@
     <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)"></app-regisall>
 </div>
 
-<div *ngIf="!aprobado">
+<div *ngIf="cuentaVerificada">
     <p>
         su cuenta ha sido aprobada y verificada 
     </p>

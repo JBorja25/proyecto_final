@@ -44,7 +44,8 @@ export class RegisallComponent implements OnInit {
     let enviarFirebase = {
       ...this.postForm.value,
       ...this.registroAnterio,
-      aprobado: false
+      aprobado: false,
+      cuentaVerificada:true
     };
 
     

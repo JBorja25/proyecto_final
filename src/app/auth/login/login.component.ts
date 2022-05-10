@@ -62,15 +62,27 @@ export class LoginComponent implements OnInit {
 
               this.authSvc.traerDataPost(d.data().uid)
               .subscribe((respPost: any) =>{
-                for(let f of respPost.docs){
-
-                  if(f.data()?.aprobado == true){
-                    this.authSvc.guardarCookie('asilos', resp.user.uid);
-                    this.router.navigateByUrl('/asilo/regis-asi');
-                  }else{
-                    this.authSvc.guardarCookie('asilos', resp.user.uid);
-                    this.router.navigateByUrl('/home');
+                console.log(respPost)
+                if (!respPost.empty) {
+                  for(let f of respPost.docs){
+                    console.log(f)
+                    if(f.data()?.aprobado == true){
+                      this.authSvc.guardarCookie('asilos', resp.user.uid);
+                      this.router.navigateByUrl('/asilo/regis-asi');
+                  
+                    }else{
+                      this.authSvc.guardarCookie('asilos', resp.user.uid);
+                      this.router.navigateByUrl('/home');
+                    }
                   }
+                  
+                }else{
+                 
+                  setTimeout(() => (alert('Hello')), 1000);
+                  
+                  this.authSvc.guardarCookie('asilos', resp.user.uid);
+                  this.router.navigateByUrl('/asilo/regis-asi');
+                
                 }
               })
               
