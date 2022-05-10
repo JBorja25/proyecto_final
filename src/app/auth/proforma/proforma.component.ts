@@ -111,9 +111,9 @@ export class ProformaComponent implements OnInit {
       
     });
     // console.log(this.selectedDay);
-    if(this.tipoHabitacionBool && this.amobladoBool){
+    if(this.tipoHabitacionBool && this.amobladoBool && this.cuidadoFisicoBool){
       this.sumaTotalProforma = 0;
-      this.sumaTotalProforma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value;
+      this.sumaTotalProforma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value + this.cuidadoFisicoObj.value;
       
     }else{
       // this.sumaTotalProforma = 0;
@@ -131,7 +131,8 @@ export class ProformaComponent implements OnInit {
     if(this.selectedDa == '0'){
       this.sumaTotalProforma += this.amobladoObj.value;
     }else{
-      this.sumaTotalProforma -=this.amobladoObj.value;
+      this.sumaTotalProforma -= 30;
+      // this.sumaTotalProforma -=this.amobladoObj.value;
     }
   }
   selectChangeHandlr (event: any) {
@@ -143,9 +144,9 @@ export class ProformaComponent implements OnInit {
     // console.log(this.habitacion);
     this.tipoHabitacionBool = true;
     this.tipoHabitacionObj = this.tipoHabitacion.find((v, index) => index==parseInt(this.habitacion) && v);
-    if(this.ubicacionBool && this.amobladoBool){
+    if(this.ubicacionBool && this.amobladoBool && this.cuidadoFisicoBool){
       this.sumaTotalProforma = 0;
-      this.sumaTotalProforma = this.tipoHabitacionObj.value + this.ubicacionObj.value + this.amobladoObj.value;
+      this.sumaTotalProforma = this.tipoHabitacionObj.value + this.ubicacionObj.value + this.amobladoObj.value + this.cuidadoFisicoObj.value;
     }else{
       // this.sumaTotalProforma = 0;
       this.sumaTotalProforma += this.tipoHabitacionObj.value;
@@ -226,10 +227,12 @@ export class ProformaComponent implements OnInit {
 
     if (this.ubicacionBool  && this.tipoHabitacionBool && this.amobladoBool ) {
       this.sumaTotalProforma = 0;
-      this.sumaTotalProforma=   this.cuidadoFisicoObj +this.tipoHabitacionObj.value+this.amobladoObj.value+ this.ubicacionObj;
+      this.sumaTotalProforma=   this.cuidadoFisicoObj.value +this.tipoHabitacionObj.value + this.amobladoObj.value + this.ubicacionObj.value;
       
     } else {
       this.sumaTotalProforma += this.cuidadoFisicoObj.value;
+
+    }
     
  
 
