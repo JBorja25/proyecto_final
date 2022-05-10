@@ -24,6 +24,7 @@ export class ProformaComponent implements OnInit {
   tipoHabitacionBool: boolean = false;
   ubicacionBool: boolean = false;
   amobladoBool: boolean = false;
+  cuidadoFisicoBool: boolean = false;
 
 
 
@@ -130,7 +131,7 @@ export class ProformaComponent implements OnInit {
     if(this.selectedDa == '0'){
       this.sumaTotalProforma += this.amobladoObj.value;
     }else{
-      this.sumaTotalProforma -= 30;
+      this.sumaTotalProforma -=this.amobladoObj.value;
     }
   }
   selectChangeHandlr (event: any) {
@@ -141,24 +142,16 @@ export class ProformaComponent implements OnInit {
   inputTipoHabitacion(){
     // console.log(this.habitacion);
     this.tipoHabitacionBool = true;
-
     this.tipoHabitacionObj = this.tipoHabitacion.find((v, index) => index==parseInt(this.habitacion) && v);
     if(this.ubicacionBool && this.amobladoBool){
       this.sumaTotalProforma = 0;
-    
       this.sumaTotalProforma = this.tipoHabitacionObj.value + this.ubicacionObj.value + this.amobladoObj.value;
     }else{
-      
       // this.sumaTotalProforma = 0;
-    
       this.sumaTotalProforma += this.tipoHabitacionObj.value;
     }
   }
   //eventos del imput
-
-
-  
-
   // funciona paraobtener el valor de los ervicios medicos
   serviciosmedicos(evento :any){
     console.log(evento);
@@ -228,9 +221,21 @@ export class ProformaComponent implements OnInit {
   }
 
   cuidadoFisicofunction(){
+    this.cuidadoFisicoBool=true;
     this.cuidadoFisicoObj = this.cuidadoFisico.find((v, index) => index=== parseInt(this.fisico) && v);
-    this.sumaTotalProforma += this.cuidadoFisicoObj.value;
+
+    if (this.ubicacionBool  && this.tipoHabitacionBool && this.amobladoBool ) {
+      this.sumaTotalProforma = 0;
+      this.sumaTotalProforma=   this.cuidadoFisicoObj +this.tipoHabitacionObj.value+this.amobladoObj.value+ this.ubicacionObj;
+      
+    } else {
+      this.sumaTotalProforma += this.cuidadoFisicoObj.value;
+    
+ 
+
+
   }
+
   cambioCognitivo(){
     this.cuidadoCogObj = this.cuidadoCog.find((v, index) => index=== parseInt(this.cognitivo) && v);
     this.sumaTotalProforma +=this.cuidadoCogObj.value;
