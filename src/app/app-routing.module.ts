@@ -1,3 +1,5 @@
+import { Prueba2Component } from './shared/prueba2/prueba2/prueba2.component';
+import { PruebaComponent } from './shared/prueba/prueba/prueba.component';
 
 
 import { HomeComponent } from './home/home.component';

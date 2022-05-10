@@ -1,58 +1,92 @@
-<h2>componenete create</h2>
-<div class="container" *ngIf="mostrarFormulario">
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <p>Auto-resizing sidenav</p>
+      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+       PERFIL
+      </button>
+      <br>
+      <br>
+      <br>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        AFILIACION 
+      </button>
+      <br>
+      <br>
+      <br>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        AFILIACION EXTRA 
+      </button>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()"> <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon> </button>
+      <br>
+      <br>
 
 
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
 
-    <div class="mb-3">
-        <label class="form-label">name</label>
-        <input formControlName="name" type="text" class="form-control" required>
+      <hr>
+      
+  <h2>componenete create</h2>
+  <div class="container" *ngIf="mostrarFormulario">
+  
+  
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
+  
+      <div class="mb-3">
+          <label class="form-label">name</label>
+          <input formControlName="name" type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+          <label class="form-label">address</label>
+          <input formControlName="address" type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+          <label class="form-label">email</label>
+          <input formControlName="email" type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+          <label class="form-label">fono</label>
+          <input formControlName="fono" type="text" class="form-control" required>
+      </div>
+      <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >Store</button>
+     
+  
+  
+  
+  </form>
+  <button  class="btn btn-outline-danger" routerLink="/home" >cancel</button>
+  
+  </div>
+  
+  <div *ngIf="confirmar">
+      <p>
+  
+          espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
+          
+      </p>
+  </div>
+  
+  <div *ngIf="aprobado">
+      <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)"></app-regisall>
+  </div>
+  
+  <div *ngIf="cuentaVerificada">
+      <p>
+          su cuenta ha sido aprobada y verificada 
+      </p>
+      <p>
+          visualice su informacion dando click <a class="btn btn-info" routerLink="/home" >aqui</a>
+      </p>
+  </div>
+  
+  <div *ngIf="rechazar">
+      <p>
+          mensaje de rechazar
+      </p>
+  </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">address</label>
-        <input formControlName="address" type="text" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">email</label>
-        <input formControlName="email" type="text" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">fono</label>
-        <input formControlName="fono" type="text" class="form-control" required>
-    </div>
-    <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >Store</button>
-   
+  
+  </mat-drawer-container>
 
-
-
-</form>
-<button  class="btn btn-outline-danger" routerLink="/home" >cancel</button>
-
-</div>
-
-<div *ngIf="confirmar">
-    <p>
-
-        espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
-        
-    </p>
-</div>
-
-<div *ngIf="aprobado">
-    <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)"></app-regisall>
-</div>
-
-<div *ngIf="cuentaVerificada">
-    <p>
-        su cuenta ha sido aprobada y verificada 
-    </p>
-    <p>
-        visualice su informacion dando click <a class="btn btn-info" routerLink="/home" >aqui</a>
-    </p>
-</div>
-
-<div *ngIf="rechazar">
-    <p>
-        mensaje de rechazar
-    </p>
-</div>

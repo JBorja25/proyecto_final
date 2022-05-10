@@ -14,6 +14,7 @@ import { Post } from '../../models/post.model';
   styleUrls: ['./regis-asi.component.scss']
 })
 export class RegisAsiComponent implements OnInit {
+  showFiller = false;
   public postForm:FormGroup;
   uuid: string = '';
   confirmar: boolean = false;

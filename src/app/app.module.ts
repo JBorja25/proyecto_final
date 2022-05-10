@@ -36,8 +36,20 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthasilosGuard } from './guards/authasilos.guard';
 import { AuthService } from './auth/services/auth.service';
 import { RegisallComponent } from './auth/regisall/regisall.component';
-
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTabsModule} from '@angular/material/tabs';
+import { PruebaComponent } from './shared/prueba/prueba/prueba.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { LayoutModule } from '@angular/cdk/layout';
+import { Prueba2Component } from './shared/prueba2/prueba2/prueba2.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +60,8 @@ import { RegisallComponent } from './auth/regisall/regisall.component';
    EditComponent,
    RegisAsiComponent,
    RegisallComponent,
+   PruebaComponent,
+   Prueba2Component,
 
    
   ],
@@ -67,7 +81,20 @@ import { RegisallComponent } from './auth/regisall/regisall.component';
     FormsModule,
     ReactiveFormsModule,
     LoginModule,
-    RegisterModule
+    RegisterModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatButtonModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatListModule
+    
     
   ],
   providers: [CookieService, AuthService],
