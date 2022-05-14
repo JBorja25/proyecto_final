@@ -37,8 +37,25 @@ import { AuthasilosGuard } from './guards/authasilos.guard';
 import { AuthService } from './auth/services/auth.service';
 import { RegisallComponent } from './auth/regisall/regisall.component';
 
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTabsModule} from '@angular/material/tabs';
+import { PruebaComponent } from './shared/prueba/prueba/prueba.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { LayoutModule } from '@angular/cdk/layout';
+import { Prueba2Component } from './shared/prueba2/prueba2/prueba2.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+
+
 import { MatStepperModule } from '@angular/material/stepper';
 import { ProformaModule } from './auth/proforma/proforma.module';
+
 
 
 @NgModule({
@@ -51,6 +68,8 @@ import { ProformaModule } from './auth/proforma/proforma.module';
    EditComponent,
    RegisAsiComponent,
    RegisallComponent,
+   PruebaComponent,
+   Prueba2Component,
 
    
   ],
@@ -71,9 +90,24 @@ import { ProformaModule } from './auth/proforma/proforma.module';
     ReactiveFormsModule,
     LoginModule,
     RegisterModule,
+
+    MatSidenavModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatButtonModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatListModule,
+    
+
     MatStepperModule,
     ProformaModule
-    
+
   ],
   providers: [CookieService, AuthService],
   bootstrap: [AppComponent]

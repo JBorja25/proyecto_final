@@ -1,58 +1,143 @@
-<h2>componenete create</h2>
-<div class="container" *ngIf="mostrarFormulario">
 
+<mat-drawer-container class="example-container"  width="700" height="100vh" style="height: 100vh;" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
 
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
-
-    <div class="mb-3">
-        <label class="form-label">name</label>
-        <input formControlName="name" type="text" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">address</label>
-        <input formControlName="address" type="text" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">email</label>
-        <input formControlName="email" type="text" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">fono</label>
-        <input formControlName="fono" type="text" class="form-control" required>
-    </div>
-    <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >Store</button>
+      <!--button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+      </!--button--> 
+      <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <svg class="bi me-1" width="40" height="32"><use xlink:href=""/></svg>
+          <span class="fs-4">Sidebar</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+                <a href="#" class="nav-link text-white">
+                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                 
+                </a>
+              </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+              PERFILE
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+             
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+             
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+              AFILIACION
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+             
+            </a>
+          </li>
+         
+         
+        </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>LOgout</strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+         
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </mat-drawer>
    
+     
+    <div class="example-sidenav-content">
+      <!--button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </!--button-->
+      <mat-toolbar color="primary">
+        <button type="button" mat-button (click)="drawer.toggle()"> <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon> </button>
+   
+      </mat-toolbar>
+      <br>
+      <br>
+      
+  <div class="container" *ngIf="mostrarFormulario">
+    <h2>componenete create</h2>
+  
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
+  
+      <div class="mb-3">
+          <label class="form-label">name</label>
+          <input formControlName="name" type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+          <label class="form-label">address</label>
+          <input formControlName="address" type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+          <label class="form-label">email</label>
+          <input formControlName="email" type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+          <label class="form-label">fono</label>
+          <input formControlName="fono" type="text" class="form-control" required>
+      </div>
+      <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >Store</button>
+     
+  
+  
+  
+  </form>
+  <button  class="btn btn-outline-danger" routerLink="/home" >cancel</button>
+  
+  </div>
+  
+  <div *ngIf="confirmar">
+      <p>
+  
+          espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
+          
+      </p>
+  </div>
+  
+  <div *ngIf="aprobado">
+      <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)"></app-regisall>
+  </div>
+  
+  <div *ngIf="cuentaVerificada">
+      <p>
+          su cuenta ha sido aprobada y verificada 
+      </p>
+      <p>
+          visualice su informacion dando click <a class="btn btn-info" routerLink="/home" >aqui</a>
+      </p>
+  </div>
+  
+  <div *ngIf="rechazar">
+      <p>
+          mensaje de rechazar
+      </p>
+  </div>
+
+    </div>
+  
+  </mat-drawer-container>
 
 
 
-</form>
-<button  class="btn btn-outline-danger" routerLink="/home" >cancel</button>
-
-</div>
-
-<div *ngIf="confirmar">
-    <p>
-
-        espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
-        
-    </p>
-</div>
-
-<div *ngIf="aprobado">
-    <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)"></app-regisall>
-</div>
-
-<div *ngIf="cuentaVerificada">
-    <p>
-        su cuenta ha sido aprobada y verificada 
-    </p>
-    <p>
-        visualice su informacion dando click <a class="btn btn-info" routerLink="/home" >aqui</a>
-    </p>
-</div>
-
-<div *ngIf="rechazar">
-    <p>
-        mensaje de rechazar
-    </p>
-</div>
