@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { provideRoutes, Router } from '@angular/router';
 import { async } from '@firebase/util';
+import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service'; 
+
 
 @Component({
   selector: 'app-login',
@@ -36,12 +38,25 @@ export class LoginComponent implements OnInit {
 
   
   async onLogin(){
+
+    
     console.log('entra');
     if(!this.loginForm.invalid){
       console.log(`formulario invalido ${ this.loginForm.invalid }`);
       
       return;
     }
+    Swal.fire({
+      title: 'Validando credenciales',
+      titleText: 'Comprobando credenciales, Espere por favor.......',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      icon: 'info',
+      didOpen: () =>{
+        Swal.showLoading();
+      }
+    });
     
     const {email, password}=this.loginForm.value;
     this.authSvc.login(email, password)
@@ -55,6 +70,7 @@ export class LoginComponent implements OnInit {
         for(let d of respData.docs){
           if(d.data().tipo === 'admin'){
               this.authSvc.guardarCookie('admin', resp.user.uid);
+              Swal.close();
               this.router.navigateByUrl('/gerente/show');
               // localStorage.setItem('tipo', f.tipo);
             }else{
@@ -68,10 +84,12 @@ export class LoginComponent implements OnInit {
                     console.log(f)
                     if(f.data()?.aprobado == true){
                       this.authSvc.guardarCookie('asilos', resp.user.uid);
+                      Swal.close();
                       this.router.navigateByUrl('/asilo/regis-asi');
                   
                     }else{
                       this.authSvc.guardarCookie('asilos', resp.user.uid);
+                      Swal.close();
                       this.router.navigateByUrl('/home');
                     }
                   }
@@ -79,8 +97,8 @@ export class LoginComponent implements OnInit {
                 }else{
                  
                   setTimeout(() => (alert('Hello')), 1000);
-                  
                   this.authSvc.guardarCookie('asilos', resp.user.uid);
+                  Swal.close();
                   this.router.navigateByUrl('/asilo/regis-asi');
                 
                 }

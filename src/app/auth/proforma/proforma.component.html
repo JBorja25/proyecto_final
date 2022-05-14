@@ -5,7 +5,7 @@
  
      <div class="row">
 
-          <mat-stepper linear #stepper labelPosition="bottom">
+          <mat-stepper linear #stepper labelPosition="bottom" (selectionChange)="cambioStep(stepper)">
                <mat-step [stepControl]="firstFormGroup">
                     <form [formGroup]="firstFormGroup">
                       <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
@@ -13,7 +13,7 @@
                            <div class="col">
                               <mat-form-field appearance="fill">
                                    <mat-label>Ubicacion</mat-label>
-                                   <mat-select (change)="selectChangeHandler($event)" formControlName="selectUbi" required>
+                                   <mat-select formControlName="selectUbi" required>
                                         <mat-option *ngFor="let ubi of ubicaciones; let i = index" [value]="i">
                                              {{ ubi.ubi }}
                                         </mat-option>
@@ -44,7 +44,7 @@
                            <div class="col">
                               <mat-form-field appearance="fill">
                                    <mat-label>Amoblado</mat-label>
-                                   <mat-select (change)="selectChangeHandle($event)" formControlName="amobladoType">
+                                   <mat-select  formControlName="amobladoType">
                                         <option disabled selected value="#">Seleccione.. </option>
                                         <mat-option *ngFor="let amob of amoblado; let i = index;" [value]="i" >{{ amob.amoblado }}</mat-option>
                                         <!-- <option value="0">No </option> -->
@@ -99,6 +99,7 @@
                     </form>
                </mat-step>
                <mat-step [stepControl]="FourthFormGroup" style="height: 75vh;">
+                    {{ stepper }}
                     <form [formGroup]="FourthFormGroup">
                       <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
                       <div class="row">
@@ -118,7 +119,7 @@
                               <mat-form-field appearance="fill">
 
                                    <mat-label>¿Cuántos Hijos?</mat-label>
-                                   <mat-select (change)="selectChangeHandlr($event)" formControlName="hijos">
+                                   <mat-select formControlName="hijos">
                                         <mat-option selected disabled value=" 0 ">Seleccione.. </mat-option>
                                         <mat-option value="1">1 </mat-option>
                                         <mat-option value="2">2 </mat-option>

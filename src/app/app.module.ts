@@ -22,6 +22,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 
 
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PerfilesModule } from './auth/perfiles/perfiles.module';
@@ -90,7 +91,7 @@ import { ProformaModule } from './auth/proforma/proforma.module';
     ReactiveFormsModule,
     LoginModule,
     RegisterModule,
-
+    AngularFireStorageModule,
     MatSidenavModule,
     MatIconModule,
     MatTableModule,

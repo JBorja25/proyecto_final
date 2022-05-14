@@ -7,6 +7,7 @@ import { PostService } from 'src/app/models/post.service';
 import { AuthService } from '../services/auth.service';
 
 import { Post } from '../../models/post.model';
+import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 
 @Component({
   selector: 'app-regis-asi',
@@ -24,12 +25,14 @@ export class RegisAsiComponent implements OnInit {
   cuentaVerificada:boolean = false;
   public registroAnterior: any = {};
   idDoc: string = '';
+  mayus = 'mayus';
   constructor(
     public postService:PostService,
     public formBuilder:FormBuilder,
     public router: Router,
     private _cookie: CookieService,
-    private _auth: AuthService
+    private _auth: AuthService,
+    private _fotos: SubirfotosService
   ) {
     this.postForm= this.formBuilder.group({
       name:[''],
@@ -98,6 +101,15 @@ export class RegisAsiComponent implements OnInit {
   llenadoFormulario(evento: any){
     console.log(evento);
     this.getDataFirebase();
+    
+  }
+/* 
+  TODO: falta de hacer algo
+*/
+  // funciona para una imagen
+  cambioImagen(evento: any){
+    console.log(evento);
+    this._fotos.insertImages(evento.target.files[0], evento.target.value);
     
   }
 

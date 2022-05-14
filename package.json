@@ -30,6 +30,7 @@
     "ng-carousel": "^0.2.0",
     "ngx-cookie-service": "^13.2.0",
     "rxjs": "~7.5.0",
+    "sweetalert2": "^11.4.14",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

@@ -130,24 +130,18 @@ export class ProformaComponent implements OnInit {
   //eventos generales
   selectChangeHandler (event: any) {
     //update the ui
-    this.ubicacionBool = true;
     console.log(event);
+    this.ubicacionBool = true;
     
     this.ubicacionObj = this.ubicaciones.find((v, index) => {
-      if(index == parseInt(event.target.value)){
+      if(index == parseInt(event.value)){
         return v;
       }
       
     });
-    // console.log(this.selectedDay);
-    if(this.tipoHabitacionBool && this.amobladoBool && this.cuidadoFisicoBool){
-      this.sumaTotalProforma = 0;
-      this.sumaTotalProforma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value + this.cuidadoFisicoObj.value;
-      
-    }else{
-      // this.sumaTotalProforma = 0;
-      this.sumaTotalProforma += this.ubicacionObj.value;
-    }
+    
+    
+    
     
     // this.selectedDay = event.target.value;
   }
@@ -186,14 +180,19 @@ export class ProformaComponent implements OnInit {
   serviciosmedicos(evento :any){
     console.log(evento.checked);
     console.log(evento.source.value);
+    console.log(this.thirdFormGroup.get('servMed').value);
+    
+    console.log(evento.source.value);
     if(evento.checked){
       this.servicioMedAux.push(evento.source.value);
 
     }else{
-      let findObj = this.serviciosMedicos.find((v, index) => index === parseInt(evento.target.value) && v)
+      let findObj = this.serviciosMedicos.find((v, index) => v === evento.source.value && v)
       let index = this.servicioMedAux.findIndex((v, index) => v == findObj);
       this.servicioMedAux.splice(index, 1);
     }
+    console.log(this.servicioMedAux);
+    
     /* this.serviciosMedicos.forEach((v, index) => {
       console.log(v, index)
       console.log(evento.target.value);
@@ -315,32 +314,53 @@ export class ProformaComponent implements OnInit {
   }
 
   calcular(){
-    console.log(this.firstFormGroup.value);
-    console.log(this.SecondFormGroup);
-    console.log(this.thirdFormGroup.value);
-    console.log(this.FourthFormGroup.value);
-
-    let ubicaciones = this.ubicaciones.find((v, index) => index === this.firstFormGroup.value.selectUbi);
-    let hab = this.tipoHabitacion.find((v, index) => index === this.firstFormGroup.value.habitaciones);
-    let amob = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType);
-    let fisico = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm);
-    let cog = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni);
-    console.log(ubicaciones, hab);
-    console.log(fisico, amob);
     
-    console.log(this.servicioMedAux, this.servicioAdiAux);
+    let sumaTotalMedicos: number = 0;
+    let sumaTotalAdi: number = 0;
+    let sumaAuxMed: number = 0;
+    let sumaAuxAdi: number = 0;
+    let ubicaciones = this.ubicaciones.find((v, index) => (index === this.firstFormGroup.value.selectUbi) && v);
+    let hab = this.tipoHabitacion.find((v, index) => index === this.firstFormGroup.value.habitaciones && v);
+    let amob = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
+    let fisico = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
+    let cog = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni && v);
+
+    for(let i=0; i<this.servicioMedAux.length; i++){
+      sumaAuxMed += this.servicioMedAux[i].value;
+    }
+    for(let i=0; i<this.servicioAdiAux.length; i++){
+      sumaAuxAdi += this.servicioAdiAux[i].value;
+    }
+
+    let suma = ubicaciones.value + hab.value + amob.value +fisico.value + sumaAuxMed + sumaAuxAdi;
+
+
+    console.log( suma );
+    
+  
+    
+    // console.log(this.servicioMedAux, this.servicioAdiAux);
+    // console.log(cog);
+    
+    // console.log(ubicaciones.value + hab.value);
+    
+    console.log(ubicaciones);
+    console.log(hab);
+    console.log(amob);
+    console.log(fisico);
     console.log(cog);
+    console.log(this.servicioAdiAux);
+    console.log(this.servicioMedAux);
+    console.log(this.FourthFormGroup.get('hijos')?.value);
+    
+  }
 
-    console.log(ubicaciones.value + hab.value);
-    
-    
-
-    
-
-
-    
-    
-    
+  cambioStep(step: any){
+    console.log(step);
+    console.log(step.selectedIndex);
+    if((step.steps.length -1) === 4 && this.FourthFormGroup.get('hijos')?.value){
+      this.calcular();
+    }
     
   }
 
