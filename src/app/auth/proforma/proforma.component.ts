@@ -327,6 +327,7 @@ export class ProformaComponent implements OnInit {
     let cog = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni);
     console.log(ubicaciones, hab);
     console.log(fisico, amob);
+    
     console.log(this.servicioMedAux, this.servicioAdiAux);
     console.log(cog);
 
