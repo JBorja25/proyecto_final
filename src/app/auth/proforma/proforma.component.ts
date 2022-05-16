@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
+
+
 @Component({
   selector: 'app-proforma',
   templateUrl: './proforma.component.html',
@@ -28,12 +31,15 @@ export class ProformaComponent implements OnInit {
   cuidadoFisicoBool: boolean = false;
   cambioCognitivoBool: boolean = false;
 
+  numhijos:number=0;
+  numhijosObj:number=0;
 
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   FourthFormGroup: FormGroup;
 
+  suma:number=0;
                     
   serviciosMedicos: any[] = [
                               {serd:'Oxigeno',value:20}, 
@@ -319,11 +325,11 @@ export class ProformaComponent implements OnInit {
     let sumaTotalAdi: number = 0;
     let sumaAuxMed: number = 0;
     let sumaAuxAdi: number = 0;
-    let ubicaciones = this.ubicaciones.find((v, index) => (index === this.firstFormGroup.value.selectUbi) && v);
-    let hab = this.tipoHabitacion.find((v, index) => index === this.firstFormGroup.value.habitaciones && v);
-    let amob = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
-    let fisico = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
-    let cog = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni && v);
+     this.ubicacionObj = this.ubicaciones.find((v, index) => (index === this.firstFormGroup.value.selectUbi) && v);
+    this.tipoHabitacionObj = this.tipoHabitacion.find((v, index) => index === this.firstFormGroup.value.habitaciones && v);
+    this.amobladoObj = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
+    this.cuidadoFisicoObj = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
+     this.cuidadoCogObj = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni && v);
 
     for(let i=0; i<this.servicioMedAux.length; i++){
       sumaAuxMed += this.servicioMedAux[i].value;
@@ -332,26 +338,26 @@ export class ProformaComponent implements OnInit {
       sumaAuxAdi += this.servicioAdiAux[i].value;
     }
 
-    let suma = ubicaciones.value + hab.value + amob.value +fisico.value + sumaAuxMed + sumaAuxAdi;
+    this.suma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value +this.cuidadoFisicoObj.value + sumaAuxMed + sumaAuxAdi;
 
 
-    console.log( suma );
+    console.log( this.suma );
     
-  
+    this.numhijos   =this.FourthFormGroup.get('hijos').value;
     
     // console.log(this.servicioMedAux, this.servicioAdiAux);
     // console.log(cog);
     
     // console.log(ubicaciones.value + hab.value);
     
-    console.log(ubicaciones);
-    console.log(hab);
-    console.log(amob);
-    console.log(fisico);
-    console.log(cog);
+    /*console.log(this.ubicacionObj);
+    console.log(this.tipoHabitacionObj);
+    console.log(this.amobladoObj);
+    console.log(this.cuidadoFisicoObj);
+    console.log(this.cuidadoCogObj);
     console.log(this.servicioAdiAux);
     console.log(this.servicioMedAux);
-    console.log(this.FourthFormGroup.get('hijos')?.value);
+    console.log(this.FourthFormGroup.get('hijos')?.value);*/
     
   }
 

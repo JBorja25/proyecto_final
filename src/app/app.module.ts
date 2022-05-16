@@ -56,9 +56,14 @@ import { MatListModule } from '@angular/material/list';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { ProformaModule } from './auth/proforma/proforma.module';
+<<<<<<< Updated upstream
 import { HomeModule } from './home/home.module';
 import { RegisterComponent } from './auth/register/register.component';
 // import { NavbarModule } from './shared/navbar/navbar.module';
+=======
+import { PerfilComponent } from './auth/perfil/perfil.component';
+import { MatLabel } from '@angular/material/form-field';
+>>>>>>> Stashed changes
 
 
 
@@ -73,8 +78,13 @@ import { RegisterComponent } from './auth/register/register.component';
    RegisallComponent,
    PruebaComponent,
    Prueba2Component,
+<<<<<<< Updated upstream
    NavbarComponent,
    RegisterComponent
+=======
+   PerfilComponent,
+
+>>>>>>> Stashed changes
    
   ],
   imports: [
@@ -106,6 +116,11 @@ import { RegisterComponent } from './auth/register/register.component';
     LayoutModule,
     MatToolbarModule,
     MatListModule,
+<<<<<<< Updated upstream
+=======
+   
+
+>>>>>>> Stashed changes
     MatStepperModule,
     ProformaModule
 

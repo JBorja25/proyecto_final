@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { FormBuilder,FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
   templateUrl: './regis-asi.component.html',
   styleUrls: ['./regis-asi.component.scss']
 })
-export class RegisAsiComponent implements OnInit {
+export class RegisAsiComponent implements OnInit, AfterViewInit {
   toppings: FormGroup;
   showFiller = false;
   public postForm:FormGroup;
@@ -29,10 +29,14 @@ export class RegisAsiComponent implements OnInit {
   public registroAnterior: any = {};
   idDoc: string = '';
   mayus = 'mayus';
+<<<<<<< Updated upstream
   mostrarImagen: any = '';
   FotoSubir: File;
 
   urlFotofirebase: any = '';
+=======
+  rool:string='';
+>>>>>>> Stashed changes
   
   constructor(
     public postService:PostService,
@@ -41,7 +45,10 @@ export class RegisAsiComponent implements OnInit {
     private _cookie: CookieService,
     private _auth: AuthService,
     private _fotos: SubirfotosService,
+<<<<<<< Updated upstream
     private _sanitazer: DomSanitizer
+=======
+>>>>>>> Stashed changes
   ) {
     this.postForm= this.formBuilder.group({
       name:[''],
@@ -51,6 +58,10 @@ export class RegisAsiComponent implements OnInit {
     });
     this.uuid = this._cookie.get('uid');
     this.registroAnterior = 'prueba de envio';
+  }
+  ngAfterViewInit(): void {
+    
+    this.rool=this._cookie.get('tipo')
   }
   
   
@@ -117,6 +128,7 @@ export class RegisAsiComponent implements OnInit {
     this.getDataFirebase();
     
   }
+
 /* 
   TODO: falta de hacer algo
 */
