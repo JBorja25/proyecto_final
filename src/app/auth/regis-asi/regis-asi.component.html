@@ -98,15 +98,86 @@
           <label class="form-label">fono</label>
           <input formControlName="fono" type="text" class="form-control" required>
       </div>
-      <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >Store</button>
+      <div class="mb-3"> 
+          <label class="form-label">Selecicone  dia y hora de atencion</label>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+          <label class="form-label">Selecicone dia de atencion</label>
+          <br>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              LUNES
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+             MARTES
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              MIERCOLES
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+             JUEVES
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+             VIERNES
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+             SABADO
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+             DOMINGO
+            </label>
+          </div>
+
+
+
+          
+              </div>
+              <div class="col-sm">
+                
+                <label class="form-label">Selecicone hora de atencion</label>
+                <br>
+                <input type="time"> a  <input type="time">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="mb-3"> 
+        <label class="form-label">ingrese una imagen</label>
+        <br>
+        <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+      </div>
+
+      <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >GUARDAR</button>
      
 
-      <input type="time">
-      <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+     
+      
   
   
   
   </form>
+  <br>
   <button  class="btn btn-outline-danger" routerLink="/home" >cancel</button>
   
   </div>

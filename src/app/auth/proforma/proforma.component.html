@@ -2,149 +2,276 @@
 
 <div class="container-fluid">
 
- 
+
      <div class="row">
 
           <mat-stepper linear #stepper labelPosition="bottom" (selectionChange)="cambioStep(stepper)">
                <mat-step [stepControl]="firstFormGroup">
                     <form [formGroup]="firstFormGroup">
-                      <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
-                      <div class="row">
-                           <div class="col">
-                              <mat-form-field appearance="fill">
-                                   <mat-label>Ubicacion</mat-label>
-                                   <mat-select formControlName="selectUbi" required>
-                                        <mat-option *ngFor="let ubi of ubicaciones; let i = index" [value]="i">
-                                             {{ ubi.ubi }}
-                                        </mat-option>
-                                   </mat-select>
-                              </mat-form-field>
-                           </div>
-                           <div class="col">
-                              <mat-label>Tipo de Habitacion</mat-label>
-                              <mat-radio-group class="example-radio-group" aria-label="Select an option" formControlName="habitaciones">
-                                   <mat-radio-button *ngFor="let tipo of tipoHabitacion; let i = index;" class="example-radio-button" [id]="tipo.tipo" [name]="tipo.tipo" [value]="i"  >{{ tipo.tipo }}</mat-radio-button>
-                              </mat-radio-group>
-                           </div>
-                      </div>
-                      <div class="row">
-                         <div class="col" style="text-align: center;">
-                              <button mat-button matStepperNext>Siguiente</button>
+                         <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
+                         <div class="row">
+                              <div class="col">
+                                   <mat-form-field appearance="fill">
+                                        <mat-label>Ubicacion</mat-label>
+                                        <mat-select formControlName="selectUbi" required>
+                                             <mat-option *ngFor="let ubi of ubicaciones; let i = index" [value]="i">
+                                                  {{ ubi.ubi }}
+                                             </mat-option>
+                                        </mat-select>
+                                   </mat-form-field>
+                              </div>
+                              <div class="col">
+                                   <mat-label>Tipo de Habitacion</mat-label>
+                                   <mat-radio-group class="example-radio-group" aria-label="Select an option"
+                                        formControlName="habitaciones">
+                                        <mat-radio-button *ngFor="let tipo of tipoHabitacion; let i = index;"
+                                             class="example-radio-button" [id]="tipo.tipo" [name]="tipo.tipo"
+                                             [value]="i">{{ tipo.tipo }}</mat-radio-button>
+                                   </mat-radio-group>
+                              </div>
                          </div>
-                      </div>
+                         <div class="row">
+                              <div class="col" style="text-align: center;">
+                                   <button mat-button matStepperNext>Siguiente</button>
+                              </div>
+                         </div>
 
-                      
-                       
+
+
                     </form>
                </mat-step>
                <mat-step [stepControl]="SecondFormGroup">
                     <form [formGroup]="SecondFormGroup">
-                      <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
-                      <div class="row">
-                           <div class="col">
-                              <mat-form-field appearance="fill">
-                                   <mat-label>Amoblado</mat-label>
-                                   <mat-select  formControlName="amobladoType">
-                                        <option disabled selected value="#">Seleccione.. </option>
-                                        <mat-option *ngFor="let amob of amoblado; let i = index;" [value]="i" >{{ amob.amoblado }}</mat-option>
-                                        <!-- <option value="0">No </option> -->
-               
-                                   </mat-select>
-                              </mat-form-field>
-                           </div>
-                           <div class="col">
-                              <mat-label>Cuidado Fisico</mat-label>
-                              <mat-radio-group class="example-radio-group" aria-label="Select an option"formControlName="cuidadoFisicoForm">
-                                   <mat-radio-button  *ngFor="let tipo of cuidadoFisico; let i = index;"  class="example-radio-button" [id]="tipo.tipo" [name]="tipo.tipo" [value]="i"  >{{ tipo.tipo }}</mat-radio-button>
-                              </mat-radio-group>
-                           </div>
-                      </div>
-                      <div class="row">
-                         <div class="col" style="text-align: center;">
-                              <button mat-button matStepperPrevious>Regresar</button>
-                              <button mat-button matStepperNext>Siguiente</button>
+                         <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
+                         <div class="row">
+                              <div class="col">
+                                   <mat-form-field appearance="fill">
+                                        <mat-label>Amoblado</mat-label>
+                                        <mat-select formControlName="amobladoType">
+                                             <option disabled selected value="#">Seleccione.. </option>
+                                             <mat-option *ngFor="let amob of amoblado; let i = index;" [value]="i">{{
+                                                  amob.amoblado }}</mat-option>
+                                             <!-- <option value="0">No </option> -->
+
+                                        </mat-select>
+                                   </mat-form-field>
+                              </div>
+                              <div class="col">
+                                   <mat-label>Cuidado Fisico</mat-label>
+                                   <mat-radio-group class="example-radio-group" aria-label="Select an option"
+                                        formControlName="cuidadoFisicoForm">
+                                        <mat-radio-button *ngFor="let tipo of cuidadoFisico; let i = index;"
+                                             class="example-radio-button" [id]="tipo.tipo" [name]="tipo.tipo"
+                                             [value]="i">{{ tipo.tipo }}</mat-radio-button>
+                                   </mat-radio-group>
+                              </div>
                          </div>
-                      </div>
+                         <div class="row">
+                              <div class="col" style="text-align: center;">
+                                   <button mat-button matStepperPrevious>Regresar</button>
+                                   <button mat-button matStepperNext>Siguiente</button>
+                              </div>
+                         </div>
                     </form>
                </mat-step>
 
                <mat-step [stepControl]="thirdFormGroup" style="height: 75vh;">
                     <form [formGroup]="thirdFormGroup">
-                      <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
-                      <div class="row">
-                           <div class="col">
-                              
-                              <mat-label>Servicios Medicos</mat-label><br>
-                              <ul>
-                                   <li *ngFor="let amob of serviciosMedicos">
-                                        <mat-checkbox formControlName="servMed" (change)="serviciosmedicos($event)" [value]="amob">
-                                        {{amob.serd}}
-                                        </mat-checkbox>
-                                   </li>
-                              </ul>
+                         <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
+                         <div class="row">
+                              <div class="col">
+
+                                   <mat-label>Servicios Medicos</mat-label><br>
+                                   <ul>
+                                        <li *ngFor="let amob of serviciosMedicos">
+                                             <mat-checkbox formControlName="servMed" (change)="serviciosmedicos($event)"
+                                                  [value]="amob">
+                                                  {{amob.serd}}
+                                             </mat-checkbox>
+                                        </li>
+                                   </ul>
+                              </div>
+                              <div class="col">
+                                   <mat-label>Cuidado Cognitivo</mat-label>
+                                   <mat-radio-group class="example-radio-group" aria-label="Select an option"
+                                        formControlName="servCogni">
+                                        <mat-radio-button *ngFor="let tipo of cuidadoCog; let i = index;"
+                                             class="example-radio-button" [id]="tipo.cuidado" [name]="tipo.cuidado"
+                                             [value]="i">{{ tipo.cuidado }}</mat-radio-button>
+                                   </mat-radio-group>
+                              </div>
                          </div>
-                         <div class="col">
-                              <mat-label>Cuidado Cognitivo</mat-label>
-                              <mat-radio-group class="example-radio-group" aria-label="Select an option" formControlName="servCogni">
-                                   <mat-radio-button  *ngFor="let tipo of cuidadoCog; let i = index;" class="example-radio-button" [id]="tipo.cuidado" [name]="tipo.cuidado" [value]="i" >{{ tipo.cuidado }}</mat-radio-button>
-                              </mat-radio-group>
+                         <div class="row">
+                              <div class="col" style="text-align: center;">
+                                   <button mat-button matStepperPrevious>Regresar</button>
+                                   <button mat-button matStepperNext>Siguiente</button>
+                              </div>
                          </div>
-                      </div>
-                      <div class="row">
-                         <div class="col" style="text-align: center;">
-                              <button mat-button matStepperPrevious>Regresar</button>
-                              <button mat-button matStepperNext>Siguiente</button>
-                         </div>
-                      </div>
                     </form>
                </mat-step>
                <mat-step [stepControl]="FourthFormGroup" style="height: 75vh;">
                     {{ stepper }}
                     <form [formGroup]="FourthFormGroup">
-                      <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
-                      <div class="row">
-                           <div class="col">
-                              
-                              <mat-label>Servicios Adicionales</mat-label><br>
-                              <ul>
-                                   <li *ngFor="let amob of serviciosAdicionales; let i =index">
-                                        <mat-checkbox formControlName="servAdicionales" (change)="serviciosadicionales($event)"[value]="amob">
-                                        {{amob.serd}}
-                                        </mat-checkbox>
-                                   </li>
-                              </ul>
-                         </div>
-                         <div class="col">
-                              <mat-label>¿Cuántos Hijos/Responsables tiene la persona Mayor</mat-label>
-                              <mat-form-field appearance="fill">
+                         <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
+                         <div class="row">
+                              <div class="col">
 
-                                   <mat-label>¿Cuántos Hijos?</mat-label>
-                                   <mat-select formControlName="hijos">
-                                        <mat-option selected disabled value=" 0 ">Seleccione.. </mat-option>
-                                        <mat-option value="1">1 </mat-option>
-                                        <mat-option value="2">2 </mat-option>
-                                        <mat-option value="3">3 </mat-option>
-                                        <mat-option value="4">4 </mat-option>
-                                        <mat-option value="5">5 </mat-option>
-                                        <mat-option value="6">6 </mat-option>
-                                        <mat-option value="7">7 </mat-option>
-                                        <mat-option value="8">8 </mat-option>
-                                        <mat-option value="9">9 </mat-option>
-                                        <mat-option value="10">10 </mat-option>
-                                   </mat-select>
-                              </mat-form-field>
+                                   <mat-label>Servicios Adicionales</mat-label><br>
+                                   <ul>
+                                        <li *ngFor="let amob of serviciosAdicionales; let i =index">
+                                             <mat-checkbox formControlName="servAdicionales"
+                                                  (change)="serviciosadicionales($event)" [value]="amob">
+                                                  {{amob.serd}}
+                                             </mat-checkbox>
+                                        </li>
+                                   </ul>
+                              </div>
+                              <div class="col">
+                                   <mat-label>¿Cuántos Hijos/Responsables tiene la persona Mayor</mat-label>
+                                   <mat-form-field appearance="fill">
+
+                                        <mat-label>¿Cuántos Hijos?</mat-label>
+                                        <mat-select formControlName="hijos">
+                                             <mat-option selected disabled value=" 0 ">Seleccione.. </mat-option>
+                                             <mat-option value="1">1 </mat-option>
+                                             <mat-option value="2">2 </mat-option>
+                                             <mat-option value="3">3 </mat-option>
+                                             <mat-option value="4">4 </mat-option>
+                                             <mat-option value="5">5 </mat-option>
+                                             <mat-option value="6">6 </mat-option>
+                                             <mat-option value="7">7 </mat-option>
+                                             <mat-option value="8">8 </mat-option>
+                                             <mat-option value="9">9 </mat-option>
+                                             <mat-option value="10">10 </mat-option>
+                                        </mat-select>
+                                   </mat-form-field>
+                              </div>
                          </div>
-                      </div>
-                      <div class="row">
-                         <div class="col" style="text-align: center;">
-                              <button mat-button matStepperPrevious>Regresar</button>
-                              <button mat-button matStepperNext (click)="calcular()">Calcular</button>
+                         <div class="row">
+                              <div class="col" style="text-align: center;">
+                                   <button mat-button matStepperPrevious>Regresar</button>
+                                   <button mat-button matStepperNext (click)="calcular()">Calcular</button>
+                              </div>
                          </div>
-                      </div>
                     </form>
                </mat-step>
                <mat-step>
-                    <mat-label>Mostrar data</mat-label>
+                    <mat-label>Mostrar data
+
+
+
+
+                         <h2 align="center"><span>¡Felicitaciones! Ya tienes una cotización estimada del Asilo</span>
+                         </h2>
+
+
+                         <br>
+
+                         <div>
+                              <h3>Detalles del valor</h3>
+                              <div class="row">
+                                   <div class="col">
+                                        <h5>Tipo Habitacion</h5>
+                                   </div>
+                                   <div class="col">
+                                        <b>$ {{tipoHabitacionObj.value}}</b>
+                                   </div>
+                                   <div class="container">
+                                        <div class="row ">
+                                             <div class="col ms-3">
+                                                  {{tipoHabitacionObj.tipo}}
+                                             </div>
+                                             <div class="col">
+                                                  <b>$ {{tipoHabitacionObj.value}}</b>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div class="row">
+                                   <div class="col">
+                                        <h5>Zona/Ubicacion</h5>
+                                   </div>
+                                   <div class="col">
+                                        {{ubicacionObj.ubi}}<b> $ {{ubicacionObj.value}} </b>
+                                   </div>
+                              </div>
+
+                              <div class="row">
+                                   <div class="col">
+                                        <h5>Amoblamiento</h5>
+                                   </div>
+                                   <div class="col">
+                                        {{amobladoObj.amobaldo}}<b> $ {{amobladoObj.value}} </b>
+                                   </div>
+                              </div>
+                              <div class="row">
+                                   <div class="col">
+                                        <h5>`Cuidado fisico</h5>
+                                   </div>
+                                   <div class="col">
+                                        {{cuidadoFisicoObj.tipo}}<b> $ {{cuidadoFisicoObj.value}} </b>
+                                   </div>
+                              </div>
+                              <div class="row">
+                                   <div class="col">
+                                        Cuidados cognitivos
+                                   </div>
+                                   <div class="col">
+                                        <b>$ {{cuidadoCogObj.value}}</b>
+                                   </div>
+                              </div>
+                              <div class="row">
+                                   <div class="col">
+                                        Servicios Medicos
+                                   </div>
+                                   <div class="col">
+                                        {{ (sumaTotalServMedicos < 0) ? (-1)*sumaTotalServMedicos : sumaTotalServMedicos
+                                             }} </div>
+
+                                             <div class="row" *ngFor="let item of servicioMedAux">
+
+                                                  <div class="col ms-3">
+                                                       <h5>{{ item.serd }}</h5>
+                                                  </div>
+                                                  <div class="col">
+                                                       <b> $ {{item.value}} </b>
+                                                  </div>
+
+                                             </div>
+                                   </div>
+                                   <div class="row">
+                                        <div class="col">
+                                             Servicios Adicionales
+                                        </div>
+                                        <div class="col">
+                                             {{ (sumaTotalServAdicionales < 0) ? (-1)*sumaTotalServAdicionales :
+                                                  sumaTotalServAdicionales }} </div>
+                                                  <div class="row" *ngFor="let item of servicioAdiAux">
+                                                       <div class="col">
+                                                            {{item.serd}}
+                                                       </div>
+                                                       <div class="col">
+                                                            ${{ item.value }}
+                                                       </div>
+                                                  </div>
+                                        </div>
+
+                                        <hr>
+                                        <div class="row">
+                                             <div class="col">
+                                                  Valor total
+                                             </div>
+                                             <div class="col">
+                                                  {{ sumaTotalProforma }}
+                                             </div>
+                                        </div>
+
+                                   </div>
+
+
+
+
+                    </mat-label>
                     <div class="row">
                          <div class="col">
                               <button mat-button matStepperPrevious>Regresar</button>
@@ -154,12 +281,8 @@
                </mat-step>
           </mat-stepper>
 
-          
-     <div class="row">
-     </div>
-     <div class="row">
-     </div>
-     <div class="row">
+
+          <!--div class="row">
           <div class="col-sm-6">
                <form>
                     <h1>Servicios Adicionales</h1>
@@ -193,113 +316,6 @@
               
                </article>
           </div>
+     </!--div-->
      </div>
-</div>
-<br>
-
-<h2 align="center"><span>¡Felicitaciones! Ya tienes una cotización estimada del Asilo</span></h2>
-
-
-<br>
-
-<div>
-     <h3>Detalles del valor</h3>
-     <div class="row">
-          <div class="col">
-               <h5>Tipo Habitacion</h5>
-          </div>
-          <div class="col">
-               <b>$ {{tipoHabitacionObj.value}}</b>
-          </div>
-          <div class="container">
-               <div class="row ">
-                    <div class="col ms-3">
-                         {{tipoHabitacionObj.tipo}}
-                    </div>
-                    <div class="col">
-                         <b>$ {{tipoHabitacionObj.value}}</b>
-                    </div>
-               </div>
-          </div>
-     </div>
-     <div class="row">
-          <div class="col">
-               <h5>Zona/Ubicacion</h5>
-          </div>
-          <div class="col">
-               {{ubicacionObj.ubi}}<b> $ {{ubicacionObj.value}} </b>
-          </div>
-     </div>
-     
-     <div class="row">
-          <div class="col">
-               <h5>Amoblamiento</h5>
-          </div>
-          <div class="col">
-               {{amobladoObj.amobaldo}}<b> $ {{amobladoObj.value}} </b>
-          </div>
-     </div>
-     <div class="row">
-          <div class="col">
-               <h5>`Cuidado fisico</h5>
-          </div>
-          <div class="col">
-               {{cuidadoFisicoObj.tipo}}<b> $ {{cuidadoFisicoObj.value}} </b>
-          </div>
-     </div>
-     <div class="row">
-          <div class="col">
-               Cuidados cognitivos
-          </div>
-          <div class="col">
-               <b>$ {{cuidadoCogObj.value}}</b>
-          </div>
-     </div>
-     <div class="row">
-          <div class="col">
-               Servicios Medicos
-          </div>
-          <div class="col">
-               {{ (sumaTotalServMedicos < 0) ? (-1)*sumaTotalServMedicos : sumaTotalServMedicos }}
-          </div>
-
-          <div class="row" *ngFor="let item of servicioMedAux">
-
-               <div class="col ms-3">
-                    <h5>{{ item.serd }}</h5>
-               </div>
-               <div class="col">
-                    <b> $ {{item.value}} </b>
-               </div>
-               
-          </div>
-     </div>
-     <div class="row">
-          <div class="col">
-               Servicios Adicionales
-          </div>
-          <div class="col">
-               {{ (sumaTotalServAdicionales < 0) ? (-1)*sumaTotalServAdicionales : sumaTotalServAdicionales }}
-               
-          </div>
-          <div class="row" *ngFor="let item of servicioAdiAux">
-               <div class="col">
-                    {{item.serd}}
-               </div>
-               <div class="col">
-                    ${{ item.value }}
-               </div>
-          </div>
-     </div>
-
-     <hr>
-     <div class="row">
-          <div class="col">
-               Valor total
-          </div>
-          <div class="col">
-               {{ sumaTotalProforma }}
-          </div>
-     </div>
-     
-</div>
+     <br>
