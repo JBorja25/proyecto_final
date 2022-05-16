@@ -15,6 +15,7 @@ import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
   styleUrls: ['./regis-asi.component.scss']
 })
 export class RegisAsiComponent implements OnInit {
+  toppings: FormGroup;
   showFiller = false;
   public postForm:FormGroup;
   uuid: string = '';
@@ -26,6 +27,7 @@ export class RegisAsiComponent implements OnInit {
   public registroAnterior: any = {};
   idDoc: string = '';
   mayus = 'mayus';
+  
   constructor(
     public postService:PostService,
     public formBuilder:FormBuilder,
@@ -43,6 +45,7 @@ export class RegisAsiComponent implements OnInit {
     this.uuid = this._cookie.get('uid');
     this.registroAnterior = 'prueba de envio';
   }
+  
   
   async ngOnInit() {
     this.getDataFirebase();
@@ -113,6 +116,7 @@ export class RegisAsiComponent implements OnInit {
     
   }
 
+  
 
 
 }
