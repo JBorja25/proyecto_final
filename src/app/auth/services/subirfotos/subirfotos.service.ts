@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
-import * as firebase from '@angular/fire/app';
-import { Firestore } from '@angular/fire/firestore/firebase';
-import { FirebaseApp } from '@angular/fire/app';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +16,18 @@ export class SubirfotosService {
     private _storage: AngularFireStorage
   ) { }
 
-  async insertImages(file: File, valor: any){
-    console.log(file);
-    const files = file;
-    const filePath = `img/${ files.name }`;
-    const ref = this._storage.ref(filePath);
-    const task = ref.put(files);
-    console.log(task);
+  async insertImages(file: File){
+   const ref = this._storage.ref('img/' + file.name);
+   const upload = ref.put(file);
+   console.log(upload);
+   /* let numero = ((await upload).bytesTransferred/(await upload).totalBytes)*100;
+   console.log(numero); */
+  return upload;
+   
     
-    
+  }
+
+  insertarPDF(archivo: File){
+    // const ref = this._storage
   }
 }

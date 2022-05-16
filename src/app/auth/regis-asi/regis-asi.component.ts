@@ -6,6 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { PostService } from 'src/app/models/post.service';
 import { AuthService } from '../services/auth.service';
 
+import { DomSanitizer } from '@angular/platform-browser';
+
 import { Post } from '../../models/post.model';
 import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 
@@ -27,6 +29,10 @@ export class RegisAsiComponent implements OnInit {
   public registroAnterior: any = {};
   idDoc: string = '';
   mayus = 'mayus';
+  mostrarImagen: any = '';
+  FotoSubir: File;
+
+  urlFotofirebase: any = '';
   
   constructor(
     public postService:PostService,
@@ -34,7 +40,8 @@ export class RegisAsiComponent implements OnInit {
     public router: Router,
     private _cookie: CookieService,
     private _auth: AuthService,
-    private _fotos: SubirfotosService
+    private _fotos: SubirfotosService,
+    private _sanitazer: DomSanitizer
   ) {
     this.postForm= this.formBuilder.group({
       name:[''],
@@ -86,12 +93,16 @@ export class RegisAsiComponent implements OnInit {
           rechazar: false,
           confirmacion: true,
           aprobado: false,
-          cuentaVerificada:false
+          cuentaVerificada:false,
+          foto: this.urlFotofirebase
         }
         this.postService.createPosts(enviarFirebase)
         .then((resp) =>{
           console.log('se registro correctamente' ,resp);
           this.getDataFirebase();
+
+          this._fotos.insertImages(this.FotoSubir);
+
         })
       }
       
@@ -111,9 +122,37 @@ export class RegisAsiComponent implements OnInit {
 */
   // funciona para una imagen
   cambioImagen(evento: any){
-    console.log(evento);
-    this._fotos.insertImages(evento.target.files[0], evento.target.value);
     
+    console.log(evento);
+    this.FotoSubir = evento.target.files[0];
+    const rul =URL.createObjectURL(evento.target.files[0]);
+    this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
+    console.log(rul);
+    this._fotos.insertImages(this.FotoSubir)
+    .then((resp)=>{
+      resp.ref.getDownloadURL()
+      .then((respGet)=>{
+        this.urlFotofirebase = respGet;
+      })
+      .catch((error) =>{
+
+      });
+    }).catch((error)=>{
+
+    });
+    
+  }
+
+
+  cambioImagenPdf(evento: any){
+    console.log(evento.target.files[0]);
+    
+  }
+
+  async cerrar(){
+    this._cookie.deleteAll();
+    await  this._auth.logout();
+    this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
   }
 
   

@@ -32,7 +32,7 @@ import { ShowComponent } from './auth/show/show.component';
 import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginModule } from './auth/login/login.module';
-import { RegisterModule } from './auth/register/register.module';
+// import { RegisterModule } from './auth/register/register.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthasilosGuard } from './guards/authasilos.guard';
 import { AuthService } from './auth/services/auth.service';
@@ -56,13 +56,15 @@ import { MatListModule } from '@angular/material/list';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { ProformaModule } from './auth/proforma/proforma.module';
+import { HomeModule } from './home/home.module';
+import { RegisterComponent } from './auth/register/register.component';
+// import { NavbarModule } from './shared/navbar/navbar.module';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-   NavbarComponent,
+  AppComponent,
    CreateComponent,
    EditComponent,
    ShowComponent,
@@ -71,7 +73,8 @@ import { ProformaModule } from './auth/proforma/proforma.module';
    RegisallComponent,
    PruebaComponent,
    Prueba2Component,
-
+   NavbarComponent,
+   RegisterComponent
    
   ],
   imports: [
@@ -90,7 +93,6 @@ import { ProformaModule } from './auth/proforma/proforma.module';
     FormsModule,
     ReactiveFormsModule,
     LoginModule,
-    RegisterModule,
     AngularFireStorageModule,
     MatSidenavModule,
     MatIconModule,
@@ -104,13 +106,14 @@ import { ProformaModule } from './auth/proforma/proforma.module';
     LayoutModule,
     MatToolbarModule,
     MatListModule,
-    
-
     MatStepperModule,
     ProformaModule
 
   ],
   providers: [CookieService, AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports:[
+    NavbarComponent
+  ]
 })
 export class AppModule { }

@@ -59,7 +59,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
          
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li (click)="cerrar()"><a class="dropdown-item btn"  >Sign out</a></li>
           </ul>
         </div>
       </div>
@@ -164,8 +164,16 @@
       </div>
       <div class="mb-3"> 
         <label class="form-label">ingrese una imagen</label>
+        <div>
+          <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
+        </div>
         <br>
         <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+      </div>
+      <div class="mb-3"> 
+        <label class="form-label">Documento</label>
+        <br>
+        <input type="file" accept="application/pdf" (change)="cambioImagenPdf($event)">
       </div>
 
       <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >GUARDAR</button>

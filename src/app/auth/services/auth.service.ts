@@ -70,7 +70,7 @@ export class AuthService {
   async logout() {
     try {
       // this._cookie.deleteAll();
-      this._cookie.deleteAll();
+      this._cookie.deleteAll('/');
       await this.afAuth.signOut();
     } catch (error) {
       console.log(error);

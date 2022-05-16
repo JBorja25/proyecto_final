@@ -24,6 +24,7 @@ export class NavbarComponent implements AfterViewInit {
    }
    ngAfterViewInit(): void {
     // this.tipo = localStorage.getItem('tipo');
+    this.tipo = this._cookie.get('tipo');
  
    }
   async onLogout(){
