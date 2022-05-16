@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
@@ -25,13 +26,13 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PerfilesModule } from './auth/perfiles/perfiles.module';
+
 import { CreateComponent } from './auth/create/create.component';
 import { EditComponent } from './auth/edit/edit.component';
 import { ShowComponent } from './auth/show/show.component';
 import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginModule } from './auth/login/login.module';
+
 // import { RegisterModule } from './auth/register/register.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthasilosGuard } from './guards/authasilos.guard';
@@ -56,14 +57,11 @@ import { MatListModule } from '@angular/material/list';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { ProformaModule } from './auth/proforma/proforma.module';
-<<<<<<< Updated upstream
-import { HomeModule } from './home/home.module';
-import { RegisterComponent } from './auth/register/register.component';
-// import { NavbarModule } from './shared/navbar/navbar.module';
-=======
 import { PerfilComponent } from './auth/perfil/perfil.component';
 import { MatLabel } from '@angular/material/form-field';
->>>>>>> Stashed changes
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { PerfilesComponent } from './auth/perfiles/perfiles.component';
 
 
 
@@ -78,13 +76,13 @@ import { MatLabel } from '@angular/material/form-field';
    RegisallComponent,
    PruebaComponent,
    Prueba2Component,
-<<<<<<< Updated upstream
-   NavbarComponent,
-   RegisterComponent
-=======
    PerfilComponent,
+   NavbarComponent,
+   HomeComponent,
+   RegisterComponent,
+   LoginComponent,
+   PerfilesComponent
 
->>>>>>> Stashed changes
    
   ],
   imports: [
@@ -99,10 +97,10 @@ import { MatLabel } from '@angular/material/form-field';
     provideFirebaseApp(()=>initializeApp(environment.firebaseConfig)),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule,
-    PerfilesModule,
+
     FormsModule,
     ReactiveFormsModule,
-    LoginModule,
+  
     AngularFireStorageModule,
     MatSidenavModule,
     MatIconModule,
@@ -116,11 +114,8 @@ import { MatLabel } from '@angular/material/form-field';
     LayoutModule,
     MatToolbarModule,
     MatListModule,
-<<<<<<< Updated upstream
-=======
    
 
->>>>>>> Stashed changes
     MatStepperModule,
     ProformaModule
 

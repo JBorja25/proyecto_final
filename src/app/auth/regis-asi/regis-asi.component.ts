@@ -29,14 +29,11 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   public registroAnterior: any = {};
   idDoc: string = '';
   mayus = 'mayus';
-<<<<<<< Updated upstream
   mostrarImagen: any = '';
   FotoSubir: File;
 
   urlFotofirebase: any = '';
-=======
   rool:string='';
->>>>>>> Stashed changes
   
   constructor(
     public postService:PostService,
@@ -45,10 +42,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     private _cookie: CookieService,
     private _auth: AuthService,
     private _fotos: SubirfotosService,
-<<<<<<< Updated upstream
     private _sanitazer: DomSanitizer
-=======
->>>>>>> Stashed changes
+
   ) {
     this.postForm= this.formBuilder.group({
       name:[''],
