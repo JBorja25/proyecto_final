@@ -56,12 +56,23 @@ import { MatListModule } from '@angular/material/list';
 
 
 import { MatStepperModule } from '@angular/material/stepper';
-import { ProformaModule } from './auth/proforma/proforma.module';
+
 import { PerfilComponent } from './auth/perfil/perfil.component';
 import { MatLabel } from '@angular/material/form-field';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { PerfilesComponent } from './auth/perfiles/perfiles.component';
+import {MatInputModule} from '@angular/material/input';
+import { ProformaComponent } from './auth/proforma/proforma.component';
+
+
+
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -81,7 +92,8 @@ import { PerfilesComponent } from './auth/perfiles/perfiles.component';
    HomeComponent,
    RegisterComponent,
    LoginComponent,
-   PerfilesComponent
+   PerfilesComponent,
+   ProformaComponent
 
    
   ],
@@ -114,10 +126,18 @@ import { PerfilesComponent } from './auth/perfiles/perfiles.component';
     LayoutModule,
     MatToolbarModule,
     MatListModule,
-   
-
     MatStepperModule,
-    ProformaModule
+    MatInputModule,
+
+  
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    
 
   ],
   providers: [CookieService, AuthService],

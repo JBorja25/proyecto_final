@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { FormBuilder,FormGroup } from '@angular/forms';
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { PostService } from 'src/app/models/post.service';
@@ -17,6 +17,12 @@ import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
   styleUrls: ['./regis-asi.component.scss']
 })
 export class RegisAsiComponent implements OnInit, AfterViewInit {
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
+
+
   toppings: FormGroup;
   showFiller = false;
   public postForm:FormGroup;
@@ -42,7 +48,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     private _cookie: CookieService,
     private _auth: AuthService,
     private _fotos: SubirfotosService,
-    private _sanitazer: DomSanitizer
+    private _sanitazer: DomSanitizer,
+    private _formBuilder: FormBuilder
 
   ) {
     this.postForm= this.formBuilder.group({
@@ -62,6 +69,12 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   
   async ngOnInit() {
     this.getDataFirebase();
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required],
+    });
   }
 
   getDataFirebase(){

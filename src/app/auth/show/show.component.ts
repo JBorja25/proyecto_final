@@ -5,8 +5,9 @@ import { Post } from 'src/app/models/post.model';
 import { PostService } from 'src/app/models/post.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
-
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-show',
@@ -19,7 +20,8 @@ export class ShowComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService,     private _cookie: CookieService,
+    private _auth: AuthService,     private router: Router,) { }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -59,6 +61,11 @@ export class ShowComponent implements OnInit, AfterViewInit {
 
       });
 
+  }
+  async cerrar() {
+    this._cookie.deleteAll();
+    await this._auth.logout();
+    this.router.navigateByUrl('/login', { replaceUrl: true, skipLocationChange: false });
   }
 
 }
