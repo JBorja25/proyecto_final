@@ -73,6 +73,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RechazadosComponent } from './auth/show/rechazados/rechazados.component';
 
 
 
@@ -93,7 +94,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
    RegisterComponent,
    LoginComponent,
    PerfilesComponent,
-   ProformaComponent
+   ProformaComponent,
+   RechazadosComponent
 
    
   ],

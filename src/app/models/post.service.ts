@@ -66,4 +66,12 @@ export class PostService {
       cuentaVerificada
     });
   }
+  actualizarRechazados(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, rechazar: boolean, idDoc: string){
+    return this.angularFirestore.collection('post').doc(idDoc).update({
+      aprobado,
+      confirmacion,
+      cuentaVerificada,
+      rechazar
+    });
+  }
 }

@@ -104,7 +104,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           confirmacion: true,
           aprobado: false,
           cuentaVerificada:false,
-          foto: this.urlFotofirebase
+          foto: this.urlFotofirebase,
+          mensajeRechazo: ''
         }
         // console.log(enviarFirebase);
         
