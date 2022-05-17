@@ -97,70 +97,63 @@
     </mat-toolbar>
     <!------------------------------------------------------------------------------------>
     <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Asilos pendientes">
+      <mat-tab label="Asilos pendientes">
 
-          
-          <div class="mt-4 row">
-            <div class="col"></div>
-            <div class="col-md-8">
-              <table>
-                <thead>
-                  <tr>
-                    <th>algo</th>
-                  </tr>
-                </thead>
-              </table>
 
-              <!-- <table>
-                <thead class="bg-gradient text-white">
-                  <tr>
-                    <th>nombre</th>
-                    <th>direcicon</th>
-                    <th>email</th>
-                    <th>telefono</th>
-                    <th>ACCION</th>
-    
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let post of Post">
-                    <td>{{post.data.name}}</td>
-                    <td>{{post.data.address}}</td>
-                    <td>{{post.data.email}}</td>
-                    <td>{{post.data.fono}}</td>
-    
-                    <td>
-                      <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
-                                              class="fa-solid fa-pen"></i></button>
-                      <button (click)="aprobar(post)" class="btn btn-outline-danger">
-                        <i class="fa-solid fa-book"></i></button>
-                      
-                      <button (click)="aprobar(post)" class="btn btn-outline-danger">
-                        <i class="fa-solid fa-check"></i></button>
-                      <button (click)="deleteRow(post)" class="btn btn-outline-danger">
-                        <i class="fa-light fa-x"></i></button>
-    
-                      <button (click)="deleteRow(post)" class="btn btn-outline-danger"><i
-                          class="fa-solid fa-trash"></i></button>
-    
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
-            </div>
-            <div class="col"></div>
+        <div class="mt-4 row">
+          <div class="col"></div>
+          <div class="col-md-8">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th>nombre</th>
+                  <th>direcicon</th>
+                  <th>email</th>
+                  <th>telefono</th>
+                  <th>ACCION</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let post of Post">
+                  <td>{{post.data.name}}</td>
+                  <td>{{post.data.address}}</td>
+                  <td>{{post.data.email}}</td>
+                  <td>{{post.data.fono}}</td>
+
+                  <td>
+                    <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
+                        class="fa-solid fa-pen"></i></button>
+                    <button (click)="aprobar(post)" class="btn btn-outline-danger">
+                      <i class="fa-solid fa-book"></i></button>
+
+                    <button (click)="aprobar(post)" class="btn btn-outline-danger">
+                      <i class="fa-solid fa-check"></i></button>
+                    <button (click)="deleteRow(post)" class="btn btn-outline-danger">
+                      <i class="fa-light fa-x"></i></button>
+
+                    <button (click)="deleteRow(post)" class="btn btn-outline-danger"><i
+                        class="fa-solid fa-trash"></i></button>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+          <div class="col"></div>
+          
+        </div>
 
 
-        </mat-tab>
+      </mat-tab>
 
 
       <!---------------------------------------------------->
       <mat-tab label="Asilos Aprobados">
         <h2>Asilos Aprovados </h2>
-        <div class="mat-elevation-z8">
+        <div class="mat-elevation-z6">
           <table mat-table [dataSource]="dataSource">
-
+            
             <!-- Position Column -->
             <ng-container matColumnDef="NOMBRE">
               <th mat-header-cell *matHeaderCellDef class="bg-gradient text-white"> NOMBRE </th>
