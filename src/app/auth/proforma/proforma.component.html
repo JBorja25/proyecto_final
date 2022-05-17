@@ -1,4 +1,5 @@
-<!-- <app-navbar></app-navbar>  -->
+<app-navbar></app-navbar>  
+
 <h1 align="center">PROFORMA PARA CALCULO DE PRECIOS DE UN ASILO </h1>
 
 <div class="container-fluid">
@@ -172,7 +173,7 @@
                               <h3>Detalles del valor</h3>
                               <div class="row">
                                    <div class="col">
-                                        <h5>Tipo Habitacion</h5>
+                                       <h5><b>Tipo Habitacion</b> </h5>
                                    </div>
                                    <div class="col">
                                         <b>$ {{tipoHabitacionObj.value}}</b>
@@ -190,16 +191,17 @@
                               </div>
                               <div class="row">
                                    <div class="col">
-                                        <h5>Zona/Ubicacion</h5>
+                                        <h5><b>Zona/Ubicacion</b> </h5>
+                                        {{ubicacionObj.ubi}}
                                    </div>
                                    <div class="col">
-                                        {{ubicacionObj.ubi}}<b> $ {{ubicacionObj.value}} </b>
+                                       <b> $ {{ubicacionObj.value}} </b>
                                    </div>
                               </div>
 
                               <div class="row">
                                    <div class="col">
-                                        <h5>Amoblamiento</h5>
+                                         <h5><b>Amoblamiento</b> </h5>
                                    </div>
                                    <div class="col">
                                         {{amobladoObj.amobaldo}}<b> $ {{amobladoObj.value}} </b>
@@ -207,15 +209,17 @@
                               </div>
                               <div class="row">
                                    <div class="col">
-                                        <h5>`Cuidado fisico</h5>
+                                       <h5><b>Cuidado fisico</b> </h5> 
+                                        {{cuidadoFisicoObj.tipo}}
                                    </div>
+                                   <br>
                                    <div class="col">
-                                        {{cuidadoFisicoObj.tipo}}<b> $ {{cuidadoFisicoObj.value}} </b>
+                                       <b> $ {{cuidadoFisicoObj.value}} </b>
                                    </div>
                               </div>
                               <div class="row">
                                    <div class="col">
-                                        Cuidados cognitivos
+                                        <h5 ><b> Cuidados cognitivos</b></h5>
                                    </div>
                                    <div class="col">
                                         <b>$ {{cuidadoCogObj.value}}</b>
@@ -223,7 +227,7 @@
                               </div>
                               <div class="row">
                                    <div class="col">
-                                        Servicios Medicos
+                                        <h5><b>Servicios Medicos</b> </h5>
                                    </div>
                                    <div class="col">
                                         {{ (sumaTotalServMedicos < 0) ? (-1)*sumaTotalServMedicos : sumaTotalServMedicos
@@ -242,7 +246,7 @@
                                    </div>
                                    <div class="row">
                                         <div class="col">
-                                             Servicios Adicionales
+                                            <h5><b>Servicios Adicionales</b></h5> 
                                         </div>
                                         <div class="col">
                                              {{ (sumaTotalServAdicionales < 0) ? (-1)*sumaTotalServAdicionales :
@@ -252,7 +256,7 @@
                                                             {{item.serd}}
                                                        </div>
                                                        <div class="col">
-                                                            ${{ item.value }}
+                                                           <b> ${{ item.value }}</b>
                                                        </div>
                                                   </div>
                                         </div>
@@ -260,13 +264,24 @@
                                         <hr>
                                         <div class="row">
                                              <div class="col">
-                                                  Valor total
+                                                  <h5 ><b> Valor total</b></h5>
                                              </div>
                                              <div class="col">
-                                                  {{ sumaTotalProforma }}
+                                                <b>${{ suma }}</b>  
                                              </div>
                                         </div>
 
+                                   </div>
+                                   <div class="row">
+                                        <div class="row">
+                                             <div class="col">
+                                                   <h5><b>Cada hijo debe pagar la cantidad de</b>  </h5>
+                                                  
+                                             </div>
+                                             <div class="col">
+                                                 <b>$ {{ suma/numhijos}}</b> 
+                                             </div>
+                                        </div>
                                    </div>
 
 

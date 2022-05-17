@@ -17,6 +17,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { PerfilesComponent } from './auth/perfiles/perfiles.component';
 import { AuthasilosGuard } from './guards/authasilos.guard';
 import { RegisallComponent } from './auth/regisall/regisall.component';
+import { ProformaComponent } from './auth/proforma/proforma.component';
 
 
 
@@ -48,8 +49,8 @@ const routes: Routes = [
 
   { path: 'perfiles', component: PerfilesComponent },
   { path: '', component: HomeComponent },
-
-  { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.module').then(m => m.ProformaModule) },
+  { path: 'proforma', component:ProformaComponent },
+  { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.component').then(m => m.ProformaComponent) },
 
 
 

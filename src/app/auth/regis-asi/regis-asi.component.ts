@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { FormBuilder,FormGroup } from '@angular/forms';
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { PostService } from 'src/app/models/post.service';
@@ -16,7 +16,13 @@ import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
   templateUrl: './regis-asi.component.html',
   styleUrls: ['./regis-asi.component.scss']
 })
-export class RegisAsiComponent implements OnInit {
+export class RegisAsiComponent implements OnInit, AfterViewInit {
+  firstFormGroup: FormGroup;
+  SecondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
+
+
   toppings: FormGroup;
   showFiller = false;
   public postForm:FormGroup;
@@ -33,6 +39,7 @@ export class RegisAsiComponent implements OnInit {
   FotoSubir: File;
 
   urlFotofirebase: any = '';
+  rool:string='';
   
   constructor(
     public postService:PostService,
@@ -41,7 +48,9 @@ export class RegisAsiComponent implements OnInit {
     private _cookie: CookieService,
     private _auth: AuthService,
     private _fotos: SubirfotosService,
-    private _sanitazer: DomSanitizer
+    private _sanitazer: DomSanitizer,
+    private _formBuilder: FormBuilder,
+    private _fb: FormBuilder
   ) {
     this.postForm= this.formBuilder.group({
       name:[''],
@@ -52,12 +61,13 @@ export class RegisAsiComponent implements OnInit {
     this.uuid = this._cookie.get('uid');
     this.registroAnterior = 'prueba de envio';
   }
-  
-  
-  async ngOnInit() {
-    this.getDataFirebase();
+  ngAfterViewInit(): void {
+    
+    this.rool=this._cookie.get('tipo')
   }
-
+  
+  
+ 
   getDataFirebase(){
     // console.log(this.re);
     
@@ -86,8 +96,8 @@ export class RegisAsiComponent implements OnInit {
     .subscribe((respData) =>{
       console.log(respData);
       for(let f of respData.docs){
-        let enviarFirebase: Post = {
-          ...this.postForm.value,
+        let enviarFirebase = {
+          ...this.firstFormGroup.value,
           uid: this.uuid,
           mostrarRegistroAsilo: false,
           rechazar: false,
@@ -96,6 +106,8 @@ export class RegisAsiComponent implements OnInit {
           cuentaVerificada:false,
           foto: this.urlFotofirebase
         }
+        // console.log(enviarFirebase);
+        
         this.postService.createPosts(enviarFirebase)
         .then((resp) =>{
           console.log('se registro correctamente' ,resp);
@@ -117,6 +129,7 @@ export class RegisAsiComponent implements OnInit {
     this.getDataFirebase();
     
   }
+
 /* 
   TODO: falta de hacer algo
 */
@@ -155,7 +168,35 @@ export class RegisAsiComponent implements OnInit {
     this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
   }
 
-  
+  crearFormulario(){
+    this.firstFormGroup = this._fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      email: ['', Validators.required],
+      fono: ['', Validators.required]
+    });
+
+    this.SecondFormGroup = this._fb.group({
+      lunes: ['', Validators.required],
+      martes: ['', Validators.required],
+      miercoles: ['', Validators.required],
+      jueves: ['', Validators.required],
+      viernes: ['', Validators.required],
+      sabado: ['', Validators.required],
+      domingo: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._fb.group({
+      servMed: ['', Validators.required],
+      servCogni: ['', Validators.required]
+    });
+
+
+  }
+  async ngOnInit() {
+    this.crearFormulario();
+    // this.getDataFirebase(); 
+  }
+
 
 
 }

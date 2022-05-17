@@ -1,225 +1,402 @@
+<mat-drawer-container class="example-container" width="700" height="100vh" style="height: 100vh;" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
 
-<mat-drawer-container class="example-container"  width="700" height="100vh" style="height: 100vh;" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-
-      <!--button (click)="showFiller = !showFiller" mat-raised-button>
+    <!--button (click)="showFiller = !showFiller" mat-raised-button>
         Toggle extra text
-      </!--button--> 
-      <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-          <svg class="bi me-1" width="40" height="32"><use xlink:href=""/></svg>
-          <span class="fs-4">Sidebar</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li>
-                <a href="#" class="nav-link text-white">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                 
-                </a>
-              </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-              PERFILE
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-             
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-             
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-              AFILIACION
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-             
-            </a>
-          </li>
-         
-         
-        </ul>
-        <hr>
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>LOgout</strong>
+      </!--button-->
+    <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <svg class="bi me-1" width="40" height="32">
+          <use xlink:href="" />
+        </svg>
+        <span class="fs-4">Sidebar</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
           </a>
-          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-         
-            <li (click)="cerrar()"><a class="dropdown-item btn"  >Sign out</a></li>
-          </ul>
-        </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#home" />
+            </svg>
+            PERFILE
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#home" />
+            </svg>
+            AFILIACION
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+        <!--li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#home" />
+            </svg>
+            REGISTRO PROPIETARIO
+          </a>
+        </!--li-->
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+
+
+      </ul>
+      <hr>
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+          <strong>LOgout</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+
+          <li (click)="cerrar()"><a class="dropdown-item btn">Sign out</a></li>
+        </ul>
       </div>
-    </mat-drawer>
-   
-     
-    <div class="example-sidenav-content">
-      <!--button type="button" mat-button (click)="drawer.toggle()">
+    </div>
+  </mat-drawer>
+
+
+
+  <div class="example-sidenav-content">
+    <!--button type="button" mat-button (click)="drawer.toggle()">
         Toggle sidenav
       </!--button-->
-      <mat-toolbar color="primary">
-        <button type="button" mat-button (click)="drawer.toggle()"> <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon> </button>
+    <mat-toolbar color="primary">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+      </button>
+
+    </mat-toolbar>
+    <br>
+    <br>
+    <!---------------------------------------------------------------------------------->
+    <div class="container" *ngIf="mostrarFormulario">
+      <mat-stepper labelPosition="bottom" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup" class="container" >
+            <ng-template matStepLabel>Fill out your name</ng-template>
+
+            <div class="mb-3">
+              <label class="form-label">name</label>
+              <input formControlName="name" type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">address</label>
+              <input formControlName="address" type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">email</label>
+              <input formControlName="email" type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">fono</label>
+              <input formControlName="fono" type="text" class="form-control" required>
+            </div>
+
+
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="SecondFormGroup" optional>
+          <form [formGroup]="SecondFormGroup" >
+            <ng-template matStepLabel>Fill out your address</ng-template>
+            <div class="mb-3">
+              <label class="form-label">Selecicone dia y hora de atencion</label>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <label class="form-label">Selecicone dia de atencion</label>
+                    <br>
+                    <div class="form-check">
+                      <input class="form-check-input"  formControlName="lunes" type="checkbox" value="" id="flexCheckDefault" >
+                      <label class="form-check-label" for="flexCheckDefault">
+                        LUNES
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input"  formControlName="martes" type="checkbox" value="" id="flexCheckChecked" >
+                      <label class="form-check-label" for="flexCheckChecked">
+                        MARTES
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" formControlName="miercoles" type="checkbox" value="" id="flexCheckDefault">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        MIERCOLES
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input"  formControlName="jueves"type="checkbox" value="" id="flexCheckChecked" >
+                      <label class="form-check-label" for="flexCheckChecked">
+                        JUEVES
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input"  formControlName="viernes"type="checkbox" value="" id="flexCheckDefault">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        VIERNES
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" formControlName="sabado" type="checkbox" value="" id="flexCheckChecked" >
+                      <label class="form-check-label" for="flexCheckChecked">
+                        SABADO
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" formControlName="domingo" type="checkbox" value="" id="flexCheckChecked" >
+                      <label class="form-check-label" for="flexCheckChecked">
+                        DOMINGO
+                      </label>
+                    </div>
+
+
+
+
+                  </div>
+                  <div class="col-sm">
+
+                    <label class="form-label">Selecicone hora de atencion</label>
+                    <br>
+                    <input type="time"> a <input type="time">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup" optional>
+          <form [formGroup]="thirdFormGroup" (ngSubmit)="onSubmit()" novalidate>
+            <ng-template matStepLabel>Fill out your address</ng-template>
+
+
+            <div class="mb-3">
+              <label class="form-label">ingrese una imagen</label>
+              <div>
+                <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
+              </div>
+              <br>
+              <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Documento</label>
+              <br>
+              <input type="file" accept="application/pdf" (change)="cambioImagenPdf($event)">
+            </div>
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+
+              <button mat-button (click)="stepper.reset()">Reset</button>
+              <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary">GUARDAR</button>
+            </div>
+          </form>
+        </mat-step>
+
+      </mat-stepper>
+
+    </div>
+
+
+    <!--------------------------------------------------------------------------->
    
-      </mat-toolbar>
-      <br>
-      <br>
-      
-  <div class="container" *ngIf="mostrarFormulario">
-    <h2>componenete create</h2>
-  
-  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
-  
-      <div class="mb-3">
+    <!--div class="container" *ngIf="mostrarFormulario">
+      <h2>componenete create</h2>
+
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <div class="mb-3">
           <label class="form-label">name</label>
           <input formControlName="name" type="text" class="form-control" required>
-      </div>
-      <div class="mb-3">
+        </div>
+        <div class="mb-3">
           <label class="form-label">address</label>
           <input formControlName="address" type="text" class="form-control" required>
-      </div>
-      <div class="mb-3">
+        </div>
+        <div class="mb-3">
           <label class="form-label">email</label>
           <input formControlName="email" type="text" class="form-control" required>
-      </div>
-      <div class="mb-3">
+        </div>
+        <div class="mb-3">
           <label class="form-label">fono</label>
           <input formControlName="fono" type="text" class="form-control" required>
-      </div>
-      <div class="mb-3"> 
-          <label class="form-label">Selecicone  dia y hora de atencion</label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Selecicone dia y hora de atencion</label>
           <div class="container">
             <div class="row">
               <div class="col-sm">
-          <label class="form-label">Selecicone dia de atencion</label>
-          <br>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              LUNES
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-            <label class="form-check-label" for="flexCheckChecked">
-             MARTES
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              MIERCOLES
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-            <label class="form-check-label" for="flexCheckChecked">
-             JUEVES
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-             VIERNES
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-            <label class="form-check-label" for="flexCheckChecked">
-             SABADO
-            </label>
-          </div>
+                <label class="form-label">Selecicone dia de atencion</label>
+                <br>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    LUNES
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  <label class="form-check-label" for="flexCheckChecked">
+                    MARTES
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    MIERCOLES
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  <label class="form-check-label" for="flexCheckChecked">
+                    JUEVES
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    VIERNES
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  <label class="form-check-label" for="flexCheckChecked">
+                    SABADO
+                  </label>
+                </div>
 
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-            <label class="form-check-label" for="flexCheckChecked">
-             DOMINGO
-            </label>
-          </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  <label class="form-check-label" for="flexCheckChecked">
+                    DOMINGO
+                  </label>
+                </div>
 
 
 
-          
+
               </div>
               <div class="col-sm">
-                
+
                 <label class="form-label">Selecicone hora de atencion</label>
                 <br>
-                <input type="time"> a  <input type="time">
+                <input type="time"> a <input type="time">
               </div>
             </div>
           </div>
-      </div>
-      <div class="mb-3"> 
-        <label class="form-label">ingrese una imagen</label>
-        <div>
-          <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
         </div>
-        <br>
-        <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
-      </div>
-      <div class="mb-3"> 
-        <label class="form-label">Documento</label>
-        <br>
-        <input type="file" accept="application/pdf" (change)="cambioImagenPdf($event)">
-      </div>
+        <div class="mb-3">
+          <label class="form-label">ingrese una imagen</label>
+          <div>
+            <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
+          </div>
+          <br>
+          <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Documento</label>
+          <br>
+          <input type="file" accept="application/pdf" (change)="cambioImagenPdf($event)">
+        </div>
 
-      <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary" >GUARDAR</button>
-     
+        <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary">GUARDAR</button>
 
-     
-      
-  
-  
-  
-  </form>
-  <br>
-  <button  class="btn btn-outline-danger" routerLink="/home" >cancel</button>
-  
-  </div>
-  
-  <div *ngIf="confirmar">
-      <p>
-  
-          espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
-          
-      </p>
-  </div>
-  
-  <div *ngIf="aprobado">
-      <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)"></app-regisall>
-  </div>
-  
-  <div *ngIf="cuentaVerificada">
-      <p>
-          su cuenta ha sido aprobada y verificada 
-      </p>
-      <p>
-          visualice su informacion dando click <a class="btn btn-info" routerLink="/home" >aqui</a>
-      </p>
-  </div>
-  
-  <div *ngIf="rechazar">
-      <p>
-          mensaje de rechazar
-      </p>
-  </div>
 
+
+
+
+
+
+      </form>
+      <br>
+      <button class="btn btn-outline-danger" routerLink="/home">cancel</button>
+
+    </!--div-->
+
+    <div *ngIf="confirmar">
+      <p>
+
+        espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
+
+      </p>
     </div>
-  
-  </mat-drawer-container>
 
+    <div *ngIf="aprobado">
+      <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)">
+      </app-regisall>
+    </div>
 
+    <div *ngIf="cuentaVerificada">
+      <p>
+        su cuenta ha sido aprobada y verificada
+      </p>
+      <p>
+        visualice su informacion dando click <a class="btn btn-info" routerLink="/home">aqui</a>
+      </p>
+    </div>
 
+    <div *ngIf="rechazar">
+      <p>
+        mensaje de rechazar
+      </p>
+    </div>
+
+  </div>
+
+</mat-drawer-container>

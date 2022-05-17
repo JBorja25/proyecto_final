@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
@@ -25,13 +26,13 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PerfilesModule } from './auth/perfiles/perfiles.module';
+
 import { CreateComponent } from './auth/create/create.component';
 import { EditComponent } from './auth/edit/edit.component';
 import { ShowComponent } from './auth/show/show.component';
 import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginModule } from './auth/login/login.module';
+
 // import { RegisterModule } from './auth/register/register.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthasilosGuard } from './guards/authasilos.guard';
@@ -55,10 +56,23 @@ import { MatListModule } from '@angular/material/list';
 
 
 import { MatStepperModule } from '@angular/material/stepper';
-import { ProformaModule } from './auth/proforma/proforma.module';
-import { HomeModule } from './home/home.module';
+
+import { PerfilComponent } from './auth/perfil/perfil.component';
+import { MatLabel } from '@angular/material/form-field';
 import { RegisterComponent } from './auth/register/register.component';
-// import { NavbarModule } from './shared/navbar/navbar.module';
+import { LoginComponent } from './auth/login/login.component';
+import { PerfilesComponent } from './auth/perfiles/perfiles.component';
+import {MatInputModule} from '@angular/material/input';
+import { ProformaComponent } from './auth/proforma/proforma.component';
+
+
+
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -73,8 +87,14 @@ import { RegisterComponent } from './auth/register/register.component';
    RegisallComponent,
    PruebaComponent,
    Prueba2Component,
+   PerfilComponent,
    NavbarComponent,
-   RegisterComponent
+   HomeComponent,
+   RegisterComponent,
+   LoginComponent,
+   PerfilesComponent,
+   ProformaComponent
+
    
   ],
   imports: [
@@ -89,10 +109,10 @@ import { RegisterComponent } from './auth/register/register.component';
     provideFirebaseApp(()=>initializeApp(environment.firebaseConfig)),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule,
-    PerfilesModule,
+
     FormsModule,
     ReactiveFormsModule,
-    LoginModule,
+  
     AngularFireStorageModule,
     MatSidenavModule,
     MatIconModule,
@@ -107,7 +127,17 @@ import { RegisterComponent } from './auth/register/register.component';
     MatToolbarModule,
     MatListModule,
     MatStepperModule,
-    ProformaModule
+    MatInputModule,
+
+  
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    
 
   ],
   providers: [CookieService, AuthService],
