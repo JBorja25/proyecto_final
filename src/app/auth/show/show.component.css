@@ -1,18 +1,4 @@
 
-.bg-gradient{
-    background:linear-gradient(to right, #606c88, #3f4c6b) !important;
-}
-table {
-   
-    align-items: center;
-    justify-content: center;
-    margin: 16px;
-    padding: 16px;
-    border-radius: 16px;
-    width: 150%; 
-     
-  }
-  th{
-    background:linear-gradient(to right, #606c88, #3f4c6b) ;
-  }
- 
+ table{
+     width: 100%;
+ }

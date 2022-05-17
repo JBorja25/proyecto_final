@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { RechazadosComponent } from './rechazados/rechazados.component';
 
 @Component({
   selector: 'app-show',
@@ -17,29 +18,30 @@ import { CookieService } from 'ngx-cookie-service';
 export class ShowComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['NOMBRE', 'direcicon', 'email', 'telefono'];
-  dataSource = new MatTableDataSource;
+  dataSourceAprobados = new MatTableDataSource;
+  dataSourceRechazados = new MatTableDataSource;
+  
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) pagaprobados: MatPaginator;
+
+  @ViewChild('recargar', { static: false}) rechazadosComponent : RechazadosComponent;
+  
+  showFiller = false;
+  PostAprobados: any[] = [];
+  postrechazados: any[] = [];
+  postPendientes: any[] = [];
+
   constructor(private postService: PostService,     private _cookie: CookieService,
     private _auth: AuthService,     private router: Router,) { }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
+    this.cargarAsilosAprobados();
+    this.getAsilosPendiente();
+    console.log(this.pagaprobados);
   }
-  showFiller = false;
-  Post: any[] = [];
 
   ngOnInit(): void {
-    this.postService.getPostId()
-      .subscribe((resp:any) => {
-        console.log(resp);
-        for (let f of resp.docs) {
-          // console.log(f);
-
-          this.Post.push({ data: f.data(), idDoc: f.id });
-          this.dataSource=new MatTableDataSource<any>(this.Post);
-        }
-
-      });
+    
     /* this.postService.getPosts().subscribe((res)=>{
       this.Post= res.map((e)=>{
         return {
@@ -48,6 +50,53 @@ export class ShowComponent implements OnInit, AfterViewInit {
         };
       });
     }); */
+    // this.cargarAsilosAprobados();
+    
+    
+  }
+
+  getAsilosPendiente(){
+    this.postService.getPostId()
+    .subscribe((resp:any) => {
+      console.log(resp);
+      this.postPendientes = [];
+      for (let f of resp.docs) {
+        console.log(f.data());
+
+        if(!f.data().aprobado && !f.data().rechazar){
+          this.postPendientes.push({ data: f.data(), idDoc: f.id });
+          this.dataSourceAprobados=new MatTableDataSource<any>(this.PostAprobados);
+        }
+      }
+
+    });
+  }
+
+  cargarAsilosAprobados(){
+    this.postService.getPostId()
+      .subscribe((resp:any) => {
+        console.log(resp);
+        this.PostAprobados = [];
+        // this.postrechazados = [];
+        for (let f of resp.docs) {
+          console.log(f.data());
+
+          if(f.data().aprobado && !f.data().rechazar){
+            this.PostAprobados.push({ data: f.data(), idDoc: f.id });
+            this.dataSourceAprobados=new MatTableDataSource<any>(this.PostAprobados);
+            console.log(this.dataSourceAprobados);
+            
+          }else if(!f.data().aprobado && f.data().rechazar){
+            console.log('entra en rechazado');
+            
+            this.postrechazados.push({ data: f.data(), idDoc: f.id });
+            console.log(this.postrechazados);
+            
+            // this.dataSourceRechazados=new MatTableDataSource<any>(this.postrechazados);
+          }
+        }
+
+      });
   }
 
   deleteRow = (post) => this.postService.deletePosts(post);
@@ -58,9 +107,23 @@ export class ShowComponent implements OnInit, AfterViewInit {
     this.postService.actualizarAprobacion(true, false, false, post.idDoc)
       .then((resp) => {
         console.log(resp);
-
+        this.getAsilosPendiente();
+        this.cargarAsilosAprobados();
+        this.rechazadosComponent.ngAfterViewInit();
       });
+      
+    }
+    
+    rechazar(post: any){
+      // primero ejecutas el dialog, metodos afterdidClose().subscribe()
+      this.postService.actualizarRechazados(false, false, false, true, post.idDoc)
+      .then((resp) => {
+        console.log(resp);
+        this.getAsilosPendiente();
+        this.cargarAsilosAprobados();
+        this.rechazadosComponent.ngAfterViewInit();
 
+    });
   }
   async cerrar() {
     this._cookie.deleteAll();
