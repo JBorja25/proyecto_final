@@ -118,10 +118,10 @@
     <br>
     <br>
     <!---------------------------------------------------------------------------------->
-    <!--div class="container" *ngIf="mostrarFormulario">
+    <div class="container" *ngIf="mostrarFormulario">
       <mat-stepper labelPosition="bottom" #stepper>
         <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup" class="container" (ngSubmit)="onSubmit()" novalidate>
+          <form [formGroup]="firstFormGroup" class="container" >
             <ng-template matStepLabel>Fill out your name</ng-template>
 
             <div class="mb-3">
@@ -147,8 +147,8 @@
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" optional>
-          <form [formGroup]="secondFormGroup" (ngSubmit)="onSubmit()" novalidate>
+        <mat-step [stepControl]="SecondFormGroup" optional>
+          <form [formGroup]="SecondFormGroup" >
             <ng-template matStepLabel>Fill out your address</ng-template>
             <div class="mb-3">
               <label class="form-label">Selecicone dia y hora de atencion</label>
@@ -158,44 +158,44 @@
                     <label class="form-label">Selecicone dia de atencion</label>
                     <br>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <input class="form-check-input"  formControlName="lunes" type="checkbox" value="" id="flexCheckDefault" >
                       <label class="form-check-label" for="flexCheckDefault">
                         LUNES
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <input class="form-check-input"  formControlName="martes" type="checkbox" value="" id="flexCheckChecked" >
                       <label class="form-check-label" for="flexCheckChecked">
                         MARTES
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <input class="form-check-input" formControlName="miercoles" type="checkbox" value="" id="flexCheckDefault">
                       <label class="form-check-label" for="flexCheckDefault">
                         MIERCOLES
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <input class="form-check-input"  formControlName="jueves"type="checkbox" value="" id="flexCheckChecked" >
                       <label class="form-check-label" for="flexCheckChecked">
                         JUEVES
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <input class="form-check-input"  formControlName="viernes"type="checkbox" value="" id="flexCheckDefault">
                       <label class="form-check-label" for="flexCheckDefault">
                         VIERNES
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <input class="form-check-input" formControlName="sabado" type="checkbox" value="" id="flexCheckChecked" >
                       <label class="form-check-label" for="flexCheckChecked">
                         SABADO
                       </label>
                     </div>
 
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <input class="form-check-input" formControlName="domingo" type="checkbox" value="" id="flexCheckChecked" >
                       <label class="form-check-label" for="flexCheckChecked">
                         DOMINGO
                       </label>
@@ -251,11 +251,12 @@
 
       </mat-stepper>
 
-    </!--div-->
+    </div>
 
 
     <!--------------------------------------------------------------------------->
-    <div class="container" *ngIf="mostrarFormulario">
+   
+    <!--div class="container" *ngIf="mostrarFormulario">
       <h2>componenete create</h2>
 
       <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
@@ -366,7 +367,7 @@
       <br>
       <button class="btn btn-outline-danger" routerLink="/home">cancel</button>
 
-    </div>
+    </!--div-->
 
     <div *ngIf="confirmar">
       <p>

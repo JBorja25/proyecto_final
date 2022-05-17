@@ -18,7 +18,7 @@ import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 })
 export class RegisAsiComponent implements OnInit, AfterViewInit {
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
 
@@ -49,8 +49,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     private _auth: AuthService,
     private _fotos: SubirfotosService,
     private _sanitazer: DomSanitizer,
-    private _formBuilder: FormBuilder
-
+    private _formBuilder: FormBuilder,
+    private _fb: FormBuilder
   ) {
     this.postForm= this.formBuilder.group({
       name:[''],
@@ -67,16 +67,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   }
   
   
-  async ngOnInit() {
-    this.getDataFirebase();
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    });
-  }
-
+ 
   getDataFirebase(){
     // console.log(this.re);
     
@@ -105,8 +96,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     .subscribe((respData) =>{
       console.log(respData);
       for(let f of respData.docs){
-        let enviarFirebase: Post = {
-          ...this.postForm.value,
+        let enviarFirebase = {
+          ...this.firstFormGroup.value,
           uid: this.uuid,
           mostrarRegistroAsilo: false,
           rechazar: false,
@@ -115,6 +106,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           cuentaVerificada:false,
           foto: this.urlFotofirebase
         }
+        // console.log(enviarFirebase);
+        
         this.postService.createPosts(enviarFirebase)
         .then((resp) =>{
           console.log('se registro correctamente' ,resp);
@@ -175,7 +168,35 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
   }
 
-  
+  crearFormulario(){
+    this.firstFormGroup = this._fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      email: ['', Validators.required],
+      fono: ['', Validators.required]
+    });
+
+    this.SecondFormGroup = this._fb.group({
+      lunes: ['', Validators.required],
+      martes: ['', Validators.required],
+      miercoles: ['', Validators.required],
+      jueves: ['', Validators.required],
+      viernes: ['', Validators.required],
+      sabado: ['', Validators.required],
+      domingo: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._fb.group({
+      servMed: ['', Validators.required],
+      servCogni: ['', Validators.required]
+    });
+
+
+  }
+  async ngOnInit() {
+    this.crearFormulario();
+    // this.getDataFirebase(); 
+  }
+
 
 
 }
