@@ -10,6 +10,10 @@ import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { RechazadosComponent } from './rechazados/rechazados.component';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogrechazarComponent } from './dialogrechazar/dialogrechazar.component';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-show',
   templateUrl: './show.component.html',
@@ -31,8 +35,13 @@ export class ShowComponent implements OnInit, AfterViewInit {
   postrechazados: any[] = [];
   postPendientes: any[] = [];
 
-  constructor(private postService: PostService,     private _cookie: CookieService,
-    private _auth: AuthService,     private router: Router,) { }
+  constructor(
+    private postService: PostService,
+    private _cookie: CookieService,
+    private _auth: AuthService,
+    private router: Router,
+    private _dialog: MatDialog
+    ) { }
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
     this.cargarAsilosAprobados();
@@ -99,7 +108,12 @@ export class ShowComponent implements OnInit, AfterViewInit {
       });
   }
 
-  deleteRow = (post) => this.postService.deletePosts(post);
+  deleteRow = (post) => {
+    this.postService.deletePosts(post);
+    this.cargarAsilosAprobados();
+    this.getAsilosPendiente();
+    this.rechazadosComponent.ngAfterViewInit();
+  };
 
   aprobar(post: any) {
     console.log(post);
@@ -116,19 +130,37 @@ export class ShowComponent implements OnInit, AfterViewInit {
     
     rechazar(post: any){
       // primero ejecutas el dialog, metodos afterdidClose().subscribe()
-      this.postService.actualizarRechazados(false, false, false, true, post.idDoc)
-      .then((resp) => {
-        console.log(resp);
-        this.getAsilosPendiente();
-        this.cargarAsilosAprobados();
-        this.rechazadosComponent.ngAfterViewInit();
+      const dialog = this._dialog.open(DialogrechazarComponent, {
+        width: '350px',
+        height: '250px',
+        closeOnNavigation:false,
+        disableClose: true,
+        data: post.idDoc
+      });
 
-    });
+      dialog.afterClosed()
+      .subscribe((resp) =>{
+        if(resp.v){
+          Swal.fire('Guardando', 'Guardando registro, espere por favor...', 'info');
+          Swal.showLoading();
+          this.postService.actualizarRechazados(false, false, false, true, post.idDoc, resp.mensaje)
+          .then((resp) => {
+            console.log(resp);
+            this.getAsilosPendiente();
+            this.cargarAsilosAprobados();
+            this.rechazadosComponent.ngAfterViewInit();
+            Swal.close();
+    
+        });
+        }
+      })
   }
   async cerrar() {
     this._cookie.deleteAll();
     await this._auth.logout();
     this.router.navigateByUrl('/login', { replaceUrl: true, skipLocationChange: false });
   }
+
+
 
 }

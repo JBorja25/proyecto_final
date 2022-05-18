@@ -1,5 +1,5 @@
-<mat-drawer-container class="example-container" height="100vh" style="height: 100vh; width: 100%;" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+<mat-drawer-container class="example-container" style="height: 100%; width: 100%;" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" style="margin-left: 5px;">
     <!--p>Auto-resizing sidenav</!--p>
       <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
       <button (click)="showFiller = !showFiller" mat-raised-button>
@@ -86,10 +86,10 @@
 
   </mat-drawer>
 
-  <div class="row example-sidenav-content" style="width: 100%;">
+  <div class="row example-sidenav-content" style="width: 100vw;">
     <mat-toolbar color="primary">
       <button type="button" mat-button (click)="drawer.toggle()">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
       </button>
 
     </mat-toolbar>
@@ -124,8 +124,9 @@
                 <td>
                   <!-- <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
                                           class="fa-solid fa-pen"></i></button> -->
-                  <button (click)="aprobar(post)" class="btn btn-outline-info">
-                    <i class="fa-solid fa-book"></i></button>
+                  <a [href]="post.data.documento" target="_blank" class="btn btn-outline-info">
+                    <i class="fa-solid fa-book"></i>
+                  </a>
                   
                   <button (click)="aprobar(post)" class="btn btn-outline-success">
                     <i class="fa-solid fa-check"></i></button>
@@ -154,7 +155,7 @@
   
   <mat-tab label="Asilos Aprobados">
     <h2>Asilos Aprovados </h2>
-      <div class="row">
+      <div class="row" style="width: 98%">
         <div class="col"></div>
         <div class="col-md-8">
           <table mat-table [dataSource]="dataSourceAprobados" class="mat-elevation-z8">
@@ -200,7 +201,7 @@
   <mat-tab label="Asilos rechazados">
   
     <h2>Asilos rechazados </h2>
-      <div class="row">
+      <div class="row" style="width: 98%">
         <div class="col"></div>
         <div class="col-md-8">
           <app-rechazados #recargar></app-rechazados>

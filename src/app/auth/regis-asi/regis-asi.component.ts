@@ -40,6 +40,9 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
 
   urlFotofirebase: any = '';
   rool:string='';
+  nombre: string= '';
+
+  documentoPDF: string = '';
   
   constructor(
     public postService:PostService,
@@ -50,7 +53,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     private _fotos: SubirfotosService,
     private _sanitazer: DomSanitizer,
     private _formBuilder: FormBuilder,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _post: PostService
   ) {
     this.postForm= this.formBuilder.group({
       name:[''],
@@ -61,9 +65,26 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     this.uuid = this._cookie.get('uid');
     this.registroAnterior = 'prueba de envio';
   }
+
+  async ngOnInit() {
+    this.crearFormulario();
+    
+    // this.getDataFirebase(); 
+  }
   ngAfterViewInit(): void {
     
     this.rool=this._cookie.get('tipo')
+    this._auth.traerDataFirebase(this.uuid)
+    .subscribe((respData: any) =>{
+      for(let f of respData.docs){
+        
+        console.log(f.data());
+        
+       
+        
+      }
+    });
+    
   }
   
   
@@ -92,6 +113,11 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   onSubmit(){
     // trear la data del usuario
     // iddoc
+    console.log(this.firstFormGroup.invalid, this.SecondFormGroup.invalid, this.thirdFormGroup.invalid);
+    
+    if(!this.firstFormGroup.invalid || !this.SecondFormGroup.invalid || !this.thirdFormGroup.invalid){
+      return;
+    }
     this._auth.traerDataFirebase(this.uuid)
     .subscribe((respData) =>{
       console.log(respData);
@@ -105,7 +131,8 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           aprobado: false,
           cuentaVerificada:false,
           foto: this.urlFotofirebase,
-          mensajeRechazo: ''
+          mensaje: '',
+          documento: this.documentoPDF
         }
         // console.log(enviarFirebase);
         
@@ -114,7 +141,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           console.log('se registro correctamente' ,resp);
           this.getDataFirebase();
 
-          this._fotos.insertImages(this.FotoSubir);
+          // this._fotos.insertImages(this.FotoSubir);
 
         })
       }
@@ -142,8 +169,10 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     const rul =URL.createObjectURL(evento.target.files[0]);
     this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
     console.log(rul);
-    this._fotos.insertImages(this.FotoSubir)
+    this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
     .then((resp)=>{
+      console.log(resp.ref);
+      
       resp.ref.getDownloadURL()
       .then((respGet)=>{
         this.urlFotofirebase = respGet;
@@ -160,6 +189,25 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
 
   cambioImagenPdf(evento: any){
     console.log(evento.target.files[0]);
+    this._fotos.insertarPDF(evento.target.files[0])
+    .then((respPDF) =>{
+      // console.log(respPDF.task.then(i => i.));
+      respPDF.task.then((resp) =>{
+        resp.ref.getDownloadURL().then((r) =>{
+          console.log(r);
+
+          this.documentoPDF = r;
+          
+        })
+        .catch((err) =>{})
+        
+      })
+      
+    })
+    .catch((error) =>{
+      console.log(error);
+      
+    })
     
   }
 
@@ -193,10 +241,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
 
 
   }
-  async ngOnInit() {
-    this.crearFormulario();
-    // this.getDataFirebase(); 
-  }
+  
 
 
 

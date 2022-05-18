@@ -59,6 +59,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 import { PerfilComponent } from './auth/perfil/perfil.component';
 import { MatLabel } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { PerfilesComponent } from './auth/perfiles/perfiles.component';
@@ -74,6 +75,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RechazadosComponent } from './auth/show/rechazados/rechazados.component';
+import { DialogrechazarComponent } from './auth/show/dialogrechazar/dialogrechazar.component';
 
 
 
@@ -95,7 +97,8 @@ import { RechazadosComponent } from './auth/show/rechazados/rechazados.component
    LoginComponent,
    PerfilesComponent,
    ProformaComponent,
-   RechazadosComponent
+   RechazadosComponent,
+   DialogrechazarComponent
 
    
   ],
@@ -130,8 +133,7 @@ import { RechazadosComponent } from './auth/show/rechazados/rechazados.component
     MatListModule,
     MatStepperModule,
     MatInputModule,
-
-  
+    MatDialogModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,

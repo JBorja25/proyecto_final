@@ -19,6 +19,10 @@ export class PostService {
     return this.angularFirestore.collection("post")
                 .snapshotChanges()
   } */
+
+  getPostByUid(uid: any){
+    return this.angularFirestore.collection('post', ref => ref.where('uid', '==', uid)).get();
+  }
   getPostId(){
     return this.angularFirestore.collection("post")
                 .get();
@@ -54,7 +58,7 @@ export class PostService {
   deletePosts(post){
     return this.angularFirestore
     .collection("post")
-    .doc(post.id)
+    .doc(post.idDoc)
     .delete();
   }
 
@@ -66,12 +70,16 @@ export class PostService {
       cuentaVerificada
     });
   }
-  actualizarRechazados(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, rechazar: boolean, idDoc: string){
+  actualizarRechazados(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, rechazar: boolean, idDoc: string, mensaje: string){
     return this.angularFirestore.collection('post').doc(idDoc).update({
       aprobado,
       confirmacion,
       cuentaVerificada,
-      rechazar
+      rechazar,
+      mensaje
     });
+
+
   }
+  
 }

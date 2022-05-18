@@ -222,7 +222,7 @@
           </form>
         </mat-step>
         <mat-step [stepControl]="thirdFormGroup" optional>
-          <form [formGroup]="thirdFormGroup" (ngSubmit)="onSubmit()" novalidate>
+          <form [formGroup]="thirdFormGroup" novalidate>
             <ng-template matStepLabel>Fill out your address</ng-template>
 
 
@@ -244,7 +244,7 @@
               <button mat-button matStepperPrevious>Back</button>
 
               <button mat-button (click)="stepper.reset()">Reset</button>
-              <button [disabled]="!postForm.valid" type="submit" class="btn btn-primary">GUARDAR</button>
+              <button [disabled]="!thirdFormGroup.valid" type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
             </div>
           </form>
         </mat-step>
@@ -400,3 +400,7 @@
   </div>
 
 </mat-drawer-container>
+
+<div>
+
+</div>
