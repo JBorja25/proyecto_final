@@ -148,68 +148,35 @@
           </form>
         </mat-step>
         <mat-step [stepControl]="SecondFormGroup" optional>
-          <form [formGroup]="SecondFormGroup" >
+          
             <ng-template matStepLabel>Fill out your address</ng-template>
             <div class="mb-3">
               <label class="form-label">Selecicone dia y hora de atencion</label>
               <div class="container">
                 <div class="row">
-                  <div class="col-sm">
-                    <label class="form-label">Selecicone dia de atencion</label>
-                    <br>
-                    <div class="form-check">
-                      <input class="form-check-input"  formControlName="lunes" type="checkbox" value="" id="flexCheckDefault" >
-                      <label class="form-check-label" for="flexCheckDefault">
-                        LUNES
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input"  formControlName="martes" type="checkbox" value="" id="flexCheckChecked" >
-                      <label class="form-check-label" for="flexCheckChecked">
-                        MARTES
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" formControlName="miercoles" type="checkbox" value="" id="flexCheckDefault">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        MIERCOLES
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input"  formControlName="jueves"type="checkbox" value="" id="flexCheckChecked" >
-                      <label class="form-check-label" for="flexCheckChecked">
-                        JUEVES
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input"  formControlName="viernes"type="checkbox" value="" id="flexCheckDefault">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        VIERNES
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" formControlName="sabado" type="checkbox" value="" id="flexCheckChecked" >
-                      <label class="form-check-label" for="flexCheckChecked">
-                        SABADO
-                      </label>
-                    </div>
-
-                    <div class="form-check">
-                      <input class="form-check-input" formControlName="domingo" type="checkbox" value="" id="flexCheckChecked" >
-                      <label class="form-check-label" for="flexCheckChecked">
-                        DOMINGO
-                      </label>
-                    </div>
-
-
-
+                  <div class="col">
+                    <mat-checkbox [checked]="allComplete" [color]="dias.color" [indeterminate]="algunasCompletadas()" (change)="setearTodos($event.checked)">
+                      {{ dias.name }}
+                    </mat-checkbox>
+                    <ul>
+                      <li *ngFor="let dia of dias.diasSemana">
+                        <mat-checkbox [color]="dia.color" [(ngModel)]="dia.completed" (ngModelChange)="actualizarSeleccionados()">{{ dia.name }}</mat-checkbox>
+                      </li>
+                    </ul>
 
                   </div>
-                  <div class="col-sm">
+                  <div class="col">
 
                     <label class="form-label">Selecicone hora de atencion</label>
                     <br>
-                    <input type="time"> a <input type="time">
+                    <div class="row">
+                      <span><b>Hora Inicio:</b></span>
+                      <input type="time" class="form-control" [(ngModel)]="horaDesde" step="1800" min="00:00">
+                    </div>
+                    <div class="row">
+                      <span><b>Hora Fin:</b></span>
+                      <input type="time" class="form-control" [(ngModel)]="horaHasta" step="1800" min="00:00">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -219,7 +186,7 @@
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
             </div>
-          </form>
+          
         </mat-step>
         <mat-step [stepControl]="thirdFormGroup" optional>
           <form [formGroup]="thirdFormGroup" novalidate>
@@ -244,7 +211,7 @@
               <button mat-button matStepperPrevious>Back</button>
 
               <button mat-button (click)="stepper.reset()">Reset</button>
-              <button [disabled]="!thirdFormGroup.valid" type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
+              <button type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
             </div>
           </form>
         </mat-step>

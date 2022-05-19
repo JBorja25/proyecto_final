@@ -127,6 +127,7 @@ import { DialogrechazarComponent } from './auth/show/dialogrechazar/dialogrechaz
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
+    MatCheckboxModule,
     MatButtonModule,
     LayoutModule,
     MatToolbarModule,
@@ -140,7 +141,6 @@ import { DialogrechazarComponent } from './auth/show/dialogrechazar/dialogrechaz
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
-    MatCheckboxModule,
     
 
   ],

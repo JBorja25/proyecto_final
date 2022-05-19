@@ -10,6 +10,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { Post } from '../../models/post.model';
 import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
+import { ThemePalette } from '@angular/material/core';
+
+// uso de interface por obligacion de material design
+export interface diasI {
+  name: string,
+  color: ThemePalette,
+  completed: boolean,
+  diasSemana?: diasI[]
+}
 
 @Component({
   selector: 'app-regis-asi',
@@ -43,6 +52,30 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   nombre: string= '';
 
   documentoPDF: string = '';
+
+  // variables para los checkboxes
+
+  dias: diasI = {
+    name: 'Todos los dias',
+    completed: false,
+    color: 'primary',
+    diasSemana: [
+      { name: 'Lunes', completed: false, color: 'primary'},
+      { name: 'Martes', completed: false, color: 'primary'},
+      { name: 'Miercoles', completed: false, color: 'primary'},
+      { name: 'Jueves', completed: false, color: 'primary'},
+      { name: 'Viernes', completed: false, color: 'primary'},
+      { name: 'Sabado', completed: false, color: 'primary'},
+      { name: 'Domingo', completed: false, color: 'primary'}
+    ]
+  }
+  allComplete: boolean = false;
+
+
+  // ===============================================================
+  // variables para las horas
+  horaDesde: string='';
+  horaHasta: string = '';
   
   constructor(
     public postService:PostService,
@@ -113,11 +146,15 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   onSubmit(){
     // trear la data del usuario
     // iddoc
-    console.log(this.firstFormGroup.invalid, this.SecondFormGroup.invalid, this.thirdFormGroup.invalid);
+    console.log(this.firstFormGroup.invalid, this.thirdFormGroup.value);
+    console.log(this.dias, this.horaDesde, this.horaHasta);
+    console.log(this.dias.diasSemana.filter((t) => t.completed));
     
-    if(!this.firstFormGroup.invalid || !this.SecondFormGroup.invalid || !this.thirdFormGroup.invalid){
+    
+    
+    /* if(!this.firstFormGroup.invalid){
       return;
-    }
+    } */
     this._auth.traerDataFirebase(this.uuid)
     .subscribe((respData) =>{
       console.log(respData);
@@ -132,7 +169,10 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           cuentaVerificada:false,
           foto: this.urlFotofirebase,
           mensaje: '',
-          documento: this.documentoPDF
+          documento: this.documentoPDF,
+          horas: this.dias.diasSemana.filter((t) => t.completed),
+          horaDesde: this.horaDesde,
+          horaHasta: this.horaHasta
         }
         // console.log(enviarFirebase);
         
@@ -241,8 +281,29 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
 
 
   }
-  
 
+  // funcion para seleccionar todas los dias
+  algunasCompletadas():boolean {
+    if(this.dias.diasSemana == null){
+      return false;
+    }
+    return this.dias.diasSemana.filter((t:any) => t.completed).length > 0 && !this.allComplete;
+  }
 
+  setearTodos(completed: boolean){
+    this.allComplete = completed;
+    this.dias.completed = completed;
+    if(this.dias.diasSemana == null){
+      return;
+    }
+    console.log(this.dias);
+    
+    this.dias.diasSemana.forEach((t) => t.completed = completed);
+  }
 
+  actualizarSeleccionados(){
+    console.log(this.dias);
+    
+    this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
+  }
 }
