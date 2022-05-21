@@ -80,7 +80,24 @@ export class AuthService {
   getPost(uid: string){
     return this._f.collection('post', ref => ref.where('uid', '==', uid)).get();
   }
-  getCurrentUser() {
-    return this.afAuth.authState.pipe(first()).toPromise();
+
+  getCurrentUser(){
+    return this.afAuth.currentUser;
+  }
+
+  insertName(){
+    return this.afAuth.user;
+  }
+  insertTelefono(nombre: any){
+    return this.afAuth.user;
+  }
+  insertPhoto(){
+    return this.afAuth.user;
+  }
+
+  updateDireccion(direccion: any, idDoc: string){
+    return this._f.collection('registro').doc(idDoc).update({
+      direccion
+    });
   }
 }

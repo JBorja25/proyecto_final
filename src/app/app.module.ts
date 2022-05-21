@@ -76,6 +76,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RechazadosComponent } from './auth/show/rechazados/rechazados.component';
 import { DialogrechazarComponent } from './auth/show/dialogrechazar/dialogrechazar.component';
+import { ProfileasiloComponent } from './auth/profileasilo/profileasilo/profileasilo.component';
+import { CambiarimgComponent } from './auth/profileasilo/cambiarimg/cambiarimg.component';
 
 
 
@@ -98,7 +100,9 @@ import { DialogrechazarComponent } from './auth/show/dialogrechazar/dialogrechaz
    PerfilesComponent,
    ProformaComponent,
    RechazadosComponent,
-   DialogrechazarComponent
+   DialogrechazarComponent,
+   ProfileasiloComponent,
+   CambiarimgComponent
 
    
   ],

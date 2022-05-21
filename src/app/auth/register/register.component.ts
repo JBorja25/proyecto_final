@@ -27,24 +27,37 @@ export class RegisterComponent implements OnInit {
   
   async onRegister(){
 
-    const{email, password}=this.registerForm.value;
+    const{email, password ,nombre}=this.registerForm.value;
     try {
      const user= await this.authSvc.register(email, password);
      console.log(user);
       this.enviarFirebase = {
-        nombre: this.registerForm.get('nombre').value,
         direccion: this.registerForm.get('direccion').value,
-        correo: this.registerForm.get('email').value,
-        password: this.registerForm.get('password').value,
         tipo: 'asilo',
         uid: user.user.uid
       }
+
+      this.authSvc.insertName()
+      .subscribe((resp) =>{
+        resp.updateProfile({
+          displayName: nombre
+        }).then((resp) =>{
+          console.log(resp);
+          
+        })
+
+        
+      });
+
+      
+      
     
 
 
     this.authSvc.guardarInfoRegistro(this.enviarFirebase)
     .then((respFirebase: any)=>{
       console.log(respFirebase.user);
+        
         if(user && respFirebase.id.length > 2){
           console.log('regsitrado correctamente');
           this.authSvc.guardarCookie('asilos', user.user.uid);

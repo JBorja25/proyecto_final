@@ -1,0 +1,183 @@
+
+<mat-drawer-container class="example-container" width="700" height="100vh" style="height: 100vh;" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+  
+      <!--button (click)="showFiller = !showFiller" mat-raised-button>
+          Toggle extra text
+        </!--button-->
+      <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <svg class="bi me-1" width="40" height="32">
+            <use xlink:href="" />
+          </svg>
+          <span class="fs-4">Sidebar</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item mt-4">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#home" />
+              </svg>
+              PERFILE
+            </a>
+          </li>
+          <!-- <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table" />
+              </svg>
+  
+            </a>
+          </li> -->
+          
+          <li class="nav-item mt-4">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#home" />
+              </svg>
+              AFILIACION
+            </a>
+          </li>
+          <!-- <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table" />
+              </svg>
+  
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table" />
+              </svg>
+  
+            </a>
+          </li> -->
+          <!--li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#home" />
+              </svg>
+              REGISTRO PROPIETARIO
+            </a>
+          </!--li-->
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table" />
+              </svg>
+  
+            </a>
+          </li>
+  
+  
+        </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>LOgout</strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+  
+            <li (click)="cerrar()"><a class="dropdown-item btn">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </mat-drawer>
+  
+  
+  
+    <div class="example-sidenav-content">
+      <!--button type="button" mat-button (click)="drawer.toggle()">
+          Toggle sidenav
+        </!--button-->
+      <mat-toolbar color="primary">
+        <button type="button" mat-button (click)="drawer.toggle()">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+        </button>
+  
+      </mat-toolbar>
+
+    </div>
+    <!-- ======================================================================================================= -->
+    <!-- 
+
+      <app-elnombrequelepongas [data]="" [dataUser] ="" [idDoc]=""></app-elnombrequelepongas>
+     -->
+    <div class="row" style="display: flex; justify-content: center; height: 85%; width: 95%; margin: 15px;">
+        <div class="col-md-4" style="border-right: 1px solid #ccc; margin-right: 15px;">
+            <div class="row" style="display: flex; margin-top: 25%; justify-content: center;">
+                <div class="col-md-8" style="display:flex; justify-content: end; margin-left: 14px;">
+
+                    <img [src]="dataUser.photoURL != null ? dataUser.photoURL : '/assets/img/no-photo.png'" alt="no photo" style="height: 130px; width: 120px;border-radius: 100%; "/>
+                </div>
+                <div class="col" style="display: flex; align-items: center; justify-content: start;">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50" id="img" (click)="cambiarImg($event)">
+                        <path d="M11.8 34.15H36.25L28.9 24.35L22.3 32.9L17.65 26.55ZM9 42Q7.8 42 6.9 41.1Q6 40.2 6 39V9Q6 7.8 6.9 6.9Q7.8 6 9 6H39Q40.2 6 41.1 6.9Q42 7.8 42 9V39Q42 40.2 41.1 41.1Q40.2 42 39 42ZM9 39H39Q39 39 39 39Q39 39 39 39V9Q39 9 39 9Q39 9 39 9H9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39ZM9 9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39Q9 39 9 39Q9 39 9 39V9Q9 9 9 9Q9 9 9 9Z"/>
+                    </svg>
+                </div>    
+            </div>
+            <div class="row" >
+                <div class="col" style="display: flex; justify-content: center; margin-top: 10px;">
+                    {{dataUser.displayName}}
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col" style="display: flex; justify-content: center; margin-top: 10px;">
+                    {{dataUser.email}}
+                </div>
+            </div>
+            
+        </div>
+        <div class="col" style="margin-left: 12%">
+            <div class="row" style="margin-top: 5%;">
+                <h2>Configuracion del perfil</h2>
+            </div>
+            <div class="row" style="display: flex; justify-content: center; width: 75%;">
+                <div class="col">
+                    <span class="form-label">Nombre:</span>
+                    <input class="form-control" type="text" [(ngModel)]="nombre" (ngModelChange)="cambioNombre($event)" [value]="dataUser.displayName != null ? dataUser.displayName: ''">
+                </div>
+            </div>
+            <div class="row" style="width: 75%">
+                <div class="col">
+                    <span class="form-label">Telefono:</span>
+                    <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="dataUser.phoneNumber != null ? dataUser.phoneNumber: ''">
+                </div>
+            </div>
+            <div class="row" style="width: 75%">
+                <div class="col">
+                    <span class="form-label">Direccion:</span>
+                    <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
+                    
+                </div>
+            </div>
+            <div class="row" style="width: 75%">
+                <div class="col">
+                    <span class="form-label">Correo:</span>
+                    <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
+                </div>
+                
+            </div>
+            <div class="row" style="width: 75%">
+                <div class="col">
+                    <span class="form-label">Contrasenia:</span>
+                    <input type="text" class="form-control" placeholder="•••••••••••••••">
+                    
+                </div>
+            </div>
+            <div class="row" >
+              <div class="col" style="width: 25%; margin-top: 5px; margin-left: 28%"> 
+
+                <button class="btn btn-success" type="button" (click)="guardar()">Guardar</button>
+              </div>
+          </div>
+        </div>
+        <!-- ======================================================================================== -->
+    </div>
+    
+  </mat-drawer-container>
