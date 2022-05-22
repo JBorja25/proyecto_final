@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from '../../services/auth.service';
-import { CambiarimgComponent } from '../cambiarimg/cambiarimg.component';
+import { CambiarimgComponent } from '../profileasilo/cambiarimg/cambiarimg.component';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
-  selector: 'app-profileasilo',
-  templateUrl: './profileasilo.component.html',
-  styleUrls: ['./profileasilo.component.scss']
+  selector: 'app-profileadmin',
+  templateUrl: './profileadmin.component.html',
+  styleUrls: ['./profileadmin.component.scss']
 })
-export class ProfileasiloComponent implements OnInit {
+export class ProfileadminComponent implements OnInit {
 
   token: string = '';
 
@@ -20,17 +22,15 @@ export class ProfileasiloComponent implements OnInit {
   direccion: string = '';
   correo: string = '';
   idDoc: string = '';
-
   constructor(
     private _auth: AuthService,
     private _cookie: CookieService,
-    private _dialog: MatDialog
+    private _id: MatDialog,
+    private _dialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-    this.token = this._cookie.get('uid');
 
-    this.getData();
+  ngOnInit(): void {
   }
 
 
@@ -152,7 +152,4 @@ export class ProfileasiloComponent implements OnInit {
       })
 
   }
-
-
-
 }

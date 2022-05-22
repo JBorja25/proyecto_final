@@ -19,6 +19,7 @@ import { AuthasilosGuard } from './guards/authasilos.guard';
 import { RegisallComponent } from './auth/regisall/regisall.component';
 import { ProformaComponent } from './auth/proforma/proforma.component';
 import { ProfileasiloComponent } from './auth/profileasilo/profileasilo/profileasilo.component';
+import { ProfileadminComponent } from './auth/profileadmin/profileadmin.component';
 
 
 
@@ -46,6 +47,7 @@ const routes: Routes = [
       { path: 'show', component: ShowComponent },
       { path: 'edit/:id', component: EditComponent },
       { path: 'create', component: CreateComponent },
+      { path: 'profile', component: ProfileadminComponent }
     ]
   },
 
