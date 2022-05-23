@@ -170,7 +170,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           foto: this.urlFotofirebase,
           mensaje: '',
           documento: this.documentoPDF,
-          horas: this.dias.diasSemana.filter((t) => t.completed),
+          horas: this.dias.diasSemana.filter((t) => t.completed || !t.completed),
           horaDesde: this.horaDesde,
           horaHasta: this.horaHasta
         }

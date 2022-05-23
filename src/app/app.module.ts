@@ -79,6 +79,8 @@ import { DialogrechazarComponent } from './auth/show/dialogrechazar/dialogrechaz
 import { ProfileasiloComponent } from './auth/profileasilo/profileasilo/profileasilo.component';
 import { CambiarimgComponent } from './auth/profileasilo/cambiarimg/cambiarimg.component';
 import { ProfileadminComponent } from './auth/profileadmin/profileadmin.component';
+import { ChangemailComponent } from './auth/profileasilo/changemail/changemail.component';
+import { GivepassComponent } from './auth/profileasilo/givepass/givepass.component';
 
 
 
@@ -104,7 +106,9 @@ import { ProfileadminComponent } from './auth/profileadmin/profileadmin.componen
    DialogrechazarComponent,
    ProfileasiloComponent,
    CambiarimgComponent,
-   ProfileadminComponent
+   ProfileadminComponent,
+   ChangemailComponent,
+   GivepassComponent
 
    
   ],

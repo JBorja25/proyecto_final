@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
                         } else {
                           this.authSvc.guardarCookie('asilos', resp.user.uid);
                           Swal.close();
-                          this.router.navigateByUrl('/home');
+                          this.router.navigateByUrl('/asilo/profile');
                         }
                       }
 

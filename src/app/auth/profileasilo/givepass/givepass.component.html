@@ -1,0 +1,195 @@
+<mat-drawer-container class="example-container" style="height: 100%; width: 100%;" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" style="margin-left: 5px;">
+    <!--p>Auto-resizing sidenav</!--p>
+      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        PERFIL
+       </button>
+       <br>
+       <br>
+       <br>
+       <button-- (click)="showFiller = !showFiller"  mat-raised-button color="primary">
+         AFILIACION 
+       </button-->
+
+    <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <svg class="bi me-1" width="40" height="32">
+          <use xlink:href="" />
+        </svg>
+        <span class="fs-4">Sidebar</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/gerente/profile" class="nav-link active" aria-current="page">
+            <svg class="bi me-2" width="16" height="16">
+          
+            </svg>
+            PERFILE
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#home" />
+            </svg>
+            AFILIACION
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table" />
+            </svg>
+
+          </a>
+        </li>
+      </ul>
+      <hr>
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+          <strong>LOgout</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+
+          <li (click)="cerrar()"><a class="dropdown-item btn">Sign out</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </mat-drawer>
+
+  <div class="row example-sidenav-content" style="width: 100vw;">
+    <mat-toolbar color="primary">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+      </button>
+
+    </mat-toolbar>
+    
+  </div>
+<mat-stepper labelPosition="bottom" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" class="container" >
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+        <div class="mb-3">
+          <label class="form-label">name</label>
+          <input formControlName="name" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">address</label>
+          <input formControlName="address" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">email</label>
+          <input formControlName="email" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">fono</label>
+          <input formControlName="fono" type="text" class="form-control" required>
+        </div>
+
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="SecondFormGroup" optional>
+      
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <div class="mb-3">
+          <label class="form-label">Selecicone dia y hora de atencion</label>
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <mat-checkbox [checked]="allComplete" [color]="dias.color" [indeterminate]="algunasCompletadas()" (change)="setearTodos($event.checked)">
+                  {{ dias.name }}
+                </mat-checkbox>
+                <ul>
+                  <li *ngFor="let dia of dias.diasSemana">
+                    <mat-checkbox [color]="dia.color" [(ngModel)]="dia.completed" (ngModelChange)="actualizarSeleccionados()">{{ dia.name }}</mat-checkbox>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="col">
+
+                <label class="form-label">Selecicone hora de atencion</label>
+                <br>
+                <div class="row">
+                  <span><b>Hora Inicio:</b></span>
+                  <input type="time" class="form-control" [(ngModel)]="horaDesde" step="1800" min="00:00">
+                </div>
+                <div class="row">
+                  <span><b>Hora Fin:</b></span>
+                  <input type="time" class="form-control" [(ngModel)]="horaHasta" step="1800" min="00:00">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" optional>
+      <form [formGroup]="thirdFormGroup" novalidate>
+        <ng-template matStepLabel>Fill out your address</ng-template>
+
+
+        <div class="mb-3">
+          <label class="form-label">ingrese una imagen</label>
+          <div>
+            <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
+          </div>
+          <br>
+          <!-- <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)"> -->
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Documento</label>
+          <br>
+          <!-- <input type="file" accept="application/pdf" (change)="cambioImagenPdf($event)"> -->
+        </div>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+
+          <button mat-button (click)="stepper.reset()">Reset</button>
+          <button type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
+        </div>
+      </form>
+    </mat-step>
+
+  </mat-stepper>

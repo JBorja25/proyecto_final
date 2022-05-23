@@ -14,8 +14,8 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item mt-4">
-            <a href="#" class="nav-link active" aria-current="page">
+          <li class="nav-item mt-4" routerLink="/asilo/profile">
+            <a routerLink="/asilo/profile" class="nav-link active" aria-current="page">
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#home" />
               </svg>
@@ -31,12 +31,20 @@
             </a>
           </li> -->
           
-          <li class="nav-item mt-4">
-            <a href="#" class="nav-link active" aria-current="page">
+          <li class="nav-item mt-4" routerLink="/">
+            <a routerLink="/asilo/regis-asi" class="nav-link active" >
               <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#home" />
+             
               </svg>
               AFILIACION
+            </a>
+          </li>
+          <li class="nav-item mt-4" routerLink="">
+            <a class="nav-link active" >
+              <svg class="bi me-2" width="16" height="16">
+              
+              </svg>
+              INFORMACION GENERAL
             </a>
           </li>
           <!-- <li>
@@ -108,6 +116,7 @@
 
       <app-elnombrequelepongas [data]="" [dataUser] ="" [idDoc]=""></app-elnombrequelepongas>
      -->
+
     <div class="row" style="display: flex; justify-content: center; height: 85%; width: 95%; margin: 15px;">
         <div class="col-md-4" style="border-right: 1px solid #ccc; margin-right: 15px;">
             <div class="row" style="display: flex; margin-top: 25%; justify-content: center;">
@@ -146,7 +155,7 @@
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Telefono:</span>
-                    <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="dataUser.phoneNumber != null ? dataUser.phoneNumber: ''">
+                    <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
                 </div>
             </div>
             <div class="row" style="width: 75%">
@@ -166,14 +175,14 @@
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Contrasenia:</span>
-                    <input type="text" class="form-control" placeholder="•••••••••••••••">
+                    <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
                     
                 </div>
             </div>
             <div class="row" >
               <div class="col" style="width: 25%; margin-top: 5px; margin-left: 28%"> 
 
-                <button class="btn btn-success" type="button" (click)="guardar()">Guardar</button>
+                <button class="btn btn-success" type="button" (click)="cambiarcor()">Guardar</button>
               </div>
           </div>
         </div>

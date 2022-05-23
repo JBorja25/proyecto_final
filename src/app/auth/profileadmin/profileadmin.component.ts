@@ -22,6 +22,7 @@ export class ProfileadminComponent implements OnInit {
   direccion: string = '';
   correo: string = '';
   idDoc: string = '';
+  passw: string = '';
   constructor(
     private _auth: AuthService,
     private _cookie: CookieService,
@@ -83,14 +84,8 @@ export class ProfileadminComponent implements OnInit {
             console.log('cambiado nombre');
             console.log(this.direccion);
             /* poner codigo aqui */
-          /*  let num = (this.telefono.length > 0) ? this.telefono : this.dataUser.phone;
-            cambiarnom.updatePhoneNumber({
-              phone: num
-            })
-              .then((phone) => {
-                console.log('cambiado telefono');
-              }).catch((error) => { });
-*/
+           let num = (this.telefono.length > 0) ? this.telefono : this.dataUser.phone;
+            
             /* poner codigo aqui */
               /*let corr= (this.correo.length>0)? this.correo : this.dataUser.correo;
               cambiarnom.updateEmail({
@@ -102,12 +97,12 @@ export class ProfileadminComponent implements OnInit {
               
 
             /* poner codigo aqui */
-
+            
             
             /* poner codigo aqui */
             let dir = (this.direccion.length > 0) ? this.direccion : this.data.direccion;
 
-            this._auth.updateDireccion(dir, this.idDoc)
+            this._auth.updateDireccion(dir, num, this.idDoc)
               .then((respDirec) => {
                 console.log('se actualizo');
                 this.getData();
