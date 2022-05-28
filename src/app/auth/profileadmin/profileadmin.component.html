@@ -1,10 +1,17 @@
-
-<mat-drawer-container class="example-container" width="700" height="100vh" style="height: 100vh;" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
+<mat-drawer-container class="example-container" style="height: 100%; width: 100%;" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" style="margin-left: 5px;">
+      <!--p>Auto-resizing sidenav</!--p>
+        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+        <button (click)="showFiller = !showFiller" mat-raised-button>
+          PERFIL
+         </button>
+         <br>
+         <br>
+         <br>
+         <button-- (click)="showFiller = !showFiller"  mat-raised-button color="primary">
+           AFILIACION 
+         </button-->
   
-      <!--button (click)="showFiller = !showFiller" mat-raised-button>
-          Toggle extra text
-        </!--button-->
       <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
           <svg class="bi me-1" width="40" height="32">
@@ -14,40 +21,23 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item mt-4" routerLink="/asilo/profile">
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table" />
+              </svg>
+  
+            </a>
+          </li>
+          <li class="nav-item">
             <a routerLink="/asilo/profile" class="nav-link active" aria-current="page">
               <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#home" />
+            
               </svg>
               PERFILE
             </a>
           </li>
-          <!-- <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table" />
-              </svg>
-  
-            </a>
-          </li> -->
-          
-          <li class="nav-item mt-4" routerLink="/">
-            <a routerLink="/asilo/regis-asi" class="nav-link active" >
-              <svg class="bi me-2" width="16" height="16">
-             
-              </svg>
-              AFILIACION
-            </a>
-          </li>
-          <li class="nav-item mt-4" routerLink="">
-            <a class="nav-link active" >
-              <svg class="bi me-2" width="16" height="16">
-              
-              </svg>
-              INFORMACION GENERAL
-            </a>
-          </li>
-          <!-- <li>
+          <li>
             <a href="#" class="nav-link text-white">
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#table" />
@@ -62,15 +52,16 @@
               </svg>
   
             </a>
-          </li> -->
-          <!--li class="nav-item">
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link active" aria-current="page">
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#home" />
               </svg>
-              REGISTRO PROPIETARIO
+              AFILIACION
             </a>
-          </!--li-->
+          </li>
+  
           <li>
             <a href="#" class="nav-link text-white">
               <svg class="bi me-2" width="16" height="16">
@@ -79,8 +70,14 @@
   
             </a>
           </li>
-  
-  
+          <li class="nav-item">
+            <a routerLink="/asilo/info" class="nav-link active" >
+              <svg class="bi me-2" width="16" height="16">
+       
+              </svg>
+             INFORMACION GENERAL
+            </a>
+          </li>
         </ul>
         <hr>
         <div class="dropdown">
@@ -95,29 +92,15 @@
           </ul>
         </div>
       </div>
+  
     </mat-drawer>
   
-  
-  
-    <div class="example-sidenav-content">
-      <!--button type="button" mat-button (click)="drawer.toggle()">
-          Toggle sidenav
-        </!--button-->
-      <mat-toolbar color="primary">
-        <button type="button" mat-button (click)="drawer.toggle()">
-          <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
-        </button>
-  
-      </mat-toolbar>
-
-    </div>
     <!-- ======================================================================================================= -->
     <!-- 
 
       <app-elnombrequelepongas [data]="" [dataUser] ="" [idDoc]=""></app-elnombrequelepongas>
      -->
-
-    <div class="row" style="display: flex; justify-content: center; height: 85%; width: 95%; margin: 15px;">
+     <div class="row" style="display: flex; justify-content: center; height: 85%; width: 95%; margin: 15px;">
         <div class="col-md-4" style="border-right: 1px solid #ccc; margin-right: 15px;">
             <div class="row" style="display: flex; margin-top: 25%; justify-content: center;">
                 <div class="col-md-8" style="display:flex; justify-content: end; margin-left: 14px;">
@@ -155,7 +138,7 @@
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Telefono:</span>
-                    <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
+                    <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="dataUser.phoneNumber != null ? dataUser.phoneNumber: ''">
                 </div>
             </div>
             <div class="row" style="width: 75%">
@@ -175,18 +158,14 @@
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Contrasenia:</span>
-                    <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
+                    <input type="text" class="form-control" placeholder="•••••••••••••••">
                     
                 </div>
             </div>
             <div class="row" >
               <div class="col" style="width: 25%; margin-top: 5px; margin-left: 28%"> 
 
-                <button class="btn btn-success" type="button" (click)="cambiarcor()">Guardar</button>
+                <button class="btn btn-success" type="button" (click)="guardar()">Guardar</button>
               </div>
           </div>
         </div>
-        <!-- ======================================================================================== -->
-    </div>
-    
-  </mat-drawer-container>

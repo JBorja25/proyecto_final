@@ -34,7 +34,9 @@ export class RegisterComponent implements OnInit {
       this.enviarFirebase = {
         direccion: this.registerForm.get('direccion').value,
         tipo: 'asilo',
-        uid: user.user.uid
+        uid: user.user.uid,
+        phone: '',
+        password: this.registerForm.get('password').value
       }
 
       this.authSvc.insertName()

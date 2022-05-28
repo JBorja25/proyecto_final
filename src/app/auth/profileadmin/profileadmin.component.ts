@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from '../../services/auth.service';
-import { CambiarimgComponent } from '../cambiarimg/cambiarimg.component';
-import { ChangemailComponent } from '../changemail/changemail.component';
-
+import { CambiarimgComponent } from '../profileasilo/cambiarimg/cambiarimg.component';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-profileasilo',
-  templateUrl: './profileasilo.component.html',
-  styleUrls: ['./profileasilo.component.scss']
+  selector: 'app-profileadmin',
+  templateUrl: './profileadmin.component.html',
+  styleUrls: ['./profileadmin.component.scss']
 })
-export class ProfileasiloComponent implements OnInit {
+export class ProfileadminComponent implements OnInit {
 
   token: string = '';
 
@@ -26,13 +26,13 @@ export class ProfileasiloComponent implements OnInit {
   constructor(
     private _auth: AuthService,
     private _cookie: CookieService,
-    private _dialog: MatDialog
+    private _id: MatDialog,
+    private _dialog: MatDialog,
+    public router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.token = this._cookie.get('uid');
 
-    this.getData();
+  ngOnInit(): void {
   }
 
 
@@ -44,35 +44,31 @@ export class ProfileasiloComponent implements OnInit {
         for (let f of resp.docs) {
           this.data = f.data()
           this.idDoc = f.id;
-
         }
         console.log(this.data);
 
 
         console.log(this.data);
 
-        this._auth.insertCorreo()
-          .subscribe((resp) => {
+        this._auth.getCurrentUser()
+          .then((resp) => {
             console.log(resp);
             this.dataUser = resp;
 
-            console.log(this.dataUser);
           }
 
-          );
+          )
 
+          .catch((err) => { });
+
+        console.log(this.dataUser);
 
       });
   }
 
-  cerrar() {
-
-  }
 
 
   guardar() {
-
-
     // if de la contrasenia
     this._auth.insertName()
       .subscribe((cambiarnom) => {
@@ -85,39 +81,23 @@ export class ProfileasiloComponent implements OnInit {
           .then((nombre) => {
             console.log('cambiado nombre');
             console.log(this.direccion);
+            /* poner codigo aqui */
+           let num = (this.telefono.length > 0) ? this.telefono : this.dataUser.phone;
             
-            let num = (this.telefono.length > 0) ? this.telefono : this.data.phone;
-           
-            let corr = (this.correo.length > 0) ? this.correo : this.dataUser.email;
+            /* poner codigo aqui */
+              /*let corr= (this.correo.length>0)? this.correo : this.dataUser.correo;
+              cambiarnom.updateEmail({
+                correo:corr
+              }).then((phone) => {
+                console.log('cambiado telefono');
+              }).catch((error) => { });*/
+             
+              
+
+            /* poner codigo aqui */
             
-
-            if(this.correo.length > 0){
-
-              this._auth.insertCorreo()
-                .subscribe((respc) => {
-                  respc.updateEmail(corr)
-                    .then((r) => {
-                      console.log('actualizado cooreo');
-  
-                    })
-                    .catch((err) => {
-                      console.log(err);
-  
-                    })
-                })
-            }
-
-
-            if (this.passw.length > 0) {
-              cambiarnom.updatePassword(this.passw)
-                .then((phone) => {
-                  console.log('cambiado contrasenia', this.passw);
-                }).catch((error) => {
-                  console.log(error);
-                })
-            }
-
             
+            /* poner codigo aqui */
             let dir = (this.direccion.length > 0) ? this.direccion : this.data.direccion;
 
             this._auth.updateDireccion(dir, num, this.idDoc)
@@ -145,34 +125,7 @@ export class ProfileasiloComponent implements OnInit {
   cambioCorreo(evento: any) {
     this.correo = evento;
   }
-  cambioPass(evento: any) {
-    this.passw = evento;
-  }
 
-  cambiarcor() {
-    if(this.correo.length > 0 || this.passw.length > 0){
-      const dialog = this._dialog.open(ChangemailComponent, {
-        disableClose: true,
-      });
-      dialog.afterClosed()
-        .subscribe((resp) => {
-          console.log(resp);
-          
-          if (resp) {
-            this.guardar();
-            this.passw = '';
-            // this._auth.logout();
-          }
-        });
-      
-    }else{
-      // this.getData();
-      this.guardar();
-    }
-
-    
-
-  }
 
   cambiarImg(evento: any) {
 
@@ -192,8 +145,9 @@ export class ProfileasiloComponent implements OnInit {
       })
 
   }
-
-
-
-
+  async cerrar(){
+    this._cookie.deleteAll();
+    await  this._auth.logout();
+    this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
+  }
 }

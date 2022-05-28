@@ -16,6 +16,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthService {
   //public user:User;
 
+  resultado: any;
+
   constructor(public afAuth: AngularFireAuth, private _f:AngularFirestore, private _cookie: CookieService ) { }
 
   async login(email: string, password: string) {
@@ -95,9 +97,30 @@ export class AuthService {
     return this.afAuth.user;
   }
 
-  updateDireccion(direccion: any, idDoc: string){
+  insertCorreo(){
+    return this.afAuth.authState;
+  }
+
+  updateDireccion(direccion: any, phone: any, idDoc: string){
     return this._f.collection('registro').doc(idDoc).update({
-      direccion
+      direccion,
+      phone
     });
   }
+
+  reautenticar(passw:any){
+    let user = firebase.auth().currentUser;
+    let credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      passw
+    );
+    return user.reauthenticateWithCredential(credential);
+    /* try{
+    }
+    catch(error){
+    } */
+
+  }
+
+  
 }
