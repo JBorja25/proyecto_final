@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { CambiarimgComponent } from '../profileasilo/cambiarimg/cambiarimg.component';
 import { AuthService } from '../services/auth.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profileadmin',
@@ -28,6 +28,7 @@ export class ProfileadminComponent implements OnInit {
     private _cookie: CookieService,
     private _id: MatDialog,
     private _dialog: MatDialog,
+    public router: Router
   ) { }
 
 
@@ -65,9 +66,6 @@ export class ProfileadminComponent implements OnInit {
       });
   }
 
-  cerrar() {
-
-  }
 
 
   guardar() {
@@ -146,5 +144,10 @@ export class ProfileadminComponent implements OnInit {
         }
       })
 
+  }
+  async cerrar(){
+    this._cookie.deleteAll();
+    await  this._auth.logout();
+    this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
   }
 }
