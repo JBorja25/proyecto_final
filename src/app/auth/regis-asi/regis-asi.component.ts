@@ -29,8 +29,48 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  fourthFormGroup: FormGroup;
 
+  controles: any[] = [
+    {
+      name:'Siquiatria',
+      value: false
+    },
+    {
+      name:'Fisioterapia',
+      value: false
+    },
+    {
+      name:'Sicoterapia',
+      value: false
+    },
+    {
+      name:'Terapia ocupacionales',
+      value: false
+    }
+];
 
+transportes: any[] = [
+  {
+    name: 'Si',
+    value: false
+  },
+  {
+    name: 'No',
+    value: false
+  }
+];
+
+serviciosMedicosSelected: any[] = [];
+serviciosAdicionalesSelected: any[] = [];
+
+serviciosAdicionales: any[] = [
+  {serd:'Peluqueria',value:false},  
+  {serd:'Entrega de Medicamentos',value:false},  
+  {serd:'Acompañamiento a Citas Medicas',value:false},  
+  {serd:'Dieta Especial',value:false},  
+  {serd:'Cama Hospitalaria',value:false},  
+  ]
 
   toppings: FormGroup;
   showFiller = false;
@@ -76,6 +116,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   // variables para las horas
   horaDesde: string='';
   horaHasta: string = '';
+  mensaje: string= '';
   
   constructor(
     public postService:PostService,
@@ -102,7 +143,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   async ngOnInit() {
     this.crearFormulario();
     
-    // this.getDataFirebase(); 
+    this.getDataFirebase(); 
   }
   ngAfterViewInit(): void {
     
@@ -138,6 +179,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           this.registroAnterior = f.data();
           this.cuentaVerificada=f.data().cuentaVerificada;
           this.idDoc = f.id;
+          this.mensaje = f.data().mensaje;
         }
         
       }
@@ -149,6 +191,12 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     console.log(this.firstFormGroup.invalid, this.thirdFormGroup.value);
     console.log(this.dias, this.horaDesde, this.horaHasta);
     console.log(this.dias.diasSemana.filter((t) => t.completed));
+    // console.log(this.fourthFormGroup);
+    // console.log(this.thirdFormGroup);
+    console.log(this.serviciosAdicionalesSelected);
+    console.log(this.serviciosMedicosSelected);
+    
+    
     
     
     
@@ -172,7 +220,12 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
           documento: this.documentoPDF,
           horas: this.dias.diasSemana.filter((t) => t.completed || !t.completed),
           horaDesde: this.horaDesde,
-          horaHasta: this.horaHasta
+          horaHasta: this.horaHasta,
+          transporte: this.thirdFormGroup.get('transporte').value,
+          aseo: this.thirdFormGroup.get('aseo').value,
+          alimentacion: this.thirdFormGroup.get('transporte').value,
+          controlesMedicos: this.controles,
+          serviciosAdicionales: this.serviciosAdicionales,
         }
         // console.log(enviarFirebase);
         
@@ -265,7 +318,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
       fono: ['', Validators.required]
     });
 
-    this.SecondFormGroup = this._fb.group({
+    /* this.SecondFormGroup = this._fb.group({
       lunes: ['', Validators.required],
       martes: ['', Validators.required],
       miercoles: ['', Validators.required],
@@ -273,10 +326,18 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
       viernes: ['', Validators.required],
       sabado: ['', Validators.required],
       domingo: ['', Validators.required]
+    }); */
+    this.fourthFormGroup = this._fb.group({
+      img: ['', Validators.required],
+      doc: ['', Validators.required]
     });
+
     this.thirdFormGroup = this._fb.group({
-      servMed: ['', Validators.required],
-      servCogni: ['', Validators.required]
+      alimentacion: [''],
+      aseo: [''],
+      controlesMedicos: [''],
+      transporte: [''],
+      servAdicionales: ['']
     });
 
 
@@ -305,5 +366,63 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
     console.log(this.dias);
     
     this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
+  }
+
+  serviciosmedicos(evento: any){
+    // console.log(evento);
+    
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      this.controles.map((t) =>{
+        if(evento.source.value === t.name){
+          t.value = true;
+        }
+        return t;
+      })
+      console.log(this.controles);
+    }else{
+      this.controles.map((t) =>{
+        if(evento.source.value === t.name){
+          t.value = false;
+        }
+        return t;
+      })
+      console.log(this.controles);
+      
+    }
+    
+  }
+  
+  transporte(evento: any) {
+    
+  }
+  
+  serviciosadicionales(evento : any) {
+    console.log(evento);
+    console.log(this.thirdFormGroup);
+    
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      // this.serviciosAdicionales = this.serviciosAdicionales.forEach()
+      this.serviciosAdicionales.map((t) =>{
+        if(evento.source.value === t.serd){
+          t.value = true;
+        }
+        return t;
+      })
+      console.log(this.serviciosAdicionales);
+      
+      // this.serviciosAdicionalesSelected.push(evento.source.value);
+    }else{
+      this.serviciosAdicionales.map((t) =>{
+        if(evento.source.value === t.serd){
+          t.value = false;
+        }
+        return t;
+      })
+      console.log(this.serviciosAdicionales);
+      
+    }
+
   }
 }

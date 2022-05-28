@@ -55,9 +55,9 @@ const routes: Routes = [
   },
 
   { path: 'perfiles', component: PerfilesComponent },
-  { path: '', component: HomeComponent },
   { path: 'proforma', component:ProformaComponent },
-  { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.component').then(m => m.ProformaComponent) },
+  // { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.component').then(m => m.ProformaComponent) },
+  { path: '**', component: HomeComponent },
 
 
 

@@ -111,11 +111,11 @@
 
         <div class="mb-3">
           <label class="form-label">name</label>
-          <input formControlName="name" type="text" class="form-control" required>
+          <input formControlName="name" name="name" id="name" type="text" (change)="prueba($event)" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">address</label>
-          <input formControlName="address" type="text" class="form-control" required>
+          <input formControlName="address" name="address" type="text" class="form-control" required>
         </div>
         <div class="mb-3">
           <label class="form-label">email</label>
@@ -128,7 +128,7 @@
 
 
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button (click)="actualizar()">Actualizar</button>
         </div>
       </form>
     </mat-step>
@@ -168,10 +168,79 @@
         </div>
 
         <div>
-          <button mat-button matStepperPrevious>Back</button>
+          <!-- <button mat-button matStepperPrevious>Back</button> -->
           <button mat-button matStepperNext>Next</button>
         </div>
       
+    </mat-step>
+    <mat-step [stepControl]="fourthFormGroup">
+      <form [formGroup]="fourthFormGroup" class="container" >
+        <ng-template matStepLabel>Servicios</ng-template>
+        <div class="row">
+          <div class="col">
+            <label class="form-label">Alimentacion</label>
+            <mat-select formControlName="alimentacion" [value]="alimentacion">
+              <mat-option selected value="0">Seleccionee...</mat-option>
+              <mat-option value="Si">Si</mat-option>
+              <mat-option value="No">No</mat-option>
+            </mat-select>
+          </div>
+          <div class="col">
+            <label class="form-label">Aseo personal</label>
+            <mat-select formControlName="aseo" [value]="aseo">
+              
+              <mat-option selected value="0">Seleccionee...</mat-option>
+              <mat-option value="si">Si</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
+          </div>
+
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+            <label class="form-label">Control Médico</label>
+            <ul>
+              <li *ngFor="let control of controles">
+
+                <mat-checkbox [checked]="control.value" formControlName="controlesMedicos" (change)="serviciosmedicos($event)"
+                    [value]="control.value">
+                    {{control.name}}
+                </mat-checkbox>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <label class="form-label">Transporte</label>
+            <mat-select (change)="transporte($event)" [value]="transporteSelect" formControlName="transporte">
+              <mat-option value="#" selected>Seleccione..</mat-option>
+              <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
+            </mat-select>
+            
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+            <mat-label>Servicios Adicionales</mat-label><br>
+            <ul>
+                <li *ngFor="let amob of serviciosAdicionales; let i =index">
+                      <mat-checkbox [checked]="amob.value" formControlName="servAdicionales"
+                          (change)="serviciosadicionales($event)" [value]="amob.value">
+                          {{amob.serd}}
+                      </mat-checkbox>
+                </li>
+            </ul>
+          </div>
+
+        </div>
+        
+
+        
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup" optional>
       <form [formGroup]="thirdFormGroup" novalidate>

@@ -90,12 +90,12 @@ export class LoginComponent implements OnInit {
                         if (f.data()?.aprobado == true) {
                           this.authSvc.guardarCookie('asilos', resp.user.uid);
                           Swal.close();
-                          this.router.navigateByUrl('/asilo/regis-asi');
+                          this.router.navigateByUrl('/asilo/info');
 
                         } else {
                           this.authSvc.guardarCookie('asilos', resp.user.uid);
                           Swal.close();
-                          this.router.navigateByUrl('/asilo/profile');
+                          this.router.navigateByUrl('/asilo/regis-asi');
                         }
                       }
 

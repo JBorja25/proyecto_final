@@ -20,7 +20,7 @@
             PERFILE
           </a>
         </li>
-        <li class="nav-item mt-4" >
+        <li class="nav-item mt-4" [ngClass]="{'disabled': rechazar}">
           <a routerLink="/asilo/regis-asi" class="nav-link active" >
             <svg class="bi me-2" width="16" height="16">
            
@@ -158,10 +158,10 @@
     <br>
     <!---------------------------------------------------------------------------------->
     <div class="container" *ngIf="mostrarFormulario">
-      <mat-stepper labelPosition="bottom" #stepper>
+      <mat-stepper labelPosition="bottom" #stepper linear>
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup" class="container" >
-            <ng-template matStepLabel>Fill out your name</ng-template>
+            <ng-template matStepLabel>Campos Principales</ng-template>
 
             <div class="mb-3">
               <label class="form-label">name</label>
@@ -186,12 +186,12 @@
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="SecondFormGroup" optional>
+        <mat-step [stepControl]="SecondFormGroup">
           
-            <ng-template matStepLabel>Fill out your address</ng-template>
-            <div class="mb-3">
-              <label class="form-label">Selecicone dia y hora de atencion</label>
-              <div class="container">
+          <ng-template matStepLabel>Horarios de atención</ng-template>
+          <div class="mb-3">
+            <label class="form-label">Selecicone dia y hora de atencion</label>
+            <div class="container">
                 <div class="row">
                   <div class="col">
                     <mat-checkbox [checked]="allComplete" [color]="dias.color" [indeterminate]="algunasCompletadas()" (change)="setearTodos($event.checked)">
@@ -220,16 +220,85 @@
                 </div>
               </div>
             </div>
-
+            
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
             </div>
-          
-        </mat-step>
-        <mat-step [stepControl]="thirdFormGroup" optional>
-          <form [formGroup]="thirdFormGroup" novalidate>
-            <ng-template matStepLabel>Fill out your address</ng-template>
+            
+          </mat-step>
+          <mat-step [stepControl]="thirdFormGroup">
+            <form [formGroup]="thirdFormGroup" class="container" >
+              <ng-template matStepLabel>Servicios</ng-template>
+              <div class="row">
+                <div class="col">
+                  <label class="form-label">Alimentacion</label>
+                  <mat-select formControlName="alimentacion">
+                    <mat-option selected value="0">Seleccionee...</mat-option>
+                    <mat-option value="si">Si</mat-option>
+                    <mat-option value="no">No</mat-option>
+                  </mat-select>
+                </div>
+                <div class="col">
+                  <label class="form-label">Aseo personal</label>
+                  <mat-select formControlName="aseo">
+                    
+                    <mat-option selected value="0">Seleccionee...</mat-option>
+                    <mat-option value="si">Si</mat-option>
+                    <mat-option value="no">No</mat-option>
+                  </mat-select>
+                </div>
+
+              </div>
+              <div class="row mt-4">
+                <div class="col">
+                  <label class="form-label">Control Médico</label>
+                  <ul>
+                    <li *ngFor="let control of controles">
+  
+                      <mat-checkbox  formControlName="controlesMedicos" (change)="serviciosmedicos($event)"
+                          [value]="control.name">
+                          {{control.name}}
+                      </mat-checkbox>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col">
+                  <label class="form-label">Transporte</label>
+                  <mat-select (change)="transporte($event)" value="#" formControlName="transporte">
+                    <mat-option value="#" selected>Seleccione..</mat-option>
+                    <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
+                  </mat-select>
+                  
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col">
+                  <mat-label>Servicios Adicionales</mat-label><br>
+                  <ul>
+                      <li *ngFor="let amob of serviciosAdicionales; let i =index">
+                            <mat-checkbox formControlName="servAdicionales"
+                                (change)="serviciosadicionales($event)" [value]="amob.serd">
+                                {{amob.serd}}
+                            </mat-checkbox>
+                      </li>
+                  </ul>
+                </div>
+
+              </div>
+              
+  
+              
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+        <mat-step [stepControl]="fourthFormGroup">
+          <form [formGroup]="fourthFormGroup">
+            <ng-template matStepLabel>Imagenes</ng-template>
 
 
             <div class="mb-3">
@@ -238,12 +307,12 @@
                 <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
               </div>
               <br>
-              <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+              <input type="file" formControlName="img" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
             </div>
             <div class="mb-3">
               <label class="form-label">Documento</label>
               <br>
-              <input type="file" accept="application/pdf" (change)="cambioImagenPdf($event)">
+              <input type="file" accept="application/pdf" formControlName="doc" (change)="cambioImagenPdf($event)">
             </div>
 
             <div>
@@ -375,12 +444,24 @@
 
     </!--div-->
 
-    <div *ngIf="confirmar">
-      <p>
-
-        espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
-
-      </p>
+    <div class="container" *ngIf="confirmar">
+      <div class="row">
+        <div class="col"></div>
+        <div class="col-md-7 col">
+          <div class="card">
+            <div style="display: flex; justify-content: center;">
+              <img src="/assets/img/pendiente.jpg" width="350" alt="pendiente" class="img-card-top"/>
+            </div>
+            <div class="card-body">
+              <p class="card-text text-center">
+                espere el administrador va a verificar la informacion y se le notificara por este medio revise el sitio.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      
     </div>
 
     <div *ngIf="aprobado">
@@ -398,9 +479,22 @@
     </div>
 
     <div *ngIf="rechazar">
-      <p>
-        mensaje de rechazar
-      </p>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col-md-7">
+          <div class="card">
+            <div class="card-header">
+              <img class="card-img-top" src="/assets/img/reject.png" alt="reject" />
+            </div>
+            <div class="card-body">
+              <p class="card-text text-center">
+                {{ mensaje }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
     </div>
 
   </div>

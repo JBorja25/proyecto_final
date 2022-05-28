@@ -16,7 +16,11 @@ export class GivepassComponent implements OnInit {
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  fourthFormGroup: FormGroup;
 
+  alimentacion: string = '';
+  aseo: string= '';
+  transporteSelect: string= '';
 
   horaDesde: string= ''
 horaHasta: string= ''
@@ -35,6 +39,44 @@ dias: any =  {
     { name: 'Domingo', completed: false, color: 'primary'}
   ]
 };
+
+controles: any[] = [
+  {
+    name:'Siquiatria',
+    value: false
+  },
+  {
+    name:'Fisioterapia',
+    value: false
+  },
+  {
+    name:'Sicoterapia',
+    value: false
+  },
+  {
+    name:'Terapia ocupacionales',
+    value: false
+  }
+];
+
+transportes: any[] = [
+{
+  name: 'Si',
+  value: false
+},
+{
+  name: 'No',
+  value: false
+}
+];
+serviciosAdicionales: any[] = [
+  {serd:'Peluqueria',value:false},  
+  {serd:'Entrega de Medicamentos',value:false},  
+  {serd:'Acompañamiento a Citas Medicas',value:false},  
+  {serd:'Dieta Especial',value:false},  
+  {serd:'Cama Hospitalaria',value:false},  
+  ]
+
 
 mostrarImagen:string = ''
 
@@ -58,6 +100,8 @@ allComplete: boolean = false;
       console.log(resp);
       
       for(let f of resp.docs){
+        console.log(f.data());
+        
         this.firstFormGroup.setValue({
           name: f.data()?.name,
           address: f.data().address,
@@ -69,10 +113,27 @@ allComplete: boolean = false;
           this.dias.diasSemana[i].completed = f.data().horas[i].completed;
         }
         console.log(this.dias);
+        for(let i = 0; i < this.controles.length; i++){
+          this.controles[i].value = f.data().controlesMedicos[i].value;
+        }
+        for(let i = 0; i < this.serviciosAdicionales.length; i++){
+          this.serviciosAdicionales[i].value = f.data().serviciosAdicionales[i].value;
+        }
         
         this.horaDesde = f.data().horaDesde;
         this.horaHasta = f.data().horaHasta;
        this.mostrarImagen = f.data().foto;
+       this.transporteSelect = f.data().transporte;
+       this.alimentacion = f.data().alimentacion;
+       this.aseo = f.data().aseo;
+       
+
+       console.log(this.controles);
+       
+       /* this.fourthFormGroup.setValue({
+         alimentacion: f.data().alimentacion,
+         aseo: f.data().aseo
+       }) */
       }
     });
   }
@@ -102,9 +163,16 @@ allComplete: boolean = false;
       domingo: ['', Validators.required]
     });
     this.thirdFormGroup = this._fb.group({
-      servMed: ['', Validators.required],
-      servCogni: ['', Validators.required]
     });
+
+    this.fourthFormGroup = this._fb.group({
+      alimentacion: [''],
+      aseo: [''],
+      transporte: [''],
+      servAdicionales: [''],
+      controlesMedicos: [''],
+
+    })
 
 
   }
@@ -140,6 +208,28 @@ allComplete: boolean = false;
     console.log(this.dias);
     
     this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
+  }
+
+  serviciosmedicos(evento: any){
+    
+  }
+
+  serviciosadicionales(evento: any){
+
+  }
+
+  transporte(evento: any){
+
+  }
+
+  actualizar(){
+    console.log(this.firstFormGroup.get('name'));
+    
+  } 
+
+  prueba(evento: any){
+    console.log(evento);
+    
   }
 
 }
