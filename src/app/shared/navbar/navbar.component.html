@@ -19,7 +19,7 @@
             <li class="nav-item " *ngIf="user">
                 <a  href="#" class="nav-link " routerLink="/login" (click)="onLogout()">loginout</a>
             </li> 
-            <li class="nav-item " >
+            <li class="nav-item " routerLink="/gerente/profile" style="cursor: pointer;">
               <a class="nav-link " >{{user?.email}}</a>
             </li>  
             <li class="nav-item " *ngIf="user">

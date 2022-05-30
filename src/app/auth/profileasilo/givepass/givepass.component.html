@@ -128,7 +128,7 @@
 
 
         <div>
-          <button mat-button (click)="actualizar()">Actualizar</button>
+          <button mat-raised-button color="primary" (click)="actualizar($event)">Actualizar</button>
         </div>
       </form>
     </mat-step>
@@ -169,7 +169,7 @@
 
         <div>
           <!-- <button mat-button matStepperPrevious>Back</button> -->
-          <button mat-button matStepperNext>Next</button>
+          <button mat-raised-button color="primary" (click)="actualizarHorarios()">Actualizar</button>
         </div>
       
     </mat-step>
@@ -203,7 +203,7 @@
               <li *ngFor="let control of controles">
 
                 <mat-checkbox [checked]="control.value" formControlName="controlesMedicos" (change)="serviciosmedicos($event)"
-                    [value]="control.value">
+                    [value]="control.name">
                     {{control.name}}
                 </mat-checkbox>
               </li>
@@ -225,7 +225,7 @@
             <ul>
                 <li *ngFor="let amob of serviciosAdicionales; let i =index">
                       <mat-checkbox [checked]="amob.value" formControlName="servAdicionales"
-                          (change)="serviciosadicionales($event)" [value]="amob.value">
+                          (change)="serviciosadicionales($event)" [value]="amob.serd">
                           {{amob.serd}}
                       </mat-checkbox>
                 </li>
@@ -237,8 +237,8 @@
 
         
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <!-- <button mat-button matStepperPrevious>Back</button> -->
+          <button mat-raised-button color="primary" (click)="actualizarServicios()">Actualizar</button>
         </div>
       </form>
     </mat-step>
@@ -253,19 +253,14 @@
             <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
           </div>
           <br>
-          <!-- <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)"> -->
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Documento</label>
-          <br>
-          <!-- <input type="file" accept="application/pdf" (change)="cambioImagenPdf($event)"> -->
+          <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
         </div>
 
         <div>
-          <button mat-button matStepperPrevious>Back</button>
+          <!-- <button mat-button matStepperPrevious>Back</button> -->
 
-          <button mat-button (click)="stepper.reset()">Reset</button>
-          <button type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
+          <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+          <button type="button" (click)="onSubmit()" class="btn btn-primary">Actualizar</button>
         </div>
       </form>
     </mat-step>

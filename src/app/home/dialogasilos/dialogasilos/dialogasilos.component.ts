@@ -1,0 +1,47 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PostService } from 'src/app/models/post.service';
+
+@Component({
+  selector: 'app-dialogasilos',
+  templateUrl: './dialogasilos.component.html',
+  styleUrls: ['./dialogasilos.component.scss']
+})
+export class DialogasilosComponent implements OnInit {
+  posts: any = {};
+  constructor(
+    private _post: PostService,
+    private _ref: MatDialogRef<DialogasilosComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { 
+
+  }
+
+  ngOnInit(): void {
+    console.log(this.data);
+    
+    this.getPosts();
+  }
+
+  getPosts(){
+    this._post.getPostByUid(this.data)
+    .subscribe((resp: any) =>{
+      console.log(resp);
+      this.posts = [];
+      for(let f of resp.docs){
+        console.log(f.data());
+        this.posts = f.data();
+        // if(f.data().tipo != ' admin'){
+        //   this.posts.push(f.data());
+        // }
+      }
+      console.log(this.posts);
+      
+    })
+  }
+
+  cerrar(){
+    this._ref.close();
+  }
+
+}

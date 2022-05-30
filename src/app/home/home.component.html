@@ -70,21 +70,21 @@
 
     <!-- Three columns of text below the carousel -->
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
         <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
         <h2>MISION</h2>
         <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
       
       </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
         <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
         <h2>VISION</h2>
         <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
        
       </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
         <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
         <h2>OBJETIVO</h2>
@@ -94,26 +94,7 @@
     </div><!-- /.row -->
 
 
-    <!-- START THE FEATURETTES -->
-    <ng-container  *ngFor="let item of posts">
-
-      <hr class="featurette-divider">
-  
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">{{item.name}}. <span class="text-muted">It’ll blow your mind.</span></h2>
-          <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
-        </div>
-        <div class="col-md-5">
-          <img [src]="item.foto" [alt]="item.name" width="500" height="500">
-  
-        </div>
-      </div>
-    </ng-container>
     
-
-
-    <hr class="featurette-divider">
 
    <!--  <div class="row featurette">
       <div class="col-md-7 order-md-2">
@@ -146,17 +127,35 @@
 
   </div><!-- /.container -->
 
+  <div class="container">
+    <div class="row">
+      <div class="col" *ngFor="let item of posts">
+        <div class="card text-center" style="box-shadow: 0 0 10px 0 gray; border-radius: 15px;">
+          <div class="card-body">
+            <img [src]="item.foto != '' ? item.foto : '/assets/img/no-photo.png'" [alt]="item.name" class="img-card-top" width="150">
+            <h2 class="card-subtitle">{{item.name}}</h2>
+            <p class="card-text">Direccion: {{ item.address }}</p>
+            <p class="text-muted"><a style="cursor: pointer;" class="stretched-link" (click)="abrirDialog(item.uid)">Ver más...</a></p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
 
   <!-- FOOTER -->
-  <footer class="container">
+  <footer class="mt-5 text-center" style="border: solid 1px gray; background-color: #16212b; height: 60px; line-height: 60px; color: white;">
     <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p>&copy; {{ fecha }} Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
   </footer>
 </main>
 
 
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-      
+    
   </body>
+
 

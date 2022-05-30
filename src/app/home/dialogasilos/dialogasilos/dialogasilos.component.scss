@@ -1,0 +1,16 @@
+.custom{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    // margin-top: -15px;
+}
+
+.custom__border{
+    border: solid 1px #ccc;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 0 gray;
+}
+
+.card-text{
+    padding: 10px;
+}

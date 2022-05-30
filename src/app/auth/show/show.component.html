@@ -124,7 +124,10 @@
                 <td>
                   <!-- <button routerLink="/edit/{{post.id}}" class="btn btn-outline-danger"><i
                                           class="fa-solid fa-pen"></i></button> -->
-                  <a [href]="post.data.documento" target="_blank" class="btn btn-outline-info">
+                  <a [href]="post.data.foto" *ngIf="post.data.foto !== ''" target="_blank" class="btn btn-outline-info">
+                    <i class="fa-solid fa-image"></i>
+                  </a>
+                  <a [href]="post.data.documento" target="_blank" *ngIf="post.data.documento !== ''" class="btn btn-outline-info">
                     <i class="fa-solid fa-book"></i>
                   </a>
                   

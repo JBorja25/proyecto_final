@@ -2,6 +2,7 @@ import { AfterContentInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth/services/auth.service';
+import 'swiper/css/bundle';
 
 @Component({
   selector: 'app-root',

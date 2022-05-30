@@ -36,7 +36,8 @@ export class RegisterComponent implements OnInit {
         tipo: 'asilo',
         uid: user.user.uid,
         phone: '',
-        password: this.registerForm.get('password').value
+        password: this.registerForm.get('password').value,
+        foto: ''
       }
 
       this.authSvc.insertName()

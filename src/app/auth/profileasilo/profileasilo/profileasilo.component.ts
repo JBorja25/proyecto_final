@@ -23,6 +23,7 @@ export class ProfileasiloComponent implements OnInit {
   correo: string = '';
   idDoc: string = '';
   passw: string = '';
+  aprobado: boolean = false;
   constructor(
     private _auth: AuthService,
     private _cookie: CookieService,
@@ -33,6 +34,23 @@ export class ProfileasiloComponent implements OnInit {
     this.token = this._cookie.get('uid');
 
     this.getData();
+    this.getDataFirebase();
+  }
+
+  getDataFirebase(){
+    // console.log(this.re);
+    
+    this._auth.getPost(this.token)
+    .subscribe((respData: any) =>{
+      console.log(respData);
+      if(respData.docs.length > 0){
+        for(let f of respData.docs){
+          this.aprobado = f.data().aprobado;
+          console.log(f.data());
+        }
+        
+      }
+    });
   }
 
 

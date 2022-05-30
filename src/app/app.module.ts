@@ -19,6 +19,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { SwiperModule } from 'swiper/angular';
 
 
 
@@ -81,6 +82,7 @@ import { CambiarimgComponent } from './auth/profileasilo/cambiarimg/cambiarimg.c
 import { ProfileadminComponent } from './auth/profileadmin/profileadmin.component';
 import { ChangemailComponent } from './auth/profileasilo/changemail/changemail.component';
 import { GivepassComponent } from './auth/profileasilo/givepass/givepass.component';
+import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
 
 
 
@@ -108,7 +110,8 @@ import { GivepassComponent } from './auth/profileasilo/givepass/givepass.compone
    CambiarimgComponent,
    ProfileadminComponent,
    ChangemailComponent,
-   GivepassComponent
+   GivepassComponent,
+   DialogasilosComponent
 
    
   ],
@@ -116,6 +119,7 @@ import { GivepassComponent } from './auth/profileasilo/givepass/givepass.compone
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    SwiperModule,
     AngularFireAuthModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

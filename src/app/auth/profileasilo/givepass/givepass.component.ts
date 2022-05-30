@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { PostService } from 'src/app/models/post.service';
 import { AuthService } from '../../services/auth.service';
+import { SubirfotosService } from '../../services/subirfotos/subirfotos.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 AuthService
 @Component({
@@ -21,7 +23,7 @@ export class GivepassComponent implements OnInit {
   alimentacion: string = '';
   aseo: string= '';
   transporteSelect: string= '';
-
+  idDoc: string = '';
   horaDesde: string= ''
 horaHasta: string= ''
 uid: string= '';
@@ -78,13 +80,26 @@ serviciosAdicionales: any[] = [
   ]
 
 
-mostrarImagen:string = ''
+mostrarImagen:any = '';
+
+FotoSubir: any;
 
 allComplete: boolean = false;
 
-  constructor(private _fb: FormBuilder, private postService: PostService, private _token: CookieService,  public router: Router,
+urlFotofirebase: any = '';
+
+
+  constructor(
+    private _fb: FormBuilder, 
+    private postService: PostService, 
+    private _token: CookieService,  
+    public router: Router,
     private _cookie: CookieService,
-    private _auth: AuthService,) {
+    private _auth: AuthService,
+    private _post: PostService,
+    private _fotos: SubirfotosService,
+    private _sanitazer: DomSanitizer
+    ) {
     this.uid = this._token.get('uid');
    }
 
@@ -101,7 +116,7 @@ allComplete: boolean = false;
       
       for(let f of resp.docs){
         console.log(f.data());
-        
+        this.idDoc = f.id;
         this.firstFormGroup.setValue({
           name: f.data()?.name,
           address: f.data().address,
@@ -143,7 +158,18 @@ allComplete: boolean = false;
     this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
   }
 
-  onSubmit(){}
+  onSubmit(){
+    let enviar = {
+      foto: this.urlFotofirebase
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.cargarinfo();
+    })
+    .catch((error) =>{
+
+    })
+  }
 
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
@@ -178,7 +204,27 @@ allComplete: boolean = false;
   }
 
   cambioImagen(evento: any){
+    
+    console.log(evento);
+    this.FotoSubir = evento.target.files[0];
+    const rul =URL.createObjectURL(evento.target.files[0]);
+    this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
+    console.log(rul);
+    this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
+    .then((resp)=>{
+      console.log(resp.ref);
+      
+      resp.ref.getDownloadURL()
+      .then((respGet)=>{
+        this.urlFotofirebase = respGet;
+      })
+      .catch((error) =>{
 
+      });
+    }).catch((error)=>{
+
+    });
+    
   }
 
   cambioImagenPdf(evento: any){
@@ -211,21 +257,121 @@ allComplete: boolean = false;
   }
 
   serviciosmedicos(evento: any){
+    console.log(evento);
+    console.log(this.controles);
     
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      this.controles.map((t) =>{
+        if(evento.source.value === t.name){
+          t.value = true;
+        }
+        return t;
+      })
+      console.log(this.controles);
+    }else{
+      this.controles.map((t) =>{
+        if(evento.source.value === t.name){
+          t.value = false;
+        }
+        return t;
+      })
+      console.log(this.controles);
+      
+    }
   }
 
   serviciosadicionales(evento: any){
-
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      // this.serviciosAdicionales = this.serviciosAdicionales.forEach()
+      this.serviciosAdicionales.map((t) =>{
+        if(evento.source.value === t.serd){
+          t.value = true;
+        }
+        return t;
+      })
+      console.log(this.serviciosAdicionales);
+      
+      // this.serviciosAdicionalesSelected.push(evento.source.value);
+    }else{
+      this.serviciosAdicionales.map((t) =>{
+        if(evento.source.value === t.serd){
+          t.value = false;
+        }
+        return t;
+      })
+      console.log(this.serviciosAdicionales);
+      
+    }
   }
 
   transporte(evento: any){
 
   }
 
-  actualizar(){
-    console.log(this.firstFormGroup.get('name'));
+  actualizar(evento: any){
+    console.log(evento);
+    console.log(this.idDoc);
+    
+    console.log(this.firstFormGroup.getRawValue());
+
+    this._post.updatePost(this.firstFormGroup.getRawValue(), this.idDoc)
+    .then((resp) =>{
+      console.log(resp);
+      this.cargarinfo();
+    })
+    .catch((error) =>{
+      console.log(error);
+      
+    })
     
   } 
+
+  actualizarHorarios(){
+    console.log(this.dias);
+    console.log(this.horaDesde);
+    console.log(this.horaHasta);
+    let enviar = {
+      horas: this.dias.diasSemana.filter((t) => t.completed || !t.completed),
+      horaDesde: this.horaDesde,
+      horaHasta: this.horaHasta,
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.cargarinfo();
+    })
+    .catch((error) =>{
+
+    })
+    
+  }
+  
+  
+  actualizarServicios(){
+    console.log(this.controles);
+    console.log(this.serviciosAdicionales);
+    console.log(this.idDoc);
+    
+    let enviar = {
+      transporte: this.fourthFormGroup.get('transporte').value,
+      aseo: this.fourthFormGroup.get('aseo').value,
+      alimentacion: this.fourthFormGroup.get('transporte').value,
+      controlesMedicos: this.controles,
+      serviciosAdicionales: this.serviciosAdicionales,
+    }
+
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      console.log(resp);
+      this.cargarinfo();
+    })
+    .catch((error) =>{
+      console.log(error);
+      
+    })
+  }
+
 
   prueba(evento: any){
     console.log(evento);

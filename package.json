@@ -32,6 +32,7 @@
     "ngx-cookie-service": "^13.2.0",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.14",
+    "swiper": "^8.1.6",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -42,8 +43,8 @@
     "@angular/compiler-cli": "~13.3.0",
     "@briebug/jest-schematic": "^4.0.0",
     "@types/jest": "latest",
-     "@types/node": "^12.11.1",
+    "@types/node": "^12.11.1",
     "jest": "latest",
-          "typescript": "~4.6.2"
+    "typescript": "~4.6.2"
   }
 }
