@@ -17,7 +17,7 @@
         <svg class="bi me-1" width="40" height="32">
           <use xlink:href="" />
         </svg>
-        <span class="fs-4">Sidebar</span>
+        <span class="fs-4">Asilo</span>
       </a>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
@@ -53,8 +53,8 @@
 
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
+        <li class="nav-item" *ngIf="!aprobado">
+          <a routerLink="/asilo/regis-asi" class="nav-link active" aria-current="page">
             <svg class="bi me-2" width="16" height="16">
               <use xlink:href="#home" />
             </svg>
@@ -107,7 +107,7 @@
 <mat-stepper labelPosition="bottom" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup" class="container" >
-        <ng-template matStepLabel>Fill out your name</ng-template>
+        <ng-template matStepLabel>Datos Personales</ng-template>
 
         <div class="mb-3">
           <label class="form-label">name</label>
@@ -134,7 +134,7 @@
     </mat-step>
     <mat-step [stepControl]="SecondFormGroup" optional>
       
-        <ng-template matStepLabel>Fill out your address</ng-template>
+        <ng-template matStepLabel>Horario de Atencion</ng-template>
         <div class="mb-3">
           <label class="form-label">Selecicone dia y hora de atencion</label>
           <div class="container">
@@ -244,7 +244,7 @@
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup" optional>
       <form [formGroup]="thirdFormGroup" novalidate>
-        <ng-template matStepLabel>Fill out your address</ng-template>
+        <ng-template matStepLabel>Imagen del Asilo</ng-template>
 
 
         <div class="mb-3">

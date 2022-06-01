@@ -83,6 +83,7 @@ import { ProfileadminComponent } from './auth/profileadmin/profileadmin.componen
 import { ChangemailComponent } from './auth/profileasilo/changemail/changemail.component';
 import { GivepassComponent } from './auth/profileasilo/givepass/givepass.component';
 import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -155,7 +156,8 @@ import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogas
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
-    
+    ToastrModule.forRoot(),
+
 
   ],
   providers: [CookieService, AuthService],
