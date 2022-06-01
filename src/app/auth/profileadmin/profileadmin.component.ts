@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { CambiarimgComponent } from '../profileasilo/cambiarimg/cambiarimg.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profileadmin',
@@ -30,7 +31,8 @@ export class ProfileadminComponent implements OnInit {
     private _id: MatDialog,
     private _dialog: MatDialog,
     public router: Router,
-    private _token: CookieService
+    private _token: CookieService,
+    private toastr: ToastrService
   ) { }
 
 
@@ -132,6 +134,7 @@ export class ProfileadminComponent implements OnInit {
               })
               .catch((error) => { });
           })
+          this.toastr.success('INFORMACION ', 'Actualizada!');
       });
   }
 

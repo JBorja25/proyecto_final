@@ -4,6 +4,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../services/auth.service';
 import { CambiarimgComponent } from '../cambiarimg/cambiarimg.component';
 import { ChangemailComponent } from '../changemail/changemail.component';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -27,7 +29,9 @@ export class ProfileasiloComponent implements OnInit {
   constructor(
     private _auth: AuthService,
     private _cookie: CookieService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    public router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -83,10 +87,11 @@ export class ProfileasiloComponent implements OnInit {
       });
   }
 
-  cerrar() {
-
+  async cerrar(){
+    this._cookie.deleteAll();
+    await  this._auth.logout();
+    this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
   }
-
 
   guardar() {
 
@@ -146,7 +151,9 @@ export class ProfileasiloComponent implements OnInit {
               })
               .catch((error) => { });
           })
+          this.toastr.success('INFORMACION ', 'Actualizada!');
       });
+      
   }
 
   cambioNombre(evento: any) {
@@ -180,6 +187,7 @@ export class ProfileasiloComponent implements OnInit {
             this.guardar();
             this.passw = '';
             // this._auth.logout();
+            
           }
         });
       

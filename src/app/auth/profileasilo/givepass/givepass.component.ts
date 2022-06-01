@@ -7,7 +7,7 @@ import { PostService } from 'src/app/models/post.service';
 import { AuthService } from '../../services/auth.service';
 import { SubirfotosService } from '../../services/subirfotos/subirfotos.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { ToastrService } from 'ngx-toastr';
 AuthService
 @Component({
   selector: 'app-givepass',
@@ -19,7 +19,7 @@ export class GivepassComponent implements OnInit {
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
-
+  token: string = '';
   alimentacion: string = '';
   aseo: string= '';
   transporteSelect: string= '';
@@ -27,6 +27,7 @@ export class GivepassComponent implements OnInit {
   horaDesde: string= ''
 horaHasta: string= ''
 uid: string= '';
+aprobado: boolean = false;
 dias: any =  {
   name: 'Todos los dias',
   completed: false,
@@ -98,12 +99,17 @@ urlFotofirebase: any = '';
     private _auth: AuthService,
     private _post: PostService,
     private _fotos: SubirfotosService,
-    private _sanitazer: DomSanitizer
+    private _sanitazer: DomSanitizer,
+    private toastr: ToastrService
     ) {
     this.uid = this._token.get('uid');
    }
 
   ngOnInit(): void {
+    this.token = this._cookie.get('uid');
+
+
+    this.getDataFirebase();
     this.crearFormulario();
     this.cargarinfo();
   }
@@ -152,6 +158,8 @@ urlFotofirebase: any = '';
       }
     });
   }
+
+  
   async cerrar(){
     this._cookie.deleteAll();
     await  this._auth.logout();
@@ -227,6 +235,23 @@ urlFotofirebase: any = '';
     
   }
 
+
+  getDataFirebase(){
+    // console.log(this.re);
+    
+    this._auth.getPost(this.token)
+    .subscribe((respData: any) =>{
+      console.log(respData);
+      if(respData.docs.length > 0){
+        for(let f of respData.docs){
+          this.aprobado = f.data().aprobado;
+          console.log(f.data());
+        }
+        
+      }
+    });
+  }
+
   cambioImagenPdf(evento: any){
 
   }
@@ -254,6 +279,7 @@ urlFotofirebase: any = '';
     console.log(this.dias);
     
     this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
+    
   }
 
   serviciosmedicos(evento: any){
