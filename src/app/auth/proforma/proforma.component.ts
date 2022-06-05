@@ -1,8 +1,21 @@
+import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import * as moment from 'moment';
 
 
 
+interface medicosServicios{
+  name: string,
+  children?:medicosServicios[]
+}
+
+interface ExampleFlatNode {
+  expandable: boolean;
+  name: string;
+  level: number;
+}
 
 @Component({
   selector: 'app-proforma',
@@ -10,10 +23,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./proforma.component.scss']
 })
 export class ProformaComponent implements OnInit {
+  private _transformer = (node: medicosServicios, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      level: level,
+    };
+  };
   //vnetos generales
   selectedDay: string = '';
   selectedDa: string = '';
   selectedDays: string = '';
+
+  dataSource: any;
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level,
+    node => node.expandable,
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+  fecha: any = moment().format('DD-MM-YYYY');
 
   ubicacionObj: any = {};
   tipoHabitacionObj: any = {};
@@ -111,6 +145,8 @@ export class ProformaComponent implements OnInit {
     this.crearFormulario();
   }
 
+  
+
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
       selectUbi: ['', Validators.required],
@@ -197,6 +233,8 @@ export class ProformaComponent implements OnInit {
       let index = this.servicioMedAux.findIndex((v, index) => v == findObj);
       this.servicioMedAux.splice(index, 1);
     }
+
+    
     console.log(this.servicioMedAux);
     
     /* this.serviciosMedicos.forEach((v, index) => {
@@ -342,9 +380,15 @@ export class ProformaComponent implements OnInit {
 
 
     console.log( this.suma );
+    let servicios: medicosServicios = {
+      name: 'Servicios Medicos' + this.servicioMedAux.length,
+      children: this.servicioMedAux
+    }
     
     this.numhijos   =this.FourthFormGroup.get('hijos').value;
-    
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    this.dataSource.data = servicios;
+
     // console.log(this.servicioMedAux, this.servicioAdiAux);
     // console.log(cog);
     

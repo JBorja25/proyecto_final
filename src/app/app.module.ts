@@ -57,6 +57,7 @@ import { MatListModule } from '@angular/material/list';
 
 
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTreeModule } from '@angular/material/tree';
 
 import { PerfilComponent } from './auth/perfil/perfil.component';
 import { MatLabel } from '@angular/material/form-field';
@@ -65,6 +66,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { PerfilesComponent } from './auth/perfiles/perfiles.component';
 import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { ProformaComponent } from './auth/proforma/proforma.component';
 
 
@@ -112,7 +114,8 @@ import { ToastrModule } from 'ngx-toastr';
    ProfileadminComponent,
    ChangemailComponent,
    GivepassComponent,
-   DialogasilosComponent
+   DialogasilosComponent,
+   
 
    
   ],
@@ -120,7 +123,9 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    MatExpansionModule,
     SwiperModule,
+    MatTreeModule,
     AngularFireAuthModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
