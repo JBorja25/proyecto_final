@@ -30,6 +30,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
+  misionGroup: FormGroup;
 
   controles: any[] = [
     {
@@ -78,6 +79,7 @@ serviciosAdicionales: any[] = [
   uuid: string = '';
   confirmar: boolean = false;
   rechazar: boolean = false;
+  // modificarRechazar: boolean = false;
   mostrarFormulario: boolean = true;
   aprobado: boolean = false;
   cuentaVerificada:boolean = false;
@@ -90,6 +92,8 @@ serviciosAdicionales: any[] = [
   urlFotofirebase: any = '';
   rool:string='';
   nombre: string= '';
+
+  data: any= {};
 
   documentoPDF: string = '';
 
@@ -144,6 +148,7 @@ serviciosAdicionales: any[] = [
     this.crearFormulario();
     
     this.getDataFirebase(); 
+    this.cargarinfo();
   }
   ngAfterViewInit(): void {
     
@@ -172,6 +177,7 @@ serviciosAdicionales: any[] = [
       if(respData.docs.length > 0){
         for(let f of respData.docs){
           console.log(f.data());
+          this.data = f.data();
           this.mostrarFormulario = f.data().mostrarRegistroAsilo;
           this.confirmar = f.data()?.confirmacion;
           this.rechazar = f.data().rechazar;
@@ -196,50 +202,73 @@ serviciosAdicionales: any[] = [
     console.log(this.serviciosAdicionalesSelected);
     console.log(this.serviciosMedicosSelected);
     
-    
+    if(this.rechazar){
+      let enviarFirebase = {
+        ...this.firstFormGroup.value,
+        horas: this.dias.diasSemana.filter((t) => t.completed || !t.completed),
+        horaDesde: this.horaDesde,
+        horaHasta: this.horaHasta,
+        foto: this.urlFotofirebase === '' ? this.data.foto : '',
+        documento: this.documentoPDF === '' ? this.data.documento: '',
+        transporte: this.thirdFormGroup.get('transporte').value,
+        aseo: this.thirdFormGroup.get('aseo').value,
+        alimentacion: this.thirdFormGroup.get('transporte').value,
+        controlesMedicos: this.controles,
+        serviciosAdicionales: this.serviciosAdicionales,
+        mision: this.misionGroup.get('mision').value,
+        vision: this.misionGroup.get('vision').value
+      }
+      // console.log(enviarFirebase);
+      
+      this.postService.updatePost(enviarFirebase, this.idDoc)
+      .then((resp) =>{
+        console.log('se registro correctamente' ,resp);
+        this.getDataFirebase();
+
+        // this._fotos.insertImages(this.FotoSubir);
+
+      })
+    }else{
+
+      let enviarFirebase = {
+        ...this.firstFormGroup.value,
+        uid: this.uuid,
+        mostrarRegistroAsilo: false,
+        rechazar: false,
+        confirmacion: true,
+        aprobado: false,
+        cuentaVerificada:false,
+        foto: this.urlFotofirebase,
+        mensaje: '',
+        documento: this.documentoPDF,
+        horas: this.dias.diasSemana.filter((t) => t.completed || !t.completed),
+        horaDesde: this.horaDesde,
+        horaHasta: this.horaHasta,
+        transporte: this.thirdFormGroup.get('transporte').value,
+        aseo: this.thirdFormGroup.get('aseo').value,
+        alimentacion: this.thirdFormGroup.get('transporte').value,
+        controlesMedicos: this.controles,
+        serviciosAdicionales: this.serviciosAdicionales,
+        mision: this.misionGroup.get('mision').value,
+        vision: this.misionGroup.get('vision').value
+      }
+      // console.log(enviarFirebase);
+      
+      this.postService.createPosts(enviarFirebase)
+      .then((resp) =>{
+        console.log('se registro correctamente' ,resp);
+        this.getDataFirebase();
+
+        // this._fotos.insertImages(this.FotoSubir);
+
+      })
+    }
     
     
     
     /* if(!this.firstFormGroup.invalid){
       return;
     } */
-    this._auth.traerDataFirebase(this.uuid)
-    .subscribe((respData) =>{
-      console.log(respData);
-      for(let f of respData.docs){
-        let enviarFirebase = {
-          ...this.firstFormGroup.value,
-          uid: this.uuid,
-          mostrarRegistroAsilo: false,
-          rechazar: false,
-          confirmacion: true,
-          aprobado: false,
-          cuentaVerificada:false,
-          foto: this.urlFotofirebase,
-          mensaje: '',
-          documento: this.documentoPDF,
-          horas: this.dias.diasSemana.filter((t) => t.completed || !t.completed),
-          horaDesde: this.horaDesde,
-          horaHasta: this.horaHasta,
-          transporte: this.thirdFormGroup.get('transporte').value,
-          aseo: this.thirdFormGroup.get('aseo').value,
-          alimentacion: this.thirdFormGroup.get('transporte').value,
-          controlesMedicos: this.controles,
-          serviciosAdicionales: this.serviciosAdicionales,
-        }
-        // console.log(enviarFirebase);
-        
-        this.postService.createPosts(enviarFirebase)
-        .then((resp) =>{
-          console.log('se registro correctamente' ,resp);
-          this.getDataFirebase();
-
-          // this._fotos.insertImages(this.FotoSubir);
-
-        })
-      }
-      
-    })
     // // this.router.navigate(['/home'])
     // alert("registro realizado\muchas gracias ");
   }
@@ -335,11 +364,13 @@ serviciosAdicionales: any[] = [
     this.thirdFormGroup = this._fb.group({
       alimentacion: [''],
       aseo: [''],
-      controlesMedicos: [''],
       transporte: [''],
-      servAdicionales: ['']
     });
 
+    this.misionGroup = this._fb.group({
+      mision: ['', Validators.required],
+      vision: ['', Validators.required]
+    });
 
   }
 
@@ -424,5 +455,67 @@ serviciosAdicionales: any[] = [
       
     }
 
+  }
+  cargarinfo(){
+
+    this.postService.getPostByUid(this.uuid)
+    .subscribe((resp: any) => {
+      console.log(resp);
+      
+      for(let f of resp.docs){
+        console.log(f.data());
+        this.idDoc = f.id;
+        this.firstFormGroup.setValue({
+          name: f.data()?.name,
+          address: f.data().address,
+          email: f.data().email,
+          fono: f.data().fono
+        });
+        console.log(this.dias);
+        for(let i = 0; i < this.dias.diasSemana.length; i++){
+          this.dias.diasSemana[i].completed = f.data().horas[i].completed;
+        }
+        console.log(this.dias);
+        for(let i = 0; i < this.controles.length; i++){
+          this.controles[i].value = f.data().controlesMedicos[i].value;
+        }
+        for(let i = 0; i < this.serviciosAdicionales.length; i++){
+          this.serviciosAdicionales[i].value = f.data().serviciosAdicionales[i].value;
+        }
+        
+        this.horaDesde = f.data().horaDesde;
+        this.horaHasta = f.data().horaHasta;
+       this.mostrarImagen = f.data().foto;
+       this.misionGroup.setValue({
+         mision: this.data.mision,
+         vision:this.data.vision
+       })
+       this.thirdFormGroup.setValue({
+         alimentacion: this.data.alimentacion,
+         aseo: this.data.aseo,
+         transporte: this.data.transporte,
+       })
+      //  this.transporteSelect = f.data().transporte;
+      //  this.alimentacion = f.data().alimentacion;
+      //  this.aseo = f.data().aseo;
+       
+
+       console.log(this.controles);
+       
+       /* this.fourthFormGroup.setValue({
+         alimentacion: f.data().alimentacion,
+         aseo: f.data().aseo
+       }) */
+      }
+    });
+  }
+
+  modificarRegistro(){
+    this._post.updateModificarRechazar(true, this.idDoc)
+    .then((resp) =>{
+      this.getDataFirebase();
+      this.cargarinfo();
+    })
+    .catch((erro) => {});
   }
 }

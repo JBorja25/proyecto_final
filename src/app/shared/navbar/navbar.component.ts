@@ -18,9 +18,10 @@ export class NavbarComponent implements AfterViewInit {
   public user$: Observable <any>=  this.authSvc.afAuth.user;
 
   tipo: string = '';
+  token: string = '';
 
   constructor(public authSvc:AuthService ,private router:Router, private _cookie: CookieService) {
-    
+      
    }
    ngAfterViewInit(): void {
     // this.tipo = localStorage.getItem('tipo');

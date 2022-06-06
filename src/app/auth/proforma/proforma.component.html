@@ -128,10 +128,10 @@
                                         </mat-label><br>
                                    </div>
                                    <ul style="margin-left: 25%">
-                                        <li *ngFor="let amob of serviciosMedicos">
+                                        <li *ngFor="let amob of serviciosMedicos[0].children; let i = index;">
                                              <mat-checkbox formControlName="servMed" (change)="serviciosmedicos($event)"
-                                                  [value]="amob">
-                                                  {{amob.serd}}
+                                                  [value]="amob.name">
+                                                  {{amob.name}}
                                              </mat-checkbox>
                                         </li>
                                    </ul>
@@ -179,10 +179,10 @@
                                    </div>
 
                                    <ul style="margin-left: 25%;">
-                                        <li *ngFor="let amob of serviciosAdicionales; let i =index">
+                                        <li *ngFor="let amob of serviciosAdicionales[0].children; let i =index">
                                              <mat-checkbox formControlName="servAdicionales"
-                                                  (change)="serviciosadicionales($event)" [value]="amob">
-                                                  {{amob.serd}}
+                                                  (change)="serviciosadicionales($event)" [value]="amob.name">
+                                                  {{amob.name}}
                                              </mat-checkbox>
                                         </li>
                                    </ul>
@@ -216,7 +216,7 @@
                          </div>
                     </form>
                </mat-step>
-               <mat-step>
+               <mat-step class="text-center">
                     <h2 align="center"><span>Total Proforma</span></h2>
                     <div class="row text-center">
                          <span class="text-body"><b>Fecha: </b>{{ fecha }}</span>
@@ -228,9 +228,9 @@
                          </div>
                     </div>
                     <div class="row">
-                         <table class="table">
-                              <thead>
-                                   <tr>
+                         <table class="table table-striped">
+                              <thead class="table-dark">
+                                   <tr class="text-center">
                                         <th colspan="2">Detalles de la proforma</th>
                                    </tr>
                                    <tr>
@@ -263,164 +263,83 @@
                                    <tr>
                                         <td>
                                              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                                                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                                                       <!-- use a disabled button to provide padding for tree leaf -->
-                                                       <button mat-icon-button disabled></button>
-                                                       {{node.name}}
-                                                     </mat-tree-node>
-                                                  <mat-tree-node>
-                                                       <!-- <div class="row" *ngFor="let item of servicioMedAux">
-
-                                                            <div class="col ms-3" style="font-size: 10px">
-                                                                 <span>{{ item.serd }}</span>
-                                                            </div>
-                                                            <div class="col" style="font-size: 10px">
-                                                                 <b> $ {{item.value}} </b>
-                                                            </div>
-          
-                                                       </div> -->
-                                                  </mat-tree-node>
+                                                  <mat-tree-node style="margin-left: 30px; border:soli 1px black" *matTreeNodeDef="let node" matTreeNodeToggle>
+                                                       
+                                                       <span>{{node.name}}: </span>
+                                                       <b style="margin-left: 0.5%"> $ {{node.value}} </b>
+                                                       
+                                                   </mat-tree-node>
+                                                   <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                                                       <div style="margin-left: -30px; width: 100%">
+                                                         <button mat-icon-button matTreeNodeToggle
+                                                                 [attr.aria-label]="'Toggle ' + node.name">
+                                                           <mat-icon class="mat-icon-rtl-mirror">
+                                                             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                                           </mat-icon>
+                                                         </button>
+                                                         <span style="font-size: 18px">{{node.name}}</span>
+                                                         
+                                                       </div>
+                                                       <!-- There is inline padding applied to this div using styles.
+                                                           This padding value depends on the mat-icon-button width.  -->
+                                                       <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
+                                                           role="group">
+                                                         <ng-container matTreeNodeOutlet></ng-container>
+                                                     </div>
+                                                   </mat-nested-tree-node>
                                                   
                                              </mat-tree>
                                         </td>
                                         <td>$ {{ (sumaTotalServMedicos < 0) ? (-1)*sumaTotalServMedicos : sumaTotalServMedicos}}</td>
                                    </tr>
                                    <tr>
-                                        <td>Servicios adicionales - ({{ servicioAdiAux.length }})</td>
+                                        <mat-tree [dataSource]="dataSourceAdi" [treeControl]="treeControlAdi">
+                                             <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
+                                                  <!-- {{node.name}} -->
+                                                  <span>{{node.name}}: </span>
+                                                  <b style="margin-left: 0.5%"> $ {{node.value}} </b>
+                                                  
+                                                  
+                                              </mat-tree-node>
+                                              <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildAdi">
+                                                  <div style="margin-left: -30px; width: 100%">
+                                                    <button mat-icon-button matTreeNodeToggle
+                                                            [attr.aria-label]="'Toggle ' + node.name">
+                                                      <mat-icon class="mat-icon-rtl-mirror">
+                                                        {{treeControlAdi.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                                      </mat-icon>
+                                                    </button>
+                                                    <span style="font-size: 18px">{{node.name}}</span>
+                                                    
+                                                  </div>
+                                                  <!-- There is inline padding applied to this div using styles.
+                                                      This padding value depends on the mat-icon-button width.  -->
+                                                  <div [class.example-tree-invisible]="!treeControlAdi.isExpanded(node)"
+                                                      role="group">
+                                                    <ng-container matTreeNodeOutlet></ng-container>
+                                                </div>
+                                              </mat-nested-tree-node>
+                                             
+                                        </mat-tree>
+                                        <!-- <td>Servicios adicionales - ({{ servicioAdiAux.length }})</td> -->
                                         <td>$ {{ (sumaTotalServAdicionales < 0) ? (-1)*sumaTotalServAdicionales : sumaTotalServAdicionales }}</td>
                                    </tr>
+                                   
+                                   
                               </tbody>
+                              <tfoot>
+                                   <tr>
+                                        <td>Total</td>
+                                        <td>$ {{suma}}</td>
+                                   </tr>
+                                   <tr>
+                                        <td>Valor total por hijo</td>
+                                        <td>$ {{suma/numhijos}}</td>
+                                   </tr>
+                              </tfoot>
                          </table>
                     </div>
-                    <mat-label>Mostrar data
-
-
-
-
-                         <!-- <h2 align="center"><span>¡Felicitaciones! Ya tienes una cotización estimada del Asilo</span> -->
-
-
-                         <br>
-
-                         <div>
-                              <h3>Detalles del valor</h3>
-                              <div class="row">
-                                   <div class="col">
-                                        <h5><b>Tipo Habitacion</b> </h5>
-                                   </div>
-                                   <div class="col">
-                                        <b>$ {{tipoHabitacionObj.value}}</b>
-                                   </div>
-                                   <div class="container">
-                                        <div class="row ">
-                                             <div class="col ms-3">
-                                                  {{tipoHabitacionObj.tipo}}
-                                             </div>
-                                             <div class="col">
-                                                  <b>$ {{tipoHabitacionObj.value}}</b>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="row">
-                                   <div class="col">
-                                        <h5><b>Zona/Ubicacion</b> </h5>
-                                        {{ubicacionObj.ubi}}
-                                   </div>
-                                   <div class="col">
-                                        <b> $ {{ubicacionObj.value}} </b>
-                                   </div>
-                              </div>
-
-                              <div class="row">
-                                   <div class="col">
-                                        <h5><b>Amoblamiento</b> </h5>
-                                   </div>
-                                   <div class="col">
-                                        {{amobladoObj.amobaldo}}<b> $ {{amobladoObj.value}} </b>
-                                   </div>
-                              </div>
-                              <div class="row">
-                                   <div class="col">
-                                        <h5><b>Cuidado fisico</b> </h5>
-                                        {{cuidadoFisicoObj.tipo}}
-                                   </div>
-                                   <br>
-                                   <div class="col">
-                                        <b> $ {{cuidadoFisicoObj.value}} </b>
-                                   </div>
-                              </div>
-                              <div class="row">
-                                   <div class="col">
-                                        <h5><b> Cuidados cognitivos</b></h5>
-                                   </div>
-                                   <div class="col">
-                                        <b>$ {{cuidadoCogObj.value}}</b>
-                                   </div>
-                              </div>
-                              <div class="row">
-                                   <div class="col">
-                                        <h5><b>Servicios Medicos</b> </h5>
-                                   </div>
-                                   <div class="col">
-                                        {{ (sumaTotalServMedicos < 0) ? (-1)*sumaTotalServMedicos : sumaTotalServMedicos
-                                             }} </div>
-
-                                             <div class="row" *ngFor="let item of servicioMedAux">
-
-                                                  <div class="col ms-3">
-                                                       <h5>{{ item.serd }}</h5>
-                                                  </div>
-                                                  <div class="col">
-                                                       <b> $ {{item.value}} </b>
-                                                  </div>
-
-                                             </div>
-                                   </div>
-                                   <div class="row">
-                                        <div class="col">
-                                             <h5><b>Servicios Adicionales</b></h5>
-                                        </div>
-                                        <div class="col">
-                                             {{ (sumaTotalServAdicionales < 0) ? (-1)*sumaTotalServAdicionales :
-                                                  sumaTotalServAdicionales }} </div>
-                                                  <div class="row" *ngFor="let item of servicioAdiAux">
-                                                       <div class="col">
-                                                            {{item.serd}}
-                                                       </div>
-                                                       <div class="col">
-                                                            <b> ${{ item.value }}</b>
-                                                       </div>
-                                                  </div>
-                                        </div>
-
-                                        <hr>
-                                        <div class="row">
-                                             <div class="col">
-                                                  <h5><b> Valor total</b></h5>
-                                             </div>
-                                             <div class="col">
-                                                  <b>${{ suma }}</b>
-                                             </div>
-                                        </div>
-
-                                   </div>
-                                   <div class="row">
-                                        <div class="row">
-                                             <div class="col">
-                                                  <h5><b>Cada hijo debe pagar la cantidad de</b> </h5>
-
-                                             </div>
-                                             <div class="col">
-                                                  <b>$ {{ suma/numhijos}}</b>
-                                             </div>
-                                        </div>
-                                   </div>
-
-
-
-
-                    </mat-label>
+                    
                     <div class="row">
                          <div class="col">
                               <button mat-button matStepperPrevious>Regresar</button>
@@ -431,40 +350,6 @@
           </mat-stepper>
 
 
-          <!--div class="row">
-          <div class="col-sm-6">
-               <form>
-                    <h1>Servicios Adicionales</h1>
-                    <h2><span>Seleccione la opcion:</span></h2>
-
-                    <ng-container *ngFor="let s of serviciosAdicionales; let i =index;">
-
-                         <input  type="checkbox" [id]="s.serd" name="serviciosAdicionales" [value]="i" (change)="serviciosadicionales($event)" >
-                         <label [for]="s.serd">{{s.serd}}</label><br>
-                    </ng-container>
-               </form>
-          </div>
-
-
-          <div class="col-sm-6">
-               <article>
-                    <h1>¿Cuántos Hijos/Responsables tiene la persona Mayor?</h1>
-                    <h2><span>Seleccione la opcion:</span></h2>
-                    <select (change)="selectChangeHandlr($event)" [(ngModel)]="selectedDays">
-                         <option value=" 1 ">1 </option>
-                         <option value=" 2 ">2 </option>
-                         <option value=" 3 ">3 </option>
-                         <option value=" 4 ">4 </option>
-                         <option value=" 5 ">5 </option>
-                         <option value=" 6 ">6 </option>
-                         <option value=" 7 ">7 </option>
-                         <option value=" 8 ">8 </option>
-                         <option value=" 9 ">9 </option>
-                         <option value=" 10 ">10 </option>
-                    </select>
-              
-               </article>
-          </div>
-     </!--div-->
+          
      </div>
      <br>

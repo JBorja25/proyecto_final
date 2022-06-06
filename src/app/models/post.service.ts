@@ -19,6 +19,12 @@ export class PostService {
     return this.angularFirestore.collection("post")
                 .snapshotChanges()
   } */
+  updateModificarRechazar(modificar: boolean, idDoc: string){
+
+    return this.angularFirestore.collection('post').doc(idDoc).update({
+      mostrarRegistroAsilo:modificar
+    });
+  }
 
   getPostByUid(uid: any){
     return this.angularFirestore.collection('post', ref => ref.where('uid', '==', uid)).get();
