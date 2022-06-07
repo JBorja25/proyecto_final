@@ -25,6 +25,7 @@ export class ProfileasiloComponent implements OnInit {
   correo: string = '';
   idDoc: string = '';
   passw: string = '';
+  mostrarFormulario: boolean = true;
   aprobado: boolean = false;
   constructor(
     private _auth: AuthService,
@@ -51,6 +52,7 @@ export class ProfileasiloComponent implements OnInit {
         for(let f of respData.docs){
           this.aprobado = f.data().aprobado;
           console.log(f.data());
+          this.mostrarFormulario = f.data().mostrarRegistroAsilo;
         }
         
       }

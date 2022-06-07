@@ -11,6 +11,7 @@ import { PostService } from 'src/app/models/post.service';
 export class DialogasilosComponent implements OnInit {
   posts: any = {};
   uid: string= '';
+  fecha = new Date().getFullYear();
   constructor(
     private _post: PostService,
     private _activated: ActivatedRoute

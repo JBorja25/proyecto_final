@@ -6,7 +6,7 @@
           Toggle extra text
         </!--button-->
       <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
           <svg class="bi me-1" width="40" height="32">
             <use xlink:href="" />
           </svg>
@@ -21,17 +21,8 @@
               </svg>
               PERFILE
             </a>
-          </li>
-          <!-- <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table" />
-              </svg>
-  
-            </a>
-          </li> -->
-          
-          <li class="nav-item mt-4" routerLink="/" *ngIf="!aprobado">
+          </li> 
+          <li class="nav-item mt-4"  *ngIf="mostrarFormulario">
             <a routerLink="/asilo/regis-asi" class="nav-link active" >
               <svg class="bi me-2" width="16" height="16">
              
@@ -39,38 +30,15 @@
               AFILIACION
             </a>
           </li>
-          <li class="nav-item mt-4" routerLink="">
-            <a class="nav-link active" >
+          <li class="nav-item mt-4" *ngIf="aprobado">
+            <a routerLink="/asilo/info" class="nav-link active" >
               <svg class="bi me-2" width="16" height="16">
               
               </svg>
               INFORMACION GENERAL
             </a>
           </li>
-          <!-- <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table" />
-              </svg>
-  
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table" />
-              </svg>
-  
-            </a>
-          </li> -->
-          <!--li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#home" />
-              </svg>
-              REGISTRO PROPIETARIO
-            </a>
-          </!--li-->
+
           <li>
             <a href="#" class="nav-link text-white">
               <svg class="bi me-2" width="16" height="16">

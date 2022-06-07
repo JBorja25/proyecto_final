@@ -12,7 +12,9 @@
                     <form [formGroup]="firstFormGroup">
                          <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
                          <div class="row text-center">
+                              <h3>Esta seccion informativa permite seleccionar  los servicios ubicacion y tipo de habitacion</h3>
                               <div class="col">
+                                   
                                    <mat-form-field appearance="fill">
                                         <mat-label>Ubicacion</mat-label>
                                         <mat-select formControlName="selectUbi" required>
@@ -70,6 +72,7 @@
                     <form [formGroup]="SecondFormGroup">
                          <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
                          <div class="row text-center">
+                              <h3>Esta seccion informativa permite seleccionar  los servicios amoblado y cuidado fisico </h3>
                               <div class="col">
                                    <mat-form-field appearance="fill">
                                         <mat-label>Amoblado</mat-label>
@@ -117,6 +120,7 @@
                     <form [formGroup]="thirdFormGroup">
                          <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
                          <div class="row">
+                              <h3>Esta seccion informativa permite seleccionar  los servicios medicos y cuidado cognitivo </h3>
                               <div class="col">
                                    <div class="text-center">
 
@@ -163,10 +167,11 @@
                     </form>
                </mat-step>
                <mat-step [stepControl]="FourthFormGroup" style="height: 75vh;">
-                    {{ stepper }}
+                    
                     <form [formGroup]="FourthFormGroup">
                          <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
                          <div class="row ">
+                              <h3>Esta seccion informativa permite seleccionar  los servicios adicionales cuidado cognitivo </h3>
                               <div class="col">
                                    <div class="text-center">
 
@@ -188,7 +193,7 @@
                                    </ul>
                               </div>
                               <div class="col text-center">
-                                   <mat-label>¿Cuántos Hijos/Responsables tiene la persona Mayor</mat-label>
+                                   <mat-label>¿Cuántos hijos tiene la persona Mayor</mat-label>
                                    <mat-form-field appearance="fill">
 
                                         <mat-label>¿Cuántos Hijos?</mat-label>
@@ -327,6 +332,7 @@
                                    
                                    
                               </tbody>
+                              <br>
                               <tfoot>
                                    <tr>
                                         <td>Total</td>

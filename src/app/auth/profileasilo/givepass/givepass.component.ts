@@ -21,6 +21,7 @@ export class GivepassComponent implements OnInit {
   fourthFormGroup: FormGroup;
   token: string = '';
   alimentacion: string = '';
+  mostrarFormulario: boolean = true;
   aseo: string= '';
   transporteSelect: string= '';
   idDoc: string = '';
@@ -246,6 +247,7 @@ urlFotofirebase: any = '';
         for(let f of respData.docs){
           this.aprobado = f.data().aprobado;
           console.log(f.data());
+          this.mostrarFormulario = f.data().mostrarRegistroAsilo;
         }
         
       }
