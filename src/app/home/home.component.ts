@@ -3,6 +3,7 @@ import { PostService } from '../models/post.service';
 import SwiperCore from 'swiper';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogasilosComponent } from './dialogasilos/dialogasilos/dialogasilos.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private _post: PostService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _route: Router
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +32,7 @@ export class HomeComponent implements OnInit {
       console.log(resp);
       this.posts = [];
       for(let f of resp.docs){
-        if(f.data().tipo != ' admin'){
+        if(f.data().tipo != ' admin' && f.data().aprobado){
           this.posts.push(f.data());
         }
       }
@@ -40,12 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   abrirDialog(uid: any){
-    const dialog = this._dialog.open(DialogasilosComponent,{
-      data: uid,
-      width: '50%',
-      height: 'auto',
-      maxHeight: '600px'
-    });
+    this._route.navigateByUrl(`/info-asilo/${uid}`);
   }
 
 }

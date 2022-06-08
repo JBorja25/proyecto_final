@@ -9,7 +9,7 @@
         <svg class="bi me-1" width="40" height="32">
           <use xlink:href="" />
         </svg>
-        <span class="fs-4">Sidebar</span>
+        <span class="fs-4">Asilo</span>
       </a>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
@@ -20,7 +20,7 @@
             PERFILE
           </a>
         </li>
-        <li class="nav-item mt-4" [ngClass]="{'disabled': rechazar}">
+        <li class="nav-item mt-4" *ngIf="mostrarFormulario">
           <a routerLink="/asilo/regis-asi" class="nav-link active" >
             <svg class="bi me-2" width="16" height="16">
            
@@ -28,7 +28,7 @@
             AFILIACION
           </a>
         </li>
-        <li class="nav-item mt-4" >
+        <li class="nav-item mt-4" *ngIf="aprobado" >
           <a routerLink="/asilo/info" class="nav-link active" >
             <svg class="bi me-2" width="16" height="16">
             
@@ -60,11 +60,11 @@
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>LOgout</strong>
+          <strong>Cerrar Seccion</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
 
-          <li (click)="cerrar()"><a class="dropdown-item btn">Sign out</a></li>
+          <li (click)="cerrar()"><a class="dropdown-item btn">Cerrar Seccion</a></li>
         </ul>
       </div>
     </div>
@@ -77,7 +77,7 @@
         Toggle extra text
       </!--button-->
     <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <a  class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi me-1" width="40" height="32">
           <use xlink:href="" />
         </svg>
@@ -100,7 +100,7 @@
             AFILIACION
           </a>
         </li>
-        <li class="nav-item mt-4" routerLink="/asilo/info">
+        <li class="nav-item mt-4" *ngIf="aprobado" routerLink="/asilo/info">
           <a class="nav-link active" >
             <svg class="bi me-2" width="16" height="16">
             
@@ -132,11 +132,11 @@
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>LOgout</strong>
+          <strong>Cerrar Seccion</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
 
-          <li (click)="cerrar()"><a class="dropdown-item btn">Sign out</a></li>
+          <li (click)="cerrar()"><a class="dropdown-item btn">Cerrar Seccion</a></li>
         </ul>
       </div>
     </div>
@@ -159,38 +159,67 @@
     <!---------------------------------------------------------------------------------->
     <div class="container" *ngIf="mostrarFormulario">
       <mat-stepper labelPosition="bottom" #stepper linear>
+        <mat-step [stepControl]="misionGroup">
+          <form [formGroup]="misionGroup" class="container" >
+            <ng-template matStepLabel>Misión y vision</ng-template>
+
+            <div style="display:flex; justify-content: center;">
+              <div style="width: 45%">
+
+                <div class="mb-3">
+                  <label class="form-label">Misión del asilo</label>
+                  <textarea style="width: 100%; height: 100px; resize: none;" formControlName="mision" class="form-control" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Visión del asilo</label>
+                  <textarea style="width: 100%; height: 100px; resize: none" formControlName="vision" type="text" class="form-control" required></textarea>
+                </div>
+                <div>
+                  <button mat-button matStepperNext>Siguiente</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-step>
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup" class="container" >
             <ng-template matStepLabel>Campos Principales</ng-template>
 
             <div class="mb-3">
-              <label class="form-label">name</label>
+              <label class="form-label">Nombre del asilo</label>
               <input formControlName="name" type="text" class="form-control" required>
             </div>
             <div class="mb-3">
-              <label class="form-label">address</label>
+              <label class="form-label">Direccion del asilo</label>
               <input formControlName="address" type="text" class="form-control" required>
             </div>
             <div class="mb-3">
-              <label class="form-label">email</label>
+              <label class="form-label">Correo del asilo</label>
               <input formControlName="email" type="text" class="form-control" required>
             </div>
             <div class="mb-3">
-              <label class="form-label">fono</label>
+              <label class="form-label">Telefono del asilo</label>
               <input formControlName="fono" type="text" class="form-control" required>
             </div>
 
 
             <div>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext>Siguiente</button>
             </div>
           </form>
         </mat-step>
         <mat-step [stepControl]="SecondFormGroup">
           
-          <ng-template matStepLabel>Horarios de atención</ng-template>
+          <ng-template matStepLabel>Horarios de atención
+           
+          </ng-template>
           <div class="mb-3">
-            <label class="form-label">Selecicone dia y hora de atencion</label>
+            <label class="form-label">Selecione dia y hora de atencion 
+              <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Sleeciones los dias de atencion del asilo." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                <path
+                     d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+           </svg>
+            </label>
             <div class="container">
                 <div class="row">
                   <div class="col">
@@ -206,14 +235,19 @@
                   </div>
                   <div class="col">
 
-                    <label class="form-label">Selecicone hora de atencion</label>
+                    <label class="form-label">Selecicone hora de atencion
+                      <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="seleccione el horario de atencion del asilo" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                        <path
+                             d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                   </svg>
+                    </label>
                     <br>
                     <div class="row">
-                      <span><b>Hora Inicio:</b></span>
+                      <span><b> Inicio:</b></span>
                       <input type="time" class="form-control" [(ngModel)]="horaDesde" step="1800" min="00:00">
                     </div>
                     <div class="row">
-                      <span><b>Hora Fin:</b></span>
+                      <span><b> Fin:</b></span>
                       <input type="time" class="form-control" [(ngModel)]="horaHasta" step="1800" min="00:00">
                     </div>
                   </div>
@@ -222,8 +256,8 @@
             </div>
             
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperPrevious>Atras</button>
+              <button mat-button matStepperNext>Siguiente</button>
             </div>
             
           </mat-step>
@@ -232,15 +266,25 @@
               <ng-template matStepLabel>Servicios</ng-template>
               <div class="row">
                 <div class="col">
-                  <label class="form-label">Alimentacion</label>
+                  <label class="form-label">Alimentacion
+                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de alimentacion." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                      <path
+                           d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                 </svg>
+                  </label>
                   <mat-select formControlName="alimentacion">
                     <mat-option selected value="0">Seleccionee...</mat-option>
-                    <mat-option value="si">Si</mat-option>
+                    <mat-option value="Si">Si</mat-option>
                     <mat-option value="no">No</mat-option>
                   </mat-select>
                 </div>
                 <div class="col">
-                  <label class="form-label">Aseo personal</label>
+                  <label class="form-label">Aseo personal
+                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de aseo personal." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                      <path
+                           d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                 </svg>
+                  </label>
                   <mat-select formControlName="aseo">
                     
                     <mat-option selected value="0">Seleccionee...</mat-option>
@@ -252,11 +296,16 @@
               </div>
               <div class="row mt-4">
                 <div class="col">
-                  <label class="form-label">Control Médico</label>
+                  <label class="form-label">Control Médico
+                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo parael cuidado permanente del adulto mayor." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                      <path
+                           d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                 </svg>
+                  </label>
                   <ul>
                     <li *ngFor="let control of controles">
   
-                      <mat-checkbox  formControlName="controlesMedicos" (change)="serviciosmedicos($event)"
+                      <mat-checkbox [checked]="control.value" (change)="serviciosmedicos($event)"
                           [value]="control.name">
                           {{control.name}}
                       </mat-checkbox>
@@ -265,7 +314,12 @@
                 </div>
 
                 <div class="col">
-                  <label class="form-label">Transporte</label>
+                  <label class="form-label">Transporte
+                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de transporte." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                      <path
+                           d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                 </svg>
+                  </label>
                   <mat-select (change)="transporte($event)" value="#" formControlName="transporte">
                     <mat-option value="#" selected>Seleccione..</mat-option>
                     <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
@@ -275,10 +329,15 @@
               </div>
               <div class="row mt-4">
                 <div class="col">
-                  <mat-label>Servicios Adicionales</mat-label><br>
+                  <mat-label>Servicios Adicionales
+                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                      <path
+                           d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                 </svg>
+                  </mat-label><br>
                   <ul>
                       <li *ngFor="let amob of serviciosAdicionales; let i =index">
-                            <mat-checkbox formControlName="servAdicionales"
+                            <mat-checkbox [checked]="amob.value"
                                 (change)="serviciosadicionales($event)" [value]="amob.serd">
                                 {{amob.serd}}
                             </mat-checkbox>
@@ -291,8 +350,8 @@
   
               
               <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button matStepperPrevious>Atras</button>
+                <button mat-button matStepperNext>Siguiente</button>
               </div>
             </form>
           </mat-step>
@@ -302,7 +361,12 @@
 
 
             <div class="mb-3">
-              <label class="form-label">ingrese una imagen</label>
+              <label class="form-label">Imagen del asilo 
+                <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="ingrese la foto del asilo" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                  <path
+                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+             </svg>
+              </label>
               <div>
                 <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
               </div>
@@ -310,15 +374,20 @@
               <input type="file" formControlName="img" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
             </div>
             <div class="mb-3">
-              <label class="form-label">Documento</label>
+              <label class="form-label">Documento
+                <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Suba el documento otorgado por el sri para su funcionamiento en pdf" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                  <path
+                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+             </svg>
+              </label>
               <br>
               <input type="file" accept="application/pdf" formControlName="doc" (change)="cambioImagenPdf($event)">
             </div>
 
             <div>
-              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperPrevious>Atras</button>
 
-              <button mat-button (click)="stepper.reset()">Reset</button>
+              <button mat-button (click)="stepper.reset()" *ngIf="!rechazar">Borrar campos</button>
               <button type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
             </div>
           </form>
@@ -464,21 +533,21 @@
       
     </div>
 
-    <div *ngIf="aprobado">
+    <!-- <div *ngIf="aprobado">
       <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)">
       </app-regisall>
-    </div>
+    </div> -->
 
-    <div *ngIf="cuentaVerificada">
+    <div *ngIf="aprobado">
       <p>
         su cuenta ha sido aprobada y verificada
       </p>
       <p>
-        visualice su informacion dando click <a class="btn btn-info" routerLink="/home">aqui</a>
+        visualice su informacion dando click <a class="btn btn-info" routerLink="/asilo/info">aqui</a>
       </p>
     </div>
 
-    <div *ngIf="rechazar">
+    <div *ngIf="rechazar && !mostrarFormulario">
       <div class="row">
         <div class="col"></div>
         <div class="col-md-7">
@@ -490,6 +559,11 @@
               <p class="card-text text-center">
                 {{ mensaje }}
               </p>
+            </div>
+            <div class="card-footer">
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" (click)="modificarRegistro()" type="button">Completar informacion</button>
+              </div>
             </div>
           </div>
         </div>

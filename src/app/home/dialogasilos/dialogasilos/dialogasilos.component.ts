@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/models/post.service';
 
 @Component({
@@ -9,22 +10,23 @@ import { PostService } from 'src/app/models/post.service';
 })
 export class DialogasilosComponent implements OnInit {
   posts: any = {};
+  uid: string= '';
+  fecha = new Date().getFullYear();
   constructor(
     private _post: PostService,
-    private _ref: MatDialogRef<DialogasilosComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private _activated: ActivatedRoute
   ) { 
-
+    this.uid = this._activated.snapshot.paramMap.get('uid');
   }
 
   ngOnInit(): void {
-    console.log(this.data);
-    
+      console.log();
+      
     this.getPosts();
   }
 
   getPosts(){
-    this._post.getPostByUid(this.data)
+    this._post.getPostByUid(this.uid)
     .subscribe((resp: any) =>{
       console.log(resp);
       this.posts = [];
@@ -40,8 +42,6 @@ export class DialogasilosComponent implements OnInit {
     })
   }
 
-  cerrar(){
-    this._ref.close();
-  }
+  
 
 }

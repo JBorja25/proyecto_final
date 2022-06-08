@@ -2,6 +2,7 @@
     display: flex;
     justify-content: end;
     width: 100%;
+   
     // margin-top: -15px;
 }
 
@@ -14,3 +15,13 @@
 .card-text{
     padding: 10px;
 }
+
+body{
+    overflow-x: hidden;
+}
+
+.nav-item{
+    margin-right: 3px;
+}
+
+
