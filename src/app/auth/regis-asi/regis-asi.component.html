@@ -162,11 +162,12 @@
         <mat-step [stepControl]="misionGroup">
           <form [formGroup]="misionGroup" class="container" >
             <ng-template matStepLabel>Misión y vision</ng-template>
-
+            <h3>Esta seccion  permite agregar la mision y vision del asilo</h3>
             <div style="display:flex; justify-content: center;">
+       
               <div style="width: 45%">
-
                 <div class="mb-3">
+               
                   <label class="form-label">Misión del asilo</label>
                   <textarea style="width: 100%; height: 100px; resize: none;" formControlName="mision" class="form-control" required></textarea>
                 </div>
@@ -184,7 +185,7 @@
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup" class="container" >
             <ng-template matStepLabel>Campos Principales</ng-template>
-
+            <h3>Esta seccion  permite agregar la basica informacion del asilo</h3>
             <div class="mb-3">
               <label class="form-label">Nombre del asilo</label>
               <input formControlName="name" type="text" class="form-control" required>
@@ -211,9 +212,10 @@
         <mat-step [stepControl]="SecondFormGroup">
           
           <ng-template matStepLabel>Horarios de atención
-           
+        
           </ng-template>
           <div class="mb-3">
+            <h3>Esta seccion informativa permite seleccionar  los horarios y dias de atencion del asilo </h3>
             <label class="form-label">Selecione dia y hora de atencion 
               <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Sleeciones los dias de atencion del asilo." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                 <path
@@ -265,6 +267,8 @@
             <form [formGroup]="thirdFormGroup" class="container" >
               <ng-template matStepLabel>Servicios</ng-template>
               <div class="row">
+                <h3>Esta seccion informativa permite seleccionar  los servicios  medicos tambien alimentacion, transporte y aseo personal</h3>
+       
                 <div class="col">
                   <label class="form-label">Alimentacion
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de alimentacion." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
@@ -361,6 +365,7 @@
 
 
             <div class="mb-3">
+              <h3>Esta seccion informativa permite seleccionar una imagen  y documento del asilo</h3>
               <label class="form-label">Imagen del asilo 
                 <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="ingrese la foto del asilo" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                   <path
