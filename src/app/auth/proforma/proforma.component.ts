@@ -81,7 +81,7 @@ export class ProformaComponent implements OnInit {
       ]
     }
                               
-                            ]
+]
   servicioMedAux:any[] = [];
   //
   serviciosAdicionales: medicosServicios[] = [
@@ -460,6 +460,7 @@ export class ProformaComponent implements OnInit {
       title: 'Proforma'
     });
     pdf.add(new  Txt('\n').end);
+    
     pdf.add((await new Img('../../../assets/img/1.jpg').relativePosition(400, 75).height('100').build()));
 
     pdf.add(new Table([
@@ -667,13 +668,13 @@ export class ProformaComponent implements OnInit {
 
     pdf.add(new Txt('\n\n').end);
 
+    pdf.add((await new Img('../../../assets/img/1.jpg').relativePosition(350, 35).height('40').width('40').build()));
+
 
     pdf.add(new Table([
       [{text: 'nombre del sitio', bold: true, alignment: 'center'}]
     ]).fontSize(11).widths(['40%']).relativePosition(300, 50).alignment('center').layout({hLineWidth: (i,n, c) => (i==0 || c==0) ? 1: 0, vLineWidth: i=> 0 }).end);
-    pdf.add(new Table([
-      [{text: 'nombre del sitio', bold: true, alignment: 'center'}]
-    ]).fontSize(11).widths(['40%']).relativePosition(300, 50).alignment('center').layout({hLineWidth: (i,n, c) => (i==0 || c==0) ? 1: 0, vLineWidth: i=> 0 }).end);
+  
 
     pdf.add(new Txt('\n\n\n\n').end);
     
