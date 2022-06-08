@@ -86,6 +86,7 @@ import { ChangemailComponent } from './auth/profileasilo/changemail/changemail.c
 import { GivepassComponent } from './auth/profileasilo/givepass/givepass.component';
 import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
 
 
 
@@ -115,6 +116,7 @@ import { ToastrModule } from 'ngx-toastr';
    ChangemailComponent,
    GivepassComponent,
    DialogasilosComponent,
+   CoverproformaComponent,
    
 
    

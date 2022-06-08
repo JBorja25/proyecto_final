@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from '@angular/material/tree';
 import * as moment from 'moment';
 
+import { Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+
 
 
 interface medicosServicios{
@@ -447,6 +450,252 @@ export class ProformaComponent implements OnInit {
       this.calcular();
     }
     
+  }
+
+  async descargar(){
+
+    PdfMakeWrapper.setFonts(pdfFonts);
+    const pdf = new PdfMakeWrapper();
+    pdf.info({
+      title: 'Proforma'
+    });
+    pdf.add(new  Txt('\n').end);
+    pdf.add((await new Img('../../../assets/img/1.jpg').relativePosition(400, 75).height('100').build()));
+
+    pdf.add(new Table([
+      [
+        {
+          text: 'Proforma', bold: true, fontSize: 20
+        },
+        ''
+      ]
+    ]).layout('noBorders').alignment('center').fontSize(10).widths(['50%', '50%']).end);
+    pdf.add(new  Txt('\n\n\n\n\n\n\n').end);
+
+    pdf.add( new Table([
+      [
+        {
+          text: 'Datos', bold: true, fillColor: '#1d1d24', color: '#fff'
+        },
+      ]
+    ]).layout('noBorders').alignment('center').fontSize(12).widths(['100%']).end);
+
+    pdf.add(new Table([
+      [
+        {
+          text: 'Nombre del sitio web', bold: true
+        },
+        'nombre del sitio',
+        {
+          text: 'Fecha', bold: true
+        },
+        `${ this.fecha }`
+      ]
+    ]).layout('noBorders').fontSize(11).widths(['25%', '25%', '20%', '25%']).end)
+    pdf.add(new Table([
+      [
+        {
+          text: 'Provincia', bold: true
+        },
+        'Pichincah',
+        {
+          text: 'Cuidad', bold: true
+        },
+        'Quito'
+      ]
+    ]).layout('noBorders').fontSize(11).widths(['25%', '25%', '20%', '25%']).end)
+    pdf.add(new Table([
+      [
+        {
+          text: 'Cédula', bold: true
+        },
+        'cedual',
+        {
+          text: 'Correo', bold: true
+        },
+        {
+          text: 'correo@correo.com'
+        }
+      ]
+    ]).layout('noBorders').fontSize(11).widths(['25%', '25%', '20%', '30%']).end);
+    pdf.add(new  Txt('\n\n\n\n\n').end);
+    pdf.add(new Table([
+      [
+        {
+          text: 'Detalles de la proforma', bold: true, fillColor: '#1d1d24', color: '#fff'
+        }
+      ]
+    ]).layout('noBorders').widths(['100%']).alignment('center').end);
+
+    pdf.add(new Table([
+      [
+        {
+          text: 'Descripcion', bold: true, fillColor: '#1d1d24', color: '#fff'
+        },
+        {
+          text: 'Valor', bold: true, fillColor: '#1d1d24', color: '#fff'
+        }
+      ]
+    ]).layout('noBorders').widths(['50%', '50%']).alignment('center').end);
+    pdf.add(new Table([
+      [
+        {
+          text: `Tipo de Habitacion - ${ this.tipoHabitacionObj.tipo }`, 
+        },
+        {
+          text: '$ ' + this.tipoHabitacionObj.value,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+    pdf.add(new Table([
+      [
+        {
+          text: `Zona/Ubicacion - ${ this.ubicacionObj.ubi }`, 
+        },
+        {
+          text: '$ ' + this.ubicacionObj.value,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+    pdf.add(new Table([
+      [
+        {
+          text: `Amoblado - ${ this.amobladoObj.amoblado }`, 
+        },
+        {
+          text: '$ ' + this.amobladoObj.value,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+
+    pdf.add(new Table([
+      [
+        {
+          text: `Cuidado fisico - ${ this.cuidadoFisicoObj.tipo }`, 
+        },
+        {
+          text: '$ ' + this.cuidadoFisicoObj.value,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+    pdf.add(new Table([
+      [
+        {
+          text: `Cuidado cognitivo - ${ this.cuidadoCogObj.cuidado }`, 
+        },
+        {
+          text: '$ ' + this.cuidadoCogObj.value,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+
+    pdf.add(new Table([
+      [
+        {
+          text: `Servicios Medicos - ${ this.servicioMedAux.length }`, 
+        },
+        {
+          text: '$ ' + this.sumaTotalServMedicos,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+    for(let i =0; i < this.servicioMedAux.length; i++){
+      
+      pdf.add(new Table([
+        [
+          {
+            text: `${ this.servicioMedAux[i].name }`, 
+          },
+          {
+            text: '$ ' + this.servicioMedAux[i].value,
+          }
+        ]
+      ]).layout('noBorders').widths(['70%', '30%']).end);
+    }
+    pdf.add(new Table([
+      [
+        {
+          text: `Servicios Adicionales - ${ this.servicioAdiAux.length }`, 
+        },
+        {
+          text: '$ ' + this.sumaTotalServAdicionales,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+    for(let i=0; i < this.servicioAdiAux.length; i++){
+      
+      pdf.add(new Table([
+        [
+          {
+            text: `${ this.servicioAdiAux[i].name }`, 
+          },
+          {
+            text: `$ ${this.servicioMedAux[i].value} `,
+          }
+        ]
+      ]).layout('noBorders').widths(['70%', '30%']).end);
+    }
+    
+    pdf.add(new Txt('\n\n\n').end);
+    pdf.add(new Table([
+      [
+        {
+          text: 'Total', 
+        },
+        {
+          text: '$ ' + this.suma,
+        }
+      ]
+    ]).layout('lightHorizontalLines').widths(['70%', '30%']).layout({hLineWidth: (i,n, c) => (i==0 || c==0) ? 1: 0, vLineWidth: i=> 0 }).end);
+    pdf.add(new Table([
+      [
+        {
+          text: 'Valor total por hijo', 
+        },
+        {
+          text: '$ ' + this.suma/this.numhijos,
+        }
+      ]
+    ]).layout('noBorders').widths(['70%', '30%']).end);
+    pdf.add(new Table([
+      [
+        {
+          text: '', 
+        }
+      ]
+    ]).layout('noBorders').widths(['100%']).layout({hLineWidth: (i,n, c) => (i==0 || c==0) ? 1: 0, vLineWidth: i=> 0 }).end);
+
+    pdf.add(new Txt('\n\n').end);
+
+
+    pdf.add(new Table([
+      [{text: 'nombre del sitio', bold: true, alignment: 'center'}]
+    ]).fontSize(11).widths(['40%']).relativePosition(300, 50).alignment('center').layout({hLineWidth: (i,n, c) => (i==0 || c==0) ? 1: 0, vLineWidth: i=> 0 }).end);
+    pdf.add(new Table([
+      [{text: 'nombre del sitio', bold: true, alignment: 'center'}]
+    ]).fontSize(11).widths(['40%']).relativePosition(300, 50).alignment('center').layout({hLineWidth: (i,n, c) => (i==0 || c==0) ? 1: 0, vLineWidth: i=> 0 }).end);
+
+    pdf.add(new Txt('\n\n\n\n').end);
+    
+    pdf.add(new Table([
+      [{text: 'Condiciones y formas de pago', bold: true, alignment: 'center'}]
+    ]).fontSize(11).widths(['40%']).relativePosition(0, 50).alignment('center').layout('noBorders').end);
+    pdf.add(new Txt('\n').end);
+
+    pdf.add(new Table([
+      [{text: 'El pago se realiza al instante de realizar el convenio con el asilo.', bold: true, alignment: 'center'}]
+    ]).fontSize(11).widths(['40%']).relativePosition(0, 50).alignment('center').layout('noBorders').end);
+
+
+    pdf.create().open();
+    
+  }
+
+  reset(stepper: any){
+    stepper.reset();
+    this.servicioMedAux = [];
+    this.servicioAdiAux = [];
+
   }
 
 }

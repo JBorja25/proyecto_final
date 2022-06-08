@@ -23,6 +23,7 @@ import { ProfileadminComponent } from './auth/profileadmin/profileadmin.componen
 import { ChangemailComponent } from './auth/profileasilo/changemail/changemail.component';
 import { GivepassComponent } from './auth/profileasilo/givepass/givepass.component';
 import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
+import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
 
 
 
@@ -56,7 +57,18 @@ const routes: Routes = [
   },
 
   { path: 'perfiles', component: PerfilesComponent },
-  { path: 'proforma', component:ProformaComponent },
+  { path: 'p',
+    children: [
+      {
+        path: 'cover',
+        component: CoverproformaComponent
+      },
+      {
+        path: 'proforma',
+        component: ProformaComponent
+      }
+    ]
+  },
   { path: 'info-asilo/:uid', component:DialogasilosComponent },
   // { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.component').then(m => m.ProformaComponent) },
   { path: '**', component: HomeComponent },
