@@ -31,6 +31,98 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   misionGroup: FormGroup;
+/**swrvicios adicionales*/
+serviciosMedicos: any[] = [
+  {
+    name: 'Servicios Medicos',
+    children: [
+      {name:'Oxigeno'}, 
+      {name:'Terapias Respiratorias'}, 
+      {name: 'Terapias Musculares'}, 
+      {name: 'Cuidados Postoperatorios'}, 
+      {name: 'Dialisis'}, 
+      {name: 'Sondas'}, 
+      {name: 'Ostomias'}, 
+      {name: 'Terapias Cognitivas'}, 
+      {name: 'Terapias Diabetes'}, 
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+/**swrvicios adicionales*/
+serviciosSanitarios: any[] = [
+  {
+    name: 'Servicios Sanitarios',
+    children: [
+      {name:'Cuidados de enfermería 24 horas'}, 
+      {name:'Valoración gerontológica'}, 
+      {name: 'Asistencia médica'}, 
+      {name: 'Cuidados continuados para enfermos crónicos'}, 
+      {name: 'Gestión farmacéutica'}, 
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+/**swrvicios adicionales*/
+serviciosTerapeuticos: any[] = [
+  {
+    name: 'Servicios Terapeuticos',
+    children: [
+      {name:'Programa de estimulación cognitiva'}, 
+      {name:'Programa de estimulación multisensorial'}, 
+      {name: 'Programa de mantenimiento y actividad física'}, 
+      {name: 'Programa de terapia funcional'}, 
+      {name: 'Programa de rehabilitación y fisioterapia'}, 
+      {name: 'Programa de terapia ocupacional para apoyo en las ABIVD´s*'}, 
+      {name: 'Programa de atención centrada en la persona'}, 
+      {name: 'Programa de memoria y reminiscencias'}, 
+      
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+/**swrvicios adicionales*/
+serviciosComodidad: any[] = [
+  {
+    name: 'Servicios Comodidad',
+    children: [
+      {name:'Cocina propia'}, 
+      {name:'Comedor'}, 
+      {name: 'Sala de T.V.'}, 
+      {name: 'Sala de estar'}, 
+      {name: 'Rincones significativos'}, 
+      {name: 'Patio y terrazas'}, 
+      {name: 'Limpieza y lavandería'}, 
+
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+serviciosatencion: any[] = [
+  {
+    name: 'Servicios atencion',
+    children: [
+      {name:'Itinerario personalizado'}, 
+      {name:'Plan de atención integral'}, 
+      {name: 'Personal de referencia'}, 
+      {name: 'Proyecto de vida'}, 
+      {name: 'Escuela de familias'}, 
+      {name: 'Grupo de apoyo familiar'}, 
+     ]
+  }
+                            
+]
+
+
+
+
+
+
+
 
   controles: any[] = [
     {
