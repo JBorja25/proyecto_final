@@ -75,18 +75,18 @@
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>LOgout</strong>
+          <strong>Cerrar Sesion</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
 
-          <li (click)="cerrar()"><a class="dropdown-item btn">Sign out</a></li>
+          <li (click)="cerrar()"><a class="dropdown-item btn">Cerrar Sesion</a></li>
         </ul>
       </div>
     </div>
 
   </mat-drawer>
 
-  <div class="row example-sidenav-content" style="width: 100vw;">
+  <div class="row example-content" style="width: 100vw;">
     <mat-toolbar color="primary">
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
@@ -95,9 +95,14 @@
     </mat-toolbar>
     
   </div>
+  
   <mat-tab-group mat-align-tabs="center">
+    
     <mat-tab label="Asilos pendientes">
   
+     
+      <br>
+      <p style="text-align:center; width: 60%;">Esta seccion se puede visualizar a todos los asilos que estan pendientes de aprobacion o rechazo </p>
       
       <div class="row" style=" width: 98vw;" *ngIf="postPendientes.length > 0">
         <div class="col"></div> 
@@ -146,6 +151,7 @@
         </div>
         <div class="col"></div>
       </div>
+    
 
       <div class="row" style="text-align:center; width: 97%;" *ngIf="postPendientes.length == 0">
         <div class="col" style="text-align:center; width: 97%;">
@@ -157,7 +163,9 @@
     </mat-tab>
   
   <mat-tab label="Asilos Aprobados">
-   
+    <br>
+    <p style="text-align:center; width: 60%;">Esta seccion se puede visualizar a todos los asilos que han sido  aprobados</p>
+    
       <div class="row" style="width: 98%">
         <div class="col"></div>
         <div class="col-md-8">
@@ -202,8 +210,9 @@
   
   </mat-tab>
   <mat-tab label="Asilos rechazados">
-  
-   
+    <br>
+    <p style="text-align:center; width: 60%;">Esta seccion se puede visualizar a todos los asilos que han sido rechazados </p>
+    
       <div class="row" style="width: 98%">
         <div class="col"></div>
         <div class="col-md-8">

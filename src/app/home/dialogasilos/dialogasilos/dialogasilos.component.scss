@@ -9,7 +9,7 @@
 .custom__border{
     border: solid 1px #ccc;
     border-radius: 15px;
-    box-shadow: 0 0 10px 0 gray;
+    box-shadow: 0 0 10px 0 rgb(185, 184, 184);
 }
 
 .card-text{
@@ -18,6 +18,8 @@
 
 body{
     overflow-x: hidden;
+
+    
 }
 
 .nav-item{
@@ -25,3 +27,58 @@ body{
 }
 
 
+#contatti{
+    background-color: #70c3be;
+    letter-spacing: 2px;
+    }
+  #contatti a{
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  
+  @media (max-width: 575.98px) {
+  
+    #contatti{padding-bottom: 800px;}
+    #contatti .maps iframe{
+      width: 100%;
+      height: 450px;
+    }
+   }
+  
+  
+  @media (min-width: 576px) {
+  
+     #contatti{padding-bottom: 800px;}
+  
+     #contatti .maps iframe{
+       width: 100%;
+       height: 450px;
+     }
+   }
+  
+  @media (min-width: 768px) {
+  
+    #contatti{padding-bottom: 350px;}
+  
+    #contatti .maps iframe{
+      width: 100%;
+      height: 850px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    #contatti{padding-bottom: 200px;}
+  
+     #contatti .maps iframe{
+       width: 100%;
+       height: 700px;
+     }
+  }
+  
+  
+  #author a{
+    color: #fff;
+    text-decoration: none;
+      
+  }
