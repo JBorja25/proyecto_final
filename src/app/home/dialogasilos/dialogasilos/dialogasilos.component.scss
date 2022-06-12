@@ -9,7 +9,7 @@
 .custom__border{
     border: solid 1px #ccc;
     border-radius: 15px;
-    box-shadow: 0 0 10px 0 gray;
+    box-shadow: 0 0 10px 0 rgb(199, 196, 196);
 }
 
 .card-text{
@@ -18,6 +18,8 @@
 
 body{
     overflow-x: hidden;
+
+    
 }
 
 .nav-item{
