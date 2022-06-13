@@ -39,6 +39,10 @@ export class ProfileadminComponent implements OnInit {
   ngOnInit(): void {
     this.token = this._cookie.get('uid');
     this.getData();
+    this._auth.insertName()
+    .subscribe((resp) =>{
+      this.nombre = resp.displayName;
+    })
   }
 
 
