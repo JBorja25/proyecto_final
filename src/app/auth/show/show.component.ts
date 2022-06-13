@@ -21,12 +21,16 @@ import Swal from 'sweetalert2';
 })
 export class ShowComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['NOMBRE', 'direcicon', 'email', 'telefono'];
+  displayedColumns: string[] = ['Nombre', 'direcicon', 'email', 'telefono'];
+  displayedColumnspendientes: string[] = ['Nombre', 'direcicon', 'email', 'telefono', 'accion'];
+  
+  dataSource = new MatTableDataSource;
   dataSourceAprobados = new MatTableDataSource;
   dataSourceRechazados = new MatTableDataSource;
   
 
   @ViewChild(MatPaginator) pagaprobados: MatPaginator;
+  @ViewChild('#pendientes') pendientes: MatPaginator;
 
   @ViewChild('recargar', { static: false}) rechazadosComponent : RechazadosComponent;
   
@@ -34,6 +38,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
   PostAprobados: any[] = [];
   postrechazados: any[] = [];
   postPendientes: any[] = [];
+  nombre: string = '';
 
   constructor(
     private postService: PostService,
@@ -45,11 +50,17 @@ export class ShowComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
     this.cargarAsilosAprobados();
-    this.getAsilosPendiente();
+    this.getAsilosPendientes();
     console.log(this.pagaprobados);
   }
 
   ngOnInit(): void {
+
+    this._auth.insertName()
+    .subscribe((resp) =>{
+      this.nombre = resp.displayName;
+    })
+    
     
     /* this.postService.getPosts().subscribe((res)=>{
       this.Post= res.map((e)=>{
@@ -64,7 +75,8 @@ export class ShowComponent implements OnInit, AfterViewInit {
     
   }
 
-  getAsilosPendiente(){
+
+  getAsilosPendientes(){
     this.postService.getPostId()
     .subscribe((resp:any) => {
       console.log(resp);
@@ -73,10 +85,17 @@ export class ShowComponent implements OnInit, AfterViewInit {
         console.log(f.data());
 
         if(!f.data().aprobado && !f.data().rechazar){
-          this.postPendientes.push({ data: f.data(), idDoc: f.id });
-          this.dataSourceAprobados=new MatTableDataSource<any>(this.PostAprobados);
+          let enviar = {
+            ...f.data(),
+            idDoc: f.id
+          }
+          this.postPendientes.push(enviar);
         }
       }
+      this.dataSource=new MatTableDataSource(this.postPendientes);
+      console.log(this.dataSource);
+      
+      this.dataSource.paginator = this.pendientes;
 
     });
   }
@@ -91,19 +110,21 @@ export class ShowComponent implements OnInit, AfterViewInit {
           console.log(f.data());
 
           if(f.data().aprobado && !f.data().rechazar){
-            this.PostAprobados.push({ data: f.data(), idDoc: f.id });
-            this.dataSourceAprobados=new MatTableDataSource<any>(this.PostAprobados);
-            console.log(this.dataSourceAprobados);
+            this.PostAprobados.push({ ...f.data(), idDoc: f.id });
+            
             
           }else if(!f.data().aprobado && f.data().rechazar){
             console.log('entra en rechazado');
             
-            this.postrechazados.push({ data: f.data(), idDoc: f.id });
+            this.postrechazados.push({ ...f.data(), idDoc: f.id });
             console.log(this.postrechazados);
             
             // this.dataSourceRechazados=new MatTableDataSource<any>(this.postrechazados);
           }
         }
+        this.dataSourceAprobados=new MatTableDataSource(this.PostAprobados);
+        console.log(this.dataSourceAprobados);
+        this.dataSourceAprobados.paginator = this.pagaprobados;
 
       });
   }
@@ -111,7 +132,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
   deleteRow = (post) => {
     this.postService.deletePosts(post);
     this.cargarAsilosAprobados();
-    this.getAsilosPendiente();
+    this.getAsilosPendientes();
     this.rechazadosComponent.ngAfterViewInit();
   };
 
@@ -121,7 +142,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
     this.postService.actualizarAprobacion(true, false, false, post.idDoc)
       .then((resp) => {
         console.log(resp);
-        this.getAsilosPendiente();
+        this.getAsilosPendientes();
         this.cargarAsilosAprobados();
         this.rechazadosComponent.ngAfterViewInit();
       });
@@ -146,7 +167,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
           this.postService.actualizarRechazados(false, false, false, true, post.idDoc, resp.mensaje)
           .then((resp) => {
             console.log(resp);
-            this.getAsilosPendiente();
+            this.getAsilosPendientes();
             this.cargarAsilosAprobados();
             this.rechazadosComponent.ngAfterViewInit();
             Swal.close();
@@ -154,6 +175,22 @@ export class ShowComponent implements OnInit, AfterViewInit {
         });
         }
       })
+  }
+
+  bucarValor(evento: any){
+    let filtro: string = evento.value;
+    filtro = filtro.trim();
+    filtro = filtro.toLowerCase();
+    this.dataSource.filter = filtro;
+  }
+  
+  
+  bucarValorAprobados(evento: any){
+
+    let filtro: string = evento.value;
+    filtro = filtro.trim();
+    filtro = filtro.toLowerCase();
+    this.dataSourceAprobados.filter = filtro;
   }
   async cerrar() {
     this._cookie.deleteAll();

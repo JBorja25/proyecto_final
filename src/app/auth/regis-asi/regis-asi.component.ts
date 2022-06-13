@@ -32,52 +32,52 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   fourthFormGroup: FormGroup;
   misionGroup: FormGroup;
 /**swrvicios adicionales*/
-serviciosMedicos: any[] = [
+serviciosMedicos: any = [
   {
     name: 'Servicios Medicos',
     children: [
-      {name:'Oxigeno'}, 
-      {name:'Terapias Respiratorias'}, 
-      {name: 'Terapias Musculares'}, 
-      {name: 'Cuidados Postoperatorios'}, 
-      {name: 'Dialisis'}, 
-      {name: 'Sondas'}, 
-      {name: 'Ostomias'}, 
-      {name: 'Terapias Cognitivas'}, 
-      {name: 'Terapias Diabetes'}, 
+      {name:'Oxigeno', value: false}, 
+      {name:'Terapias Respiratorias', value: false}, 
+      {name: 'Terapias Musculares', value: false}, 
+      {name: 'Cuidados Postoperatorios', value: false}, 
+      {name: 'Dialisis', value: false}, 
+      {name: 'Sondas', value: false}, 
+      {name: 'Ostomias', value: false}, 
+      {name: 'Terapias Cognitivas', value: false}, 
+      {name: 'Terapias Diabetes', value: false}, 
     ]
   }
                             
 ]
 /*------------------------------------------------------*/
 /**swrvicios adicionales*/
-serviciosSanitarios: any[] = [
+serviciosSanitarios: any = [
   {
     name: 'Servicios Sanitarios',
     children: [
-      {name:'Cuidados de enfermería 24 horas'}, 
-      {name:'Valoración gerontológica'}, 
-      {name: 'Asistencia médica'}, 
-      {name: 'Cuidados continuados para enfermos crónicos'}, 
-      {name: 'Gestión farmacéutica'}, 
+      {name:'Cuidados de enfermería 24 horas', value: false}, 
+      {name:'Valoración gerontológica', value: false}, 
+      {name: 'Asistencia médica', value: false}, 
+      {name: 'Cuidados continuados para enfermos crónicos', value: false}, 
+      {name: 'Gestión farmacéutica', value: false}, 
     ]
   }
                             
 ]
 /*------------------------------------------------------*/
 /**swrvicios adicionales*/
-serviciosTerapeuticos: any[] = [
+serviciosTerapeuticos: any = [
   {
     name: 'Servicios Terapeuticos',
     children: [
-      {name:'Programa de estimulación cognitiva'}, 
-      {name:'Programa de estimulación multisensorial'}, 
-      {name: 'Programa de mantenimiento y actividad física'}, 
-      {name: 'Programa de terapia funcional'}, 
-      {name: 'Programa de rehabilitación y fisioterapia'}, 
-      {name: 'Programa de terapia ocupacional para apoyo en las ABIVD´s*'}, 
-      {name: 'Programa de atención centrada en la persona'}, 
-      {name: 'Programa de memoria y reminiscencias'}, 
+      {name:'Programa de estimulación cognitiva', value: false}, 
+      {name:'Programa de estimulación multisensorial', value: false}, 
+      {name: 'Programa de mantenimiento y actividad física', value: false}, 
+      {name: 'Programa de terapia funcional', value: false}, 
+      {name: 'Programa de rehabilitación y fisioterapia', value: false}, 
+      {name: 'Programa de terapia ocupacional para apoyo en las ABIVD´s*', value: false}, 
+      {name: 'Programa de atención centrada en la persona', value: false}, 
+      {name: 'Programa de memoria y reminiscencias', value: false}, 
       
     ]
   }
@@ -85,42 +85,37 @@ serviciosTerapeuticos: any[] = [
 ]
 /*------------------------------------------------------*/
 /**swrvicios adicionales*/
-serviciosComodidad: any[] = [
+serviciosComodidad: any = [
   {
     name: 'Servicios Comodidad',
     children: [
-      {name:'Cocina propia'}, 
-      {name:'Comedor'}, 
-      {name: 'Sala de T.V.'}, 
-      {name: 'Sala de estar'}, 
-      {name: 'Rincones significativos'}, 
-      {name: 'Patio y terrazas'}, 
-      {name: 'Limpieza y lavandería'}, 
+      {name:'Cocina propia', value: false}, 
+      {name:'Comedor', value: false}, 
+      {name: 'Sala de T.V.', value: false}, 
+      {name: 'Sala de estar', value: false}, 
+      {name: 'Rincones significativos', value: false}, 
+      {name: 'Patio y terrazas', value: false}, 
+      {name: 'Limpieza y lavandería', value: false}, 
 
     ]
   }
                             
 ]
 /*------------------------------------------------------*/
-serviciosatencion: any[] = [
+serviciosatencion: any = [
   {
     name: 'Servicios atencion',
     children: [
-      {name:'Itinerario personalizado'}, 
-      {name:'Plan de atención integral'}, 
-      {name: 'Personal de referencia'}, 
-      {name: 'Proyecto de vida'}, 
-      {name: 'Escuela de familias'}, 
-      {name: 'Grupo de apoyo familiar'}, 
+      {name:'Itinerario personalizado', value: false}, 
+      {name:'Plan de atención integral', value: false}, 
+      {name: 'Personal de referencia', value: false}, 
+      {name: 'Proyecto de vida', value: false}, 
+      {name: 'Escuela de familias', value: false}, 
+      {name: 'Grupo de apoyo familiar', value: false}, 
      ]
   }
                             
 ]
-
-
-
-
-
 
 
 
@@ -153,6 +148,16 @@ transportes: any[] = [
     value: false
   }
 ];
+cantidadAseo: string= ''
+cantidadServicios: string= ''
+cantidadTransporte: string= ''
+cantidadAdicionales: string= ''
+cantidadSanitarios: string= ''
+cantidadTerapeuticos: string= ''
+cantidadInstalaciones: string= ''
+cantidadAtencion: string= ''
+
+cantidadAlimentacion: string = '';
 
 serviciosMedicosSelected: any[] = [];
 serviciosAdicionalesSelected: any[] = [];
@@ -305,8 +310,21 @@ serviciosAdicionales: any[] = [
         transporte: this.thirdFormGroup.get('transporte').value,
         aseo: this.thirdFormGroup.get('aseo').value,
         alimentacion: this.thirdFormGroup.get('transporte').value,
-        controlesMedicos: this.controles,
+        cantidadAlimentacion: this.thirdFormGroup.get('cantidadAlimentacion').value,
+        cantidadAseo: this.thirdFormGroup.get('cantidadAseo').value,
+        cantidadServicios: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadTransporte: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadAdicionales: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadSanitarios: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadTerapeuticos: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadInstalaciones: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadAtencion: this.thirdFormGroup.get('cantidadAseo').value, 
+        controlesMedicos: this.serviciosMedicos[0].children,
         serviciosAdicionales: this.serviciosAdicionales,
+        serviciosatencion: this.serviciosatencion[0].children,
+        servicioscomodidad: this.serviciosComodidad[0].children,
+        serviciosterapeuticos: this.serviciosTerapeuticos[0].children,
+        serviciosSanitarios: this.serviciosSanitarios[0].children,
         mision: this.misionGroup.get('mision').value,
         vision: this.misionGroup.get('vision').value
       }
@@ -339,8 +357,21 @@ serviciosAdicionales: any[] = [
         transporte: this.thirdFormGroup.get('transporte').value,
         aseo: this.thirdFormGroup.get('aseo').value,
         alimentacion: this.thirdFormGroup.get('transporte').value,
-        controlesMedicos: this.controles,
+        cantidadAlimentacion: this.thirdFormGroup.get('cantidadAlimentacion').value,
+        cantidadAseo: this.thirdFormGroup.get('cantidadAseo').value,
+        cantidadServicios: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadTransporte: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadAdicionales: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadSanitarios: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadTerapeuticos: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadInstalaciones: this.thirdFormGroup.get('cantidadAseo').value, 
+        cantidadAtencion: this.thirdFormGroup.get('cantidadAseo').value, 
+        controlesMedicos: this.serviciosMedicos[0].children,
         serviciosAdicionales: this.serviciosAdicionales,
+        serviciosatencion: this.serviciosatencion[0].children,
+        servicioscomodidad: this.serviciosComodidad[0].children,
+        serviciosterapeuticos: this.serviciosTerapeuticos[0].children,
+        serviciosSanitarios: this.serviciosSanitarios[0].children,
         mision: this.misionGroup.get('mision').value,
         vision: this.misionGroup.get('vision').value
       }
@@ -457,6 +488,15 @@ serviciosAdicionales: any[] = [
       alimentacion: [''],
       aseo: [''],
       transporte: [''],
+      cantidadAseo: [''],
+      cantidadServicios: [''],
+      cantidadTransporte: [''],
+      cantidadAdicionales: [''],
+      cantidadSanitarios: [''],
+      cantidadTerapeuticos: [''],
+      cantidadInstalaciones: [''],
+      cantidadAtencion: [''],
+      cantidadAlimentacion: ['']
     });
 
     this.misionGroup = this._fb.group({
@@ -492,25 +532,144 @@ serviciosAdicionales: any[] = [
   }
 
   serviciosmedicos(evento: any){
+    console.log(evento);
+    
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      this.serviciosMedicos.map((t: any) =>{
+        // console.log(t);
+        
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = true;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosMedicos);
+    }else{
+      this.serviciosMedicos.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = false;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosMedicos);
+      
+    }
+    
+  }
+
+  serviciosSanitariosFun(evento: any){
     // console.log(evento);
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
-      this.controles.map((t) =>{
-        if(evento.source.value === t.name){
-          t.value = true;
-        }
-        return t;
+      this.serviciosSanitarios.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = true;
+          }
+          return v;
+        })
       })
-      console.log(this.controles);
+      console.log(this.serviciosSanitarios);
     }else{
-      this.controles.map((t) =>{
-        if(evento.source.value === t.name){
-          t.value = false;
-        }
-        return t;
+      this.serviciosSanitarios.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = false;
+          }
+          return v;
+        })
       })
-      console.log(this.controles);
+      console.log(this.serviciosSanitarios);
+      
+    }
+    
+  }
+  serviciosTerapeuticosFun(evento: any){
+    // console.log(evento);
+    
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      this.serviciosTerapeuticos.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = true;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosTerapeuticos);
+    }else{
+      this.serviciosTerapeuticos.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = false;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosTerapeuticos);
+      
+    }
+    
+  }
+  serviciosInstlaciones(evento: any){
+    // console.log(evento);
+    
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      this.serviciosComodidad.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = true;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosComodidad);
+    }else{
+      this.serviciosComodidad.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = false;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosComodidad);
+      
+    }
+    
+  }
+  serviciosAtencion(evento: any){
+    // console.log(evento);
+    
+    if(evento.checked){
+      // this.serviciosMedicosSelected.push(evento.source.value);
+      this.serviciosatencion.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = true;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosatencion);
+    }else{
+      this.serviciosatencion.map((t) =>{
+        return t.children.map((v) =>{
+          if(evento.source.value === v.name){
+            v.value = false;
+          }
+          return v;
+        })
+      })
+      console.log(this.serviciosatencion);
       
     }
     

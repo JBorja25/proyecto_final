@@ -40,7 +40,11 @@ export class ProfileasiloComponent implements OnInit {
 
     this.getData();
     this.getDataFirebase();
-  }
+    this._auth.insertName()
+    .subscribe((resp) =>{
+      this.nombre = resp.displayName
+    })
+  } 
 
   getDataFirebase(){
     // console.log(this.re);

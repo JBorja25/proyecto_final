@@ -19,6 +19,7 @@ export class GivepassComponent implements OnInit {
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
+  misionGroup: FormGroup;
   token: string = '';
   alimentacion: string = '';
   mostrarFormulario: boolean = true;
@@ -130,6 +131,10 @@ urlFotofirebase: any = '';
           email: f.data().email,
           fono: f.data().fono
         });
+        this.misionGroup.setValue({
+          mision: f.data().mision,
+          vision: f.data().vision
+        })
         console.log(this.dias);
         for(let i = 0; i < this.dias.diasSemana.length; i++){
           this.dias.diasSemana[i].completed = f.data().horas[i].completed;
@@ -186,6 +191,11 @@ urlFotofirebase: any = '';
       address: ['', Validators.required],
       email: ['', Validators.required],
       fono: ['', Validators.required]
+    });
+
+    this.misionGroup = this._fb.group({
+      mision: [''],
+      vision: ['']
     });
 
     this.SecondFormGroup = this._fb.group({
