@@ -29,6 +29,7 @@ export class GivepassComponent implements OnInit {
   horaDesde: string= ''
 horaHasta: string= ''
 uid: string= '';
+nombre: string = '';
 aprobado: boolean = false;
 dias: any =  {
   name: 'Todos los dias',
@@ -199,6 +200,11 @@ urlFotofirebase: any = '';
     this.getDataFirebase();
     this.crearFormulario();
     this.cargarinfo();
+    this._auth.insertName()
+    .subscribe((resp) =>{
+      this.nombre = resp.displayName;
+    })
+    
   }
 
   cargarinfo(){
