@@ -117,84 +117,90 @@
     <app-elnombrequelepongas [data]="" [dataUser] ="" [idDoc]=""></app-elnombrequelepongas>
    -->
 
-   <div class="row" style="display: flex; justify-content: center; height: 85%; width: 95%; margin: 15px;">
-    <div class="col-md-4 ; container" style="border-right: 1px solid #ccc; margin-right: 15px;">
-        <div class="row" style="display: flex; margin-top: 25%; justify-content: center;">
-          <h1>
-            <b align="center">Foto Perfil : </b> 
-          </h1>
-        
-          <br>
-            <div class="col-md-8" style="display:flex; justify-content: end; margin-left: 14px;">
-           
-              <br>
-                <img [src]="dataUser.photoURL != null ? dataUser.photoURL : '/assets/img/no-photo.png'" alt="no photo" style="height: 200px; width: 200px;border-radius: 150%; "/>
-            </div>
-             
-        </div>
-        <div class="row" >
-            <div class="col" style="display: flex; justify-content: center; margin-top: 10px;">
-               <b>nombre : </b>  {{dataUser.displayName}}
-            </div>
-        </div>
-        <div class="row" >
-            <div class="col" style="display: flex; justify-content: center; margin-top: 10px;">
-              <b> correo :</b>   {{dataUser.email}}
-            </div>
-        </div>
-        <div class="col" style="display: flex; align-items: center; justify-content: start;">
-          <b> cambiar foto :</b>
-          
-          <svg type="button" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50" id="img" (click)="cambiarImg($event)">
-              <path d="M11.8 34.15H36.25L28.9 24.35L22.3 32.9L17.65 26.55ZM9 42Q7.8 42 6.9 41.1Q6 40.2 6 39V9Q6 7.8 6.9 6.9Q7.8 6 9 6H39Q40.2 6 41.1 6.9Q42 7.8 42 9V39Q42 40.2 41.1 41.1Q40.2 42 39 42ZM9 39H39Q39 39 39 39Q39 39 39 39V9Q39 9 39 9Q39 9 39 9H9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39ZM9 9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39Q9 39 9 39Q9 39 9 39V9Q9 9 9 9Q9 9 9 9Z"/>
-          </svg>
-      </div> 
+   <div class="row mt-5" style="display: flex; justify-content: center; margin:auto; height: auto; width: 95%;  border: 1px solid #CCC; border-radius: 5px; width:85%;  box-shadow: 0 0 10px rgb(163, 163, 163);">
+    <div class="row bg-info text-white" style="border: 1px solid #CCC; border-radius: 5px; width:95%;  height: 55px; box-shadow: 0 0 10px rgb(163, 163, 163); margin-top:-25px">
+      <h4 style="line-height: 51px;">Perfil</h4>
     </div>
-    <div class="col" style="margin-left: 12%">
-        <div class="row" style="margin-top: 5%;">
-            <h2>Configuracion del perfil</h2>
-        </div>
-        <div class="row" style="display: flex; justify-content: center; width: 75%;">
-            <div class="col">
-                <span class="form-label">Nombre:</span>
-                <input class="form-control" type="text" [(ngModel)]="nombre" (ngModelChange)="cambioNombre($event)" [value]="dataUser.displayName != null ? dataUser.displayName: ''">
-            </div>
-        </div>
-        <div class="row" style="width: 75%">
-            <div class="col">
-                <span class="form-label">Telefono:</span>
-                <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
-            </div>
-        </div>
-        <div class="row" style="width: 75%">
-            <div class="col">
-                <span class="form-label">Direccion:</span>
-                <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
-                
-            </div>
-        </div>
-        <div class="row" style="width: 75%">
-            <div class="col">
-                <span class="form-label">Correo:</span>
-                <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
-            </div>
-            
-        </div>
-        <div class="row" style="width: 75%">
-            <div class="col">
-                <span class="form-label">Contrasenia:</span>
-                <input type="text" class="form-control" placeholder="•••••••••••••••">
-                
-            </div>
-        </div>
-        <div class="row" >
-          <div class="col" style="width: 25%; margin-top: 5px; margin-left: 28%"> 
-  
-            <button class="btn btn-success" type="button" (click)="guardar()">Guardar</button>
+    <div class="col-md-4 container " style="border-right: 1px solid rgb(223, 222, 222); display: flex; justify-content: center;">
+      
+      <div class="row mb-4" style="display: flex; margin-top: 25%; justify-content: center; border: 1px solid #CCC; border-radius: 5px; width:85%;  box-shadow: 0 0 10px rgb(163, 163, 163);">
+        
+          <div class="col-md-8" style="display:flex; justify-content: center;  margin-top:-50px">
+         
+              <img [src]="dataUser.photoURL != null ? dataUser.photoURL : '/assets/img/no-photo.png'" alt="no photo" style="height: 125px; width: 150px;border-radius: 150%; border: 1px solid #ccc; box-shadow: 0 0 10px rgb(163, 163, 163); "/>
           </div>
+
+
+          <div  style="height: 25px; margin-top: -4px">
+            <div class="col" style="display: flex; justify-content: center;color: #999999 ">
+               <span>DUEÑO DEL ASILO</span>
+            </div>
+          </div>
+        <div class="row mb-0" style="height: 25px; margin-top: -30px">
+            <div class="col" style="display: flex; justify-content: center; ">
+               <b>{{dataUser.displayName}}</b>  
+            </div>
+        </div>
+        <div class="row mb-0" style="height: 25px; margin-top: -30px">
+            <div class="col" style="display: flex; justify-content: center; color: #999999">
+              {{dataUser.email}}
+            </div>
+        </div>
+           
+        <div class="row">
+          <div class="col text-center"  style="border-top: 1px solid #e4e3e3">
+            <span style="display:block; color: #999"> actualizar foto</span>
+            
+            <svg type="button" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50" id="img" (click)="cambiarImg($event)">
+                <path d="M11.8 34.15H36.25L28.9 24.35L22.3 32.9L17.65 26.55ZM9 42Q7.8 42 6.9 41.1Q6 40.2 6 39V9Q6 7.8 6.9 6.9Q7.8 6 9 6H39Q40.2 6 41.1 6.9Q42 7.8 42 9V39Q42 40.2 41.1 41.1Q40.2 42 39 42ZM9 39H39Q39 39 39 39Q39 39 39 39V9Q39 9 39 9Q39 9 39 9H9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39ZM9 9Q9 9 9 9Q9 9 9 9V39Q9 39 9 39Q9 39 9 39Q9 39 9 39Q9 39 9 39V9Q9 9 9 9Q9 9 9 9Z"/>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+      <div class="col mt-5" style="margin-left: 12%">
+          
+          <div class="row" style="display: flex; justify-content: center; width: 75%;">
+              <div class="col">
+                  <span class="form-label">Nombre:</span>
+                  <input class="form-control" type="text" [(ngModel)]="nombre" (ngModelChange)="cambioNombre($event)" [value]="dataUser.displayName != null ? dataUser.displayName: ''">
+              </div>
+          </div>
+          <div class="row" style="width: 75%">
+              <div class="col">
+                  <span class="form-label">Telefono:</span>
+                  <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
+              </div>
+          </div>
+          <div class="row" style="width: 75%">
+              <div class="col">
+                  <span class="form-label">Direccion:</span>
+                  <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
+                  
+              </div>
+          </div>
+          <div class="row" style="width: 75%">
+              <div class="col">
+                  <span class="form-label">Correo:</span>
+                  <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
+              </div>
+              
+          </div>
+          <div class="row" style="width: 75%">
+              <div class="col">
+                  <span class="form-label">Contrasenia:</span>
+                  <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
+                  
+              </div>
+          </div>
+          <div class="row" >
+            <div class="col mb-4 mt-3" style="width: 25%; margin-left: 28%"> 
+
+              <button class="btn btn-success" type="button" (click)="cambiarcor()">Actualizar perfil</button>
+            </div>
+        </div>
+      </div>
+    </div>
   
 </mat-drawer-container>
 

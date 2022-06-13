@@ -84,9 +84,11 @@ export class ShowComponent implements OnInit, AfterViewInit {
       for (let f of resp.docs) {
         console.log(f.data());
 
-        if(!f.data().aprobado && !f.data().rechazar){
+        if(!f.data().aprobado && (f.data().confirmacion)){
           let enviar = {
-            ...f.data(),
+            name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono,
+            foto: f.data().foto,
+            documento: f.data().documento,
             idDoc: f.id
           }
           this.postPendientes.push(enviar);
@@ -110,7 +112,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
           console.log(f.data());
 
           if(f.data().aprobado && !f.data().rechazar){
-            this.PostAprobados.push({ ...f.data(), idDoc: f.id });
+            this.PostAprobados.push({ name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono });
             
             
           }else if(!f.data().aprobado && f.data().rechazar){
@@ -139,7 +141,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
   aprobar(post: any) {
     console.log(post);
 
-    this.postService.actualizarAprobacion(true, false, false, post.idDoc)
+    this.postService.actualizarAprobacion(true, false, false, post.idDoc, false)
       .then((resp) => {
         console.log(resp);
         this.getAsilosPendientes();
@@ -164,7 +166,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
         if(resp.v){
           Swal.fire('Guardando', 'Guardando registro, espere por favor...', 'info');
           Swal.showLoading();
-          this.postService.actualizarRechazados(false, false, false, true, post.idDoc, resp.mensaje)
+          this.postService.actualizarRechazados(false, false, false, true, post.idDoc, resp.mensaje, true, true)
           .then((resp) => {
             console.log(resp);
             this.getAsilosPendientes();
@@ -186,11 +188,14 @@ export class ShowComponent implements OnInit, AfterViewInit {
   
   
   bucarValorAprobados(evento: any){
-
+    
     let filtro: string = evento.value;
+    console.log(filtro);
+    
     filtro = filtro.trim();
     filtro = filtro.toLowerCase();
     this.dataSourceAprobados.filter = filtro;
+    
   }
   async cerrar() {
     this._cookie.deleteAll();

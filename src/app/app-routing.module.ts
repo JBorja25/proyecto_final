@@ -24,6 +24,7 @@ import { ChangemailComponent } from './auth/profileasilo/changemail/changemail.c
 import { GivepassComponent } from './auth/profileasilo/givepass/givepass.component';
 import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
 import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
+import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.component';
 
 
 
@@ -70,6 +71,7 @@ const routes: Routes = [
     ]
   },
   { path: 'info-asilo/:uid', component:DialogasilosComponent },
+  { path: 'olvido-pass', component:OlvidopassComponent },
   // { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.component').then(m => m.ProformaComponent) },
   { path: '**', component: HomeComponent },
 

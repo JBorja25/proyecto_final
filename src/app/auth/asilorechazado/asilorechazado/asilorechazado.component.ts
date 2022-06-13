@@ -4,13 +4,15 @@ import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { PostService } from 'src/app/models/post.service';
-import { AuthService } from '../services/auth.service';
+// import { AuthService } from '../services/auth.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { Post } from '../../models/post.model';
-import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
+// import { Post } from '../../models/post.model';
+// import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 import { ThemePalette } from '@angular/material/core';
+import { AuthService } from '../../services/auth.service';
+import { SubirfotosService } from '../../services/subirfotos/subirfotos.service';
 
 // uso de interface por obligacion de material design
 export interface diasI {
@@ -21,17 +23,18 @@ export interface diasI {
 }
 
 @Component({
-  selector: 'app-regis-asi',
-  templateUrl: './regis-asi.component.html',
-  styleUrls: ['./regis-asi.component.scss']
+  selector: 'app-asilorechazado',
+  templateUrl: './asilorechazado.component.html',
+  styleUrls: ['./asilorechazado.component.scss']
 })
-export class RegisAsiComponent implements OnInit, AfterViewInit {
+export class AsilorechazadoComponent implements OnInit, AfterViewInit {
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   misionGroup: FormGroup;
   comprobarVacio: boolean =false;
+  nomostrarImagen = false;
 /**swrvicios adicionales*/
 serviciosMedicos: any = [
   {
@@ -178,7 +181,7 @@ serviciosAdicionales: any[] = [
   confirmar: boolean = false;
   rechazar: boolean = false;
   // modificarRechazar: boolean = false;
-  mostrarFormulario: boolean = true;
+  mostrarFormulario: boolean = false;
   aprobado: boolean = false;
   cuentaVerificada:boolean = false;
   public registroAnterior: any = {};
@@ -280,6 +283,7 @@ serviciosAdicionales: any[] = [
           this.confirmar = f.data()?.confirmacion;
           this.rechazar = f.data().rechazar;
           this.aprobado = f.data().aprobado;
+          this.nomostrarImagen = f.data().nomostrarImagen;
           this.registroAnterior = f.data();
           this.cuentaVerificada=f.data().cuentaVerificada;
           this.idDoc = f.id;
@@ -349,8 +353,6 @@ serviciosAdicionales: any[] = [
         confirmacion: true,
         aprobado: false,
         cuentaVerificada:false,
-        nomostrarImagen: false,
-        correcciones: false,
         foto: this.urlFotofirebase,
         mensaje: '',
         documento: this.documentoPDF,
@@ -773,17 +775,48 @@ serviciosAdicionales: any[] = [
            aseo: f.data().aseo
          }) */
         }
+      }else{
+        this.comprobarVacio = false;
       }
       
     });
   }
 
-  modificarRegistro(){
-    /* his._post.updateModificarRechazar(true, this.idDoc)
+  
+  actualizarFotoDoc(){
+    
+    let enviar = {
+      foto: this.urlFotofirebase,
+      documento: this.documentoPDF
+    }
+    this._post.updatePost(enviar, this.idDoc)
     .then((resp) =>{
       this.getDataFirebase();
       this.cargarinfo();
+      let afterRechazo = {
+        mostrarRegistroAsilo: false,
+        confirmacion: true,
+        aprobado: false,
+        cuentaVerificada:false,
+        correcciones: false
+      }
+      this._post.updatePostAfterRechazo(afterRechazo, this.idDoc)
+      .then((resp) =>{
+        this.getDataFirebase();
+        // this.cargarinfo();
+      })
     })
-    .catch((erro) => {}); */
+    .catch((error) =>{
+  
+    })
+  }
+
+  modificarRegistro(){
+    this._post.updateModificarRechazar(true, this.idDoc, false)
+    .then((resp) =>{
+      this.getDataFirebase();
+      // this.cargarinfo();
+    })
+    .catch((erro) => {});
   }
 }

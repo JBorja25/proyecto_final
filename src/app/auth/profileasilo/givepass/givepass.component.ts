@@ -45,6 +45,91 @@ dias: any =  {
   ]
 };
 
+serviciosMedicos: any = [
+  {
+    name: 'Servicios Medicos',
+    children: [
+      {name:'Oxigeno', value: false}, 
+      {name:'Terapias Respiratorias', value: false}, 
+      {name: 'Terapias Musculares', value: false}, 
+      {name: 'Cuidados Postoperatorios', value: false}, 
+      {name: 'Dialisis', value: false}, 
+      {name: 'Sondas', value: false}, 
+      {name: 'Ostomias', value: false}, 
+      {name: 'Terapias Cognitivas', value: false}, 
+      {name: 'Terapias Diabetes', value: false}, 
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+/**swrvicios adicionales*/
+serviciosSanitarios: any = [
+  {
+    name: 'Servicios Sanitarios',
+    children: [
+      {name:'Cuidados de enfermería 24 horas', value: false}, 
+      {name:'Valoración gerontológica', value: false}, 
+      {name: 'Asistencia médica', value: false}, 
+      {name: 'Cuidados continuados para enfermos crónicos', value: false}, 
+      {name: 'Gestión farmacéutica', value: false}, 
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+/**swrvicios adicionales*/
+serviciosTerapeuticos: any = [
+  {
+    name: 'Servicios Terapeuticos',
+    children: [
+      {name:'Programa de estimulación cognitiva', value: false}, 
+      {name:'Programa de estimulación multisensorial', value: false}, 
+      {name: 'Programa de mantenimiento y actividad física', value: false}, 
+      {name: 'Programa de terapia funcional', value: false}, 
+      {name: 'Programa de rehabilitación y fisioterapia', value: false}, 
+      {name: 'Programa de terapia ocupacional para apoyo en las ABIVD´s*', value: false}, 
+      {name: 'Programa de atención centrada en la persona', value: false}, 
+      {name: 'Programa de memoria y reminiscencias', value: false}, 
+      
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+/**swrvicios adicionales*/
+serviciosComodidad: any = [
+  {
+    name: 'Servicios Comodidad',
+    children: [
+      {name:'Cocina propia', value: false}, 
+      {name:'Comedor', value: false}, 
+      {name: 'Sala de T.V.', value: false}, 
+      {name: 'Sala de estar', value: false}, 
+      {name: 'Rincones significativos', value: false}, 
+      {name: 'Patio y terrazas', value: false}, 
+      {name: 'Limpieza y lavandería', value: false}, 
+
+    ]
+  }
+                            
+]
+/*------------------------------------------------------*/
+serviciosatencion: any = [
+  {
+    name: 'Servicios atencion',
+    children: [
+      {name:'Itinerario personalizado', value: false}, 
+      {name:'Plan de atención integral', value: false}, 
+      {name: 'Personal de referencia', value: false}, 
+      {name: 'Proyecto de vida', value: false}, 
+      {name: 'Escuela de familias', value: false}, 
+      {name: 'Grupo de apoyo familiar', value: false}, 
+     ]
+  }
+                            
+]
+
 controles: any[] = [
   {
     name:'Siquiatria',

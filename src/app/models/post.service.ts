@@ -19,10 +19,11 @@ export class PostService {
     return this.angularFirestore.collection("post")
                 .snapshotChanges()
   } */
-  updateModificarRechazar(modificar: boolean, idDoc: string){
+  updateModificarRechazar(modificar: boolean, idDoc: string, nomostrarImagen: boolean){
 
     return this.angularFirestore.collection('post').doc(idDoc).update({
-      mostrarRegistroAsilo:modificar
+      mostrarRegistroAsilo:modificar,
+      nomostrarImagen
     });
   }
 
@@ -48,6 +49,11 @@ export class PostService {
         return this.angularFirestore.collection("post").doc(idDoc).update(post);
       // })
   }
+  updatePostAfterRechazo(post: any, idDoc: string){
+      // return new Promise<any>((resolve, reject)=>{
+        return this.angularFirestore.collection("post").doc(idDoc).update(post);
+      // })
+  }
   updatePosts(post:Post, id){
     return this.angularFirestore.collection("post")
     .doc(id)
@@ -69,20 +75,23 @@ export class PostService {
   }
 
 
-  actualizarAprobacion(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, idDoc: string){
+  actualizarAprobacion(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, idDoc: string, rechazar: boolean){
     return this.angularFirestore.collection('post').doc(idDoc).update({
       aprobado,
       confirmacion,
-      cuentaVerificada
+      cuentaVerificada,
+      rechazar
     });
   }
-  actualizarRechazados(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, rechazar: boolean, idDoc: string, mensaje: string){
+  actualizarRechazados(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, rechazar: boolean, idDoc: string, mensaje: string, nomostrarImagen: boolean, correcciones: boolean){
     return this.angularFirestore.collection('post').doc(idDoc).update({
       aprobado,
       confirmacion,
       cuentaVerificada,
       rechazar,
-      mensaje
+      mensaje,
+      nomostrarImagen,
+      correcciones
     });
 
 

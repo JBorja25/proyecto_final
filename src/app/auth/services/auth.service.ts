@@ -120,7 +120,11 @@ export class AuthService {
     catch(error){
     } */
 
+
   }
 
+  passOlvido(email: string){
+    return this.afAuth.sendPasswordResetEmail(email);
+  }
   
 }

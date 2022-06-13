@@ -87,6 +87,8 @@ import { GivepassComponent } from './auth/profileasilo/givepass/givepass.compone
 import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
 import { ToastrModule } from 'ngx-toastr';
 import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
+import { AsilorechazadoComponent } from './auth/asilorechazado/asilorechazado/asilorechazado.component';
+import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.component';
 
 
 
@@ -117,6 +119,8 @@ import { CoverproformaComponent } from './auth/coverproforma/coverproforma/cover
    GivepassComponent,
    DialogasilosComponent,
    CoverproformaComponent,
+   AsilorechazadoComponent,
+   OlvidopassComponent,
    
 
    

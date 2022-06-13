@@ -50,7 +50,7 @@ export class RechazadosComponent implements OnInit, AfterViewInit {
             console.log('entra en rechazado');
             
             
-            this.postrechazados.push(f.data());
+            this.postrechazados.push({name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono, mensaje: f.data().mensaje});
 
             console.log(this.dataSource);
             
