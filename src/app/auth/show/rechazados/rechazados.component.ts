@@ -10,9 +10,9 @@ import { PostService } from 'src/app/models/post.service';
 })
 export class RechazadosComponent implements OnInit, AfterViewInit {
   
-  displayedColumns: string[] = ['NOMBRE', 'direcicon', 'email', 'telefono'];
+  displayedColumns: string[] = ['nombre', 'direcicon', 'email', 'telefono', 'motivo'];
   
-  dataSourceRechazados = new MatTableDataSource;
+  dataSource = new MatTableDataSource;
 
   // @Input() datarechazdos: MatTableDataSource<any>
   
@@ -31,8 +31,8 @@ export class RechazadosComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.dataSourceRechazados = this.datarechazdos
-    // console.log(this.dataSourceRechazados);
+    // this.dataSource = this.datarechazdos
+    // console.log(this.dataSource);
     
     this.cargarAsilosAprobados();
   }
@@ -49,14 +49,25 @@ export class RechazadosComponent implements OnInit, AfterViewInit {
            if(!f.data().aprobado && f.data().rechazar){
             console.log('entra en rechazado');
             
-            this.postrechazados.push({ data: f.data(), idDoc: f.id });
-            console.log(this.postrechazados);
             
-            this.dataSourceRechazados=new MatTableDataSource<any>(this.postrechazados);
+            this.postrechazados.push(f.data());
+
+            console.log(this.dataSource);
+            
           }
         }
+        this.dataSource=new MatTableDataSource(this.postrechazados);
+        this.dataSource.paginator = this.pagaprobados;
 
       });
+  }
+
+
+  bucarValor(evento: any){
+    let filtro: string = evento.value;
+    filtro = filtro.trim();
+    filtro = filtro.toLowerCase();
+    this.dataSource.filter = filtro;
   }
 
 }

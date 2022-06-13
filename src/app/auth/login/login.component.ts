@@ -16,7 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-
+  verpass: boolean =true;
   nombre: any;
   //   =new FormGroup({
   //     email: new FormControl(''),
@@ -135,6 +135,10 @@ export class LoginComponent implements OnInit {
       // return error;
     } */
 
+  }
+
+  verContrasenia(){
+    this.verpass = !this.verpass;
   }
   async cerrar() {
     this._cookie.deleteAll();
