@@ -68,53 +68,24 @@
                     </div>
                 </div>
             </div>
-       
-              <!----------------------Servicios atencion 1-------------------------->
-    
-              <br>
-              <div class="col-md-12 container">
-                  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                      <div class="col-auto d-none d-lg-block col p-4" style="background-color:white ;">
-                          <div class="row">
-                              <div class="col-md-5">
-                                  <img src="assets/img/control.jpg" width="400" height="218">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col d-flex flex-column position-static text-start" style="background-color:white ;">
-                          <strong class="d-inline-block mb-4 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Servicios Atencion de la persona mayor</strong>
-                          <h3 class="mb-0"> </h3>
-                          <br>
-                          <div class="col text-start" style="margin-top: -25px; margin-left: -20px">
-                              <span style="display: block;" *ngFor="let serv of posts.serviciosatencion">
-                                  <span *ngIf="serv.value">
-          
-                                      <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 8px" height="20px" width="20px"
-                                          viewBox="0 0 50 50">
-                                          <path
-                                              d="M21.05 33.1 35.2 18.95 32.9 16.7 21.05 28.55 15.05 22.55 12.8 24.8ZM24 44Q19.75 44 16.1 42.475Q12.45 40.95 9.75 38.25Q7.05 35.55 5.525 31.9Q4 28.25 4 24Q4 19.8 5.525 16.15Q7.05 12.5 9.75 9.8Q12.45 7.1 16.1 5.55Q19.75 4 24 4Q28.2 4 31.85 5.55Q35.5 7.1 38.2 9.8Q40.9 12.5 42.45 16.15Q44 19.8 44 24Q44 28.25 42.45 31.9Q40.9 35.55 38.2 38.25Q35.5 40.95 31.85 42.475Q28.2 44 24 44ZM24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24ZM24 41Q31.25 41 36.125 36.125Q41 31.25 41 24Q41 16.75 36.125 11.875Q31.25 7 24 7Q16.75 7 11.875 11.875Q7 16.75 7 24Q7 31.25 11.875 36.125Q16.75 41 24 41Z" />
-                                      </svg>
-                                      {{ serv.name }}
-                                  </span>
-                              </span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-        <!----------------------Servicios adicionales 1-------------------------->
-    
+        <!-------------------------Controles Medicos 1-------------------->
+    <h1 align="center">SERVICIOS INCLUÍDOS</h1>
         <br>
         <div class="col-md-12 container">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-5 d-flex flex-column position-static" style="background-color:white ;">
-                    <strong class="d-inline-block mb-4 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Servicios adicionales</strong>
-                  
-                  
-                    <h3 class="mb-0"> </h3>
-              
-                    <div class="col">
-                        <h6></h6>
-                        <span style="margin-right: 5px; display: block;" *ngFor="let serv of posts.serviciosAdicionales">
+                <div class="col-auto d-none d-lg-block col p-4" style="background-color:white ;">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="assets/img/servicios.jpg" width="400" height="218">
+                        </div>
+                    </div>
+                </div>
+                <div class="col d-flex flex-column position-static" style="background-color:white ;">
+                    <strong class="d-inline-block mb-4 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Servicios Medicos</strong>
+                    <!-- <h3 class="mb-0"> </h3> -->
+                    <br>
+                    <div class="col text-start" style="margin-top: -25px; margin-left: -20px">
+                        <span *ngFor="let serv of posts.controlesMedicos" style="display: block;">
                             <span *ngIf="serv.value">
     
                                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 8px" height="20px" width="20px"
@@ -127,16 +98,8 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-auto d-none d-lg-block col p-4" style="background-color:white ;">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <img src="assets/img/control.jpg" width="400" height="218">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-      
         <!----------------------Servicios sanitarios 1-------------------------->
     
         <br>
@@ -170,44 +133,7 @@
             </div>
         </div>
         
-  
-          <!-----------------------otros servcicios 1------------------------->
-          
-        <br>
-        <div class="col-md-12 container">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-5 d-flex flex-column position-static" style="background-color:white ;">
-                    <strong class="d-inline-block mb-4 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Controles Medicos</strong>
-                    <h3 class="mb-0"> </h3>
-                  
-                    <div class="col">
-                        <h6></h6>
-                        <p>
-                            <span style="margin-right: 5px; display: block;">
-                                <b>Transporte:</b> {{ posts.transporte }}
-    
-                            </span>
-                            <span style="margin-right: 5px; display: block;">
-                                <b>Alimentacion:</b> {{ posts.alimentacion }}
-    
-                            </span>
-                            <span style="margin-right: 5px; display: block;">
-                                <b>Aseo:</b> {{ posts.aseo }}
-    
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-auto d-none d-lg-block col p-4" style="background-color:white ;">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <img src="assets/img/servicios1.jpg" width="400" height="218">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-              <!----------------------Servicios atencion 1-------------------------->
+        <!----------------------Servicios atencion 1-------------------------->
     
         <br>
         <div class="col-md-12 container">
@@ -239,38 +165,7 @@
                 </div>
             </div>
         </div>
-             <!------------------------------------------------------------------------------------------>
-
-             <div class="col-md-12 container">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col-auto d-none d-lg-block col p-4" style="background-color:white ;">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <img src="assets/img/servicios.jpg" width="400" height="218">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col d-flex flex-column position-static" style="background-color:white ;">
-                        <strong class="d-inline-block mb-4 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Servicios Medicos</strong>
-                        <!-- <h3 class="mb-0"> </h3> -->
-                        <br>
-                        <div class="col text-start" style="margin-top: -25px; margin-left: -20px">
-                            <span *ngFor="let serv of posts.controlesMedicos" style="display: block;">
-                                <span *ngIf="serv.value">
-                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 8px" height="20px" width="20px"
-                                        viewBox="0 0 50 50">
-                                        <path
-                                            d="M21.05 33.1 35.2 18.95 32.9 16.7 21.05 28.55 15.05 22.55 12.8 24.8ZM24 44Q19.75 44 16.1 42.475Q12.45 40.95 9.75 38.25Q7.05 35.55 5.525 31.9Q4 28.25 4 24Q4 19.8 5.525 16.15Q7.05 12.5 9.75 9.8Q12.45 7.1 16.1 5.55Q19.75 4 24 4Q28.2 4 31.85 5.55Q35.5 7.1 38.2 9.8Q40.9 12.5 42.45 16.15Q44 19.8 44 24Q44 28.25 42.45 31.9Q40.9 35.55 38.2 38.25Q35.5 40.95 31.85 42.475Q28.2 44 24 44ZM24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24Q24 24 24 24ZM24 41Q31.25 41 36.125 36.125Q41 31.25 41 24Q41 16.75 36.125 11.875Q31.25 7 24 7Q16.75 7 11.875 11.875Q7 16.75 7 24Q7 31.25 11.875 36.125Q16.75 41 24 41Z" />
-                                    </svg>
-        
-                                    {{ serv.name }}
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!----------------------Servicios terapeuticos 1-------------------------->
+        <!----------------------Servicios terapeuticos 1-------------------------->
     
         <br>
         <div class="col-md-12 container">
@@ -302,8 +197,49 @@
                 </div>
             </div>
         </div>
-   
-       
+
+         <!-----------------------otros servcicios 1------------------------->
+          
+         <br>
+         <div class="row " style="background-color:white ;">
+            <div class="col mb-4">
+                <div class="row">
+                    <strong class="mb-4 col-md-6 ms-2 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Horarios y días de atención</strong>
+
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <img src="assets/img/servicios1.jpg" width="400" height="218">
+
+                    </div>
+                    <div class="col d-flex flex-column position-static text-start" style="background-color:white ;">
+                    
+                        <h3 class="mb-0"> </h3>
+                        <br>
+                        <div class="col text-start" style="margin-top: -25px; margin-left: -20px">
+                            
+                            <span style="display: block;">
+                                <b>Desde: </b>{{ posts.horaDesde }} -
+                                <b>Hasta: </b>{{ posts.horaHasta }}
+                            </span>
+                            <div *ngIf="posts != null">
+                                <div *ngIf="posts?.horas?.completed ; else dias">
+
+                                    <b>Días de atención: </b> {{ posts.horas.name }}
+                                </div>
+                                <ng-template #dias>
+                                    <b>Días de atención: </b> <span *ngFor="let hora of posts?.horas?.diasSemana">{{ hora.name | slice:0:3}} </span>
+
+                                </ng-template>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
         <!----------------------Servicios adicionales 1-------------------------->
         <hr>
         
@@ -311,7 +247,7 @@
         <div class="row " style="background-color:white ;">
             <div class="col mb-4">
                 <div class="row">
-                    <strong class="mb-4 col-md-6 ms-1 text-primary " style="border-bottom: 1px solid #dbdbdb">Servicios Complementarios</strong>
+                    <strong class="mb-4 col-md-6 ms-1 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Servicios Complementarios</strong>
 
                 </div>
                 <div class="row">
@@ -349,7 +285,6 @@
                 </div>
 
             </div>
-
             <div class="col mb-4">
                 <div class="row">
                     <strong class="mb-4 col-md-6 ms-2 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Instalaciones y Espacios</strong>
@@ -384,40 +319,7 @@
             
         </div>
         <hr>
-               <!-----------------------------horarios 1------------------->
-    
-            <br>
-        <div class="col-md-12 container">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-5 d-flex flex-column position-static" style="background-color:white ;">
-                    <strong class="d-inline-block mb-4 text-primary text-start mt-4" style="border-bottom: 1px solid #dbdbdb">Horario de Atencion</strong>
-                    <h3 class="mb-0"></h3>
-                    
-                    <div class="col">
-                        <span style="margin-right: 5px; display: block;">
-                            <b>Hora Desde: </b>{{ posts.horaDesde }} -
-                            <b>Hora Hasta: </b>{{ posts.horaHasta }}
-                        </span>
-                        <p>
-                            <b>Días de atención: </b>
-                            <span *ngFor="let hora of posts.horas">{{ hora.name | slice:0:3}}</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-auto d-none d-lg-block col p-4" style="background-color:white ;">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <img src="assets/img/servicios1.jpg" width="400" height="218">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
- 
-        
-
-        <!----------------------------------------------------------------------------------------------->
+         
             <!-----------------------contact 1------------------------->
             <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
             <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
