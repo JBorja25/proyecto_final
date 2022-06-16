@@ -233,16 +233,20 @@ serviciosAdicionales: any[] = [
     private _post: PostService
   ) {
     this.postForm= this.formBuilder.group({
-      name:[''],
-      address:[''],
-      email:[''],
-      fono:[''],
+      name:['',Validators.required],
+      address:['',Validators.required],
+      email:['',Validators.required],
+      fono:['',Validators.required],
     });
     this.uuid = this._cookie.get('uid');
     this.registroAnterior = 'prueba de envio';
   }
 
   async ngOnInit() {
+    this._auth.insertName()
+    .subscribe((resp) =>{
+      this.nombre = resp.displayName
+    })
     this.crearFormulario();
     
     this.getDataFirebase(); 

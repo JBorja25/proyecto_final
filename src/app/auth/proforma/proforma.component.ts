@@ -69,15 +69,15 @@ export class ProformaComponent implements OnInit {
     {
       name: 'Servicios Medicos',
       children: [
-        {name:'Oxigeno',value:20}, 
-        {name:'Terapias Respiratorias',value:30}, 
+        {name:'Asistencia médica',value:20}, 
+        {name:'Grupo de apoyo familiar',value:30}, 
         {name: 'Terapias Musculares',value:25}, 
-        {name: 'Cuidados Postoperatorios',value:35}, 
-        {name: 'Dialisis',value:35}, 
-        {name: 'Sondas',value:25}, 
-        {name: 'Ostomias',value:35}, 
-        {name: 'Terapias Cognitivas',value:30}, 
-        {name: 'Terapias Diabetes',value:15}, 
+        {name: 'estimulación cognitiva',value:35}, 
+        {name: 'rehabilitación y fisioterapia',value:35}, 
+        {name: 'Peluquería y estética',value:25}, 
+        {name: 'Limpieza y lavandería',value:35}, 
+        {name: 'Comida  y transporte',value:30}, 
+        {name: 'Sala de estar',value:15}, 
       ]
     }
                               
@@ -461,7 +461,7 @@ export class ProformaComponent implements OnInit {
     });
     pdf.add(new  Txt('\n').end);
     
-    pdf.add((await new Img('../../../assets/img/1.jpg').relativePosition(400, 75).height('100').build()));
+    pdf.add((await new Img('../../../assets/img/logo.png').relativePosition(350, 35).height('40').width('40').build()));
 
     pdf.add(new Table([
       [
@@ -668,7 +668,7 @@ export class ProformaComponent implements OnInit {
 
     pdf.add(new Txt('\n\n').end);
 
-    pdf.add((await new Img('../../../assets/img/1.jpg').relativePosition(350, 35).height('40').width('40').build()));
+    pdf.add((await new Img('../../../assets/img/firma.png').relativePosition(350, 50).height('80').width('60').build()));
 
 
     pdf.add(new Table([

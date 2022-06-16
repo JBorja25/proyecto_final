@@ -19,7 +19,7 @@
           
         </div>
         <div class="d-flex justify-content-center">
-          <small style="font-size:13px; margin-top: -7px">admin</small>
+          <small style="font-size:13px; margin-top: -7px">asilo</small>
         </div>
       </div>
       <hr>
@@ -87,11 +87,11 @@
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>LOgout</strong>
+          <strong>Cerrar Sesion</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
 
-          <li (click)="cerrar()"><a class="dropdown-item btn">Sign out</a></li>
+          <li (click)="cerrar()"><a class="dropdown-item btn">Cerrar Sesion</a></li>
         </ul>
       </div>
     </div>
@@ -125,7 +125,7 @@
                   <textarea style="width: 100%; height: 100px; resize: none" formControlName="vision" type="text" class="form-control" required></textarea>
                 </div>
                 <div>
-                  <button mat-button matStepperNext>Siguiente</button>
+                  <button mat-button matStepperNext type="button" class="btn btn-primary">Actualizar</button>
                 </div>
               </div>
             </div>
@@ -141,7 +141,7 @@
           <input formControlName="name" name="name" id="name" type="text" (change)="prueba($event)" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label class="form-label">Direciion del asilo</label>
+          <label class="form-label">Direccion del asilo</label>
           <input formControlName="address" name="address" type="text" class="form-control" required>
         </div>
         <div class="mb-3">
@@ -155,7 +155,7 @@
 
 
         <div>
-          <button mat-raised-button color="primary" (click)="actualizar($event)">Actualizar</button>
+          <button mat-raised-button type="button" class="btn btn-primary" (click)="actualizar($event)">Actualizar</button>
         </div>
       </form>
     </mat-step>
@@ -207,7 +207,7 @@
 
         <div>
           <!-- <button mat-button matStepperPrevious>Back</button> -->
-          <button mat-raised-button color="primary" (click)="actualizarHorarios()">Actualizar</button>
+          <button mat-raised-button type="button" class="btn btn-primary"(click)="actualizarHorarios()">Actualizar</button>
         </div>
       
     </mat-step>
@@ -305,7 +305,7 @@
         
         <div>
           <!-- <button mat-button matStepperPrevious>Back</button> -->
-          <button mat-raised-button color="primary" (click)="actualizarServicios()">Actualizar</button>
+          <button mat-raised-button type="button" class="btn btn-primary" (click)="actualizarServicios()">Actualizar</button>
         </div>
       </form>
     </mat-step>
@@ -336,7 +336,7 @@
           <!-- <button mat-button matStepperPrevious>Back</button> -->
 
           <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
-          <button type="button" (click)="onSubmit()" class="btn btn-primary">Actualizar</button>
+          <button type="button" (click)="onSubmit()" type="button" class="btn btn-primary">Actualizar</button>
         </div>
       </form>
     </mat-step>
