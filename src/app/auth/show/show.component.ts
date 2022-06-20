@@ -21,8 +21,8 @@ import Swal from 'sweetalert2';
 })
 export class ShowComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['Nombre', 'direcicon', 'email', 'telefono'];
-  displayedColumnspendientes: string[] = ['Nombre', 'direcicon', 'email', 'telefono', 'accion'];
+  displayedColumns: string[] = ['cedula','Nombre', 'direcicon', 'email', 'telefono'];
+  displayedColumnspendientes: string[] = ['cedula','Nombre', 'direcicon', 'email', 'telefono', 'accion'];
   
   dataSource = new MatTableDataSource;
   dataSourceAprobados = new MatTableDataSource;
@@ -89,7 +89,8 @@ export class ShowComponent implements OnInit, AfterViewInit {
             name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono,
             foto: f.data().foto,
             documento: f.data().documento,
-            idDoc: f.id
+            idDoc: f.id,
+            cedula: f.data().cedula
           }
           this.postPendientes.push(enviar);
         }
@@ -112,7 +113,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
           console.log(f.data());
 
           if(f.data().aprobado && !f.data().rechazar){
-            this.PostAprobados.push({ name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono });
+            this.PostAprobados.push({ name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono, cedula: f.data().cedula });
             
             
           }else if(!f.data().aprobado && f.data().rechazar){
