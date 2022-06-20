@@ -13,7 +13,7 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 
 interface medicosServicios{
-  name: string,
+  name?: string,
   value?:any,
   children?:medicosServicios[]
 }
@@ -105,7 +105,7 @@ serviciosMedicos: medicosServicios[] =
   }]
 /*------------------------------------------------------*/
 /**swrvicios adicionales*/
-serviciosSanitarios: any = [
+serviciosSanitarios: medicosServicios[] = [
   {
     name: 'Servicios Sanitarios',
     children: [
@@ -120,7 +120,7 @@ serviciosSanitarios: any = [
 ]
 /*------------------------------------------------------*/
 /**swrvicios adicionales*/
-serviciosTerapeuticos: any = [
+serviciosTerapeuticos: medicosServicios[] = [
   {
     name: 'Servicios Terapeuticos',
     children: [
@@ -139,7 +139,7 @@ serviciosTerapeuticos: any = [
 ]
 /*------------------------------------------------------*/
 /**swrvicios adicionales*/
-serviciosComodidad: any = [
+serviciosComodidad: medicosServicios[] = [
   {
     name: 'Servicios Comodidad',
     children: [
@@ -156,7 +156,7 @@ serviciosComodidad: any = [
                             
 ]
 /*------------------------------------------------------*/
-serviciosatencion: any = [
+serviciosatencion: medicosServicios[] = [
   {
     name: 'Servicios atencion',
     children: [
@@ -200,7 +200,7 @@ transportes: any[] = [
   value: false
 }
 ];
-serviciosAdicionales: any[] = [
+serviciosAdicionales: medicosServicios[] = [
   {name:'Peluqueria',value:false},  
   {name:'Entrega de Medicamentos',value:false},  
   {name:'Acompañamiento a Citas Medicas',value:false},  
@@ -235,12 +235,7 @@ urlFotofirebase: any = '';
   
   
   
-  hasChild = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
-  hasChildAdi = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
-  hasChildSani = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
-  hasChildComo = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
-  hasChildTera = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
-  hasChildAte = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
+  
     
   ngAfterContentInit(): void {
     let adicionales: medicosServicios[] = [
@@ -264,6 +259,7 @@ urlFotofirebase: any = '';
     this.dataSourcetera.data = this.serviciosTerapeuticos;
 
     console.log(this.dataSource);
+    // console.log(this.treeControl.);
     
   }
   
@@ -791,5 +787,12 @@ urlFotofirebase: any = '';
     .catch(console.log);
   }
   
+
+  hasChild = (_: number, node: medicosServicios)      => node.children && node.children.length > 0;
+  hasChildAdi = (_: number, node: medicosServicios)   => node.children && node.children.length > 0;
+  hasChildSani = (_: number, node: medicosServicios)  => node.children && node.children.length > 0;
+  hasChildComo = (_: number, node: medicosServicios)  => node.children && node.children.length > 0;
+  hasChildTera = (_: number, node: medicosServicios)  => node.children && node.children.length > 0;
+  hasChildAte = (_: number, node: medicosServicios)   => node.children && node.children.length > 0;
 
 }
