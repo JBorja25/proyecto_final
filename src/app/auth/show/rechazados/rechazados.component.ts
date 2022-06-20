@@ -10,7 +10,7 @@ import { PostService } from 'src/app/models/post.service';
 })
 export class RechazadosComponent implements OnInit, AfterViewInit {
   
-  displayedColumns: string[] = ['nombre', 'direcicon', 'email', 'telefono', 'motivo'];
+  displayedColumns: string[] = ['nombre','cedula', 'direcicon', 'email', 'telefono', 'motivo'];
   
   dataSource = new MatTableDataSource;
 
@@ -50,7 +50,7 @@ export class RechazadosComponent implements OnInit, AfterViewInit {
             console.log('entra en rechazado');
             
             
-            this.postrechazados.push({name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono, mensaje: f.data().mensaje});
+            this.postrechazados.push({name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono, mensaje: f.data().mensaje, cedula: f.data().cedula});
 
             console.log(this.dataSource);
             
