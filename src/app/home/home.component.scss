@@ -19,7 +19,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+} 
 /**
 * Template Name: Stanley
 * Template URL: https://templatemag.com/stanley-bootstrap-freelancer-template/
@@ -33,6 +33,86 @@
 * Author: TemplateMag.com
 * License: https://templatemag.com/license/
 */
+/**/
+
+/*--------------------------------------------------------------*/
+
+
+section {
+  overflow: hidden;
+}
+
+.section {
+  padding: 7rem 0;
+}
+
+.section-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(-45deg, #3db3c5, #274685);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/*--------------------------------------------------------------*/
+.services .icon-box {
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 40px 0;
+  background: #fff;
+  box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
+  transition: all 0.3s ease-in-out;
+  border-radius: 15px;
+  text-align: center;
+  border-bottom: 3px solid #fff;
+}
+.services .icon-box:hover {
+  transform: translateY(-5px);
+  border-color: #ef7f4d;
+}
+.services .icon i {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 15px;
+  color: #ef7f4d;
+}
+.services .title {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+.services .title a {
+  color: #111;
+}
+.services .description {
+  font-size: 15px;
+  line-height: 28px;
+  margin-bottom: 0;
+}
+
+/**/
+.back{
+  width: 100vw;
+  height: 400px;
+  
+  background-image:url("/assets/img/servicios1.jpg");
+  text-align: center !important;
+  background-size: cover;
+background-repeat:no-repeat;
+background-position: center center;
+background-color: rgba(246, 247, 248, 0.666);
+background-blend-mode: soft-light;
+}
+.h5{
+  font-size: calc(1.375rem + 1.5vw);
+}
+
+.lead{
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+
 
 body {
     background-color: #ffffff;
