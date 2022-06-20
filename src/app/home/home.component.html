@@ -176,10 +176,10 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-4" *ngFor="let item of posts">
-        <div class="card text-center" style="box-shadow: 0 0 10px 0 gray; border-radius: 15px;">
+      <div class="col-md-4 mb-4" *ngFor="let item of posts">
+        <div class="card text-center" style="box-shadow: 0 0 10px 0 gray; border-radius: 15px; width: 350px; height: auto;">
           <div class="card-body">
-            <img [src]="item.foto != '' ? item.foto : '/assets/img/no-photo.png'" [alt]="item.name" class="img-card-top" width="150">
+            <img [src]="item.foto != '' ? item.foto : '/assets/img/no-photo.png'" [alt]="item.name" class="img-card-top" width="150" height="150">
             <h2 class="card-subtitle">{{item.name}}</h2>
             <p class="card-text">Direccion: {{ item.address }}</p>
             <p class="text-muted"><a style="cursor: pointer;" class="stretched-link" (click)="abrirDialog(item.uid)">Ver más...</a></p>
