@@ -31,7 +31,7 @@ export class ProformaComponent implements OnInit {
   selectedDay: string = '';
   selectedDa: string = '';
   selectedDays: string = '';
-
+  sumaseccionHijos: number= 0;
   treeControl  = new NestedTreeControl<medicosServicios>(node => node.children);
   dataSource = new MatTreeNestedDataSource<medicosServicios>();
   treeControlAdi  = new NestedTreeControl<medicosServicios>(node => node.children);
@@ -146,6 +146,7 @@ export class ProformaComponent implements OnInit {
   ngOnInit(): void {
     this.crearFormulario();
   }
+  
 
   
 
@@ -245,6 +246,18 @@ export class ProformaComponent implements OnInit {
 
     
     console.log(this.servicioMedAux);
+
+    let servicios: medicosServicios[] = [
+      {
+        name: 'Servicios Medicos ' + '('+ this.servicioMedAux.length +')',
+        children: this.servicioMedAux
+      }
+    ];
+    this.dataSource.data = servicios;
+    this.sumaTotalServMedicos = 0; 
+    for(let i=0; i<this.servicioMedAux.length; i++){
+      this.sumaTotalServMedicos += this.servicioMedAux[i].value;
+    }
     
     /* this.serviciosMedicos.forEach((v, index) => {
       console.log(v, index)
@@ -306,6 +319,20 @@ export class ProformaComponent implements OnInit {
       let index = this.servicioAdiAux.findIndex((v, index) => v.name == evento.source.value);
       this.servicioAdiAux.splice(index, 1);
     }
+
+    for(let i=0; i<this.servicioAdiAux.length; i++){
+      this.sumaTotalServAdicionales += this.servicioAdiAux[i].value;
+    }
+
+
+    let adicionales: medicosServicios[] = [
+      {
+        name: 'Servicios adicionales ' + '('+ this.servicioAdiAux.length +')',
+        children: this.servicioAdiAux
+      }
+    ];
+
+    this.dataSourceAdi.data= adicionales;
 
     /* this.serviciosMedicos.forEach((v, index) => {
       console.log(v, index)
@@ -697,6 +724,32 @@ export class ProformaComponent implements OnInit {
     this.servicioMedAux = [];
     this.servicioAdiAux = [];
 
+  }
+
+  cambiarUbicacion(evento : any){
+    console.log(evento);
+    
+    this.ubicacionObj = this.ubicaciones.find((v, index) => (index === this.firstFormGroup.value.selectUbi) && v);
+  }
+
+  cambiarHabitacion(){
+    this.tipoHabitacionObj = this.tipoHabitacion.find((v, index) => index === this.firstFormGroup.value.habitaciones && v);
+  }
+  cambiarAmobalda(){
+    this.amobladoObj = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
+    
+  }
+  cambiarCuidado(){
+    this.cuidadoFisicoObj = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
+  }
+
+  cambiarCongnitivo(){
+    this.cuidadoCogObj = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni && v);
+  }
+
+  sumaTotalHijos(){
+    this.suma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value +this.cuidadoFisicoObj.value + this.cuidadoCogObj.value + this.sumaTotalServMedicos + this.sumaTotalServAdicionales;
+    this.sumaseccionHijos = this.suma / parseInt(this.FourthFormGroup.get('hijos').value);
   }
 
 }

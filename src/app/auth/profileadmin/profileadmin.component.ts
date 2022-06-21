@@ -48,7 +48,7 @@ export class ProfileadminComponent implements OnInit {
 
   getData() {
     this._auth.traerDataFirebase(this.token)
-      .subscribe((resp) => {
+      .subscribe((resp: any) => {
         console.log(resp);
 
         for (let f of resp.docs) {
@@ -56,6 +56,9 @@ export class ProfileadminComponent implements OnInit {
           
           this.data = f.data()
           this.idDoc = f.id;
+          this.telefono = f.data().phone;
+          this.direccion = f.data().direccion;
+          this.correo = f.data().email;
 
         }
         console.log(this.data);

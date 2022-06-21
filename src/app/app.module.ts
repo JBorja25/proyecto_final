@@ -89,6 +89,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
 import { AsilorechazadoComponent } from './auth/asilorechazado/asilorechazado/asilorechazado.component';
 import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.component';
+import { MostrarPipe } from './pipes/mostrar.pipe';
 
 
 
@@ -121,6 +122,7 @@ import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.com
    CoverproformaComponent,
    AsilorechazadoComponent,
    OlvidopassComponent,
+   MostrarPipe,
    
 
    

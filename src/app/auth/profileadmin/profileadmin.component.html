@@ -140,10 +140,13 @@
     </div>
       <div class="col mt-5" style="margin-left: 12%">
           
-          <div class="row" style="display: flex; justify-content: center; width: 75%;">
+          <div class="row" style=" width: 75%;">
               <div class="col">
                   <span class="form-label">Nombre:</span>
                   <input class="form-control" type="text" [(ngModel)]="nombre" (ngModelChange)="cambioNombre($event)" [value]="dataUser.displayName != null ? dataUser.displayName: ''">
+              </div>
+              <div class="row profile__error" *ngIf="nombre == ''">
+                <span class="profileadmin__errornombre">El campo NOMBRE es obligatorio</span>
               </div>
           </div>
           <div class="row" style="width: 75%">
@@ -151,27 +154,36 @@
                   <span class="form-label">Telefono:</span>
                   <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
               </div>
-          </div>
-          <div class="row" style="width: 75%">
-              <div class="col">
-                  <span class="form-label">Direccion:</span>
-                  <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
-                  
+              <div class="row profile__error" *ngIf="telefono == ''">
+                <span class="profileadmin__errornombre">El campo TELÉFONO es obligatorio</span>
               </div>
-          </div>
-          <div class="row" style="width: 75%">
+            </div>
+            <div class="row" style="width: 75%">
               <div class="col">
-                  <span class="form-label">Correo:</span>
-                  <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
+                <span class="form-label">Direccion:</span>
+                <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
+                
+              </div>
+              <div class="row profile__error" *ngIf="direccion == ''">
+                <span class="profileadmin__errornombre">El campo DIRECCIÓN es obligatorio</span>
+              </div>
+            </div>
+            <div class="row" style="width: 75%">
+              <div class="col">
+                <span class="form-label">Correo:</span>
+                <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
+              </div>
+              <div class="row profile__error" *ngIf="correo == ''">
+                <span class="profileadmin__errornombre">El campo CORREO es obligatorio</span>
               </div>
               
           </div>
           <div class="row" style="width: 75%">
-              <div class="col">
-                  <span class="form-label">Contrasenia:</span>
-                  <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
-                  
-              </div>
+            <div class="col">
+              <span class="form-label">Contrasenia:</span>
+              <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
+              
+            </div>
           </div>
           <div class="row" >
             <div class="col mb-4 mt-3" style="width: 25%; margin-left: 28%"> 
