@@ -144,7 +144,7 @@
                     </div>
                   </div>
                 </div>
-                <button mat-button matStepperNext>Siguiente</button>
+                <button mat-button matStepperNext type="button" class="btn btn-primary">Siguiente</button>
               </form>
             </mat-step>
             <!-- <ng-template *ngIf="!comprobarVacio"> -->
@@ -198,8 +198,8 @@
                   </div>
                   
                   <div>
-                    <button mat-button matStepperPrevious>Atras</button>
-                    <button mat-button matStepperNext>Siguiente</button>
+                    <button mat-button matStepperPrevious >Atras</button>
+                    <button mat-button matStepperNext type="button" class="btn btn-primary">Siguiente</button>
                   </div>
                   
                 </mat-step>
@@ -473,9 +473,9 @@
                 </div>
     
                 <div>
-                  <button mat-button matStepperPrevious>Atras</button>
+                  <button mat-button matStepperPrevious type="button" class="btn btn-secondary">Atras</button>
     
-                  <button mat-button (click)="stepper.reset()" *ngIf="!rechazar">Borrar campos</button>
+                  <button mat-button (click)="stepper.reset()" *ngIf="!rechazar" type="button" class="btn btn-warning">Borrar campos</button>
                   <button type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
                 </div>
               </form>

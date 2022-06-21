@@ -134,10 +134,10 @@
             <ng-container matColumnDef="accion">
               <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> Accion </th>
               <td mat-cell *matCellDef="let element">
-                <a [href]="element.foto" *ngIf="element.foto !== ''" target="_blank" class="btn btn-outline-info">
+                <a [href]="element.foto" *ngIf="element.foto !== ''" target="_blank" title="Imagen" class="btn btn-outline-info">
                   <i class="fa-solid fa-image"></i>
                 </a>
-                <a [href]="element.documento" target="_blank" *ngIf="element.documento !== ''" class="btn btn-outline-info">
+                <a [href]="element.documento" target="_blank" *ngIf="element.documento !== ''"  title="documento"class="btn btn-outline-info">
                   <i class="fa-solid fa-book"></i>
                 </a>
                 
