@@ -3,6 +3,7 @@ import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
+import { CookieService } from 'ngx-cookie-service';
 import { provideRoutes, Router } from '@angular/router';
 
 @Component({
@@ -12,6 +13,7 @@ import { provideRoutes, Router } from '@angular/router';
   providers:[AuthService],
 })
 export class RegisterComponent implements OnInit {
+  verpass: boolean =true;
       registerForm=new FormGroup({
       email: new FormControl(''),
       password: new FormControl(''),
@@ -20,7 +22,8 @@ export class RegisterComponent implements OnInit {
   });
 
   enviarFirebase: any = {};
-  constructor(private authSvc:AuthService, private router:Router) { }
+  constructor(private authSvc:AuthService, private router:Router,    private _cookie: CookieService,
+    private _auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -93,5 +96,13 @@ export class RegisterComponent implements OnInit {
 
 
 
+  }
+  verContrasenia(){
+    this.verpass = !this.verpass;
+  }
+  async cerrar() {
+    this._cookie.deleteAll();
+    await this._auth.logout();
+    this.router.navigateByUrl('/login', { replaceUrl: true, skipLocationChange: false });
   }
 }

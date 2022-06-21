@@ -9,7 +9,7 @@
           
         </div>
         <div class="d-flex justify-content-center">
-          <small style="font-size:13px; margin-top: -7px">admin</small>
+          <small style="font-size:13px; margin-top: -7px">Administrador</small>
         </div>
       </div>
       <hr>
@@ -27,7 +27,7 @@
             <svg class="bi me-2" width="16" height="16">
           
             </svg>
-            PERFILE
+            PERFIL
           </a>
         </li>
 
@@ -61,11 +61,11 @@
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>Cerrar Sesion</strong>
+          <strong>Cerrar Sesión</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
 
-          <li (click)="cerrar()"><a class="dropdown-item btn">Cerrar Sesion</a></li>
+          <li (click)="cerrar()"><a class="dropdown-item btn">Cerrar Sesión</a></li>
         </ul>
       </div>
     </div>
@@ -77,10 +77,12 @@
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
       </button>
-
-    </mat-toolbar>
     
+    </mat-toolbar>
+   
+    <h4  style="margin: 15px;">Este modulo permite  gestionar los asilos que desean formar parte del sistema web </h4>
   </div>
+  
   
   <mat-tab-group mat-align-tabs="center">
     
@@ -90,7 +92,6 @@
       <br>
       <div style="text-align:center; width: 100%;">
 
-        <p >Esta seccion se puede visualizar a todos los asilos que estan pendientes de aprobacion o rechazo </p>
       </div>
       
       <div class="row" style=" width: 98%;" *ngIf="postPendientes.length > 0">
@@ -98,7 +99,7 @@
         <div class="col-md-8">
           <div class="row">
             <mat-form-field appearance="standard">
-              <mat-label>Filtro</mat-label>
+              <mat-label>Buscadoor</mat-label>
               <input matInput (keyup)="bucarValor($event.target)" placeholder="Ex. nombre" #input>
             </mat-form-field>
           </div>
@@ -106,7 +107,7 @@
   
             <!-- Position Column -->
             <ng-container matColumnDef="Nombre">
-              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> NOMBRE </th>
+              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> Nombre </th>
               <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
             <ng-container matColumnDef="cedula">
@@ -116,28 +117,28 @@
   
             <!-- Name Column -->
             <ng-container matColumnDef="direcicon">
-              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> direcicon </th>
+              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> Dirección </th>
               <td mat-cell *matCellDef="let element"> {{element.address}} </td>
             </ng-container>
   
             <!-- Weight Column -->
             <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> email </th>
+              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> Correo </th>
               <td mat-cell *matCellDef="let element"> {{element.email}} </td>
             </ng-container>
   
             <!-- Symbol Column -->
             <ng-container matColumnDef="telefono">
-              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> telefono </th>
+              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> Telefono </th>
               <td mat-cell *matCellDef="let element"> {{element.fono}} </td>
             </ng-container>
             <ng-container matColumnDef="accion">
-              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> Accion </th>
+              <th mat-header-cell *matHeaderCellDef class="bg-gradient text-black"> Acciones </th>
               <td mat-cell *matCellDef="let element">
-                <a [href]="element.foto" *ngIf="element.foto !== ''" target="_blank" class="btn btn-outline-info">
+                <a [href]="element.foto" *ngIf="element.foto !== ''" target="_blank" title="Imagen" class="btn btn-outline-info">
                   <i class="fa-solid fa-image"></i>
                 </a>
-                <a [href]="element.documento" target="_blank" *ngIf="element.documento !== ''" class="btn btn-outline-info">
+                <a [href]="element.documento" target="_blank" *ngIf="element.documento !== ''"  title="documento"class="btn btn-outline-info">
                   <i class="fa-solid fa-book"></i>
                 </a>
                 
@@ -212,14 +213,14 @@
   
   <mat-tab label="Asilos Aprobados">
     <br>
-    <p style="text-align:center; width: 60%;">Esta seccion se puede visualizar a todos los asilos que han sido  aprobados</p>
+    
     
       <div class="row" style="width: 98%">
         <div class="col"></div>
         <div class="col-md-8">
           <div class="row">
             <mat-form-field appearance="standard">
-              <mat-label>Filtro</mat-label>
+              <mat-label>Busqueda</mat-label>
               <input matInput (keyup)="bucarValorAprobados($event.target)" placeholder="Ex. nombre" #input>
             </mat-form-field>
           </div>
@@ -265,14 +266,10 @@
         </div>
         <div class="col"></div>
       </div>
-  
-  
-  
+
   </mat-tab>
   <mat-tab label="Asilos rechazados">
     <br>
-    <p style="text-align:center; width: 60%;">Esta seccion se puede visualizar a todos los asilos que han sido rechazados </p>
-    
       <div class="row" style="width: 98%">
         <div class="col"></div>
         <div class="col-md-8">

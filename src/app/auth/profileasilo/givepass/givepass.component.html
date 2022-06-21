@@ -19,7 +19,7 @@
           
         </div>
         <div class="d-flex justify-content-center">
-          <small style="font-size:13px; margin-top: -7px">asilo</small>
+          <small style="font-size:13px; margin-top: -7px">Asilo Administrador </small>
         </div>
       </div>
       <hr>
@@ -225,171 +225,341 @@
           <mat-step [stepControl]="fourthFormGroup" *ngIf="aprobado" >
             <form [formGroup]="fourthFormGroup" class="container" >
               <ng-template matStepLabel>Servicios</ng-template>
-              <div class="row ">
+              <div class="row">
                 <h3>Esta seccion informativa permite seleccionar  los servicios  medicos tambien alimentacion, transporte y aseo personal</h3>
-       
-                <div class="col me-4">
-                  <div class="row mt-3">
-                    <div class="col">
 
-                      <label class="form-label">Alimentacion
-                        <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de alimentacion." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                          <path
-                               d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                     </svg>
-                      </label>
-                      <mat-select formControlName="alimentacion" value="0">
-                        <mat-option value="0">Seleccionee...</mat-option>
-                        <mat-option value="Si">Si</mat-option>
-                        <mat-option value="no">No</mat-option>
-                      </mat-select>
-                    </div>
+              </div>
+              <!-- Alimentacion -->
+              <div class="row mt-4">
+                <div class="col info__asilo">
+                  <div class=" info__asilo__label">
+                    <label  class="form-label label__padding">Alimentacion
+                      <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de alimentacion." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                        <path
+                             d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                      </svg>
+                    </label>
                   </div>
-                </div>
-                <div class="col">
-                  <div class="row">
-                    <div class="col mt-3">
-
-                      <label class="form-label">Aseo personal
-                        <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de aseo personal." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                          <path
-                               d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                     </svg>
-                      </label>
-                      <mat-select formControlName="aseo" value="0">
-                        
-                        <mat-option selected value="0">Seleccionee...</mat-option>
-                        <mat-option value="si">Si</mat-option>
-                        <mat-option value="no">No</mat-option>
-                      </mat-select>
-                    </div>
+                  <div class="row mt-2 width__select">
+                    <mat-select formControlName="alimentacion" value="0">
+                      <mat-option value="0">Seleccionee...</mat-option>
+                      <mat-option value="Si">Si</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
                   </div>
+  
                 </div>
 
               </div>
-              <div class="row mt-4">
-                <div class="col me-4">
-                  <div class="row">
-                    <div class="col mt-3">
-                      <!-- Servicios medicos -->
-                      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                        <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
-                          <!-- {{node.name}} -->
-                          <mat-checkbox [checked]="node.value" (change)="serviciosmedicos($event)"
-                              [value]="node.name">
-                              {{node.name}}
-                          </mat-checkbox>
-                         </mat-tree-node>
-                         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-                          <!-- {{node }} -->
-                             <div style="margin-left: -30px; width: 100%">
-                               <button mat-icon-button matTreeNodeToggle
-                                       [attr.aria-label]="'Toggle ' + node.name">
-                                 <mat-icon class="mat-icon-rtl-mirror">
-                                   {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                                 </mat-icon>
-                               </button>
-                               <span 
-                               style="font-size: 18px">{{node.name}}
-                               <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo parael cuidado permanente del adulto mayor." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                                <path
-                                    d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                              </svg>
-                              </span>
-                               
-                             </div>
-                             <!-- There is inline padding applied to this div using styles.
-                                 This padding value depends on the mat-icon-button width.  -->
-                             <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
-                                 role="group">
-                               <ng-container matTreeNodeOutlet></ng-container>
-                           </div>
-                         </mat-nested-tree-node>
+              <!-- aseo personal -->
+              <div></div>
+              <div class="row mt-5">
+                <div class="col info__asilo">
+                  <div class="info__asilo__label">
+                    <label class="form-label label__padding">Aseo personal
+                      <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de aseo personal." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                        <path
+                             d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                   </svg>
+                    </label>
+                  </div>
+                  <div class="row mt-2 width__select">
+                    <mat-select formControlName="aseo" value="0">
                         
-                   </mat-tree>
+                      <mat-option selected value="0">Seleccionee...</mat-option>
+                      <mat-option value="si">Si</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+              </div>
+              <!-- trasnporte -->
+              <div></div>
+              <div class="row mt-5">
+                <div class="col info__asilo">
+                  <div class="info__asilo__label">
+                    <label class="form-label">Transporte
+                      <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de transporte." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                        <path
+                             d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                   </svg>
+                    </label>
+                  </div>
+                  <div class="row mt-2 width__select">
+                    <mat-select (change)="transporte($event)" formControlName="transporte" value="0">
+                      <mat-option value="0">Seleccione..</mat-option>
+                      <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="row">
+                    <div class="info__asilo__expand__content"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- servicio medico -->
+              <div class="row mt-5">
+                <div class="col info__asilo__expand">
+                  <!-- <div class="info__asilo__label">
+                    <label class="form-label label__padding">Servicios Medicos
                       
-
-                    </div>
-
-                    
-                    <div class="row">
-                      <div class="col mt-3">
-                        <!-- Servicios sanitarios -->
-                        <mat-tree [dataSource]="dataSourceSanitarios" [treeControl]="treeControlSanitarios">
-                        <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
-                          <!-- {{node.name}} -->
-                          <mat-checkbox [checked]="node.value"
-                                      (change)="serviciosSanitariosFun($event)" [value]="node.name">
-                                      {{node.name}}
-                                  </mat-checkbox>
-                         </mat-tree-node>
-                         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-                             <div style="margin-left: -30px; width: 100%">
-                               <button mat-icon-button matTreeNodeToggle
-                                       [attr.aria-label]="'Toggle ' + node.name">
-                                 <mat-icon class="mat-icon-rtl-mirror">
-                                   {{treeControlSanitarios.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                                 </mat-icon>
-                               </button>
-                               <span 
-                               style="font-size: 18px">{{node.name}}
-                               <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                                <path
-                                     d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                           </svg>
-                              </span>
-                               
-                             </div>
-                             <!-- There is inline padding applied to this div using styles.
-                                 This padding value depends on the mat-icon-button width.  -->
-                             <div [class.example-tree-invisible]="!treeControlSanitarios.isExpanded(node)"
-                                 role="group">
-                               <ng-container matTreeNodeOutlet></ng-container>
+                    </label>
+                  </div> -->
+                  <div class="row info__asilo__label">
+                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                      <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
+                        <!-- {{node.name}} -->
+                        <mat-checkbox [checked]="node.value" (change)="serviciosmedicos($event)"
+                            [value]="node.name">
+                            {{node.name}}
+                        </mat-checkbox>
+                       </mat-tree-node>
+                       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                        <!-- {{node }} -->
+                           <div style="margin-left: -20px; width: 100%">
+                             <button mat-icon-button matTreeNodeToggle
+                                     [attr.aria-label]="'Toggle ' + node.name">
+                               <mat-icon class="mat-icon-rtl-mirror">
+                                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                               </mat-icon>
+                             </button>
+                             <span 
+                             style="font-size: 18px">{{node.name}}
+                             <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo parael cuidado permanente del adulto mayor." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                              <path
+                                  d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                            </svg>
+                            </span>
+                             
                            </div>
-                         </mat-nested-tree-node>
-                        
-                   </mat-tree>
-
-                        <!-- <mat-label>Servicios Sanitarios
-                          <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                            <path
-                                 d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                       </svg>
-                        </mat-label><br>
-                        <ul>
-                            <li *ngFor="let amob of serviciosSanitarios[0].children; let i =index">
-                                  <mat-checkbox [checked]="amob.value"
-                                      (change)="serviciosSanitariosFun($event)" [value]="amob.name">
-                                      {{amob.name}}
-                                  </mat-checkbox>
-                            </li>
-                        </ul> -->
-                      </div>
-
-                    </div>
+                           <!-- There is inline padding applied to this div using styles.
+                               This padding value depends on the mat-icon-button width.  -->
+                           <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
+                               role="group">
+                             <ng-container matTreeNodeOutlet></ng-container>
+                         </div>
+                       </mat-nested-tree-node>
+                      
+                      </mat-tree>
                   </div>
-                </div>
-
-                <div class="col">
                   <div class="row">
-                    <div class="col mt-3">
-
-                      <label class="form-label">Transporte
-                        <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Selecione si presentan servicio de transporte." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                          <path
-                               d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                     </svg>
-                      </label>
-                      <mat-select (change)="transporte($event)" formControlName="transporte" value="0">
-                        <mat-option value="0">Seleccione..</mat-option>
-                        <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
-                      </mat-select>
-                    </div>
+                    <div class="info__asilo__expand__content"></div>
                   </div>
                 </div>
-                <div class="row mt-3">
-                  <div class="col mt-3">
-                    <!-- adicionales -->
+              </div>
+
+              <!-- Servicios Sanitarios -->
+              <div class="row mt-5">
+                <div class="col info__asilo__expand">
+                  <!-- <div class="info__asilo__label">
+                    <label class="form-label label__padding">Servicios Sanitarios
+                      
+                    </label>
+                  </div> -->
+                  <div class="row info__asilo__label">
+
+                    <mat-tree [dataSource]="dataSourceSanitarios" [treeControl]="treeControlSanitarios">
+                      <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
+                        <!-- {{node.name}} -->
+                        <mat-checkbox [checked]="node.value"
+                                    (change)="serviciosSanitariosFun($event)" [value]="node.name">
+                                    {{node.name}}
+                                </mat-checkbox>
+                        </mat-tree-node>
+                        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                            <div style="margin-left: -30px; width: 100%">
+                              <button mat-icon-button matTreeNodeToggle
+                                      [attr.aria-label]="'Toggle ' + node.name">
+                                <mat-icon class="mat-icon-rtl-mirror">
+                                  {{treeControlSanitarios.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                </mat-icon>
+                              </button>
+                              <span 
+                              style="font-size: 18px">{{node.name}}
+                              <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                                <path
+                                      d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                            </svg>
+                            </span>
+                              
+                            </div>
+                            <!-- There is inline padding applied to this div using styles.
+                                This padding value depends on the mat-icon-button width.  -->
+                            <div [class.example-tree-invisible]="!treeControlSanitarios.isExpanded(node)"
+                                role="group">
+                              <ng-container matTreeNodeOutlet></ng-container>
+                          </div>
+                        </mat-nested-tree-node>
+                        
+                    </mat-tree>
+                  </div>
+                  <div class="row">
+                    <div class="info__asilo__expand__content"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Servicios de atencion -->
+              <div class="row mt-5">
+                <div class="col info__asilo__expand">
+                  <!-- <div class="info__asilo__label">
+                    <label class="form-label label__padding">Servicios de atencion
+                      
+                    </label>
+                  </div> -->
+                  <div class="row info__asilo__label">
+                    
+                    <mat-tree [dataSource]="dataSourceAtencion" [treeControl]="treeControlAtencion">
+                      <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
+                        <!-- {{node.name}} -->
+                        <mat-checkbox [checked]="node.value"
+                            (change)="serviciosAtencion($event)" [value]="node.name">
+                            {{node.name}}
+                        </mat-checkbox>
+                      </mat-tree-node>
+                       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildAte">
+                           <div style="margin-left: -30px; width: 100%">
+                             <button mat-icon-button matTreeNodeToggle
+                                     [attr.aria-label]="'Toggle ' + node.name">
+                               <mat-icon class="mat-icon-rtl-mirror">
+                                 {{treeControlAtencion.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                               </mat-icon>
+                             </button>
+                             <span 
+                             style="font-size: 18px">{{node.name}}
+                             <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                              <path
+                                   d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                         </svg>
+                            </span>
+                             
+                           </div>
+                           <!-- There is inline padding applied to this div using styles.
+                               This padding value depends on the mat-icon-button width.  -->
+                           <div [class.example-tree-invisible]="!treeControlAtencion.isExpanded(node)"
+                               role="group">
+                             <ng-container matTreeNodeOutlet></ng-container>
+                         </div>
+                       </mat-nested-tree-node>
+                    </mat-tree>
+                  </div>
+                  <div class="row">
+                    <div class="info__asilo__expand__content"></div>
+                  </div>
+                </div>
+              </div>
+              
+
+              <!-- servicios terapeuticos -->
+              <div class="row mt-5">
+                <div class="col info__asilo__expand">
+                  <!-- <div class="info__asilo__label">
+                    <label class="form-label label__padding">Servicios Terapeuticos
+                      
+                    </label>
+
+                  </div> -->
+                  <div class="row info__asilo__label">
+
+                    <mat-tree [dataSource]="dataSourcetera" [treeControl]="treeControltera">
+                      <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
+                        <!-- {{node.name}} -->
+                        <mat-checkbox [checked]="node.value"
+                                  (change)="serviciosTerapeuticosFun($event)" [value]="node.name">
+                                  {{node.name}}
+                              </mat-checkbox>
+                       </mat-tree-node>
+                       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildTera">
+                           <div style="margin-left: -30px; width: 100%">
+                             <button mat-icon-button matTreeNodeToggle
+                                     [attr.aria-label]="'Toggle ' + node.name">
+                               <mat-icon class="mat-icon-rtl-mirror">
+                                 {{treeControltera.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                               </mat-icon>
+                             </button>
+                             <span 
+                             style="font-size: 18px">{{node.name}}
+                             <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                              <path
+                                   d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                         </svg>
+                            </span>
+                             
+                           </div>
+                           <!-- There is inline padding applied to this div using styles.
+                               This padding value depends on the mat-icon-button width.  -->
+                           <div [class.example-tree-invisible]="!treeControltera.isExpanded(node)"
+                               role="group">
+                             <ng-container matTreeNodeOutlet></ng-container>
+                         </div>
+                       </mat-nested-tree-node>
+                      
+                    </mat-tree>
+                  </div>
+                  <div class="row">
+                    <div class="info__asilo__expand__content"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col info__asilo__expand">
+                  <!-- <div class="info__asilo__label">
+                    <label class="form-label label__padding">Servicios de comodidad
+                      
+                    </label>
+                  </div> -->
+                  <div class="row info__asilo__label">
+
+                    <mat-tree [dataSource]="dataSourcecomodidad" [treeControl]="treeControlcomodidad">
+                      <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
+                        <!-- {{node.name}} -->
+                            <mat-checkbox [checked]="node.value"
+                                  (change)="serviciosInstlaciones($event)" [value]="node.name">
+                                  {{node.name}}
+                              </mat-checkbox>
+                       </mat-tree-node>
+                       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildComo">
+                           <div style="margin-left: -30px; width: 100%">
+                             <button mat-icon-button matTreeNodeToggle
+                                     [attr.aria-label]="'Toggle ' + node.name">
+                               <mat-icon class="mat-icon-rtl-mirror">
+                                 {{treeControlcomodidad.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                               </mat-icon>
+                             </button>
+                             <span 
+                             style="font-size: 18px">{{node.name}}
+                             <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                              <path
+                                   d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                         </svg>
+                            </span>
+                             
+                           </div>
+                           <!-- There is inline padding applied to this div using styles.
+                               This padding value depends on the mat-icon-button width.  -->
+                           <div [class.example-tree-invisible]="!treeControlcomodidad.isExpanded(node)"
+                               role="group">
+                             <ng-container matTreeNodeOutlet></ng-container>
+                         </div>
+                       </mat-nested-tree-node>
+                      
+                 </mat-tree>
+                  </div>
+                  <div class="row">
+                    <div class="info__asilo__expand__content"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-5">
+                <div class="col info__asilo__expand">
+                  <!-- <div class="info__asilo__label">
+                    <label class="form-label label__padding">Servicios de comodidad
+                      
+                    </label>
+                  </div> -->
+                  
+                  <div class="row info__asilo__label">
+
                     <mat-tree [dataSource]="dataSourceAdi" [treeControl]="treeControlAdi">
                       <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
                         <!-- {{node.name}} -->
@@ -425,181 +595,13 @@
                       
                       </mat-tree>
                   </div>
-                  
-                    <div class="col mt-3">
-                      <!-- Servicios de atencion -->
-                      <mat-tree [dataSource]="dataSourceAtencion" [treeControl]="treeControlAtencion">
-                      <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
-                        <!-- {{node.name}} -->
-                        <mat-checkbox [checked]="node.value"
-                        (change)="serviciosAtencion($event)" [value]="node.name">
-                        {{node.name}}
-                    </mat-checkbox>
-                       </mat-tree-node>
-                       <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildAte">
-                           <div style="margin-left: -30px; width: 100%">
-                             <button mat-icon-button matTreeNodeToggle
-                                     [attr.aria-label]="'Toggle ' + node.name">
-                               <mat-icon class="mat-icon-rtl-mirror">
-                                 {{treeControlAtencion.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                               </mat-icon>
-                             </button>
-                             <span 
-                             style="font-size: 18px">{{node.name}}
-                             <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                              <path
-                                   d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                         </svg>
-                            </span>
-                             
-                           </div>
-                           <!-- There is inline padding applied to this div using styles.
-                               This padding value depends on the mat-icon-button width.  -->
-                           <div [class.example-tree-invisible]="!treeControlAtencion.isExpanded(node)"
-                               role="group">
-                             <ng-container matTreeNodeOutlet></ng-container>
-                         </div>
-                       </mat-nested-tree-node>
-                      
-                 </mat-tree>
-
-                      <!-- <mat-label>Servicios de atencion
-                        <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                          <path
-                               d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                        </svg>
-                      </mat-label><br>
-                      <ul>
-                          <li *ngFor="let amob of serviciosatencion[0].children; let i =index">
-                                <mat-checkbox [checked]="amob.value"
-                                    (change)="serviciosAtencion($event)" [value]="amob.name">
-                                    {{amob.name}}
-                                </mat-checkbox>
-                          </li>
-                      </ul> -->
-                    </div>
-                </div>
-                  
-              </div>
-              <div class="row mt-4">
-                <div class="col me-4">
                   <div class="row">
-                    <div class="col mt-3">
-                      <!-- Servicios terapeuticos -->
-                        <mat-tree [dataSource]="dataSourcetera" [treeControl]="treeControltera">
-                        <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
-                          <!-- {{node.name}} -->
-                          <mat-checkbox [checked]="node.value"
-                                    (change)="serviciosTerapeuticosFun($event)" [value]="node.name">
-                                    {{node.name}}
-                                </mat-checkbox>
-                         </mat-tree-node>
-                         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildTera">
-                             <div style="margin-left: -30px; width: 100%">
-                               <button mat-icon-button matTreeNodeToggle
-                                       [attr.aria-label]="'Toggle ' + node.name">
-                                 <mat-icon class="mat-icon-rtl-mirror">
-                                   {{treeControltera.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                                 </mat-icon>
-                               </button>
-                               <span 
-                               style="font-size: 18px">{{node.name}}
-                               <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                                <path
-                                     d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                           </svg>
-                              </span>
-                               
-                             </div>
-                             <!-- There is inline padding applied to this div using styles.
-                                 This padding value depends on the mat-icon-button width.  -->
-                             <div [class.example-tree-invisible]="!treeControltera.isExpanded(node)"
-                                 role="group">
-                               <ng-container matTreeNodeOutlet></ng-container>
-                           </div>
-                         </mat-nested-tree-node>
-                        
-                   </mat-tree>
-
-                      <!-- <mat-label>Servicios Terapeuticos
-                        <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                          <path
-                               d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                     </svg>
-                      </mat-label><br>
-                      <ul>
-                          <li *ngFor="let amob of serviciosTerapeuticos[0].children; let i =index">
-                                <mat-checkbox [checked]="amob.value"
-                                    (change)="serviciosTerapeuticosFun($event)" [value]="amob.name">
-                                    {{amob.name}}
-                                </mat-checkbox>
-                          </li>
-                      </ul> -->
-                    </div>
+                    <div class="info__asilo__expand__content"></div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="row">
-                    <div class="col mt-3">
-                      <!-- isntalaciones -->
-                      <mat-tree [dataSource]="dataSourcecomodidad" [treeControl]="treeControlcomodidad">
-                        <mat-tree-node style="margin-left: 30px" *matTreeNodeDef="let node" matTreeNodeToggle>
-                          <!-- {{node.name}} -->
-                              <mat-checkbox [checked]="node.value"
-                                    (change)="serviciosInstlaciones($event)" [value]="node.name">
-                                    {{node.name}}
-                                </mat-checkbox>
-                         </mat-tree-node>
-                         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChildComo">
-                             <div style="margin-left: -30px; width: 100%">
-                               <button mat-icon-button matTreeNodeToggle
-                                       [attr.aria-label]="'Toggle ' + node.name">
-                                 <mat-icon class="mat-icon-rtl-mirror">
-                                   {{treeControlcomodidad.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                                 </mat-icon>
-                               </button>
-                               <span 
-                               style="font-size: 18px">{{node.name}}
-                               <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                                <path
-                                     d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                           </svg>
-                              </span>
-                               
-                             </div>
-                             <!-- There is inline padding applied to this div using styles.
-                                 This padding value depends on the mat-icon-button width.  -->
-                             <div [class.example-tree-invisible]="!treeControlcomodidad.isExpanded(node)"
-                                 role="group">
-                               <ng-container matTreeNodeOutlet></ng-container>
-                           </div>
-                         </mat-nested-tree-node>
-                        
-                   </mat-tree>
-                      <!-- <mat-label>Instalaciones 
-                        <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
-                          <path
-                               d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                     </svg>
-                      </mat-label><br>
-                      <ul>
-                          <li *ngFor="let amob of serviciosComodidad[0].children; let i =index">
-                                <mat-checkbox [checked]="amob.value"
-                                    (change)="serviciosInstlaciones($event)" [value]="amob.name">
-                                    {{amob.name}}
-                                </mat-checkbox>
-                          </li>
-                      </ul> -->
-                    </div>
-                  </div>
-
-                </div>
-
               </div>
-              
-  
-              
-              <div>
+              <!-- boton -->
+              <div class="mt-3 d-flex justify-content-center">
                 <!-- <button mat-button matStepperPrevious>Atras</button>
                 <button mat-button matStepperNext>Siguiente</button> -->
                 <button mat-raised-button color="primary" (click)="actualizarServicios()">Actualizar</button>
