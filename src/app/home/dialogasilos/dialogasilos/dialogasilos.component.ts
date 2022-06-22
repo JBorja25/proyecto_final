@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/models/post.service';
 
 @Component({
@@ -14,7 +14,8 @@ export class DialogasilosComponent implements OnInit {
   fecha = new Date().getFullYear();
   constructor(
     private _post: PostService,
-    private _activated: ActivatedRoute
+    private _activated: ActivatedRoute,
+    private _router: Router
   ) { 
     this.uid = this._activated.snapshot.paramMap.get('uid');
   }
@@ -40,6 +41,10 @@ export class DialogasilosComponent implements OnInit {
       console.log(this.posts);
       
     })
+  }
+
+  navegarSeccion(fragment: string){
+    this._router.navigateByUrl(`info-asilo/${ this.uid }#` + fragment);
   }
 
   

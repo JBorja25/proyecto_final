@@ -36,9 +36,25 @@ export class LoginComponent implements OnInit {
   crearFormulario() {
     // Validators.pattern
     this.loginForm = this._fb.group({
-      email: ['', Validators.email],
-      password: ['', Validators.maxLength(6)]
+      email: ['', [Validators.email, Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
+      password: ['', [Validators.minLength(6), Validators.required]]
     });
+  }
+/* errores email */
+  get errorCorreo(){
+    return this.loginForm.get('email').hasError('required') && (this.loginForm.get('email').touched || this.loginForm.get('email').dirty);
+  }
+
+  get errorPattern(){
+    return this.loginForm.get('email').hasError('pattern') && (this.loginForm.get('email').touched || this.loginForm.get('email').dirty);
+  }
+
+  /* errores passw */
+  get errorPass(){
+    return this.loginForm.get('password').hasError('required') && (this.loginForm.get('password').touched || this.loginForm.get('password').dirty);
+  }
+  get errorPassMin(){
+    return this.loginForm.get('password').hasError('minlength') && (this.loginForm.get('password').touched || this.loginForm.get('password').dirty);
   }
 
 
@@ -46,26 +62,27 @@ export class LoginComponent implements OnInit {
 
 
     console.log('entra');
-    if (!this.loginForm.invalid) {
+    /* if (!this.loginForm.invalid) {
       console.log(`formulario invalido ${this.loginForm.invalid}`);
 
       return;
-    }
-    Swal.fire({
-      title: 'Validando credenciales',
-      titleText: 'Comprobando credenciales, Espere por favor.......',
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      allowEnterKey: false,
-      icon: 'info',
-      didOpen: () => {
-        Swal.showLoading();
-      }
-    });
+    } */
+    
 
     const { email, password } = this.loginForm.value;
     this.authSvc.login(email, password)
       .then((resp) => {
+        Swal.fire({
+          title: 'Validando credenciales',
+          titleText: 'Comprobando credenciales, Espere por favor.......',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          icon: 'info',
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
         console.log(resp);
 
         this.authSvc.traerDataFirebase(resp.user.uid)
@@ -123,6 +140,28 @@ export class LoginComponent implements OnInit {
       .catch((erro) => {
         console.log(erro.message);
         console.log(erro.code);
+        if(erro.code == 'auth/wrong-password' || erro.code == 'auth/user-not-found'){
+
+          Swal.fire({
+            title: 'Validando credenciales',
+            text: 'Usuario y contraseña son incorrectos, revise por favor',
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+        }else{
+          Swal.fire({
+            title: 'Validando credenciales',
+            text: 'Su cuenta ha sido temporalmente bloqueada debido a varios intentos, por favor intente mas tarde. Si el error persiste comuniquese con nombre@gmail.com',
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+        }
 
       });
     /* try {

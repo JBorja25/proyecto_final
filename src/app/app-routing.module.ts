@@ -4,7 +4,7 @@ import { PruebaComponent } from './shared/prueba/prueba/prueba.component';
 
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
 //importar componentes
 import { ShowComponent } from './auth/show/show.component';
@@ -25,6 +25,7 @@ import { GivepassComponent } from './auth/profileasilo/givepass/givepass.compone
 import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
 import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
 import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.component';
+import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component';
 
 
 
@@ -72,6 +73,9 @@ const routes: Routes = [
   },
   { path: 'info-asilo/:uid', component:DialogasilosComponent },
   { path: 'olvido-pass', component:OlvidopassComponent },
+  {
+    path: 'allasilos', component: AllsilosComponent
+  },
   // { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.component').then(m => m.ProformaComponent) },
   { path: '**', component: HomeComponent },
 
@@ -82,9 +86,14 @@ const routes: Routes = [
 
 ];
 
+const routerOptions: ExtraOptions = {
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled'
+}
+
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
