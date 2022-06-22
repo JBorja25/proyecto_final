@@ -126,26 +126,68 @@
                     <div class="mb-3">
                       <label class="form-label">Cédula/RUC</label>
                       <input formControlName="cedula" type="text" class="form-control" required>
+                      <div class="row" *ngIf="errorCedula">
+                        <span class="text-danger">
+                          La cédula es un campo obligatorio
+                        </span>
+                      </div>
+                      <div class="row" *ngIf="errorCedulaPattern">
+                        <span class="text-danger">
+                          La cedula tiene que tener a menos 10 o 13 digitos para ser valido.
+                        </span>
+                      </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Nombre </label>
                       <input formControlName="name" type="text" class="form-control" required>
+                      <div class="row" *ngIf="errorNombre">
+                        <span class="text-danger">
+                          El nombre es un campo obligatorio
+                        </span>
+                      </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Direccion </label>
                       <input formControlName="address" type="text" class="form-control" required>
+                      <div class="row" *ngIf="errorAddress">
+                        <span class="text-danger">
+                          La direccion es un campo obligatorio
+                        </span>
+                      </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Correo </label>
                       <input formControlName="email" type="text" class="form-control" required>
+                      <div class="row" *ngIf="errorEmail">
+                        <span class="text-danger">
+                          El correo es un campo obligatorio
+                        </span>
+                      </div>
+                      <div class="row" *ngIf="errorEmailPattern">
+                        <span class="text-danger">
+                          El correo no es valido no tiene el siguiente patron nombre@dominio.com
+                        </span>
+                      </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Telefono</label>
                       <input formControlName="fono" type="text" class="form-control" required>
+                      <div class="row" *ngIf="errorFono">
+                        <span class="text-danger">
+                          El teléfono es un campo obligatorio
+                        </span>
+                      </div>
+                      <div class="row" *ngIf="errorFonoPattern">
+                        <span class="text-danger">
+                          El teléfono debe tener a menos 7 a 10 digitos.
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <button mat-button matStepperNext type="button" class="btn btn-primary">Siguiente</button>
+                <div class="d-flex justify-content-center">
+                  <button mat-button (click)="siguientePestania()" matStepperNext type="button" class="btn btn-primary">Siguiente</button>
+                </div>
               </form>
             </mat-step>
             <!-- <ng-template *ngIf="!comprobarVacio"> -->
@@ -451,7 +493,7 @@
                 <div class="mb-3">
                   <h3>Esta seccion informativa permite seleccionar una imagen  y documento del asilo</h3>
                   <label class="form-label">Imagen del asilo 
-                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="ingrese la foto del asilo" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe seleccionar una foto del establecimiento, una vez seleccione se subira la imagen. " triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
                            d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                  </svg>
@@ -461,23 +503,33 @@
                   </div>
                   <br>
                   <input type="file" formControlName="img" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+                  <div class="row" *ngIf="errorImg">
+                    <span class="text-danger">
+                      La imagen es un campo obligatorio, por favor seleccionar una.
+                    </span>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Documento
-                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Suba el documento otorgado por el sri para su funcionamiento en pdf" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Suba el documento otorgado por el sri para su funcionamiento en pdf, una vez seleccionado el documento se subira automaticamente." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
-                           d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                 </svg>
+                      d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                    </svg>
                   </label>
                   <br>
                   <input type="file" accept="application/pdf" formControlName="doc" (change)="cambioImagenPdf($event)">
+                  <div class="row" *ngIf="errorDoc">
+                    <span class="text-danger">
+                      El documento es un campo obligatorio, por favor seleccionar uno.
+                    </span>
+                  </div>
                 </div>
     
                 <div>
                   <button mat-button matStepperPrevious type="button" class="btn btn-secondary">Atras</button>
     
                   <button mat-button (click)="stepper.reset()" *ngIf="!rechazar" type="button" class="btn btn-warning">Borrar campos</button>
-                  <button type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
+                  <button  type="button" (click)="onSubmit()" class="btn btn-primary">GUARDAR</button>
                 </div>
               </form>
             </mat-step>

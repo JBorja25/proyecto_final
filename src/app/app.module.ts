@@ -90,6 +90,13 @@ import { CoverproformaComponent } from './auth/coverproforma/coverproforma/cover
 import { AsilorechazadoComponent } from './auth/asilorechazado/asilorechazado/asilorechazado.component';
 import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.component';
 import { MostrarPipe } from './pipes/mostrar.pipe';
+import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component';
+
+
+/* PrimeNG */
+import { CarouselModule } from 'primeng/carousel';
+import { CardModule } from 'primeng/card';
+import { AvatarModule } from 'primeng/avatar';
 
 
 
@@ -123,6 +130,7 @@ import { MostrarPipe } from './pipes/mostrar.pipe';
    AsilorechazadoComponent,
    OlvidopassComponent,
    MostrarPipe,
+   AllsilosComponent,
    
 
    
@@ -146,6 +154,7 @@ import { MostrarPipe } from './pipes/mostrar.pipe';
     FormsModule,
     ReactiveFormsModule,
   
+    AvatarModule,
     AngularFireStorageModule,
     MatSidenavModule,
     MatIconModule,
@@ -169,6 +178,8 @@ import { MostrarPipe } from './pipes/mostrar.pipe';
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
+    CarouselModule,
+    CardModule,
     ToastrModule.forRoot(),
 
 

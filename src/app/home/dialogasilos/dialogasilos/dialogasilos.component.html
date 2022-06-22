@@ -11,16 +11,16 @@
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                         <li class="nav-item">
-                            <a class=" btn btn-outline-primary sr-only" href="#somos">Quienes somos</a>
+                            <button type="button" class=" btn btn-outline-primary" (click)="navegarSeccion('somos')">Quienes somos</button>
                         </li>
                         <li class="nav-item">
-                            <a class=" btn btn-outline-primary" href="#servicios">Servicios</a>
+                            <button class=" btn btn-outline-primary" [routerLink]='"."' fragment="servicios">Servicios</button>
                         </li>
                         <li class="nav-item">
-                            <a class=" btn btn-outline-primary" href="#horarios">Horarios</a>
+                            <button class=" btn btn-outline-primary" href="#horarios">Horarios</button>
                         </li>
                         <li class="nav-item">
-                            <a class=" btn btn-outline-primary" href="#contacto">Contactos</a>
+                            <button class=" btn btn-outline-primary" href="#contacto">Contactos</button>
                         </li>
 
                     </ul>
@@ -44,7 +44,7 @@
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-5 d-flex flex-column position-static" style="background-color:white ;">
                         
-                        <div class="row mt-4" id="somos" style="background-color:white ;">
+                        <div class="row mt-4"  style="background-color:white ;">
                             <div style="display:flex; justify-content: center;">
                                 <h2>¿Quienes somos?</h2>
                             </div>
@@ -71,7 +71,7 @@
         <!-------------------------Controles Medicos 1-------------------->
     <h1 align="center">SERVICIOS INCLUÍDOS</h1>
         <br>
-        <div class="col-md-12 container">
+        <div class="col-md-12 container" id="servicios">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col-auto d-none d-lg-block col p-4" style="background-color:white ;">
                     <div class="row">
@@ -666,3 +666,7 @@
         </div>
     </fieldset>
 </div> -->
+
+<div id="somos">
+    hasta aca abajo
+</div>

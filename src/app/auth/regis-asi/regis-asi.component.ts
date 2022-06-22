@@ -11,6 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Post } from '../../models/post.model';
 import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 import { ThemePalette } from '@angular/material/core';
+import { ToastrService } from 'ngx-toastr';
 
 // uso de interface por obligacion de material design
 export interface diasI {
@@ -230,7 +231,8 @@ serviciosAdicionales: any[] = [
     private _sanitazer: DomSanitizer,
     private _formBuilder: FormBuilder,
     private _fb: FormBuilder,
-    private _post: PostService
+    private _post: PostService,
+    private _toast: ToastrService
   ) {
     this.postForm= this.formBuilder.group({
       name:['',Validators.required],
@@ -293,6 +295,26 @@ serviciosAdicionales: any[] = [
       }
     });
   }
+
+  siguientePestania(){
+    if(this.firstFormGroup.invalid){
+      return Object.values(this.firstFormGroup.controls).forEach(validator => {
+        validator.markAsTouched();
+      })
+    }
+    if(this.validaCedula(this.firstFormGroup.get('cedula').value)){
+      this._toast.error('La cédula no es valida ya que no es un formato correcto', 'Error en cedula', {
+        closeButton: true,
+        easeTime: 700,
+        easing: 'ease',
+        progressAnimation: 'increasing',
+        progressBar: true,
+        
+      });
+    }
+
+  }
+
   onSubmit(){
     // trear la data del usuario
     // iddoc
@@ -303,6 +325,13 @@ serviciosAdicionales: any[] = [
     // console.log(this.thirdFormGroup);
     console.log(this.serviciosAdicionalesSelected);
     console.log(this.serviciosMedicosSelected);
+
+    if(this.fourthFormGroup.invalid){
+      return Object.values( this.fourthFormGroup.controls ).forEach((validator) =>{
+        validator.markAsTouched();
+      })
+    }
+    
     
     if(this.rechazar){
       let enviarFirebase = {
@@ -345,53 +374,56 @@ serviciosAdicionales: any[] = [
       })
     }else{
 
-      let enviarFirebase = {
-        ...this.firstFormGroup.value,
-        foto: this.urlFotofirebase,
-        documento: this.documentoPDF,
-        mensaje: '',
-        uid: this.uuid,
-        mostrarRegistroAsilo: false,
-        rechazar: false,
-        confirmacion: true,
-        aprobado: false,
-        cuentaVerificada:false,
-        nomostrarImagen: false,
-        correcciones: false,
-        // horas: this.dias,
-        // horaDesde: this.horaDesde,
-        // horaHasta: this.horaHasta,
-        // transporte: this.thirdFormGroup.get('transporte').value,
-        // aseo: this.thirdFormGroup.get('aseo').value,
-        // alimentacion: this.thirdFormGroup.get('transporte').value,
-        // cantidadAlimentacion: this.thirdFormGroup.get('cantidadAlimentacion').value,
-        // cantidadAseo: this.thirdFormGroup.get('cantidadAseo').value,
-        // cantidadServicios: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadTransporte: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadAdicionales: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadSanitarios: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadTerapeuticos: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadInstalaciones: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadAtencion: this.thirdFormGroup.get('cantidadAseo').value, 
-        // controlesMedicos: this.serviciosMedicos[0].children,
-        // serviciosAdicionales: this.serviciosAdicionales,
-        // serviciosatencion: this.serviciosatencion[0].children,
-        // servicioscomodidad: this.serviciosComodidad[0].children,
-        // serviciosterapeuticos: this.serviciosTerapeuticos[0].children,
-        // serviciosSanitarios: this.serviciosSanitarios[0].children,
-        // mision: this.misionGroup.get('mision').value,
-        // vision: this.misionGroup.get('vision').value
-      }
-      // console.log(enviarFirebase);
       
-      this.postService.createPosts(enviarFirebase)
-      .then((resp) =>{
-        console.log('se registro correctamente' ,resp);
-        this.getDataFirebase();
 
-        // this._fotos.insertImages(this.FotoSubir);
-
-      })
+        let enviarFirebase = {
+          ...this.firstFormGroup.value,
+          foto: this.urlFotofirebase,
+          documento: this.documentoPDF,
+          mensaje: '',
+          uid: this.uuid,
+          mostrarRegistroAsilo: false,
+          rechazar: false,
+          confirmacion: true,
+          aprobado: false,
+          cuentaVerificada:false,
+          nomostrarImagen: false,
+          correcciones: false,
+          // horas: this.dias,
+          // horaDesde: this.horaDesde,
+          // horaHasta: this.horaHasta,
+          // transporte: this.thirdFormGroup.get('transporte').value,
+          // aseo: this.thirdFormGroup.get('aseo').value,
+          // alimentacion: this.thirdFormGroup.get('transporte').value,
+          // cantidadAlimentacion: this.thirdFormGroup.get('cantidadAlimentacion').value,
+          // cantidadAseo: this.thirdFormGroup.get('cantidadAseo').value,
+          // cantidadServicios: this.thirdFormGroup.get('cantidadAseo').value, 
+          // cantidadTransporte: this.thirdFormGroup.get('cantidadAseo').value, 
+          // cantidadAdicionales: this.thirdFormGroup.get('cantidadAseo').value, 
+          // cantidadSanitarios: this.thirdFormGroup.get('cantidadAseo').value, 
+          // cantidadTerapeuticos: this.thirdFormGroup.get('cantidadAseo').value, 
+          // cantidadInstalaciones: this.thirdFormGroup.get('cantidadAseo').value, 
+          // cantidadAtencion: this.thirdFormGroup.get('cantidadAseo').value, 
+          // controlesMedicos: this.serviciosMedicos[0].children,
+          // serviciosAdicionales: this.serviciosAdicionales,
+          // serviciosatencion: this.serviciosatencion[0].children,
+          // servicioscomodidad: this.serviciosComodidad[0].children,
+          // serviciosterapeuticos: this.serviciosTerapeuticos[0].children,
+          // serviciosSanitarios: this.serviciosSanitarios[0].children,
+          // mision: this.misionGroup.get('mision').value,
+          // vision: this.misionGroup.get('vision').value
+        }
+        // console.log(enviarFirebase);
+        
+        /* this.postService.createPosts(enviarFirebase)
+        .then((resp) =>{
+          console.log('se registro correctamente' ,resp);
+          this.getDataFirebase();
+  
+          // this._fotos.insertImages(this.FotoSubir);
+  
+        }) */
+        
     }
     
     
@@ -415,26 +447,36 @@ serviciosAdicionales: any[] = [
 */
   // funciona para una imagen
   cambioImagen(evento: any){
-    
-    console.log(evento);
-    this.FotoSubir = evento.target.files[0];
-    const rul =URL.createObjectURL(evento.target.files[0]);
-    this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
-    console.log(rul);
-    this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
-    .then((resp)=>{
-      console.log(resp.ref);
-      
-      resp.ref.getDownloadURL()
-      .then((respGet)=>{
-        this.urlFotofirebase = respGet;
-      })
-      .catch((error) =>{
+    if(evento.target.files.length > 0){
 
+      console.log(evento);
+      this.FotoSubir = evento.target.files[0];
+      const rul =URL.createObjectURL(evento.target.files[0]);
+      this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
+      console.log(rul);
+      this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
+      .then((resp)=>{
+        console.log(resp.ref);
+        
+        resp.ref.getDownloadURL()
+        .then((respGet)=>{
+          this.urlFotofirebase = respGet;
+        })
+        .catch((error) =>{
+  
+        });
+      }).catch((error)=>{
+  
       });
-    }).catch((error)=>{
-
-    });
+    }else{
+      this._toast.info('La imagen seleccionada ha sido borrada, por favor seleccionar una', 'Subir imagen', {
+        closeButton: true,
+        easeTime: 4000,
+        easing: 'ease',
+        progressAnimation: 'decreasing',
+        progressBar: true
+      })
+    }
     
   }
 
@@ -473,9 +515,9 @@ serviciosAdicionales: any[] = [
     this.firstFormGroup = this._fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
-      email: ['', Validators.required],
-      fono: ['', Validators.required],
-      cedula: ['', Validators.required]
+      email: ['', [Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
+      fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
+      cedula: ['', [Validators.required, Validators.pattern('[0-9]{10,13}')]]
     });
 
     /* this.SecondFormGroup = this._fb.group({
@@ -790,5 +832,88 @@ serviciosAdicionales: any[] = [
       this.cargarinfo();
     })
     .catch((erro) => {}); */
+  }
+
+  /* validar cedula */
+
+  validaCedula(cedula: string){
+    console.log(cedula);
+    
+    let cedula_valida = false;
+    let total = 0;
+    let longitud = cedula.length;
+    let longCheck = longitud - 1;
+    if(cedula !== "" && longitud === 10){
+      // console.log('entra aqui cedula', longitud);
+      
+      for (let index = 0; index < longCheck; index++) {
+        if(index%2 === 0){
+          let aux = Number.parseInt(cedula.charAt(index)) * 2;
+          if(aux > 9) aux = aux - 9;
+          total = total + aux;
+        }else{
+          total = total + Number.parseInt(cedula.charAt(index))
+        }
+        
+      }
+
+      total = total % 10 ? 10 - total % 10 : 0;
+      // console.log(total);
+      
+
+      if(Number.parseInt(cedula.charAt(longitud - 1)) === total){
+        // console.log('entra aqui en total');
+        
+        cedula_valida = false;
+      }else{
+        // console.log('entra aqui en no total');
+        cedula_valida = true;
+        
+      }
+      
+    }else if(cedula.length > 10){
+      cedula_valida = true;
+    }else{
+      cedula_valida = true;
+    }
+    console.log(cedula_valida);
+    
+    return cedula_valida;
+  }
+
+
+  /* errores */
+  get errorCedula(){
+    return this.firstFormGroup.get('cedula').hasError('required') && (this.firstFormGroup.get('cedula').touched || this.firstFormGroup.get('cedula').dirty);
+  }
+  get errorCedulaPattern(){
+    return this.firstFormGroup.get('cedula').hasError('pattern') && (this.firstFormGroup.get('cedula').touched || this.firstFormGroup.get('cedula').dirty);
+  }
+  get errorNombre(){
+    return this.firstFormGroup.get('name').hasError('required') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
+  }
+  get errorAddress(){
+    return this.firstFormGroup.get('address').hasError('required') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+  }
+  get errorEmail(){
+    return this.firstFormGroup.get('email').hasError('required') && (this.firstFormGroup.get('email').touched || this.firstFormGroup.get('email').dirty);
+  }
+  get errorEmailPattern(){
+    return this.firstFormGroup.get('email').hasError('pattern') && (this.firstFormGroup.get('email').touched || this.firstFormGroup.get('email').dirty);
+  }
+
+  get errorFono(){
+    return this.firstFormGroup.get('fono').hasError('required') && (this.firstFormGroup.get('fono').touched || this.firstFormGroup.get('fono').dirty);
+  }
+  get errorFonoPattern(){
+    return this.firstFormGroup.get('fono').hasError('pattern') && (this.firstFormGroup.get('fono').touched || this.firstFormGroup.get('fono').dirty);
+  }
+
+  /* error img, documento */
+  get errorImg(){
+    return this.fourthFormGroup.get('img').hasError('required') && (this.fourthFormGroup.get('img').touched || this.fourthFormGroup.get('img').dirty);
+  }
+  get errorDoc(){
+    return this.fourthFormGroup.get('doc').hasError('required') && (this.fourthFormGroup.get('doc').touched || this.fourthFormGroup.get('doc').dirty);
   }
 }
