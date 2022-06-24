@@ -771,7 +771,8 @@ serviciosAdicionales: any[] = [
             name: f.data()?.name,
             address: f.data().address,
             email: f.data().email,
-            fono: f.data().fono
+            fono: f.data().fono,
+            cedula: f.data().cedula
           });
           console.log(this.dias);
           for(let i = 0; i < this.dias.diasSemana.length; i++){

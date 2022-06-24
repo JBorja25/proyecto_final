@@ -36,7 +36,8 @@ export class GivepassComponent implements OnInit, AfterContentInit {
   aseo: string= '';
   transporteSelect: string= '';
   idDoc: string = '';
-  horaDesde: string= ''
+  horaDesde: string= '';
+  mayorCeroBool: boolean = false;
 horaHasta: string= ''
 uid: string= '';
 nombre: string = '';
@@ -51,6 +52,14 @@ serviciosAtencionBool: boolean =false;
 serviciosTerapeuticosBool: boolean =false;
 serviciosComodidadBool: boolean =false;
 serviciosAdicionalesBool: boolean =false;
+serviciosMedicosBool_1: boolean =false;
+serviciosSanitariosBool_2: boolean =false;
+serviciosAtencionBool_3: boolean =false;
+serviciosTerapeuticosBool_4: boolean =false;
+serviciosComodidadBool_5: boolean =false;
+serviciosAdicionalesBool_6: boolean =false;
+
+dataCantidadPersonal: any = {};
 
 /**
  * MAT TREE servicios medicos
@@ -395,11 +404,26 @@ urlFotofirebase: any = '';
   }
 
   onSubmit(){
+
+    if(this.thirdFormGroup.invalid){
+      this.toastr.warning('no se puede actualizar, ya que no ha elegido una foto', 'Error', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
+      return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      })
+    }
     let enviar = {
       foto: this.urlFotofirebase
     }
     this._post.updatePost(enviar, this.idDoc)
     .then((resp) =>{
+      this.toastr.success("imagen actualizada correctamente", 'Imagen',{
+        closeButton: true,
+        progressAnimation: 'increasing',
+        progressBar: true
+      })
       this.cargarinfo();
     })
     .catch((error) =>{
@@ -431,6 +455,7 @@ urlFotofirebase: any = '';
       domingo: ['', Validators.required]
     });
     this.thirdFormGroup = this._fb.group({
+      img:['', Validators.required]
     });
 
     this.fourthFormGroup = this._fb.group({
@@ -457,26 +482,42 @@ urlFotofirebase: any = '';
   }
 
   cambioImagen(evento: any){
-    
     console.log(evento);
-    this.FotoSubir = evento.target.files[0];
-    const rul =URL.createObjectURL(evento.target.files[0]);
-    this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
-    console.log(rul);
-    this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
-    .then((resp)=>{
-      console.log(resp.ref);
-      
-      resp.ref.getDownloadURL()
-      .then((respGet)=>{
-        this.urlFotofirebase = respGet;
-      })
-      .catch((error) =>{
+    
 
+   
+
+    if(evento.target.files.length > 0){
+
+      console.log(evento);
+      this.FotoSubir = evento.target.files[0];
+      const rul =URL.createObjectURL(evento.target.files[0]);
+      this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
+      console.log(rul);
+      this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
+      .then((resp)=>{
+        console.log(resp.ref);
+        
+        resp.ref.getDownloadURL()
+        .then((respGet)=>{
+          this.urlFotofirebase = respGet;
+        })
+        .catch((error) =>{
+  
+        });
+      }).catch((error)=>{
+  
       });
-    }).catch((error)=>{
-
-    });
+    }else{
+      this.toastr.info('La imagen seleccionada ha sido borrada, por favor seleccionar una', 'Subir imagen', {
+        closeButton: true,
+        easeTime: 400,
+        easing: 'ease',
+        progressAnimation: 'decreasing',
+        progressBar: true
+      })
+    }
+    
     
   }
 
@@ -602,6 +643,11 @@ urlFotofirebase: any = '';
     this._post.updatePost(this.firstFormGroup.getRawValue(), this.idDoc)
     .then((resp) =>{
       console.log(resp);
+      this.toastr.success('datos actualizados', 'Actualizados', {
+        progressAnimation: 'decreasing',
+        progressBar: true,
+        closeButton: true,
+      })
       this.cargarinfo();
     })
     .catch((error) =>{
@@ -654,6 +700,12 @@ urlFotofirebase: any = '';
     console.log(this.controles);
     console.log(this.serviciosAdicionales);
     console.log(this.idDoc);
+
+    if(this.fourthFormGroup.invalid){
+      return Object.values( this.fourthFormGroup.controls ).forEach((validator) =>{
+        validator.markAllAsTouched()
+      });
+    }
     
     let enviar = {
       transporte: this.fourthFormGroup.get('transporte').value,
@@ -671,6 +723,10 @@ urlFotofirebase: any = '';
     this._post.updatePost(enviar, this.idDoc)
     .then((resp) =>{
       console.log(resp);
+      this.toastr.success('Servicios actualizados correctamente.', 'Modificar servicios', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
       this.cargarinfo();
     })
     .catch((error) =>{
@@ -811,8 +867,133 @@ urlFotofirebase: any = '';
 
   cantidadPersonal(){
     console.log(this.cantidadPersonalFormGroup.getRawValue());
+    if(this.cantidadPersonalFormGroup.invalid){
+      return Object.values( this.cantidadPersonalFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      });
+    }
     
-    this._post.updatePost(this.cantidadPersonalFormGroup.getRawValue(), this.idDoc)
+    let enviar = {};
+
+    if(this.dataCantidadPersonal.alimentacion !== 'no'){
+      enviar = {
+        ...enviar,
+        cantidadAlimentacion: this.cantidadPersonalFormGroup.get('cantidadAlimentacion').value,
+      }
+    }else{
+      enviar = {
+        ...enviar,
+        cantidadAlimentacion: 0,
+      }
+      
+    }
+    if(this.dataCantidadPersonal.transporte !== 'No'){
+      enviar = {
+        ...enviar,
+        cantidadTransporte: this.cantidadPersonalFormGroup.get('cantidadTransporte').value,
+      }
+    }else{
+      enviar = {
+        ...enviar,
+        cantidadTransporte:0
+      }
+
+    }
+    if(this.dataCantidadPersonal.aseo !== 'no'){
+      enviar = {
+        ...enviar,
+        cantidadaseo: this.cantidadPersonalFormGroup.get('cantidadaseo').value
+      }
+    }else{
+      enviar = {
+        ...enviar,
+        cantidadaseo: 0
+      }
+
+    }
+    
+    if(this.serviciosMedicosBool){
+      enviar = {
+        ...enviar,
+        cmedico: this.cantidadPersonalFormGroup.get('cmedico').value
+      }
+      
+    }else{
+      
+      enviar = {
+        ...enviar,
+        cmedico: 0
+      }
+    }
+    if(this.serviciosTerapeuticosBool){
+      enviar = {
+        ...enviar,
+        ctera: this.cantidadPersonalFormGroup.get('ctera').value
+      }
+      
+    }else{
+      enviar = {
+        ...enviar,
+        ctera:0
+      }
+
+    }
+    if(this.serviciosSanitariosBool){
+      enviar = {
+        ...enviar,
+        csanitario: this.cantidadPersonalFormGroup.get('csanitario').value
+      }
+      
+    }else{
+      enviar = {
+        ...enviar,
+        csanitario: 0
+      }
+
+    }
+
+    if(this.serviciosComodidadBool){
+      enviar = {
+        ...enviar,
+        ccomodidad: this.cantidadPersonalFormGroup.get('ccomodidad').value
+      }
+      
+    }else{
+      enviar = {
+        ...enviar,
+        ccomodidad: 0
+      }
+
+    }
+    if(this.serviciosAtencionBool){
+      enviar = {
+        ...enviar,
+        catencion: this.cantidadPersonalFormGroup.get('catencion').value
+      }
+      
+    }else{
+      
+      enviar = {
+        ...enviar,
+        catencion:0
+      }
+    }
+    if(this.serviciosAdicionalesBool){
+      
+      enviar = {
+        ...enviar,
+        ccomplementarios: this.cantidadPersonalFormGroup.get('ccomplementarios').value
+      }
+    }else{
+      enviar = {
+        ...enviar,
+        ccomplementarios: 0
+      }
+      
+    }
+    
+    
+    this._post.updatePost(enviar, this.idDoc)
     .then((resp)=>{
       this.toastr.success('Datos Guardados', 'Guardando');
       this.postService.getPostByUid(this.uid)
@@ -869,7 +1050,25 @@ urlFotofirebase: any = '';
   }
 
   cambioStep(stepper: any){
-    console.log(stepper);
+    // console.log(stepper);
+    if((stepper.steps.length - 1) === 5){
+      this._post.getPostByUid(this.uid)
+      .subscribe((resp: any) =>{
+        console.log(resp);
+        for(let f of resp.docs){
+          this.dataCantidadPersonal = f.data();
+          console.log(f.data());
+
+          this.serviciosMedicosBool = f.data().controlesMedicos[0].children.some( (v) => v.value === true);
+          this.serviciosTerapeuticosBool = f.data().servisioTerapeuticos[0].children.some( (v) => v.value === true);
+          this.serviciosSanitariosBool = f.data().servicioSanitarios[0].children.some( (v) => v.value === true);
+          this.serviciosComodidadBool = f.data().serviciosComodidad[0].children.some( (v) => v.value === true);
+          this.serviciosAtencionBool = f.data().serviciosAtencion[0].children.some( (v) => v.value === true);
+          this.serviciosAdicionalesBool = f.data().serviciosAdicionales.some( (v) => v.value === true);
+          
+        }
+      })
+    }
     
   }
 
@@ -918,6 +1117,39 @@ urlFotofirebase: any = '';
   }
   get errorFonoPattern(){
     return this.firstFormGroup.get('fono').hasError('pattern') && (this.firstFormGroup.get('fono').touched || this.firstFormGroup.get('fono').dirty);
+  }
+
+  get errorImg(){
+    return this.thirdFormGroup.get('img').hasError('required') && (this.thirdFormGroup.get('img').touched || this.thirdFormGroup.get('img').dirty)
+  }
+
+
+  get errorCantidadAlimentacion(){
+    return (this.cantidadPersonalFormGroup.get('cantidadAlimentacion').value === "" || this.cantidadPersonalFormGroup.get('cantidadAlimentacion').value === 0) && ( this.cantidadPersonalFormGroup.get('cantidadAlimentacion').touched ||this.cantidadPersonalFormGroup.get('cantidadAlimentacion').dirty )
+  }
+  get errorCantidadTransporte(){
+    return (this.cantidadPersonalFormGroup.get('cantidadTransporte').value === "" || this.cantidadPersonalFormGroup.get('cantidadTransporte').value === 0) && ( this.cantidadPersonalFormGroup.get('cantidadTransporte').touched ||this.cantidadPersonalFormGroup.get('cantidadTransporte').dirty )
+  }
+  get errorCantidadAseo(){
+    return (this.cantidadPersonalFormGroup.get('cantidadaseo').value === "" || this.cantidadPersonalFormGroup.get('cantidadaseo').value === 0) && ( this.cantidadPersonalFormGroup.get('cantidadaseo').touched ||this.cantidadPersonalFormGroup.get('cantidadaseo').dirty )
+  }
+  get errorCantidadMedico(){
+    return (this.cantidadPersonalFormGroup.get('cmedico').value === "" || this.cantidadPersonalFormGroup.get('cmedico').value === 0) && ( this.cantidadPersonalFormGroup.get('cmedico').touched ||this.cantidadPersonalFormGroup.get('cmedico').dirty )
+  }
+  get errorCantidadTera(){
+    return (this.cantidadPersonalFormGroup.get('ctera').value === "" || this.cantidadPersonalFormGroup.get('ctera').value === 0) && ( this.cantidadPersonalFormGroup.get('ctera').touched ||this.cantidadPersonalFormGroup.get('ctera').dirty )
+  }
+  get errorCantidadSanitario(){
+    return (this.cantidadPersonalFormGroup.get('csanitario').value === "" || this.cantidadPersonalFormGroup.get('csanitario').value === 0) && ( this.cantidadPersonalFormGroup.get('csanitario').touched ||this.cantidadPersonalFormGroup.get('csanitario').dirty )
+  }
+  get errorCantidadComodidad(){
+    return (this.cantidadPersonalFormGroup.get('ccomodidad').value === "" || this.cantidadPersonalFormGroup.get('ccomodidad').value === 0) && ( this.cantidadPersonalFormGroup.get('ccomodidad').touched ||this.cantidadPersonalFormGroup.get('ccomodidad').dirty )
+  }
+  get errorCantidadAtencion(){
+    return (this.cantidadPersonalFormGroup.get('catencion').value === "" || this.cantidadPersonalFormGroup.get('catencion').value === 0) && ( this.cantidadPersonalFormGroup.get('catencion').touched ||this.cantidadPersonalFormGroup.get('catencion').dirty )
+  }
+  get errorCantidadAdicionales(){
+    return (this.cantidadPersonalFormGroup.get('ccomplementarios').value === "" || this.cantidadPersonalFormGroup.get('ccomplementarios').value === 0) && ( this.cantidadPersonalFormGroup.get('ccomplementarios').touched ||this.cantidadPersonalFormGroup.get('ccomplementarios').dirty )
   }
   
 

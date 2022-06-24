@@ -13,13 +13,19 @@
        </button-->
 
     <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
+      <div class="row" style="display: block;">
+        <div class="col text-center">
+          <p-avatar [image]="(mostrarImagen != null || mostrarImagen !== '') ? mostrarImagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle" size="xlarge"></p-avatar>
+          <!-- <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;"> -->
+        </div>
+      </div>
       <div class="row">
         <div class="d-flex justify-content-center">
           <span style="font-size: 18px">{{nombre}}</span>
           
         </div>
         <div class="d-flex justify-content-center">
-          <small style="font-size:13px; margin-top: -7px">Asilo Administrador </small>
+          <small style="font-size:13px; margin-top: -7px">Asilo </small>
         </div>
       </div>
       <hr>
@@ -315,13 +321,14 @@
                     </label>
                   </div>
                   <div class="row mt-2 ">
-                    <div class="col width__select">
-
+                    <div class="col-md-4 ms-5">
                       <mat-select formControlName="alimentacion" value="0" (valueChange)="cambioValorAlimentacion($event)">
                         <mat-option value="0">Seleccionee...</mat-option>
                         <mat-option value="Si">Si</mat-option>
                         <mat-option value="no">No</mat-option>
                       </mat-select>
+                      
+
                     </div>
                     <div class="col text-start" *ngIf="alimentacionBool">
                       <span class="text-danger">
@@ -347,14 +354,15 @@
                     </label>
                   </div>
                   <div class="row mt-2 ">
-                    <div class="col width__select">
-
+                    <div class="col-md-4 ms-5">
                       <mat-select formControlName="aseo" value="0" (valueChange)="cambioValorAseo($event)">
                           
                         <mat-option selected value="0">Seleccionee...</mat-option>
                         <mat-option value="si">Si</mat-option>
                         <mat-option value="no">No</mat-option>
                       </mat-select>
+                      
+
                     </div>
                     <div class="col text-start" *ngIf="aseoBool">
                       <span class="text-danger">
@@ -377,12 +385,13 @@
                     </label>
                   </div>
                   <div class="row mt-2 ">
-                    <div class="col width__select">
-
+                    <div class="col-md-4 ms-5">
                       <mat-select (valueChange)="transporte($event)" formControlName="transporte" value="0">
                         <mat-option value="0">Seleccione..</mat-option>
                         <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
                       </mat-select>
+                      
+
                     </div>
                     <div class="col text-start" *ngIf="transporteBool">
                       <span class="text-danger">
@@ -725,10 +734,15 @@
                   </svg>
                 </label>
                 <div>
-                  <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
+                  <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;" >
                 </div>
                 <br>
-                <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)">
+                <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)" formControlName="img">
+                <div class="row" *ngIf="errorImg">
+                  <span class="text-danger">
+                    La imagen es un campo obligatorio, por favor seleccionar una.
+                  </span>
+                </div>
               </div>
 
             
@@ -742,42 +756,54 @@
       
           <mat-step [stepControl]="cantidadPersonalFormGroup" >
             <form [formGroup]="cantidadPersonalFormGroup" novalidate>
-              <ng-template matStepLabel>Cantidad de personale </ng-template>
+              <ng-template matStepLabel>Cantidad de personal </ng-template>
 
-              <div class="row">
-                <div class="col">
+              <div class="row row-cols-3">
+                <div class="col" *ngIf="dataCantidadPersonal.alimentacion !== 'no'">
                   <label>
                     Personal Alimentacion
-                    <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de alimentacion" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
+                    <svg placement="end" popoverClass="cambiar_fondo" [ngbPopover]="(dataCantidadPersonal.alimentacion !== 'no' || dataCantidadPersonal.aimentacion !== '') ? 'Debe indicar la cantidad de personal que dispone para el servicio de alimentacion' : 'No puede indicar la cantidad de personal de alimentacion ya que usted selecciono '+ dataCantidadPersonal.aliemtacion" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
                            d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                  </svg>
                   </label>
-                  <input [disabled]="alimentacionBool || fourthFormGroup.get('alimentacion').value == 'no'" matInput type="number" class="form-control" formControlName="cantidadAlimentacion" placeholder="0" >
+                  <input  matInput type="number" class="form-control" formControlName="cantidadAlimentacion" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadAlimentacion">
+                    <span class="text-danger">
+                      El campo servicios alimentacion es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-                <div class="col">
+                <div class="col" *ngIf="dataCantidadPersonal.transporte !== 'No'">
                   <label>
                     Personal Transporte
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de transporte" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
-                           d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
-                 </svg>
+                      d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
+                    </svg>
                   </label>
-                  <input [disabled]="transporteBool || fourthFormGroup.get('transporte').value == 'no'" matInput type="number" class="form-control" formControlName="cantidadTransporte" placeholder="0" >
+                  <input  matInput type="number" class="form-control" formControlName="cantidadTransporte" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadTransporte">
+                    <span class="text-danger">
+                      El campo servicios transporte es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
+                <div class="col" *ngIf="dataCantidadPersonal.aseo !== 'no'">
                   <label>Cantidad de personal Aseo
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de aseo" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
                            d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                  </svg>
                   </label>
-                  <input [disabled]="aseoBool || fourthFormGroup.get('aseo').value == 'no'" matInput type="number" class="form-control" formControlName="cantidadaseo" placeholder="0" >
+                  <input  matInput type="number" class="form-control" formControlName="cantidadaseo" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadAseo">
+                    <span class="text-danger">
+                      El campo servicios aseo es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-                <div class="col">
+                <div class="col" *ngIf="serviciosMedicosBool">
                   <label>Cantidad de personal Control medico
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de control medico" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -785,10 +811,13 @@
                  </svg>
                   </label>
                   <input matInput type="number" class="form-control" formControlName="cmedico" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadMedico">
+                    <span class="text-danger">
+                      El campo servicios medicos es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col">
+                <div class="col" *ngIf="serviciosTerapeuticosBool">
                   <label>Cantidad de personal Servicios terapeuticos
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios terapeuticos" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -796,8 +825,13 @@
                  </svg>
                   </label>
                   <input matInput type="number" class="form-control" formControlName="ctera" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadTera">
+                    <span class="text-danger">
+                      El campo servicios terapeuticos es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-                <div class="col">
+                <div class="col" *ngIf="serviciosSanitariosBool">
                   <label>Cantidad de personal Servicios Sanitarios
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios sanitarios" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -805,10 +839,13 @@
                  </svg>
                   </label>
                   <input matInput type="number" class="form-control" formControlName="csanitario" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadSanitario">
+                    <span class="text-danger">
+                      El campo servicios sanitarios es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col">
+                <div class="col" *ngIf="serviciosComodidadBool">
                   <label>Cantidad de personal Servicios de comodidad
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios de comodidad que son los espacios disponibles." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -816,8 +853,13 @@
                  </svg>
                   </label>
                   <input matInput type="number" class="form-control" formControlName="ccomodidad" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadComodidad">
+                    <span class="text-danger">
+                      El campo servicios comodidad es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-                <div class="col">
+                <div class="col" *ngIf="serviciosAtencionBool">
                   <label>Cantidad de personal Servicios de atencion
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios, servicios para el bienestar del adulto." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -825,10 +867,13 @@
                  </svg>
                   </label>
                   <input matInput type="number" class="form-control" formControlName="catencion" placeholder="0" >
+                  <div class="row" *ngIf="errorCantidadAtencion">
+                    <span class="text-danger">
+                      El campo servicios atencion es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col">
+                <div class="col" *ngIf="serviciosAdicionalesBool">
                   <label>Cantidad de personal servicios complementarios
                     <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios complementarios, como peluqueria u otros que no estan contemplados en los sservicios principales." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -836,13 +881,17 @@
                  </svg>
                   </label>
                   <input matInput type="number" class="form-control" formControlName="ccomplementarios" placeholder="0" >
-                </div>
-                <div class="col">
-                  
+                  <div class="row" *ngIf="errorCantidadAdicionales">
+                    <span class="text-danger">
+                      El campo servicios complementarios es obligatorio y debe ser mayor a 0
+                    </span>
+                  </div>
                 </div>
               </div>
             
-              <button type="button" (click)="cantidadPersonal()" class="btn btn-primary">Actualizar</button>
+              <div class="d-flex justify-content-center mt-4">
+                <button type="button" (click)="cantidadPersonal()" class="btn btn-primary">Actualizar</button>
+              </div>
           
             </form>
         
