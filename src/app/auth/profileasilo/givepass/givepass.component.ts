@@ -41,6 +41,16 @@ horaHasta: string= ''
 uid: string= '';
 nombre: string = '';
 aprobado: boolean = false;
+verificarFalse: boolean= false;
+alimentacionBool: boolean = false;
+aseoBool: boolean = false;
+transporteBool: boolean = false;
+serviciosMedicosBool: boolean =false;
+serviciosSanitariosBool: boolean =false;
+serviciosAtencionBool: boolean =false;
+serviciosTerapeuticosBool: boolean =false;
+serviciosComodidadBool: boolean =false;
+serviciosAdicionalesBool: boolean =false;
 
 /**
  * MAT TREE servicios medicos
@@ -231,6 +241,7 @@ urlFotofirebase: any = '';
     private toastr: ToastrService
     ) {
     this.uid = this._token.get('uid');
+    
   }
   
   
@@ -266,15 +277,12 @@ urlFotofirebase: any = '';
   ngOnInit(): void {
     this.token = this._cookie.get('uid');
     
-
-    this.getDataFirebase();
     this.crearFormulario();
+    this.getDataFirebase();
+    
     this.cargarinfo();
-    this._auth.insertName()
-    .subscribe((resp) =>{
-      this.nombre = resp.displayName;
-    });
-
+    
+    
     
   }
 
@@ -287,12 +295,16 @@ urlFotofirebase: any = '';
       for(let f of resp.docs){
         console.log(f.data());
         this.idDoc = f.id;
-        this.firstFormGroup.setValue({
-          name: f.data()?.name,
-          address: f.data().address,
-          email: f.data().email,
-          fono: f.data().fono,
-          cedula: f.data().cedula
+        this._auth.insertName()
+        .subscribe((resp) =>{
+          this.nombre = resp.displayName;
+          this.firstFormGroup.setValue({
+            name: f.data().name,
+            address: f.data().address,
+            email: f.data().email,
+            fono: f.data().fono,
+            cedula: f.data().cedula
+          });
         });
         this.misionGroup.setValue({
           mision: f.data()?.mision ? f.data()?.mision : '',
@@ -302,7 +314,7 @@ urlFotofirebase: any = '';
         if(f.data()?.horas){
 
           for(let i = 0; i < this.dias.diasSemana.length; i++){
-            this.dias.diasSemana[i].completed = f.data().horas[i].completed;
+            this.dias.diasSemana[i].completed = f.data().horas.diasSemana[i].completed;
           }
         }
         console.log(this.dias);
@@ -397,16 +409,16 @@ urlFotofirebase: any = '';
 
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      email: ['', Validators.required],
-      fono: ['', Validators.required],
-      cedula: ['', Validators.required]
+      name: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      email: ['',[ Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
+      fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
+      cedula: ['', [Validators.required, Validators.pattern('[0-9]{10,13}')]]
     });
 
     this.misionGroup = this._fb.group({
-      mision: [''],
-      vision: ['']
+      mision: ['', [Validators.required]],
+      vision: ['', [Validators.required]]
     });
 
     this.SecondFormGroup = this._fb.group({
@@ -422,9 +434,9 @@ urlFotofirebase: any = '';
     });
 
     this.fourthFormGroup = this._fb.group({
-      alimentacion: [''],
-      aseo: [''],
-      transporte: ['']
+      alimentacion: ['', Validators.required],
+      aseo: ['', Validators.required],
+      transporte: ['', Validators.required]
 
     });
 
@@ -545,6 +557,7 @@ urlFotofirebase: any = '';
       console.log(this.serviciosMedicos);
       
     }
+
   }
 
   serviciosadicionales(evento: any){
@@ -572,15 +585,19 @@ urlFotofirebase: any = '';
     }
   }
 
-  transporte(evento: any){
-
-  }
+ 
 
   actualizar(evento: any){
     console.log(evento);
     console.log(this.idDoc);
     
     console.log(this.firstFormGroup.getRawValue());
+
+    if(this.firstFormGroup.invalid){
+      return Object.values( this.firstFormGroup.controls ).forEach(validator =>{
+        validator.markAllAsTouched();
+      });
+    }
 
     this._post.updatePost(this.firstFormGroup.getRawValue(), this.idDoc)
     .then((resp) =>{
@@ -598,18 +615,37 @@ urlFotofirebase: any = '';
     console.log(this.dias);
     console.log(this.horaDesde);
     console.log(this.horaHasta);
-    let enviar = {
-      horas: this.dias.diasSemana.filter((t) => t.completed || !t.completed),
-      horaDesde: this.horaDesde,
-      horaHasta: this.horaHasta,
+    this.verificarFalse = this.dias.diasSemana.every(v => v.completed === false);
+    
+    
+    if(!this.verificarFalse && (this.horaDesde !== '' || this.horaHasta !== '')){
+      let enviar = {
+        horas: this.dias,
+        horaDesde: this.horaDesde,
+        horaHasta: this.horaHasta,
+      }
+      this._post.updatePost(enviar, this.idDoc)
+      .then((resp) =>{
+        this.toastr.success('Información actualizada', 'Horarios de atención',{
+          progressAnimation: 'decreasing',
+          progressBar: true,
+          closeButton: true,
+          easeTime: 200,
+          easing: 'ease-out',
+        });
+        this.cargarinfo();
+      })
+      .catch((error) =>{
+        this.toastr.error('Error al actualizar la información', 'Error Horarios de atención',{
+          progressAnimation: 'decreasing',
+          progressBar: true,
+          closeButton: true,
+          easeTime: 200,
+          easing: 'ease-out',
+        });
+  
+      })
     }
-    this._post.updatePost(enviar, this.idDoc)
-    .then((resp) =>{
-      this.cargarinfo();
-    })
-    .catch((error) =>{
-
-    })
     
   }
   
@@ -751,9 +787,23 @@ urlFotofirebase: any = '';
   }
 
   misionvision(){
+
+    if(this.misionGroup.invalid){
+      return Object.values(this.misionGroup.controls).forEach(validator => {
+        validator.markAsTouched();
+      })
+    }
     this._post.updatePost(this.misionGroup.getRawValue(), this.idDoc)
     .then((resp)=>{
-
+      this.toastr.success('Datos actualizados correctamente', 'Actualizar', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+        closeButton: true,
+        easing: 'ease-in',
+        tapToDismiss: true,
+        timeOut: 3000,
+        
+      })
     })
     .catch(console.log);
   }
@@ -786,6 +836,43 @@ urlFotofirebase: any = '';
     })
     .catch(console.log);
   }
+
+  cambioValorAlimentacion(evento: any){
+    console.log(evento);
+    if(evento === '0'){
+      this.alimentacionBool = true;
+    }else{
+      
+      this.alimentacionBool = false;
+    }
+    
+  }
+  cambioValorAseo(evento: any){
+    console.log(evento);
+    if(evento === '0'){
+      this.aseoBool = true;
+    }else{
+      this.aseoBool = false;
+
+    }
+
+  }
+  transporte(evento: any){
+    console.log(evento);
+    if(evento === '0'){
+      this.transporteBool = true;
+    }else{
+      this.transporteBool = false;
+      
+    }
+
+  }
+
+  cambioStep(stepper: any){
+    console.log(stepper);
+    
+  }
+
   
 
   hasChild = (_: number, node: medicosServicios)      => node.children && node.children.length > 0;
@@ -794,5 +881,44 @@ urlFotofirebase: any = '';
   hasChildComo = (_: number, node: medicosServicios)  => node.children && node.children.length > 0;
   hasChildTera = (_: number, node: medicosServicios)  => node.children && node.children.length > 0;
   hasChildAte = (_: number, node: medicosServicios)   => node.children && node.children.length > 0;
+
+
+  get errorMision(){
+    return this.misionGroup.get('mision').hasError('required') && (this.misionGroup.get('mision').touched || this.misionGroup.get('mision').touched);
+  }
+
+  get errorVision(){
+    return this.misionGroup.get('vision').hasError('required') && (this.misionGroup.get('vision').touched || this.misionGroup.get('vision').touched);
+  }
+
+
+  /* error datos personaes */
+
+  get errorCedula(){
+    return this.firstFormGroup.get('cedula').hasError('required') && (this.firstFormGroup.get('cedula').touched || this.firstFormGroup.get('cedula').dirty);
+  }
+  get errorCedulaMin(){
+    return this.firstFormGroup.get('cedula').hasError('pattern') && (this.firstFormGroup.get('cedula').touched || this.firstFormGroup.get('cedula').dirty);
+  }
+  
+  get errorNombre(){
+    return this.firstFormGroup.get('name').hasError('required') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
+  }
+  get errorAddress(){
+    return this.firstFormGroup.get('address').hasError('required') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+  }
+  get errorEmail(){
+    return this.firstFormGroup.get('email').hasError('required') && (this.firstFormGroup.get('email').touched || this.firstFormGroup.get('email').dirty);
+  }
+  get errorEmailPattern(){
+    return this.firstFormGroup.get('email').hasError('pattern') && (this.firstFormGroup.get('email').touched || this.firstFormGroup.get('email').dirty);
+  }
+  get errorFono(){
+    return this.firstFormGroup.get('fono').hasError('required') && (this.firstFormGroup.get('fono').touched || this.firstFormGroup.get('fono').dirty);
+  }
+  get errorFonoPattern(){
+    return this.firstFormGroup.get('fono').hasError('pattern') && (this.firstFormGroup.get('fono').touched || this.firstFormGroup.get('fono').dirty);
+  }
+  
 
 }

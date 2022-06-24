@@ -144,46 +144,79 @@
         </div>
       </div>
         <div class="col mt-5" style="margin-left: 12%">
-            
+          <form [formGroup]="profileAsilo" (ngSubmit)="cambiarcor()">
+
             <div class="row" style="display: flex; justify-content: center; width: 75%;">
                 <div class="col">
-                    <span class="form-label">Nombre:</span>
-                    <input class="form-control" type="text" [(ngModel)]="nombre" (ngModelChange)="cambioNombre($event)" [value]="dataUser.displayName != null ? dataUser.displayName: ''">
+                    <span class="form-label">Nombre: *</span>
+                    <input class="form-control" type="text" formControlName="nombre">
+                </div>
+                <div class="row" *ngIf="errorNombre">
+                  <span class="text-danger">
+                    El nombre es un campo obligatorio.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorNombreMin">
+                  <span class="text-danger">
+                    El nombre debe tener al menos 2 caracteres.
+                  </span>
                 </div>
             </div>
+            
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Telefono:</span>
-                    <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
+                    <input type="text" class="form-control" formControlName="telefono">
                 </div>
             </div>
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Direccion:</span>
-                    <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
+                    <input type="text" class="form-control" formControlName="direccion">
                     
                 </div>
             </div>
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Correo:</span>
-                    <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
+                    <input type="text" class="form-control" formControlName="email">
+                </div>
+                <div class="row" *ngIf="errorCorreo">
+                  <span class="text-danger">
+                    El correo es invalido debe tener e siguiente patron nombre@dominio.com
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorCorreoVacio">
+                  <span class="text-danger">
+                    Complete el correo electronico si desea cambiar, caso contrario deje en blanco para no cambiarlo.
+                  </span>
                 </div>
                 
             </div>
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Contrasenia:</span>
-                    <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
-                    
-                </div>
+                    <input type="password" name="pass" class="form-control"  formControlName="passw"  placeholder="•••••••••••••••">
+                  </div>
+                  <div class="row" *ngIf="errorPassw">
+                    <span class="text-danger">
+                      El campo debe tener al menos 6 caracteres para ser valida.
+                    </span>
+                  </div>
+                  <div class="row" *ngIf="errorPasswVacio">
+                    <span class="text-danger">
+                      Complete la contraseña si desea cambiar, caso contrario deje en blanco para no modificarlo.
+                    </span>
+                  </div>
             </div>
             <div class="row" >
               <div class="col mb-4 mt-3" style="width: 25%; margin-left: 28%"> 
-
-                <button class="btn btn-success" type="button" (click)="cambiarcor()">Actualizar perfil</button>
+  
+                <button class="btn btn-success" [disabled]="profileAsilo.invalid" type="submit">Actualizar perfil</button>
               </div>
-          </div>
+            </div>
+          </form>
+            
         </div>
       </div>
 

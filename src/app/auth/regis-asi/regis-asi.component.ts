@@ -415,14 +415,14 @@ serviciosAdicionales: any[] = [
         }
         // console.log(enviarFirebase);
         
-        /* this.postService.createPosts(enviarFirebase)
+        this.postService.createPosts(enviarFirebase)
         .then((resp) =>{
           console.log('se registro correctamente' ,resp);
           this.getDataFirebase();
   
           // this._fotos.insertImages(this.FotoSubir);
   
-        }) */
+        })
         
     }
     

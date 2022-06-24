@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
     if(this.registerForm.invalid){
       return Object.values(this.registerForm.controls ).forEach(validator => {
-        validator.markAsTouched();
+        validator.markAllAsTouched();
       })
     }
 
