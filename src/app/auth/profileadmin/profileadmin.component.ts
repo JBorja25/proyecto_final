@@ -24,6 +24,7 @@ export class ProfileadminComponent implements OnInit {
   correo: string = '';
   idDoc: string = '';
   passw: string = '';
+  imagen: string= '';
   
   constructor(
     private _auth: AuthService,
@@ -39,20 +40,22 @@ export class ProfileadminComponent implements OnInit {
   ngOnInit(): void {
     this.token = this._cookie.get('uid');
     this.getData();
-    this._auth.insertName()
-    .subscribe((resp) =>{
-      this.nombre = resp.displayName;
-    })
+    
   }
 
 
   getData() {
     this._auth.traerDataFirebase(this.token)
       .subscribe((resp: any) => {
-        console.log(resp);
+        
+        this._auth.insertName()
+        .subscribe((resp) =>{
+          this.nombre = resp.displayName;
+          this.imagen = resp.photoURL;
+        })
 
         for (let f of resp.docs) {
-          console.log(f.id);
+          
           
           this.data = f.data()
           this.idDoc = f.id;
@@ -61,17 +64,17 @@ export class ProfileadminComponent implements OnInit {
           this.correo = f.data().email;
 
         }
-        console.log(this.data);
+        
 
 
-        console.log(this.data);
+        
 
         this._auth.insertCorreo()
           .subscribe((resp) => {
-            console.log(resp);
+            
             this.dataUser = resp;
 
-            console.log(this.dataUser);
+            
           }
 
           );
@@ -89,15 +92,15 @@ export class ProfileadminComponent implements OnInit {
     // if de la contrasenia
     this._auth.insertName()
       .subscribe((cambiarnom) => {
-        console.log(this.nombre);
+        
 
         let nom = this.nombre.length > 0 ? this.nombre : this.dataUser.displayName; //copia lineas y cambiar
         cambiarnom.updateProfile({
           displayName: nom
         })
           .then((nombre) => {
-            console.log('cambiado nombre');
-            console.log(this.direccion);
+            
+            
             
             let num = (this.telefono.length > 0) ? this.telefono : this.data.phone;
            
@@ -110,11 +113,11 @@ export class ProfileadminComponent implements OnInit {
                 .subscribe((respc) => {
                   respc.updateEmail(corr)
                     .then((r) => {
-                      console.log('actualizado cooreo');
+                      
   
                     })
                     .catch((err) => {
-                      console.log(err);
+                      
   
                     })
                 })
@@ -124,9 +127,9 @@ export class ProfileadminComponent implements OnInit {
             if (this.passw.length > 0) {
               cambiarnom.updatePassword(this.passw)
                 .then((phone) => {
-                  console.log('cambiado contrasenia', this.passw);
+                  
                 }).catch((error) => {
-                  console.log(error);
+                  
                 })
             }
 
@@ -135,7 +138,7 @@ export class ProfileadminComponent implements OnInit {
 
             this._auth.updateDireccion(dir, num, this.idDoc)
               .then((respDirec) => {
-                console.log('se actualizo');
+                
                 this.getData();
 
               })

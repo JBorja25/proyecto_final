@@ -258,7 +258,7 @@
 //     .subscribe((respData: any) =>{
 //       for(let f of respData.docs){
         
-//         console.log(f.data());
+//         
         
        
         
@@ -270,14 +270,14 @@
   
  
 //   getDataFirebase(){
-//     // console.log(this.re);
+//     // 
     
 //     this._auth.getPost(this.uuid)
 //     .subscribe((respData: any) =>{
-//       console.log(respData);
+//       
 //       if(respData.docs.length > 0){
 //         for(let f of respData.docs){
-//           console.log(f.data());
+//           
 //           this.data = f.data();
 //           this.mostrarFormulario = f.data().mostrarRegistroAsilo;
 //           this.confirmar = f.data()?.confirmacion;
@@ -296,13 +296,13 @@
 //   onSubmit(){
 //     // trear la data del usuario
 //     // iddoc
-//     console.log(this.firstFormGroup.invalid, this.thirdFormGroup.value);
-//     console.log(this.dias, this.horaDesde, this.horaHasta);
-//     console.log(this.dias.diasSemana.filter((t) => t.completed));
-//     // console.log(this.fourthFormGroup);
-//     // console.log(this.thirdFormGroup);
-//     console.log(this.serviciosAdicionalesSelected);
-//     console.log(this.serviciosMedicosSelected);
+//     
+//     
+//     
+//     // 
+//     // 
+//     
+//     
     
 //     if(this.rechazar){
 //       let enviarFirebase = {
@@ -333,11 +333,11 @@
 //         mision: this.misionGroup.get('mision').value,
 //         vision: this.misionGroup.get('vision').value
 //       }
-//       // console.log(enviarFirebase);
+//       // 
       
 //       this.postService.updatePost(enviarFirebase, this.idDoc)
 //       .then((resp) =>{
-//         console.log('se registro correctamente' ,resp);
+//         
 //         this.getDataFirebase();
 
 //         // this._fotos.insertImages(this.FotoSubir);
@@ -380,11 +380,11 @@
 //         mision: this.misionGroup.get('mision').value,
 //         vision: this.misionGroup.get('vision').value
 //       }
-//       // console.log(enviarFirebase);
+//       // 
       
 //       this.postService.createPosts(enviarFirebase)
 //       .then((resp) =>{
-//         console.log('se registro correctamente' ,resp);
+//         
 //         this.getDataFirebase();
 
 //         // this._fotos.insertImages(this.FotoSubir);
@@ -403,7 +403,7 @@
 
 
 //   llenadoFormulario(evento: any){
-//     console.log(evento);
+//     
 //     this.getDataFirebase();
     
 //   }
@@ -414,14 +414,14 @@
 //   // funciona para una imagen
 //   cambioImagen(evento: any){
     
-//     console.log(evento);
+//     
 //     this.FotoSubir = evento.target.files[0];
 //     const rul =URL.createObjectURL(evento.target.files[0]);
 //     this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
-//     console.log(rul);
+//     
 //     this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
 //     .then((resp)=>{
-//       console.log(resp.ref);
+//       
       
 //       resp.ref.getDownloadURL()
 //       .then((respGet)=>{
@@ -438,13 +438,13 @@
 
 
 //   cambioImagenPdf(evento: any){
-//     console.log(evento.target.files[0]);
+//     
 //     this._fotos.insertarPDF(evento.target.files[0])
 //     .then((respPDF) =>{
-//       // console.log(respPDF.task.then(i => i.));
+//       // 
 //       respPDF.task.then((resp) =>{
 //         resp.ref.getDownloadURL().then((r) =>{
-//           console.log(r);
+//           
 
 //           this.documentoPDF = r;
           
@@ -455,7 +455,7 @@
       
 //     })
 //     .catch((error) =>{
-//       console.log(error);
+//       
       
 //     })
     
@@ -525,24 +525,24 @@
 //     if(this.dias.diasSemana == null){
 //       return;
 //     }
-//     console.log(this.dias);
+//     
     
 //     this.dias.diasSemana.forEach((t) => t.completed = completed);
 //   }
 
 //   actualizarSeleccionados(){
-//     console.log(this.dias);
+//     
     
 //     this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
 //   }
 
 //   serviciosmedicos(evento: any){
-//     console.log(evento);
+//     
     
 //     if(evento.checked){
 //       // this.serviciosMedicosSelected.push(evento.source.value);
 //       this.serviciosMedicos.map((t: any) =>{
-//         // console.log(t);
+//         // 
         
 //         return t.children.map((v) =>{
 //           if(evento.source.value === v.name){
@@ -551,7 +551,7 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosMedicos);
+//       
 //     }else{
 //       this.serviciosMedicos.map((t) =>{
 //         return t.children.map((v) =>{
@@ -561,14 +561,14 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosMedicos);
+//       
       
 //     }
     
 //   }
 
 //   serviciosSanitariosFun(evento: any){
-//     // console.log(evento);
+//     // 
     
 //     if(evento.checked){
 //       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -580,7 +580,7 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosSanitarios);
+//       
 //     }else{
 //       this.serviciosSanitarios.map((t) =>{
 //         return t.children.map((v) =>{
@@ -590,13 +590,13 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosSanitarios);
+//       
       
 //     }
     
 //   }
 //   serviciosTerapeuticosFun(evento: any){
-//     // console.log(evento);
+//     // 
     
 //     if(evento.checked){
 //       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -608,7 +608,7 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosTerapeuticos);
+//       
 //     }else{
 //       this.serviciosTerapeuticos.map((t) =>{
 //         return t.children.map((v) =>{
@@ -618,13 +618,13 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosTerapeuticos);
+//       
       
 //     }
     
 //   }
 //   serviciosInstlaciones(evento: any){
-//     // console.log(evento);
+//     // 
     
 //     if(evento.checked){
 //       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -636,7 +636,7 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosComodidad);
+//       
 //     }else{
 //       this.serviciosComodidad.map((t) =>{
 //         return t.children.map((v) =>{
@@ -646,13 +646,13 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosComodidad);
+//       
       
 //     }
     
 //   }
 //   serviciosAtencion(evento: any){
-//     // console.log(evento);
+//     // 
     
 //     if(evento.checked){
 //       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -664,7 +664,7 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosatencion);
+//       
 //     }else{
 //       this.serviciosatencion.map((t) =>{
 //         return t.children.map((v) =>{
@@ -674,7 +674,7 @@
 //           return v;
 //         })
 //       })
-//       console.log(this.serviciosatencion);
+//       
       
 //     }
     
@@ -685,8 +685,8 @@
 //   }
   
 //   serviciosadicionales(evento : any) {
-//     console.log(evento);
-//     console.log(this.thirdFormGroup);
+//     
+//     
     
 //     if(evento.checked){
 //       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -697,7 +697,7 @@
 //         }
 //         return t;
 //       })
-//       console.log(this.serviciosAdicionales);
+//       
       
 //       // this.serviciosAdicionalesSelected.push(evento.source.value);
 //     }else{
@@ -707,7 +707,7 @@
 //         }
 //         return t;
 //       })
-//       console.log(this.serviciosAdicionales);
+//       
       
 //     }
 
@@ -716,11 +716,11 @@
 
 //     this.postService.getPostByUid(this.uuid)
 //     .subscribe((resp: any) => {
-//       console.log(resp);
+//       
 //       if(!resp.empty){
 //         this.comprobarVacio = true;
 //         for(let f of resp.docs){
-//           console.log(f.data());
+//           
 //           this.idDoc = f.id;
 //           this.firstFormGroup.setValue({
 //             name: f.data()?.name,
@@ -728,13 +728,13 @@
 //             email: f.data().email,
 //             fono: f.data().fono
 //           });
-//           console.log(this.dias);
+//           
 //           for(let i = 0; i < this.dias.diasSemana.length; i++){
 //             this.dias.diasSemana[i].completed = f.data().horas.diasSemana[i].completed;
 //           }
-//           console.log(this.dias);
+//           
           
-//           console.log(this.dias);
+//           
 //           for(let i = 0; i < this.controles.length; i++){
 //             this.controles[i].value = f.data().controlesMedicos[i].value;
 //           }
@@ -768,7 +768,7 @@
 //         //  this.aseo = f.data().aseo;
          
   
-//          console.log(this.controles);
+//          
          
 //          /* this.fourthFormGroup.setValue({
 //            alimentacion: f.data().alimentacion,
@@ -841,6 +841,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 
+import { PrimeNGConfig } from 'primeng/api'
+
 // uso de interface por obligacion de material design
 export interface diasI {
   name: string,
@@ -874,7 +876,8 @@ export class AsilorechazadoComponent implements OnInit, AfterContentInit {
   idDoc: string = '';
   horaDesde: string= '';
   mayorCeroBool: boolean = false;
-horaHasta: string= ''
+horaHasta: string= '';
+rechazar: boolean = false
 uid: string= '';
 nombre: string = '';
 aprobado: boolean = false;
@@ -1064,15 +1067,23 @@ serviciosAdicionales: medicosServicios[] = [
   {name:'Cama Hospitalaria',value:false},  
   ]
 
+  mensajes: any[];
 
 mostrarImagen:any = '';
 
 FotoSubir: any;
+mensaje: string = '';
 
 allComplete: boolean = false;
-
+documentoPDF: string = '';
+data: any;
+confirmar: boolean =false;
+registroAnterior: boolean = false;
+cuentaVerificada: boolean = false;
 urlFotofirebase: any = '';
 diasSemanasBool: boolean = false;
+dataMostrarMotivoRezchazo: any[] = [];
+noMostrarImg: boolean = false;
   
 constructor(
   private _fb: FormBuilder, 
@@ -1084,7 +1095,8 @@ constructor(
   private _post: PostService,
   private _fotos: SubirfotosService,
   private _sanitazer: DomSanitizer,
-  private toastr: ToastrService
+  private toastr: ToastrService,
+  private primengconfig: PrimeNGConfig
   ) {
   this.uid = this._token.get('uid');
   
@@ -1115,20 +1127,20 @@ ngAfterContentInit(): void {
   this.dataSourcecomodidad.data = this.serviciosComodidad;
   this.dataSourcetera.data = this.serviciosTerapeuticos;
 
-  console.log(this.dataSource);
-  // console.log(this.treeControl.);
   
+  // 
+  
+  this.crearFormulario();
 }
 
 ngOnInit(): void {
   this.token = this._cookie.get('uid');
   
-  this.crearFormulario();
   this.getDataFirebase();
   
   this.cargarinfo();
   
-  
+  this.primengconfig.ripple = true;
   
 }
 
@@ -1136,10 +1148,14 @@ cargarinfo(){
 
   this.postService.getPostByUid(this.uid)
   .subscribe((resp: any) => {
-    console.log(resp);
+    
     
     for(let f of resp.docs){
-      console.log(f.data());
+      
+      this.dataMostrarMotivoRezchazo.push(...f.data().motivoRechazo);
+      this.mensajes= [{
+        severity:'info', summary: 'Info', detail: f.data().mensaje
+      }]
       this.idDoc = f.id;
       this._auth.insertName()
       .subscribe((resp) =>{
@@ -1164,14 +1180,14 @@ cargarinfo(){
         mision: f.data()?.mision ? f.data()?.mision : '',
         vision: f.data()?.vision ? f.data()?.vision : ''
       })
-      console.log(this.dias);
+      
       if(f.data()?.horas){
 
         for(let i = 0; i < this.dias.diasSemana.length; i++){
           this.dias.diasSemana[i].completed = f.data().horas.diasSemana[i].completed;
         }
       }
-      console.log(this.dias);
+      
       if(f.data()?.controlesMedicos){
 
         for(let i = 0; i < this.serviciosMedicos[0].children.length; i++){
@@ -1231,7 +1247,7 @@ cargarinfo(){
     })
      
 
-    //  console.log(this.controles);
+    //  
      
      /* this.fourthFormGroup.setValue({
        alimentacion: f.data().alimentacion,
@@ -1248,9 +1264,10 @@ async cerrar(){
   this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
 }
 
+
 onSubmit(){
 
-  if(this.thirdFormGroup.invalid){
+  if(this.fourthFormGroup.invalid){
     this.toastr.warning('no se puede actualizar, ya que no ha elegido una foto', 'Error', {
       progressAnimation: 'increasing',
       progressBar: true,
@@ -1260,7 +1277,15 @@ onSubmit(){
     })
   }
   let enviar = {
-    foto: this.urlFotofirebase
+    foto: this.urlFotofirebase,
+    documento: this.documentoPDF,
+    mostrarRegistroAsilo: false,
+    rechazar: true,
+    confirmacion: true,
+    aprobado: false,
+    cuentaVerificada:false,
+    nomostrarImagen: false,
+    correcciones: false,
   }
   this._post.updatePost(enviar, this.idDoc)
   .then((resp) =>{
@@ -1269,7 +1294,8 @@ onSubmit(){
       progressAnimation: 'increasing',
       progressBar: true
     })
-    this.cargarinfo();
+    // this.cargtarinfo();
+    this.getDataFirebase();
   })
   .catch((error) =>{
 
@@ -1304,10 +1330,8 @@ crearFormulario(){
   });
 
   this.fourthFormGroup = this._fb.group({
-    alimentacion: ['', Validators.required],
-    aseo: ['', Validators.required],
-    transporte: ['', Validators.required]
-
+    img: ['', Validators.required],
+    doc: ['', Validators.required]
   });
 
   this.cantidadPersonalFormGroup = this._fb.group({
@@ -1327,21 +1351,21 @@ crearFormulario(){
 }
 
 cambioImagen(evento: any){
-  console.log(evento);
+  
   
 
  
 
   if(evento.target.files.length > 0){
 
-    console.log(evento);
+    
     this.FotoSubir = evento.target.files[0];
     const rul =URL.createObjectURL(evento.target.files[0]);
     this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
-    console.log(rul);
+    
     this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
     .then((resp)=>{
-      console.log(resp.ref);
+      
       
       resp.ref.getDownloadURL()
       .then((respGet)=>{
@@ -1368,24 +1392,61 @@ cambioImagen(evento: any){
 
 
 getDataFirebase(){
-  // console.log(this.re);
+  // 
   
   this._auth.getPost(this.token)
   .subscribe((respData: any) =>{
-    console.log(respData);
+    
     if(respData.docs.length > 0){
       for(let f of respData.docs){
+        // this.data = f.data();
+        // this.mostrarFormulario = f.data().mostrarRegistroAsilo;
+        this.confirmar = f.data()?.confirmacion;
+        this.rechazar = f.data().rechazar;
         this.aprobado = f.data().aprobado;
-        console.log(f.data());
-        this.mostrarFormulario = f.data().mostrarRegistroAsilo;
+        this.registroAnterior = f.data();
+        this.cuentaVerificada=f.data().cuentaVerificada;
+        this.idDoc = f.id;
+        this.mensaje = f.data().mensaje;
+        this.mostrarFormulario = f.data().mostrarFormulario;
+        this.noMostrarImg= f.data().nomostrarImagen;
       }
       
     }
   });
 }
 
-cambioImagenPdf(evento: any){
+modificarRegistro(){
+  this._post.updateModificarRechazar(true, this.idDoc, false)
+  .then((resp) =>{
+    this.getDataFirebase();
+    this.cargarinfo();
+  })
+  .catch((erro) => {});
+}
 
+cambioImagenPdf(evento: any){
+  
+  this._fotos.insertarPDF(evento.target.files[0])
+  .then((respPDF) =>{
+    // 
+    respPDF.task.then((resp) =>{
+      resp.ref.getDownloadURL().then((r) =>{
+        
+
+        this.documentoPDF = r;
+        
+      })
+      .catch((err) =>{})
+      
+    })
+    
+  })
+  .catch((error) =>{
+    
+    
+  })
+  
 }
 
 // funcion para seleccionar todas los dias
@@ -1402,26 +1463,26 @@ setearTodos(completed: boolean){
   if(this.dias.diasSemana == null){
     return;
   }
-  console.log(this.dias);
+  
   
   this.dias.diasSemana.forEach((t) => t.completed = completed);
 }
 
 actualizarSeleccionados(){
-  console.log(this.dias);
+  
   
   this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
   
 }
 
 serviciosmedicos(evento: any){
-  console.log(evento);
-  console.log(this.controles);
+  
+  
   
   if(evento.checked){
     // this.serviciosMedicosSelected.push(evento.source.value);
     this.serviciosMedicos.map((t: any) =>{
-      // console.log(t);
+      // 
       
       return t.children.map((v) =>{
         if(evento.source.value === v.name){
@@ -1430,7 +1491,7 @@ serviciosmedicos(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosMedicos);
+    
   }else{
     this.serviciosMedicos.map((t) =>{
       return t.children.map((v) =>{
@@ -1440,7 +1501,7 @@ serviciosmedicos(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosMedicos);
+    
     
   }
 
@@ -1456,7 +1517,7 @@ serviciosadicionales(evento: any){
       }
       return t;
     })
-    console.log(this.serviciosAdicionales);
+    
     
     // this.serviciosAdicionalesSelected.push(evento.source.value);
   }else{
@@ -1466,7 +1527,7 @@ serviciosadicionales(evento: any){
       }
       return t;
     })
-    console.log(this.serviciosAdicionales);
+    
     
   }
 }
@@ -1474,10 +1535,10 @@ serviciosadicionales(evento: any){
 
 
 actualizar(evento: any){
-  console.log(evento);
-  console.log(this.idDoc);
   
-  console.log(this.firstFormGroup.getRawValue());
+  
+  
+  
 
   if(this.firstFormGroup.invalid){
     return Object.values( this.firstFormGroup.controls ).forEach(validator =>{
@@ -1487,7 +1548,7 @@ actualizar(evento: any){
 
   this._post.updatePost(this.firstFormGroup.getRawValue(), this.idDoc)
   .then((resp) =>{
-    console.log(resp);
+    
     this.toastr.success('datos actualizados', 'Actualizados', {
       progressAnimation: 'decreasing',
       progressBar: true,
@@ -1496,16 +1557,16 @@ actualizar(evento: any){
     this.cargarinfo();
   })
   .catch((error) =>{
-    console.log(error);
+    
     
   })
   
 } 
 
 actualizarHorarios(){
-  console.log(this.dias);
-  console.log(this.horaDesde);
-  console.log(this.horaHasta);
+  
+  
+  
   this.verificarFalse = this.dias.diasSemana.every(v => v.completed === false);
   
   
@@ -1542,9 +1603,9 @@ actualizarHorarios(){
 
 
 actualizarServicios(){
-  console.log(this.controles);
-  console.log(this.serviciosAdicionales);
-  console.log(this.idDoc);
+  
+  
+  
 
   if(this.fourthFormGroup.invalid){
     return Object.values( this.fourthFormGroup.controls ).forEach((validator) =>{
@@ -1567,7 +1628,7 @@ actualizarServicios(){
 
   this._post.updatePost(enviar, this.idDoc)
   .then((resp) =>{
-    console.log(resp);
+    
     this.toastr.success('Servicios actualizados correctamente.', 'Modificar servicios', {
       progressAnimation: 'increasing',
       progressBar: true,
@@ -1575,14 +1636,14 @@ actualizarServicios(){
     this.cargarinfo();
   })
   .catch((error) =>{
-    console.log(error);
+    
     
   })
 }
 
 
 prueba(evento: any){
-  console.log(evento);
+  
   
 }
 
@@ -1597,7 +1658,7 @@ serviciosAtencion(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosatencion);
+    
   }else{
     this.serviciosatencion.map((t) =>{
       return t.children.map((v) =>{
@@ -1607,7 +1668,7 @@ serviciosAtencion(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosatencion);
+    
     
   }
 }
@@ -1622,7 +1683,7 @@ serviciosTerapeuticosFun(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosTerapeuticos);
+    
   }else{
     this.serviciosTerapeuticos.map((t) =>{
       return t.children.map((v) =>{
@@ -1632,7 +1693,7 @@ serviciosTerapeuticosFun(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosTerapeuticos);
+    
     
   }
 }
@@ -1647,7 +1708,7 @@ serviciosInstlaciones(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosComodidad);
+    
   }else{
     this.serviciosComodidad.map((t) =>{
       return t.children.map((v) =>{
@@ -1657,7 +1718,7 @@ serviciosInstlaciones(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosComodidad);
+    
     
   }
 }
@@ -1672,7 +1733,7 @@ serviciosSanitariosFun(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosSanitarios);
+    
   }else{
     this.serviciosSanitarios.map((t) =>{
       return t.children.map((v) =>{
@@ -1682,7 +1743,7 @@ serviciosSanitariosFun(evento: any){
         return v;
       })
     })
-    console.log(this.serviciosSanitarios);
+    
     
   }
 }
@@ -1706,12 +1767,12 @@ misionvision(){
       
     })
   })
-  .catch(console.log);
+  .catch()
 }
 
 
 cantidadPersonal(){
-  console.log(this.cantidadPersonalFormGroup.getRawValue());
+  
   if(this.cantidadPersonalFormGroup.invalid){
     return Object.values( this.cantidadPersonalFormGroup.controls ).forEach((validators) =>{
       validators.markAllAsTouched()
@@ -1843,7 +1904,7 @@ cantidadPersonal(){
     this.toastr.success('Datos Guardados', 'Guardando');
     this.postService.getPostByUid(this.uid)
     .subscribe((resp: any) => {
-      console.log(resp);
+      
       
       for(let f of resp.docs){
         this.cantidadPersonalFormGroup.setValue({
@@ -1860,11 +1921,11 @@ cantidadPersonal(){
       }
     })
   })
-  .catch(console.log);
+  .catch()
 }
 
 cambioValorAlimentacion(evento: any){
-  console.log(evento);
+  
   if(evento === '0'){
     this.alimentacionBool = true;
   }else{
@@ -1874,7 +1935,7 @@ cambioValorAlimentacion(evento: any){
   
 }
 cambioValorAseo(evento: any){
-  console.log(evento);
+  
   if(evento === '0'){
     this.aseoBool = true;
   }else{
@@ -1884,7 +1945,7 @@ cambioValorAseo(evento: any){
 
 }
 transporte(evento: any){
-  console.log(evento);
+  
   if(evento === '0'){
     this.transporteBool = true;
   }else{
@@ -1895,14 +1956,14 @@ transporte(evento: any){
 }
 
 cambioStep(stepper: any){
-  console.log(stepper);
+  
   if((stepper.steps.length - 1) === 4){
     this._post.getPostByUid(this.uid)
     .subscribe((resp: any) =>{
-      console.log(resp);
+      
       for(let f of resp.docs){
         this.dataCantidadPersonal = f.data();
-        console.log(f.data());
+        
 
         this.serviciosMedicosBool_1 = f.data().controlesMedicos[0].children.some( (v) => v.value === true);
         this.serviciosTerapeuticosBool_4 = f.data().servisioTerapeuticos[0].children.some( (v) => v.value === true);
@@ -1996,4 +2057,15 @@ get errorCantidadAtencion(){
 get errorCantidadAdicionales(){
   return (this.cantidadPersonalFormGroup.get('ccomplementarios').value === "" || this.cantidadPersonalFormGroup.get('ccomplementarios').value === 0) && ( this.cantidadPersonalFormGroup.get('ccomplementarios').touched ||this.cantidadPersonalFormGroup.get('ccomplementarios').dirty )
 }
+get errorDoc(){
+  return this.fourthFormGroup.get('doc').hasError('required') && (this.fourthFormGroup.get('doc').touched || this.fourthFormGroup.get('doc').dirty);
+}
+siguientePestania(){
+
+}
+
+get errorCedulaPattern(){
+  return this.firstFormGroup.get('cedula').hasError('pattern') && (this.firstFormGroup.get('cedula').touched || this.firstFormGroup.get('cedula').dirty);
+}
+
 }

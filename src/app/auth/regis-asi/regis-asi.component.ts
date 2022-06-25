@@ -261,7 +261,7 @@ serviciosAdicionales: any[] = [
     .subscribe((respData: any) =>{
       for(let f of respData.docs){
         
-        console.log(f.data());
+        
         
        
         
@@ -273,14 +273,14 @@ serviciosAdicionales: any[] = [
   
  
   getDataFirebase(){
-    // console.log(this.re);
+    // 
     
     this._auth.getPost(this.uuid)
     .subscribe((respData: any) =>{
-      console.log(respData);
+      
       if(respData.docs.length > 0){
         for(let f of respData.docs){
-          console.log(f.data());
+          
           this.data = f.data();
           this.mostrarFormulario = f.data().mostrarRegistroAsilo;
           this.confirmar = f.data()?.confirmacion;
@@ -318,13 +318,13 @@ serviciosAdicionales: any[] = [
   onSubmit(){
     // trear la data del usuario
     // iddoc
-    console.log(this.firstFormGroup.invalid, this.thirdFormGroup.value);
-    console.log(this.dias, this.horaDesde, this.horaHasta);
-    console.log(this.dias.diasSemana.filter((t) => t.completed));
-    // console.log(this.fourthFormGroup);
-    // console.log(this.thirdFormGroup);
-    console.log(this.serviciosAdicionalesSelected);
-    console.log(this.serviciosMedicosSelected);
+    
+    
+    
+    // 
+    // 
+    
+    
 
     if(this.fourthFormGroup.invalid){
       return Object.values( this.fourthFormGroup.controls ).forEach((validator) =>{
@@ -362,11 +362,11 @@ serviciosAdicionales: any[] = [
         // mision: this.misionGroup.get('mision').value,
         // vision: this.misionGroup.get('vision').value
       }
-      // console.log(enviarFirebase);
+      // 
       
       this.postService.updatePost(enviarFirebase, this.idDoc)
       .then((resp) =>{
-        console.log('se registro correctamente' ,resp);
+        
         this.getDataFirebase();
 
         // this._fotos.insertImages(this.FotoSubir);
@@ -413,11 +413,11 @@ serviciosAdicionales: any[] = [
           // mision: this.misionGroup.get('mision').value,
           // vision: this.misionGroup.get('vision').value
         }
-        // console.log(enviarFirebase);
+        // 
         
         this.postService.createPosts(enviarFirebase)
         .then((resp) =>{
-          console.log('se registro correctamente' ,resp);
+          
           this.getDataFirebase();
   
           // this._fotos.insertImages(this.FotoSubir);
@@ -437,7 +437,7 @@ serviciosAdicionales: any[] = [
 
 
   llenadoFormulario(evento: any){
-    console.log(evento);
+    
     this.getDataFirebase();
     
   }
@@ -449,14 +449,14 @@ serviciosAdicionales: any[] = [
   cambioImagen(evento: any){
     if(evento.target.files.length > 0){
 
-      console.log(evento);
+      
       this.FotoSubir = evento.target.files[0];
       const rul =URL.createObjectURL(evento.target.files[0]);
       this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
-      console.log(rul);
+      
       this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
       .then((resp)=>{
-        console.log(resp.ref);
+        
         
         resp.ref.getDownloadURL()
         .then((respGet)=>{
@@ -482,13 +482,13 @@ serviciosAdicionales: any[] = [
 
 
   cambioImagenPdf(evento: any){
-    console.log(evento.target.files[0]);
+    
     this._fotos.insertarPDF(evento.target.files[0])
     .then((respPDF) =>{
-      // console.log(respPDF.task.then(i => i.));
+      // 
       respPDF.task.then((resp) =>{
         resp.ref.getDownloadURL().then((r) =>{
-          console.log(r);
+          
 
           this.documentoPDF = r;
           
@@ -499,7 +499,7 @@ serviciosAdicionales: any[] = [
       
     })
     .catch((error) =>{
-      console.log(error);
+      
       
     })
     
@@ -570,24 +570,24 @@ serviciosAdicionales: any[] = [
     if(this.dias.diasSemana == null){
       return;
     }
-    console.log(this.dias);
+    
     
     this.dias.diasSemana.forEach((t) => t.completed = completed);
   }
 
   actualizarSeleccionados(){
-    console.log(this.dias);
+    
     
     this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
   }
 
   serviciosmedicos(evento: any){
-    console.log(evento);
+    
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
       this.serviciosMedicos.map((t: any) =>{
-        // console.log(t);
+        // 
         
         return t.children.map((v) =>{
           if(evento.source.value === v.name){
@@ -596,7 +596,7 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosMedicos);
+      
     }else{
       this.serviciosMedicos.map((t) =>{
         return t.children.map((v) =>{
@@ -606,14 +606,14 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosMedicos);
+      
       
     }
     
   }
 
   serviciosSanitariosFun(evento: any){
-    // console.log(evento);
+    // 
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -625,7 +625,7 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosSanitarios);
+      
     }else{
       this.serviciosSanitarios.map((t) =>{
         return t.children.map((v) =>{
@@ -635,13 +635,13 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosSanitarios);
+      
       
     }
     
   }
   serviciosTerapeuticosFun(evento: any){
-    // console.log(evento);
+    // 
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -653,7 +653,7 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosTerapeuticos);
+      
     }else{
       this.serviciosTerapeuticos.map((t) =>{
         return t.children.map((v) =>{
@@ -663,13 +663,13 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosTerapeuticos);
+      
       
     }
     
   }
   serviciosInstlaciones(evento: any){
-    // console.log(evento);
+    // 
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -681,7 +681,7 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosComodidad);
+      
     }else{
       this.serviciosComodidad.map((t) =>{
         return t.children.map((v) =>{
@@ -691,13 +691,13 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosComodidad);
+      
       
     }
     
   }
   serviciosAtencion(evento: any){
-    // console.log(evento);
+    // 
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -709,7 +709,7 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosatencion);
+      
     }else{
       this.serviciosatencion.map((t) =>{
         return t.children.map((v) =>{
@@ -719,7 +719,7 @@ serviciosAdicionales: any[] = [
           return v;
         })
       })
-      console.log(this.serviciosatencion);
+      
       
     }
     
@@ -730,8 +730,8 @@ serviciosAdicionales: any[] = [
   }
   
   serviciosadicionales(evento : any) {
-    console.log(evento);
-    console.log(this.thirdFormGroup);
+    
+    
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
@@ -742,7 +742,7 @@ serviciosAdicionales: any[] = [
         }
         return t;
       })
-      console.log(this.serviciosAdicionales);
+      
       
       // this.serviciosAdicionalesSelected.push(evento.source.value);
     }else{
@@ -752,7 +752,7 @@ serviciosAdicionales: any[] = [
         }
         return t;
       })
-      console.log(this.serviciosAdicionales);
+      
       
     }
 
@@ -761,60 +761,95 @@ serviciosAdicionales: any[] = [
 
     this.postService.getPostByUid(this.uuid)
     .subscribe((resp: any) => {
-      console.log(resp);
+      
       if(!resp.empty){
         this.comprobarVacio = true;
         for(let f of resp.docs){
-          console.log(f.data());
+          
           this.idDoc = f.id;
-          this.firstFormGroup.setValue({
-            name: f.data()?.name,
-            address: f.data().address,
-            email: f.data().email,
-            fono: f.data().fono,
-            cedula: f.data().cedula
+          this.data = f.data();
+          this._auth.insertName()
+          .subscribe((resp) =>{
+            this.nombre = resp.displayName;
+            this.firstFormGroup.setValue({
+              name: f.data().name,
+              address: f.data().address,
+              email: f.data().email,
+              fono: f.data().fono,
+              cedula: f.data().cedula
+            });
           });
-          console.log(this.dias);
-          for(let i = 0; i < this.dias.diasSemana.length; i++){
-            this.dias.diasSemana[i].completed = f.data().horas.diasSemana[i].completed;
-          }
-          console.log(this.dias);
+          this.misionGroup.setValue({
+            mision: f.data()?.mision ? f.data()?.mision : '',
+            vision: f.data()?.vision ? f.data()?.vision : ''
+          })
           
-          console.log(this.dias);
-          for(let i = 0; i < this.controles.length; i++){
-            this.controles[i].value = f.data().controlesMedicos[i].value;
-          }
-          for(let i = 0; i < this.serviciosAdicionales.length; i++){
-            this.serviciosAdicionales[i].value = f.data().serviciosAdicionales[i].value;
+          if(f.data()?.horas){
+  
+            for(let i = 0; i < this.dias.diasSemana.length; i++){
+              this.dias.diasSemana[i].completed = f.data().horas.diasSemana[i].completed;
+            }
           }
           
-          this.horaDesde = f.data().horaDesde;
-          this.horaHasta = f.data().horaHasta;
-         this.mostrarImagen = f.data().foto;
-         this.misionGroup.setValue({
-           mision: this.data.mision,
-           vision:this.data.vision
-         })
-         this.thirdFormGroup.setValue({
-           alimentacion: this.data.alimentacion,
-           aseo: this.data.aseo,
-           transporte: this.data.transporte,
-           cantidadAseo: this.data.cantidadAseo,
-          cantidadServicios: this.data.cantidadServicios,
-          cantidadTransporte: this.data.cantidadTransporte,
-          cantidadAdicionales: this.data.cantidadAdicionales,
-          cantidadSanitarios: this.data.cantidadSanitarios,
-          cantidadTerapeuticos: this.data.cantidadTerapeuticos,
-          cantidadInstalaciones: this.data.cantidadInstalaciones,
-          cantidadAtencion: this.data.cantidadAtencion,
-          cantidadAlimentacion: this.data.cantidadAlimentacion
-         })
-        //  this.transporteSelect = f.data().transporte;
-        //  this.alimentacion = f.data().alimentacion;
-        //  this.aseo = f.data().aseo;
+          if(f.data()?.controlesMedicos){
+  
+            for(let i = 0; i < this.serviciosMedicos[0].children.length; i++){
+              this.serviciosMedicos[0].children[i].value = f.data().controlesMedicos[0].children[i].value;
+            }
+          }
+          if(f.data()?.serviciosAdicionales){
+  
+            for(let i = 0; i < this.serviciosAdicionales.length; i++){
+              this.serviciosAdicionales[i].value = f.data().serviciosAdicionales[i].value;
+            }
+          }
+          if(f.data()?.servicioSanitarios){
+  
+            for(let i = 0; i < this.serviciosSanitarios[0].children.length; i++){
+              this.serviciosSanitarios[0].children[i].value = f.data().servicioSanitarios[0].children[i].value;
+            }
+          }
+          if(f.data()?.servisioTerapeuticos){
+  
+            for(let i = 0; i < this.serviciosTerapeuticos[0].children.length; i++){
+              this.serviciosTerapeuticos[0].children[i].value = f.data().servisioTerapeuticos[0].children[i].value;
+            }
+          }
+          if(f.data()?.serviciosComodidad){
+  
+            for(let i = 0; i < this.serviciosComodidad[0].children.length; i++){
+              this.serviciosComodidad[0].children[i].value = f.data().serviciosComodidad[0].children[i].value;
+            }
+          }
+          if(f.data()?.serviciosAtencion){
+  
+            for(let i = 0; i < this.serviciosatencion[0].children.length; i++){
+              this.serviciosatencion[0].children[i].value = f.data().serviciosAtencion[0].children[i].value;
+            }
+          }
+          
+          this.horaDesde = f.data()?.horaDesde ?f.data()?.horaDesde : '' ;
+          this.horaHasta = f.data()?.horaHasta?f.data()?.horaHasta : '';
+         this.mostrarImagen = f.data()?.foto?f.data()?.foto : '';
+         this.fourthFormGroup.setValue({
+          img: '',
+          doc: ''
+         });
+  
+         /* this.cantidadPersonalFormGroup.setValue({
+          cantidadAlimentacion: f.data()?.cantidadAlimentacion ? f.data()?.cantidadAlimentacion: '',
+          cantidadTransporte: f.data()?.cantidadTransporte ? f.data()?.cantidadTransporte: '',
+          cantidadaseo: f.data()?.cantidadaseo ? f.data()?.cantidadaseo: '',
+          cmedico: f.data()?.cmedico ? f.data()?.cmedico: '',
+          ctera: f.data()?.ctera ? f.data()?.ctera: '',
+          csanitario: f.data()?.csanitario ? f.data()?.csanitario: '',
+          ccomodidad: f.data()?.ccomodidad ? f.data()?.ccomodidad: '',
+          catencion: f.data()?.catencion ? f.data()?.catencion: '',
+          ccomplementarios: f.data()?.ccomplementarios ? f.data()?.ccomplementarios: '',
+        }) */
          
   
-         console.log(this.controles);
+        //  
          
          /* this.fourthFormGroup.setValue({
            alimentacion: f.data().alimentacion,
@@ -838,14 +873,14 @@ serviciosAdicionales: any[] = [
   /* validar cedula */
 
   validaCedula(cedula: string){
-    console.log(cedula);
+    
     
     let cedula_valida = false;
     let total = 0;
     let longitud = cedula.length;
     let longCheck = longitud - 1;
     if(cedula !== "" && longitud === 10){
-      // console.log('entra aqui cedula', longitud);
+      // 
       
       for (let index = 0; index < longCheck; index++) {
         if(index%2 === 0){
@@ -859,15 +894,15 @@ serviciosAdicionales: any[] = [
       }
 
       total = total % 10 ? 10 - total % 10 : 0;
-      // console.log(total);
+      // 
       
 
       if(Number.parseInt(cedula.charAt(longitud - 1)) === total){
-        // console.log('entra aqui en total');
+        // 
         
         cedula_valida = false;
       }else{
-        // console.log('entra aqui en no total');
+        // 
         cedula_valida = true;
         
       }
@@ -877,7 +912,7 @@ serviciosAdicionales: any[] = [
     }else{
       cedula_valida = true;
     }
-    console.log(cedula_valida);
+    
     
     return cedula_valida;
   }

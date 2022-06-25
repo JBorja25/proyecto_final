@@ -40,51 +40,21 @@
         </li>
         <li class="nav-item">
           <a routerLink="/asilo/profile" class="nav-link active" aria-current="page">
-            <svg class="bi me-2" width="16" height="16">
-          
-            </svg>
-            PERFILE
+            <i class="pi pi-user me-3"></i>
+            Perfil
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-
-          </a>
-        </li>
-        <li class="nav-item" *ngIf="mostrarFormulario">
+        <li class="nav-item" *ngIf="!aprobado">
           <a routerLink="/asilo/regis-asi" class="nav-link active" aria-current="page">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#home" />
-            </svg>
-            AFILIACION
+            <i class="pi pi-file me-3"></i>
+            Afiliación
           </a>
         </li>
-
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-
-          </a>
-        </li>
-        <li class="nav-item" *ngIf="aprobado">
+        <li class="nav-item mt-4" *ngIf="aprobado">
           <a routerLink="/asilo/info" class="nav-link active" >
-            <svg class="bi me-2" width="16" height="16">
-     
-            </svg>
-           INFORMACION GENERAL
+            <i class="pi pi-book me-3"></i>
+           Información general
           </a>
         </li>
       </ul>
@@ -322,15 +292,23 @@
                   </div>
                   <div class="row mt-2 ">
                     <div class="col-md-4 ms-5">
-                      <mat-select formControlName="alimentacion" value="0" (valueChange)="cambioValorAlimentacion($event)">
-                        <mat-option value="0">Seleccionee...</mat-option>
-                        <mat-option value="Si">Si</mat-option>
-                        <mat-option value="no">No</mat-option>
-                      </mat-select>
+                      <mat-form-field appearence="fill">
+                        <mat-label>Seleccione una..</mat-label>
+                        <mat-select  formControlName="alimentacion"  (valueChange)="cambioValorAlimentacion($event)">
+                          <mat-option value="">Seleccionee...</mat-option>
+                          <mat-option value="Si">Si</mat-option>
+                          <mat-option value="no">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
                       
 
                     </div>
                     <div class="col text-start" *ngIf="alimentacionBool">
+                      <span class="text-danger">
+                        Debe seleccionar al menos una opcion si dispone.
+                      </span>
+                    </div>
+                    <div class="col text-start" *ngIf="errorAlimentacion">
                       <span class="text-danger">
                         Debe seleccionar al menos una opcion si dispone.
                       </span>
@@ -355,16 +333,24 @@
                   </div>
                   <div class="row mt-2 ">
                     <div class="col-md-4 ms-5">
-                      <mat-select formControlName="aseo" value="0" (valueChange)="cambioValorAseo($event)">
-                          
-                        <mat-option selected value="0">Seleccionee...</mat-option>
-                        <mat-option value="si">Si</mat-option>
-                        <mat-option value="no">No</mat-option>
-                      </mat-select>
+                      <mat-form-field appearence="fill">
+                        <mat-label>Seleccione una..</mat-label>
+                        <mat-select formControlName="aseo" value="0" (valueChange)="cambioValorAseo($event)">
+                            
+                          <mat-option value="">Seleccionee...</mat-option>
+                          <mat-option value="si">Si</mat-option>
+                          <mat-option value="no">No</mat-option>
+                        </mat-select>
+                      </mat-form-field>
                       
 
                     </div>
                     <div class="col text-start" *ngIf="aseoBool">
+                      <span class="text-danger">
+                        Debe selecionar al menos una opcion si dispone.
+                      </span>
+                    </div>
+                    <div class="col text-start" *ngIf="errorAseo">
                       <span class="text-danger">
                         Debe selecionar al menos una opcion si dispone.
                       </span>
@@ -386,14 +372,22 @@
                   </div>
                   <div class="row mt-2 ">
                     <div class="col-md-4 ms-5">
-                      <mat-select (valueChange)="transporte($event)" formControlName="transporte" value="0">
-                        <mat-option value="0">Seleccione..</mat-option>
-                        <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
-                      </mat-select>
+                      <mat-form-field appearence="fill">
+                        <mat-label>Seleccione una..</mat-label>
+                        <mat-select (valueChange)="transporte($event)" formControlName="transporte" value="0">
+                          <mat-option value="">Seleccione..</mat-option>
+                          <mat-option  *ngFor="let control of transportes" [value]="control.name">{{ control.name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
                       
 
                     </div>
                     <div class="col text-start" *ngIf="transporteBool">
+                      <span class="text-danger">
+                        La debe seleccionar al menos una opcion si dipone.
+                      </span>
+                    </div>
+                    <div class="col text-start" *ngIf="errorTransporte">
                       <span class="text-danger">
                         La debe seleccionar al menos una opcion si dipone.
                       </span>
@@ -754,7 +748,7 @@
               
           </mat-step>
       
-          <mat-step [stepControl]="cantidadPersonalFormGroup" >
+          <mat-step [stepControl]="cantidadPersonalFormGroup" *ngIf="data?.alimentacion && data?.alimentacion != ''">
             <form [formGroup]="cantidadPersonalFormGroup" novalidate>
               <ng-template matStepLabel>Cantidad de personal </ng-template>
 

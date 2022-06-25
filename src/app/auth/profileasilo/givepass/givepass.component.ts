@@ -235,6 +235,7 @@ FotoSubir: any;
 allComplete: boolean = false;
 
 urlFotofirebase: any = '';
+data: any;
 
 
   constructor(
@@ -278,8 +279,8 @@ urlFotofirebase: any = '';
     this.dataSourcecomodidad.data = this.serviciosComodidad;
     this.dataSourcetera.data = this.serviciosTerapeuticos;
 
-    console.log(this.dataSource);
-    // console.log(this.treeControl.);
+    
+    // 
     
   }
   
@@ -299,11 +300,12 @@ urlFotofirebase: any = '';
 
     this.postService.getPostByUid(this.uid)
     .subscribe((resp: any) => {
-      console.log(resp);
+      
       
       for(let f of resp.docs){
-        console.log(f.data());
+        
         this.idDoc = f.id;
+        this.data = f.data();
         this._auth.insertName()
         .subscribe((resp) =>{
           this.nombre = resp.displayName;
@@ -319,14 +321,14 @@ urlFotofirebase: any = '';
           mision: f.data()?.mision ? f.data()?.mision : '',
           vision: f.data()?.vision ? f.data()?.vision : ''
         })
-        console.log(this.dias);
+        
         if(f.data()?.horas){
 
           for(let i = 0; i < this.dias.diasSemana.length; i++){
             this.dias.diasSemana[i].completed = f.data().horas.diasSemana[i].completed;
           }
         }
-        console.log(this.dias);
+        
         if(f.data()?.controlesMedicos){
 
           for(let i = 0; i < this.serviciosMedicos[0].children.length; i++){
@@ -386,7 +388,7 @@ urlFotofirebase: any = '';
       })
        
 
-      //  console.log(this.controles);
+      //  
        
        /* this.fourthFormGroup.setValue({
          alimentacion: f.data().alimentacion,
@@ -482,21 +484,21 @@ urlFotofirebase: any = '';
   }
 
   cambioImagen(evento: any){
-    console.log(evento);
+    
     
 
    
 
     if(evento.target.files.length > 0){
 
-      console.log(evento);
+      
       this.FotoSubir = evento.target.files[0];
       const rul =URL.createObjectURL(evento.target.files[0]);
       this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
-      console.log(rul);
+      
       this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
       .then((resp)=>{
-        console.log(resp.ref);
+        
         
         resp.ref.getDownloadURL()
         .then((respGet)=>{
@@ -523,15 +525,15 @@ urlFotofirebase: any = '';
 
 
   getDataFirebase(){
-    // console.log(this.re);
+    // 
     
     this._auth.getPost(this.token)
     .subscribe((respData: any) =>{
-      console.log(respData);
+      
       if(respData.docs.length > 0){
         for(let f of respData.docs){
           this.aprobado = f.data().aprobado;
-          console.log(f.data());
+          
           this.mostrarFormulario = f.data().mostrarRegistroAsilo;
         }
         
@@ -557,26 +559,26 @@ urlFotofirebase: any = '';
     if(this.dias.diasSemana == null){
       return;
     }
-    console.log(this.dias);
+    
     
     this.dias.diasSemana.forEach((t) => t.completed = completed);
   }
 
   actualizarSeleccionados(){
-    console.log(this.dias);
+    
     
     this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
     
   }
 
   serviciosmedicos(evento: any){
-    console.log(evento);
-    console.log(this.controles);
+    
+    
     
     if(evento.checked){
       // this.serviciosMedicosSelected.push(evento.source.value);
       this.serviciosMedicos.map((t: any) =>{
-        // console.log(t);
+        // 
         
         return t.children.map((v) =>{
           if(evento.source.value === v.name){
@@ -585,7 +587,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosMedicos);
+      
     }else{
       this.serviciosMedicos.map((t) =>{
         return t.children.map((v) =>{
@@ -595,7 +597,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosMedicos);
+      
       
     }
 
@@ -611,7 +613,7 @@ urlFotofirebase: any = '';
         }
         return t;
       })
-      console.log(this.serviciosAdicionales);
+      
       
       // this.serviciosAdicionalesSelected.push(evento.source.value);
     }else{
@@ -621,7 +623,7 @@ urlFotofirebase: any = '';
         }
         return t;
       })
-      console.log(this.serviciosAdicionales);
+      
       
     }
   }
@@ -629,10 +631,10 @@ urlFotofirebase: any = '';
  
 
   actualizar(evento: any){
-    console.log(evento);
-    console.log(this.idDoc);
     
-    console.log(this.firstFormGroup.getRawValue());
+    
+    
+    
 
     if(this.firstFormGroup.invalid){
       return Object.values( this.firstFormGroup.controls ).forEach(validator =>{
@@ -642,7 +644,7 @@ urlFotofirebase: any = '';
 
     this._post.updatePost(this.firstFormGroup.getRawValue(), this.idDoc)
     .then((resp) =>{
-      console.log(resp);
+      
       this.toastr.success('datos actualizados', 'Actualizados', {
         progressAnimation: 'decreasing',
         progressBar: true,
@@ -651,16 +653,16 @@ urlFotofirebase: any = '';
       this.cargarinfo();
     })
     .catch((error) =>{
-      console.log(error);
+      
       
     })
     
   } 
 
   actualizarHorarios(){
-    console.log(this.dias);
-    console.log(this.horaDesde);
-    console.log(this.horaHasta);
+    
+    
+    
     this.verificarFalse = this.dias.diasSemana.every(v => v.completed === false);
     
     
@@ -697,9 +699,9 @@ urlFotofirebase: any = '';
   
   
   actualizarServicios(){
-    console.log(this.controles);
-    console.log(this.serviciosAdicionales);
-    console.log(this.idDoc);
+    
+    
+    
 
     if(this.fourthFormGroup.invalid){
       return Object.values( this.fourthFormGroup.controls ).forEach((validator) =>{
@@ -722,7 +724,7 @@ urlFotofirebase: any = '';
 
     this._post.updatePost(enviar, this.idDoc)
     .then((resp) =>{
-      console.log(resp);
+      
       this.toastr.success('Servicios actualizados correctamente.', 'Modificar servicios', {
         progressAnimation: 'increasing',
         progressBar: true,
@@ -730,14 +732,14 @@ urlFotofirebase: any = '';
       this.cargarinfo();
     })
     .catch((error) =>{
-      console.log(error);
+      
       
     })
   }
 
 
   prueba(evento: any){
-    console.log(evento);
+    
     
   }
 
@@ -752,7 +754,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosatencion);
+      
     }else{
       this.serviciosatencion.map((t) =>{
         return t.children.map((v) =>{
@@ -762,7 +764,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosatencion);
+      
       
     }
   }
@@ -777,7 +779,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosTerapeuticos);
+      
     }else{
       this.serviciosTerapeuticos.map((t) =>{
         return t.children.map((v) =>{
@@ -787,7 +789,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosTerapeuticos);
+      
       
     }
   }
@@ -802,7 +804,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosComodidad);
+      
     }else{
       this.serviciosComodidad.map((t) =>{
         return t.children.map((v) =>{
@@ -812,7 +814,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosComodidad);
+      
       
     }
   }
@@ -827,7 +829,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosSanitarios);
+      
     }else{
       this.serviciosSanitarios.map((t) =>{
         return t.children.map((v) =>{
@@ -837,7 +839,7 @@ urlFotofirebase: any = '';
           return v;
         })
       })
-      console.log(this.serviciosSanitarios);
+      
       
     }
   }
@@ -861,12 +863,12 @@ urlFotofirebase: any = '';
         
       })
     })
-    .catch(console.log);
+    .catch();
   }
 
 
   cantidadPersonal(){
-    console.log(this.cantidadPersonalFormGroup.getRawValue());
+    
     if(this.cantidadPersonalFormGroup.invalid){
       return Object.values( this.cantidadPersonalFormGroup.controls ).forEach((validators) =>{
         validators.markAllAsTouched()
@@ -998,7 +1000,7 @@ urlFotofirebase: any = '';
       this.toastr.success('Datos Guardados', 'Guardando');
       this.postService.getPostByUid(this.uid)
       .subscribe((resp: any) => {
-        console.log(resp);
+        
         
         for(let f of resp.docs){
           this.cantidadPersonalFormGroup.setValue({
@@ -1015,11 +1017,11 @@ urlFotofirebase: any = '';
         }
       })
     })
-    .catch(console.log);
+    .catch()
   }
 
   cambioValorAlimentacion(evento: any){
-    console.log(evento);
+    
     if(evento === '0'){
       this.alimentacionBool = true;
     }else{
@@ -1029,7 +1031,7 @@ urlFotofirebase: any = '';
     
   }
   cambioValorAseo(evento: any){
-    console.log(evento);
+    
     if(evento === '0'){
       this.aseoBool = true;
     }else{
@@ -1039,7 +1041,7 @@ urlFotofirebase: any = '';
 
   }
   transporte(evento: any){
-    console.log(evento);
+    
     if(evento === '0'){
       this.transporteBool = true;
     }else{
@@ -1050,21 +1052,21 @@ urlFotofirebase: any = '';
   }
 
   cambioStep(stepper: any){
-    // console.log(stepper);
+    // 
     if((stepper.steps.length - 1) === 5){
       this._post.getPostByUid(this.uid)
       .subscribe((resp: any) =>{
-        console.log(resp);
+        
         for(let f of resp.docs){
           this.dataCantidadPersonal = f.data();
-          console.log(f.data());
+          
 
-          this.serviciosMedicosBool = f.data().controlesMedicos[0].children.some( (v) => v.value === true);
-          this.serviciosTerapeuticosBool = f.data().servisioTerapeuticos[0].children.some( (v) => v.value === true);
-          this.serviciosSanitariosBool = f.data().servicioSanitarios[0].children.some( (v) => v.value === true);
-          this.serviciosComodidadBool = f.data().serviciosComodidad[0].children.some( (v) => v.value === true);
-          this.serviciosAtencionBool = f.data().serviciosAtencion[0].children.some( (v) => v.value === true);
-          this.serviciosAdicionalesBool = f.data().serviciosAdicionales.some( (v) => v.value === true);
+          this.serviciosMedicosBool = (f.data()?.controlesMedicos) ? f.data()?.controlesMedicos[0].children.some( (v) => v.value === true): false;
+          this.serviciosTerapeuticosBool = (f.data().servisioTerapeuticos) ?f.data().servisioTerapeuticos[0].children.some( (v) => v.value === true): false;
+          this.serviciosSanitariosBool = (f.data().servicioSanitarios)?f.data().servicioSanitarios[0].children.some( (v) => v.value === true): false;
+          this.serviciosComodidadBool = (f.data().serviciosComodidad)?f.data().serviciosComodidad[0].children.some( (v) => v.value === true): false;
+          this.serviciosAtencionBool = (f.data().serviciosAtencion) ? f.data().serviciosAtencion[0].children.some( (v) => v.value === true): false;
+          this.serviciosAdicionalesBool = (f.data().serviciosAdicionales) ? f.data().serviciosAdicionales.some( (v) => v.value === true): false;
           
         }
       })
@@ -1151,6 +1153,17 @@ urlFotofirebase: any = '';
   get errorCantidadAdicionales(){
     return (this.cantidadPersonalFormGroup.get('ccomplementarios').value === "" || this.cantidadPersonalFormGroup.get('ccomplementarios').value === 0) && ( this.cantidadPersonalFormGroup.get('ccomplementarios').touched ||this.cantidadPersonalFormGroup.get('ccomplementarios').dirty )
   }
+  get errorAlimentacion(){
+    return (this.fourthFormGroup.get('alimentacion').hasError('required')) && ( this.fourthFormGroup.get('alimentacion').touched ||this.fourthFormGroup.get('alimentacion').dirty )
+  }
+  get errorAseo(){
+    return (this.fourthFormGroup.get('aseo').hasError('required')) && ( this.fourthFormGroup.get('aseo').touched ||this.fourthFormGroup.get('aseo').dirty )
+  }
+  get errorTransporte(){
+    return (this.fourthFormGroup.get('transporte').hasError('required')) && ( this.fourthFormGroup.get('transporte').touched ||this.fourthFormGroup.get('transporte').dirty )
+  }
+
+
   
 
 }

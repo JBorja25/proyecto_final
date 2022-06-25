@@ -33,26 +33,20 @@
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item mt-4" routerLink="/asilo/profile">
             <a routerLink="/asilo/profile" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#home" />
-              </svg>
-              PERFIL
+              <i class="pi pi-user me-3"></i>
+              Perfil
             </a>
           </li> 
-          <li class="nav-item mt-4"  *ngIf="mostrarFormulario">
+          <li class="nav-item mt-4"  *ngIf="!aprobado">
             <a routerLink="/asilo/regis-asi" class="nav-link active" >
-              <svg class="bi me-2" width="16" height="16">
-             
-              </svg>
-              AFILIACION
+              <i class="pi pi-file me-3"></i>
+              Afiliación
             </a>
           </li>
           <li class="nav-item mt-4" *ngIf="aprobado">
             <a routerLink="/asilo/info" class="nav-link active" >
-              <svg class="bi me-2" width="16" height="16">
-              
-              </svg>
-              INFORMACION GENERAL
+              <i class="pi pi-user me-3"></i>
+              Información general
             </a>
           </li>
 
@@ -149,7 +143,12 @@
             <div class="row" style="display: flex; justify-content: center; width: 75%;">
                 <div class="col">
                     <span class="form-label">Nombre: *</span>
-                    <input class="form-control" type="text" formControlName="nombre">
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="pi pi-user"></i>
+                      </span>
+                      <input class="form-control" type="text" formControlName="nombre">
+                    </div>
                 </div>
                 <div class="row" *ngIf="errorNombre">
                   <span class="text-danger">
@@ -166,20 +165,35 @@
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Telefono:</span>
-                    <input type="text" class="form-control" formControlName="telefono">
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="pi pi-phone"></i>
+                      </span>
+                      <input type="text" class="form-control" formControlName="telefono">
+                    </div>
                 </div>
             </div>
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Direccion:</span>
-                    <input type="text" class="form-control" formControlName="direccion">
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="pi pi-map"></i>
+                      </span>
+                      <input type="text" class="form-control" formControlName="direccion">
+                    </div>
                     
                 </div>
             </div>
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Correo:</span>
-                    <input type="text" class="form-control" formControlName="email">
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="pi pi-envelope"></i>
+                      </span>
+                      <input type="text" class="form-control" formControlName="email">
+                    </div>
                 </div>
                 <div class="row" *ngIf="errorCorreo">
                   <span class="text-danger">
@@ -196,7 +210,12 @@
             <div class="row" style="width: 75%">
                 <div class="col">
                     <span class="form-label">Contrasenia:</span>
-                    <input type="password" name="pass" class="form-control"  formControlName="passw"  placeholder="•••••••••••••••">
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="pi pi-lock"></i>
+                      </span>
+                      <input type="password" name="pass" class="form-control"  formControlName="passw"  placeholder="•••••••••••••••">
+                    </div>
                   </div>
                   <div class="row" *ngIf="errorPassw">
                     <span class="text-danger">

@@ -83,7 +83,7 @@ export class PostService {
       rechazar
     });
   }
-  actualizarRechazados(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, rechazar: boolean, idDoc: string, mensaje: string, nomostrarImagen: boolean, correcciones: boolean){
+  actualizarRechazados(aprobado: boolean, confirmacion: boolean, cuentaVerificada: boolean, rechazar: boolean, idDoc: string, mensaje: string, nomostrarImagen: boolean, correcciones: boolean, motivoRechazo: any){
     return this.angularFirestore.collection('post').doc(idDoc).update({
       aprobado,
       confirmacion,
@@ -91,7 +91,8 @@ export class PostService {
       rechazar,
       mensaje,
       nomostrarImagen,
-      correcciones
+      correcciones,
+      motivoRechazo
     });
 
 

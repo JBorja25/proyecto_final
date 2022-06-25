@@ -26,13 +26,13 @@ export class RechazadosComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    // console.log(this.datarechazdos);
+    // 
     
   }
 
   ngAfterViewInit(): void {
     // this.dataSource = this.datarechazdos
-    // console.log(this.dataSource);
+    // 
     
     this.cargarAsilosAprobados();
   }
@@ -40,19 +40,19 @@ export class RechazadosComponent implements OnInit, AfterViewInit {
   cargarAsilosAprobados(){
     this.postService.getPostId()
       .subscribe((resp:any) => {
-        console.log(resp);
+        
         // this.PostAprobados = [];
         this.postrechazados = [];
         for (let f of resp.docs) {
-          console.log(f.data());
+          
 
            if(!f.data().aprobado && f.data().rechazar){
-            console.log('entra en rechazado');
+            
             
             
             this.postrechazados.push({name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono, mensaje: f.data().mensaje, cedula: f.data().cedula});
 
-            console.log(this.dataSource);
+            
             
           }
         }

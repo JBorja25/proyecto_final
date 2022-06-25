@@ -97,6 +97,7 @@ import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component'
 import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
+import { MessagesModule } from 'primeng/messages';
 
 
 
@@ -150,7 +151,7 @@ import { AvatarModule } from 'primeng/avatar';
     provideFirebaseApp(()=>initializeApp(environment.firebaseConfig)),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule,
-
+    MessagesModule,
     FormsModule,
     ReactiveFormsModule,
   

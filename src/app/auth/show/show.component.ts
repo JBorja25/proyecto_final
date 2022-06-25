@@ -39,6 +39,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
   postrechazados: any[] = [];
   postPendientes: any[] = [];
   nombre: string = '';
+  imagen: string = '';
 
   constructor(
     private postService: PostService,
@@ -51,7 +52,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
     // this.dataSource.paginator = this.paginator;
     this.cargarAsilosAprobados();
     this.getAsilosPendientes();
-    console.log(this.pagaprobados);
+    
   }
 
   ngOnInit(): void {
@@ -59,6 +60,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
     this._auth.insertName()
     .subscribe((resp) =>{
       this.nombre = resp.displayName;
+      this.imagen = resp.photoURL;
     })
     
     
@@ -76,13 +78,16 @@ export class ShowComponent implements OnInit, AfterViewInit {
   }
 
 
+ 
+
+
   getAsilosPendientes(){
     this.postService.getPostId()
     .subscribe((resp:any) => {
-      console.log(resp);
+      
       this.postPendientes = [];
       for (let f of resp.docs) {
-        console.log(f.data());
+        
 
         if(!f.data().aprobado && (f.data().confirmacion)){
           let enviar = {
@@ -96,7 +101,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
         }
       }
       this.dataSource=new MatTableDataSource(this.postPendientes);
-      console.log(this.dataSource);
+      
       
       this.dataSource.paginator = this.pendientes;
 
@@ -106,27 +111,27 @@ export class ShowComponent implements OnInit, AfterViewInit {
   cargarAsilosAprobados(){
     this.postService.getPostId()
       .subscribe((resp:any) => {
-        console.log(resp);
+        
         this.PostAprobados = [];
         // this.postrechazados = [];
         for (let f of resp.docs) {
-          console.log(f.data());
+          
 
           if(f.data().aprobado && !f.data().rechazar){
             this.PostAprobados.push({ name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono, cedula: f.data().cedula });
             
             
           }else if(!f.data().aprobado && f.data().rechazar){
-            console.log('entra en rechazado');
+            
             
             this.postrechazados.push({ ...f.data(), idDoc: f.id });
-            console.log(this.postrechazados);
+            
             
             // this.dataSourceRechazados=new MatTableDataSource<any>(this.postrechazados);
           }
         }
         this.dataSourceAprobados=new MatTableDataSource(this.PostAprobados);
-        console.log(this.dataSourceAprobados);
+        
         this.dataSourceAprobados.paginator = this.pagaprobados;
 
       });
@@ -140,11 +145,11 @@ export class ShowComponent implements OnInit, AfterViewInit {
   };
 
   aprobar(post: any) {
-    console.log(post);
+    
 
     this.postService.actualizarAprobacion(true, false, false, post.idDoc, false)
       .then((resp) => {
-        console.log(resp);
+        
         this.getAsilosPendientes();
         this.cargarAsilosAprobados();
         this.rechazadosComponent.ngAfterViewInit();
@@ -156,7 +161,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
       // primero ejecutas el dialog, metodos afterdidClose().subscribe()
       const dialog = this._dialog.open(DialogrechazarComponent, {
         width: '350px',
-        height: '250px',
+        height: 'auto',
         closeOnNavigation:false,
         disableClose: true,
         data: post.idDoc
@@ -167,9 +172,9 @@ export class ShowComponent implements OnInit, AfterViewInit {
         if(resp.v){
           Swal.fire('Guardando', 'Guardando registro, espere por favor...', 'info');
           Swal.showLoading();
-          this.postService.actualizarRechazados(false, false, false, true, post.idDoc, resp.mensaje, true, true)
+          this.postService.actualizarRechazados(false, false, false, true, post.idDoc, resp.mensaje, true, true, resp.motivoRechazo)
           .then((resp) => {
-            console.log(resp);
+            
             this.getAsilosPendientes();
             this.cargarAsilosAprobados();
             this.rechazadosComponent.ngAfterViewInit();
@@ -191,7 +196,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
   bucarValorAprobados(evento: any){
     
     let filtro: string = evento.value;
-    console.log(filtro);
+    
     
     filtro = filtro.trim();
     filtro = filtro.toLowerCase();

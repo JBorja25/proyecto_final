@@ -61,9 +61,9 @@ export class LoginComponent implements OnInit {
   async onLogin() {
 
 
-    console.log('entra');
+    
     /* if (!this.loginForm.invalid) {
-      console.log(`formulario invalido ${this.loginForm.invalid}`);
+      
 
       return;
     } */
@@ -83,11 +83,11 @@ export class LoginComponent implements OnInit {
             Swal.showLoading();
           }
         });
-        console.log(resp);
+        
 
         this.authSvc.traerDataFirebase(resp.user.uid)
           .subscribe((respData: any) => {
-            console.log(respData);
+            
 
             for (let d of respData.docs) {
               if (d.data().tipo === 'admin') {
@@ -96,14 +96,14 @@ export class LoginComponent implements OnInit {
                 this.router.navigateByUrl('/gerente/show');
                 // localStorage.setItem('tipo', f.tipo);
               } else {
-                console.log('entra en asilo ', d.data());
+                
 
                 this.authSvc.traerDataPost(d.data().uid)
                   .subscribe((respPost: any) => {
-                    console.log(respPost)
+                    
                     if (!respPost.empty) {
                       for (let f of respPost.docs) {
-                        console.log(f)
+                        
                         if (f.data()?.aprobado == true) {
                           this.authSvc.guardarCookie('asilos', resp.user.uid);
                           Swal.close();
@@ -138,8 +138,8 @@ export class LoginComponent implements OnInit {
 
       })
       .catch((erro) => {
-        console.log(erro.message);
-        console.log(erro.code);
+        
+        
         if(erro.code == 'auth/wrong-password' || erro.code == 'auth/user-not-found'){
 
           Swal.fire({
@@ -170,7 +170,7 @@ export class LoginComponent implements OnInit {
 
 
     } catch (error) {
-      console.log('error', error);
+      
       // return error;
     } */
 

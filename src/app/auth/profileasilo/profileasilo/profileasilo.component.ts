@@ -61,15 +61,15 @@ export class ProfileasiloComponent implements OnInit {
   }
 
   getDataFirebase(){
-    // console.log(this.re);
+    // 
     
     this._auth.getPost(this.token)
     .subscribe((respData: any) =>{
-      console.log(respData);
+      
       if(respData.docs.length > 0){
         for(let f of respData.docs){
           this.aprobado = f.data().aprobado;
-          console.log(f.data());
+          
           this.mostrarFormulario = f.data().mostrarRegistroAsilo;
         }
         
@@ -81,7 +81,7 @@ export class ProfileasiloComponent implements OnInit {
   getData() {
     this._auth.traerDataFirebase(this.token)
       .subscribe((resp: any) => {
-        console.log(resp);
+        
 
         for (let f of resp.docs) {
           // this.data = f.data()
@@ -99,17 +99,17 @@ export class ProfileasiloComponent implements OnInit {
             })
           });
         }
-        console.log(this.data);
+        
 
 
-        console.log(this.data);
+        
 
         this._auth.insertCorreo()
           .subscribe((resp) => {
-            console.log(resp);
+            
             this.dataUser = resp;
 
-            console.log(this.dataUser);
+            
           }
 
           );
@@ -130,16 +130,16 @@ export class ProfileasiloComponent implements OnInit {
     // if de la contrasenia
     this._auth.insertName()
       .subscribe((cambiarnom) => {
-        console.log(this.nombre);
+        
 
         let nom =this.profileAsilo.get('nombre').value.length > 0 ? this.profileAsilo.get('nombre').value : this.dataUser.displayName; //copia lineas y cambiar
         cambiarnom.updateProfile({
           displayName: nom
         })
           .then((nombre) => {
-            console.log('cambiado nombre', nombre);
+            
             this.getData();
-            console.log(this.direccion);
+            
             
             
            
@@ -152,11 +152,11 @@ export class ProfileasiloComponent implements OnInit {
                 .subscribe((respc) => {
                   respc.updateEmail(corr)
                     .then((r) => {
-                      console.log('actualizado cooreo');
+                      
   
                     })
                     .catch((err) => {
-                      console.log(err);
+                      
   
                     })
                 })
@@ -167,9 +167,9 @@ export class ProfileasiloComponent implements OnInit {
               let passw = this.profileAsilo.get('passw').value;
               cambiarnom.updatePassword(passw)
                 .then((phone) => {
-                  console.log('cambiado contrasenia', passw);
+                  
                 }).catch((error) => {
-                  console.log(error);
+                  
                 })
             }
 
@@ -178,7 +178,7 @@ export class ProfileasiloComponent implements OnInit {
             let num = (this.profileAsilo.get('telefono').value.length > 0) ? this.profileAsilo.get('telefono').value : this.data.phone;
             this._auth.updateDireccion(dir, num, this.idDoc)
               .then((respDirec) => {
-                console.log('se actualizo');
+                
                 this.getData();
 
               })
@@ -221,7 +221,7 @@ export class ProfileasiloComponent implements OnInit {
       });
       dialog.afterClosed()
         .subscribe((resp) => {
-          console.log(resp);
+          
           
           if (resp) {
             this.guardar();

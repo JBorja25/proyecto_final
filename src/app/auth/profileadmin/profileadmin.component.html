@@ -2,7 +2,12 @@
   <mat-drawer #drawer class="example-sidenav" mode="side" style="margin-left: 5px;" opened>
 
     <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
+      <div class="row" style="display: block;">
+        <div class="col text-center">
 
+          <p-avatar [image]="imagen != '' ? imagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle" size="xlarge"></p-avatar>
+        </div>
+      </div>
       <div class="row">
         <div class="d-flex justify-content-center">
           <span style="font-size: 18px">{{nombre}}</span>
@@ -14,43 +19,18 @@
       </div>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-
-          </a>
-        </li>
-        <li class="nav-item">
+        
+        <li class="nav-item mt-3">
           <a routerLink="/gerente/profile" class="nav-link active" aria-current="page">
-            <svg class="bi me-2" width="16" height="16">
-          
-            </svg>
+            <i class="pi pi-user me-3"></i>
             PERFIL
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-
-          </a>
-        </li>
-        <li class="nav-item">
+        
+        
+        <li class="nav-item mt-3">
           <a routerLink="/gerente/show" class="nav-link active" aria-current="page">
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#home" />
-            </svg>
+            <i class="pi pi-book me-3"></i>
             AFILIADOS
           </a>
         </li>

@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container" width="700" height="100vh" style="height: 100vh;" autosize *ngIf="!comprobarVacio">
+<mat-drawer-container class="example-container" width="700" height="100vh" style="height: 100vh;" autosize >
   <mat-drawer #drawer class="example-sidenav" mode="side" opened>
 
     <!--button (click)="showFiller = !showFiller" mat-raised-button>
@@ -15,25 +15,20 @@
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item mt-4" >
           <a routerLink="/asilo/profile" class="nav-link active">
-            <svg class="bi me-2" width="16" height="16">
-            </svg>
-            PERFILE
+            <i class="pi pi-user me-3"></i>
+            Perfil
           </a>
         </li>
-        <li class="nav-item mt-4" *ngIf="mostrarFormulario">
+        <li class="nav-item mt-4" *ngIf="!aprobado">
           <a routerLink="/asilo/regis-asi" class="nav-link active" >
-            <svg class="bi me-2" width="16" height="16">
-           
-            </svg>
-            AFILIACION
+            <i class="pi pi-file me-3"></i>
+            Afiliación
           </a>
         </li>
         <li class="nav-item mt-4" *ngIf="aprobado" >
           <a routerLink="/asilo/info" class="nav-link active" >
-            <svg class="bi me-2" width="16" height="16">
-            
-            </svg>
-            INFORMACION GENERAL
+            <i class="pi pi-book me-3"></i>
+            Información general
           </a>
         </li>
         <!--li class="nav-item">
@@ -85,7 +80,7 @@
     <br>
     <br>
     <!---------------------------------------------------------------------------------->
-    <div class="container" *ngIf="mostrarFormulario">
+    <div class="container" *ngIf="mostrarFormulario && !aprobado">
       <div class="row mt-5" style="display: flex; justify-content: center; margin:auto; height: auto; width: 95%;  border: 1px solid #CCC; border-radius: 5px; width:85%;  box-shadow: 0 0 10px rgb(163, 163, 163);">
         <div class="row bg-info text-white" style="border: 1px solid #CCC; border-radius: 5px; width:95%;  height: 55px; box-shadow: 0 0 10px rgb(163, 163, 163); margin-top:-25px">
           <h4 style="line-height: 51px;">Gestión de la información del asilo</h4>
@@ -606,4 +601,4 @@
 
 </mat-drawer-container>
 
-<app-asilorechazado *ngIf="comprobarVacio" ></app-asilorechazado>
+<app-asilorechazado *ngIf="rechazar" ></app-asilorechazado>
