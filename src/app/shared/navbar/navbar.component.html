@@ -19,7 +19,7 @@
         <ul class="navbar-nav mx-auto" *ngIf="user$ | async as user ; else login">
            
             <li class="nav-item " *ngIf="user">
-                <a  href="#" class="nav-link " routerLink="/login" (click)="onLogout()">Cerrar Sesion</a>
+                <a  href="#" class="nav-link " routerLink="/login" (click)="onLogout()">Cerrar Sesión</a>
             </li> 
             <li class="nav-item " routerLink="/gerente/profile" style="cursor: pointer;" *ngIf="tipo === 'admin'">
               <a class="nav-link " >{{user?.email}}</a>
@@ -34,10 +34,10 @@
           <ng-template #login>
             <ul class="navbar-nav mx-auto">
             <li class="nav-item " >
-              <a class="nav-link " routerLink="/perfiles" >Iniciar Sesion</a>
+              <a class="nav-link " routerLink="/perfiles" >Iniciar Sesión</a>
             </li>  
             <li class="nav-item " >
-              <a class="nav-link " routerLink="/register" >Registrase</a>
+              <a class="nav-link " routerLink="/register" >Registrate</a>
           </li> 
 
             </ul>

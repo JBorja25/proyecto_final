@@ -79,7 +79,7 @@
 
    <div class="row mt-5" style="display: flex; justify-content: center; margin:auto; height: auto; width: 95%;  border: 1px solid #CCC; border-radius: 5px; width:85%;  box-shadow: 0 0 10px rgb(163, 163, 163);">
     <div class="row bg-info text-white" style="border: 1px solid #CCC; border-radius: 5px; width:95%;  height: 55px; box-shadow: 0 0 10px rgb(163, 163, 163); margin-top:-25px">
-      <h4 style="line-height: 51px;">Este módulo permite actualizar los datos del perfil Administrador</h4>
+      <h4 style="line-height: 51px;">Este te módulo permite actualizar los datos del perfil Administrador</h4>
     </div>
     <div class="col-md-4 container " style="border-right: 1px solid rgb(223, 222, 222); display: flex; justify-content: center;">
       
@@ -131,7 +131,7 @@
           </div>
           <div class="row" style="width: 75%">
               <div class="col">
-                  <span class="form-label">Telefono:</span>
+                  <span class="form-label">Teléfono:</span>
                   <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
               </div>
               <div class="row profile__error" *ngIf="telefono == ''">
@@ -140,7 +140,7 @@
             </div>
             <div class="row" style="width: 75%">
               <div class="col">
-                <span class="form-label">Direccion:</span>
+                <span class="form-label">Dirección:</span>
                 <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
                 
               </div>
@@ -160,7 +160,7 @@
           </div>
           <div class="row" style="width: 75%">
             <div class="col">
-              <span class="form-label">Contrasenia:</span>
+              <span class="form-label">Contraseña:</span>
               <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
               
             </div>
