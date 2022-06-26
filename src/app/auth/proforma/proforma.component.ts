@@ -67,13 +67,13 @@ export class ProformaComponent implements OnInit {
                     
   serviciosMedicos: medicosServicios[] = [
     {
-      name: 'Servicios Medicos',
+      name: 'Servicios Médicos',
       children: [
         {name:'Asistencia médica',value:20}, 
         {name:'Grupo de apoyo familiar',value:30}, 
         {name: 'Terapias Musculares',value:25}, 
-        {name: 'estimulación cognitiva',value:35}, 
-        {name: 'rehabilitación y fisioterapia',value:35}, 
+        {name: 'Estimulación cognitiva',value:35}, 
+        {name: 'Rehabilitación y fisioterapia',value:35}, 
         {name: 'Peluquería y estética',value:25}, 
         {name: 'Limpieza y lavandería',value:35}, 
         {name: 'Comida  y transporte',value:30}, 
@@ -89,9 +89,9 @@ export class ProformaComponent implements OnInit {
       name:' Servicios adicionales',
       children: [
         
-        {name:'Peluqueria',value:8},  
+        {name:'Peluquería',value:8},  
         {name:'Entrega de Medicamentos',value:7},  
-        {name:'Acompañamiento a Citas Medicas',value:20},  
+        {name:'Acompañamiento a Citas Médicas',value:20},  
         {name:'Dieta Especial',value:30},  
         {name:'Cama Hospitalaria',value:50},  
       ]
@@ -103,7 +103,7 @@ export class ProformaComponent implements OnInit {
   tipoHabitacion: any[] = [
     {tipo: 'Individual', value:350 },
     {tipo: 'Compartida', value: 325},
-    {tipo: 'Individual con banio privado', value: 375}
+    {tipo: 'Individual con baño privado', value: 375}
   ]
   cuidadoFisico: any[] = [
     {tipo: 'Es independiente', value:0 },
@@ -118,7 +118,7 @@ export class ProformaComponent implements OnInit {
   ];
 
   amoblado: any[] = [
-    { amoblado: 'Si', value: 30 },
+    { amoblado: 'Sí', value: 30 },
     { amoblado: 'No', value: 0 }
   ]
   
@@ -511,9 +511,9 @@ export class ProformaComponent implements OnInit {
     pdf.add(new Table([
       [
         {
-          text: 'Nombre del sitio web', bold: true
+          text: 'Nombre ', bold: true
         },
-        'nombre del sitio',
+        'Jose Borja',
         {
           text: 'Fecha', bold: true
         },
@@ -525,7 +525,7 @@ export class ProformaComponent implements OnInit {
         {
           text: 'Provincia', bold: true
         },
-        'Pichincah',
+        'Pichincha',
         {
           text: 'Cuidad', bold: true
         },
@@ -542,7 +542,7 @@ export class ProformaComponent implements OnInit {
           text: 'Correo', bold: true
         },
         {
-          text: 'correo@correo.com'
+          text: 'jose.borja@epn.edu.ec'
         }
       ]
     ]).layout('noBorders').fontSize(11).widths(['25%', '25%', '20%', '30%']).end);
@@ -711,9 +711,9 @@ export class ProformaComponent implements OnInit {
     pdf.add(new Txt('\n').end);
 
     pdf.add(new Table([
-      [{text: 'El pago se realiza al instante de realizar el convenio con el asilo.', bold: true, alignment: 'center'}]
+      [{text: 'El pago se realiza al instante de realizar el convenio con el asilo.  Este documento no tiene valor tributario.', bold: true, alignment: 'center'}]
     ]).fontSize(11).widths(['40%']).relativePosition(0, 50).alignment('center').layout('noBorders').end);
-
+    
 
     pdf.create().open();
     

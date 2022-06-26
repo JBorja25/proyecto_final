@@ -25,7 +25,7 @@
           
         </div>
         <div class="d-flex justify-content-center">
-          <small style="font-size:13px; margin-top: -7px">Asilo </small>
+          <small style="font-size:13px; margin-top: -7px">Asilo Administrador </small>
         </div>
       </div>
       <hr>
@@ -92,28 +92,28 @@
       <mat-stepper labelPosition="bottom" #stepper (selectionChange)="cambioStep(stepper)">
         <mat-step [stepControl]="misionGroup">
                 <form [formGroup]="misionGroup" class="container" (ngSubmit)="misionvision()" >
-                  <ng-template matStepLabel>Misión y vision</ng-template>
-                  <h3>Esta seccion  permite agregar la mision y vision del asilo</h3>
+                  <ng-template matStepLabel>Misión y visión</ng-template>
+                  <h5>Esta sección te permite agregar la misión y visión del asilo</h5>
                   <div style="display:flex; justify-content: center;">
              
                     <div style="width: 45%">
                       <div class="mb-3">
                      
-                        <label class="form-label">Misión del asilo</label>
+                        <label class="form-label">Misión</label>
                         <textarea style="width: 100%; height: 100px; resize: none;" formControlName="mision" class="form-control" required></textarea>
                       </div>
                       <div class="row" *ngIf="errorMision">
                         <span class="text-danger">
-                          La mision es un campo obligatorio y no puede estar vacio.
+                          La misión es un campo obligatorio y no puede estar vacio.
                         </span>
                       </div>
                       <div class="mb-3">
-                        <label class="form-label">Visión del asilo</label>
+                        <label class="form-label">Visión</label>
                         <textarea style="width: 100%; height: 100px; resize: none" formControlName="vision" type="text" class="form-control" required></textarea>
                       </div>
                       <div class="row" *ngIf="errorVision">
                         <span class="text-danger">
-                          La vision es un campo obligatorio y no puede estar vacio.
+                          La visión es un campo obligatorio y no puede estar vacio.
                         </span>
                       </div>
                       <div>
@@ -128,7 +128,7 @@
               <ng-template matStepLabel>Datos Personales</ng-template>
               <div class="row text-center">
 
-                <h3>Esta seccion informativa permite llenar los datos del asilo</h3>
+                <h5>Esta sección te permite llenar los datos básicos del asilo</h5>
               </div>
               
               <div class="d-flex justify-content-center">
@@ -151,7 +151,7 @@
                   </div>
                   <div class="mb-3">
                     <!-- <h3>Esta seccion informativa permite llenar los datos del asilo</h3> -->
-                    <label class="form-label">Nombre del asilo</label>
+                    <label class="form-label">Nombre</label>
                     <input formControlName="name" name="name" id="name" type="text"  class="form-control" required>
                     <div class="row text-start" *ngIf="errorNombre">
                       <span class="text-danger">
@@ -160,7 +160,7 @@
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Direciion del asilo</label>
+                    <label class="form-label">Direciion</label>
                     <input formControlName="address" name="address" type="text" class="form-control" required>
                     <div class="row text-start" *ngIf="errorAddress">
                       <span class="text-danger">
@@ -169,7 +169,7 @@
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Correo del asilo</label>
+                    <label class="form-label">Correo</label>
                     <input formControlName="email" type="text" class="form-control" required>
                     <div class="row text-start" *ngIf="errorEmail">
                       <span class="text-danger">
@@ -183,7 +183,7 @@
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Telefono del asilo</label>
+                    <label class="form-label">Telefono</label>
                     <input formControlName="fono" type="number" class="form-control" required>
                     <div class="row text-start" *ngIf="errorFono">
                       <span class="text-danger">
@@ -209,7 +209,7 @@
             
               <ng-template matStepLabel>Horario de Atencion</ng-template>
               <div class="mb-3">
-                <h3>Esta seccion informativa permite seleccionar  los horarios y dias de atencion del asilo </h3>
+                <h5>Esta sección  permite seleccionar  los horarios y dias de atencion del asilo </h5>
                 <label class="form-label">Selecione días de atencion
                   <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Sleeciones los dias de atencion del asilo." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                     <path
@@ -276,7 +276,7 @@
             <form [formGroup]="fourthFormGroup" class="container" >
               <ng-template matStepLabel>Servicios</ng-template>
               <div class="row">
-                <h3>Esta seccion informativa permite seleccionar  los servicios  medicos tambien alimentacion, transporte y aseo personal</h3>
+                <h5>Esta sección te permite seleccionar los servicios  que  brinda el asilo</h5>
 
               </div>
               <!-- Alimentacion -->
@@ -719,7 +719,7 @@
       
       
               <div class="mb-3">
-                <h3>Esta seccion informativa permite sleecionar una imagen del asilo</h3>
+                <h5>Esta sección te permite seleccioar la imagen del asilo</h5>
               
                 <label class="form-label">Imagen del Asilo 
                   <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="ingrese la foto del asilo" triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
@@ -749,6 +749,7 @@
           </mat-step>
       
           <mat-step [stepControl]="cantidadPersonalFormGroup" *ngIf="data?.alimentacion && data?.alimentacion != ''">
+            <h5>Esta sección te permite seleccionar la cantidad de personal hay en cada area de trabajo</h5>
             <form [formGroup]="cantidadPersonalFormGroup" novalidate>
               <ng-template matStepLabel>Cantidad de personal </ng-template>
 
