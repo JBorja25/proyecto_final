@@ -16,17 +16,30 @@
             <a class="nav-link " routerLink="/p/cover" routerLinkActive="active" >Proforma</a>
           </li>    
         </ul>
-        <ul class="navbar-nav mx-auto" *ngIf="user$ | async as user ; else login">
+
+        <!--<ul class="navbar-nav mx-auto" *ngIf="user$ | async as user ; else login">
            
             <li class="nav-item " *ngIf="user">
-                <a  href="#" class="nav-link " routerLink="/login" (click)="onLogout()">Cerrar Sesión</a>
+                
             </li> 
-            <li class="nav-item " routerLink="/gerente/profile" style="cursor: pointer;" *ngIf="tipo === 'admin'">
+            <li class="nav-item " routerLink="/gerente/profile" style="cursor: pointer;" *ngIf="tipo === 'admin'">-->
+
+        
+        <div class="d-flex text-white ms-auto text-end">
+
+          <ul class="navbar-nav mx-auto" *ngIf="user$ | async as user ; else login">
+             
+            <li class="nav-item " routerLink="/gerente/profile" style="cursor: pointer;" *ngIf="tipo == 'admin'">
+
               <a class="nav-link " >{{user?.email}}</a>
             </li>  
-            <li class="nav-item " routerLink="/asilo/profile" style="cursor: pointer;" *ngIf="tipo === 'asilos'">
+            <li class="nav-item " routerLink="/asilo/profile" style="cursor: pointer;" *ngIf="tipo == 'asilos'">
               <a  class="nav-link " >{{user?.email}}</a>
+
           </li> 
+              <li class="nav-item " *ngIf="user">
+                <a  href="#" class="nav-link " routerLink="/login" (click)="onLogout()">Cerrar Sesión</a>
+            </li> 
            
         
           </ul>
@@ -38,10 +51,13 @@
             </li>  
             <li class="nav-item " >
               <a class="nav-link " routerLink="/register" >Registrate</a>
-          </li> 
-
+          </li>
+           
             </ul>
-          </ng-template>
+        
+            
+            </ng-template>
+        </div>
 
       </div>
 

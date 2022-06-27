@@ -822,7 +822,7 @@
 // }
 
 
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -842,6 +842,7 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 import { PrimeNGConfig } from 'primeng/api'
+import { MatStepper } from '@angular/material/stepper';
 
 // uso de interface por obligacion de material design
 export interface diasI {
@@ -862,6 +863,9 @@ interface medicosServicios{
   styleUrls: ['./asilorechazado.component.scss']
 })
 export class AsilorechazadoComponent implements OnInit, AfterContentInit {
+
+  @ViewChild(MatStepper) stepperHtml: any;
+  mostrarButtonSiguiente: boolean = false;
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -1131,6 +1135,10 @@ ngAfterContentInit(): void {
   // 
   
   this.crearFormulario();
+  // console.log(this.stepperHtml);
+  
+  // this.cambioStep(this.stepperHtml);
+  
 }
 
 ngOnInit(): void {
@@ -1267,39 +1275,224 @@ async cerrar(){
 
 onSubmit(){
 
-  if(this.fourthFormGroup.invalid){
-    this.toastr.warning('no se puede actualizar, ya que no ha elegido una foto', 'Error', {
-      progressAnimation: 'increasing',
-      progressBar: true,
-    })
-    return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
-      validators.markAllAsTouched()
-    })
-  }
-  let enviar = {
-    foto: this.urlFotofirebase,
-    documento: this.documentoPDF,
-    mostrarRegistroAsilo: false,
-    rechazar: true,
-    confirmacion: true,
-    aprobado: false,
-    cuentaVerificada:false,
-    nomostrarImagen: false,
-    correcciones: false,
-  }
-  this._post.updatePost(enviar, this.idDoc)
-  .then((resp) =>{
-    this.toastr.success("imagen actualizada correctamente", 'Imagen',{
-      closeButton: true,
-      progressAnimation: 'increasing',
-      progressBar: true
-    })
-    // this.cargtarinfo();
-    this.getDataFirebase();
-  })
-  .catch((error) =>{
+  if(this.dataMostrarMotivoRezchazo[0]?.value && this.dataMostrarMotivoRezchazo[1]?.value && this.dataMostrarMotivoRezchazo[2]?.value){
 
-  })
+    if(this.fourthFormGroup.invalid){
+      this.toastr.warning('no se puede actualizar, revise todos los datos que esten bien', 'Error', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
+      return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      })
+    }
+    let enviar = {
+      foto: this.urlFotofirebase,
+      documento: this.documentoPDF,
+      mostrarRegistroAsilo: false,
+      rechazar: true,
+      confirmacion: true,
+      aprobado: false,
+      cuentaVerificada:false,
+      nomostrarImagen: false,
+      correcciones: false,
+      ...this.firstFormGroup.getRawValue()
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.toastr.success("imagen actualizada correctamente", 'Imagen',{
+        closeButton: true,
+        progressAnimation: 'increasing',
+        progressBar: true
+      })
+      // this.cargtarinfo();
+      this.getDataFirebase();
+    })
+    .catch((error) =>{
+  
+    })
+  }else if(this.dataMostrarMotivoRezchazo[0]?.value && this.dataMostrarMotivoRezchazo[1]?.value){
+
+    if(this.fourthFormGroup.get('img').hasError('required') && this.firstFormGroup.invalid){
+      this.toastr.warning('no se puede actualizar, revise todos los campos', 'Error', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
+      return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      })
+    }
+    let enviar = {
+      foto: this.urlFotofirebase,
+      mostrarRegistroAsilo: false,
+      rechazar: true,
+      confirmacion: true,
+      aprobado: false,
+      cuentaVerificada:false,
+      nomostrarImagen: false,
+      correcciones: false,
+      ...this.firstFormGroup.getRawValue()
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.toastr.success("imagen actualizada correctamente", 'Imagen',{
+        closeButton: true,
+        progressAnimation: 'increasing',
+        progressBar: true
+      })
+      // this.cargtarinfo();
+      this.getDataFirebase();
+    })
+    .catch((error) =>{
+  
+    })
+  }else if(this.dataMostrarMotivoRezchazo[0]?.value && this.dataMostrarMotivoRezchazo[2]?.value){
+
+    if(this.firstFormGroup.invalid && this.fourthFormGroup.get('doc').hasError('required')){
+      this.toastr.warning('no se puede actualizar, revise todos lo campos', 'Error', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
+      return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      })
+    }
+    let enviar = {
+      
+      documento: this.documentoPDF,
+      mostrarRegistroAsilo: false,
+      rechazar: true,
+      confirmacion: true,
+      aprobado: false,
+      cuentaVerificada:false,
+      nomostrarImagen: false,
+      correcciones: false,
+      ...this.firstFormGroup.getRawValue()
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.toastr.success("imagen actualizada correctamente", 'Imagen',{
+        closeButton: true,
+        progressAnimation: 'increasing',
+        progressBar: true
+      })
+      // this.cargtarinfo();
+      this.getDataFirebase();
+    })
+    .catch((error) =>{
+  
+    })
+  }
+  else if(this.dataMostrarMotivoRezchazo[1]?.value && this.dataMostrarMotivoRezchazo[2]?.value){
+    if(this.fourthFormGroup.invalid){
+      this.toastr.warning('no se puede actualizar, ya que no ha elegido una foto y un documento', 'Error', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
+      return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      })
+    }
+    let enviar = {
+      foto: this.urlFotofirebase,
+      documento: this.documentoPDF,
+      mostrarRegistroAsilo: false,
+      rechazar: true,
+      confirmacion: true,
+      aprobado: false,
+      cuentaVerificada:false,
+      nomostrarImagen: false,
+      correcciones: false,
+      ...this.firstFormGroup.getRawValue()
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.toastr.success("imagen actualizada correctamente", 'Imagen',{
+        closeButton: true,
+        progressAnimation: 'increasing',
+        progressBar: true
+      })
+      // this.cargtarinfo();
+      this.getDataFirebase();
+    })
+    .catch((error) =>{
+  
+    })
+    
+  }else if(this.dataMostrarMotivoRezchazo[1]?.value){
+    if(this.fourthFormGroup.get('img').hasError('required')){
+      this.toastr.warning('no se puede actualizar, ya que no ha elegido una imagen', 'Error', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
+      return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      })
+    }
+    let enviar = {
+      foto: this.urlFotofirebase,
+      
+      mostrarRegistroAsilo: false,
+      rechazar: true,
+      confirmacion: true,
+      aprobado: false,
+      cuentaVerificada:false,
+      nomostrarImagen: false,
+      correcciones: false,
+      ...this.firstFormGroup.getRawValue()
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.toastr.success("imagen actualizada correctamente", 'Imagen',{
+        closeButton: true,
+        progressAnimation: 'increasing',
+        progressBar: true
+      })
+      // this.cargtarinfo();
+      this.getDataFirebase();
+    })
+    .catch((error) =>{
+  
+    })
+
+  }else if(this.dataMostrarMotivoRezchazo[2]?.value){
+    if(this.fourthFormGroup.get('doc').hasError('required')){
+      this.toastr.warning('no se puede actualizar, ya que no ha elegido una documento', 'Error', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+      })
+      return Object.values( this.thirdFormGroup.controls ).forEach((validators) =>{
+        validators.markAllAsTouched()
+      })
+    }
+    let enviar = {
+      
+      documento: this.documentoPDF,
+      mostrarRegistroAsilo: false,
+      rechazar: true,
+      confirmacion: true,
+      aprobado: false,
+      cuentaVerificada:false,
+      nomostrarImagen: false,
+      correcciones: false,
+      ...this.firstFormGroup.getRawValue()
+    }
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      this.toastr.success("imagen actualizada correctamente", 'Imagen',{
+        closeButton: true,
+        progressAnimation: 'increasing',
+        progressBar: true
+      })
+      // this.cargtarinfo();
+      this.getDataFirebase();
+    })
+    .catch((error) =>{
+  
+    })
+
+  }
+
 }
 
 crearFormulario(){
@@ -1400,7 +1593,7 @@ getDataFirebase(){
     if(respData.docs.length > 0){
       for(let f of respData.docs){
         // this.data = f.data();
-        // this.mostrarFormulario = f.data().mostrarRegistroAsilo;
+        this.mostrarFormulario = f.data().mostrarRegistroAsilo;
         this.confirmar = f.data()?.confirmacion;
         this.rechazar = f.data().rechazar;
         this.aprobado = f.data().aprobado;
@@ -1408,8 +1601,9 @@ getDataFirebase(){
         this.cuentaVerificada=f.data().cuentaVerificada;
         this.idDoc = f.id;
         this.mensaje = f.data().mensaje;
-        this.mostrarFormulario = f.data().mostrarFormulario;
+        // this.mostrarFormulario = f.data().mostrarFormulario;
         this.noMostrarImg= f.data().nomostrarImagen;
+        // if(f.data().motivoRechazo[0].)
       }
       
     }
@@ -1538,29 +1732,41 @@ actualizar(evento: any){
   
   
   
+  // if(!this.mostrarButtonSiguiente){
+
+    if(this.firstFormGroup.invalid){
+      return Object.values( this.firstFormGroup.controls ).forEach(validator =>{
+        validator.markAllAsTouched();
+      });
+    }
+    let enviar = {
+      ...this.firstFormGroup.getRawValue(),
+      mostrarRegistroAsilo: false,
+      rechazar: true,
+      confirmacion: true,
+      aprobado: false,
+      cuentaVerificada:false,
+      nomostrarImagen: false,
+      correcciones: false,
+    }
   
-
-  if(this.firstFormGroup.invalid){
-    return Object.values( this.firstFormGroup.controls ).forEach(validator =>{
-      validator.markAllAsTouched();
-    });
-  }
-
-  this._post.updatePost(this.firstFormGroup.getRawValue(), this.idDoc)
-  .then((resp) =>{
-    
-    this.toastr.success('datos actualizados', 'Actualizados', {
-      progressAnimation: 'decreasing',
-      progressBar: true,
-      closeButton: true,
+    this._post.updatePost(enviar, this.idDoc)
+    .then((resp) =>{
+      
+      this.toastr.success('datos actualizados', 'Actualizados', {
+        progressAnimation: 'decreasing',
+        progressBar: true,
+        closeButton: true,
+      })
+      this.getDataFirebase();
     })
-    this.cargarinfo();
-  })
-  .catch((error) =>{
+    .catch((error) =>{
+      
+      
+    })
     
-    
-  })
-  
+  // }
+
 } 
 
 actualizarHorarios(){
@@ -1957,7 +2163,14 @@ transporte(evento: any){
 
 cambioStep(stepper: any){
   
-  if((stepper.steps.length - 1) === 4){
+  if(stepper.steps.length - 1 !== 0){
+    this.mostrarButtonSiguiente = true;
+  }else{
+    
+    this.mostrarButtonSiguiente = false;
+  }
+  
+  /* if((stepper.steps.length - 1) === 4){
     this._post.getPostByUid(this.uid)
     .subscribe((resp: any) =>{
       
@@ -1974,7 +2187,7 @@ cambioStep(stepper: any){
         
       }
     })
-  }
+  } */
   
 }
 
@@ -2061,6 +2274,11 @@ get errorDoc(){
   return this.fourthFormGroup.get('doc').hasError('required') && (this.fourthFormGroup.get('doc').touched || this.fourthFormGroup.get('doc').dirty);
 }
 siguientePestania(){
+  if(this.firstFormGroup.invalid){
+    return Object.values( this.firstFormGroup.controls ).forEach(validator =>{
+      validator.markAllAsTouched();
+    });
+  }
 
 }
 

@@ -319,7 +319,7 @@ export class ProformaComponent implements OnInit {
       let index = this.servicioAdiAux.findIndex((v, index) => v.name == evento.source.value);
       this.servicioAdiAux.splice(index, 1);
     }
-
+    this.sumaTotalServAdicionales = 0;
     for(let i=0; i<this.servicioAdiAux.length; i++){
       this.sumaTotalServAdicionales += this.servicioAdiAux[i].value;
     }
@@ -480,7 +480,10 @@ export class ProformaComponent implements OnInit {
   }
 
   async descargar(){
-
+    console.log(this.servicioMedAux);
+    console.log(this.servicioAdiAux);
+    // return;
+    
     PdfMakeWrapper.setFonts(pdfFonts);
     const pdf = new PdfMakeWrapper();
     pdf.info({
@@ -488,7 +491,7 @@ export class ProformaComponent implements OnInit {
     });
     pdf.add(new  Txt('\n').end);
     
-    pdf.add((await new Img('../../../assets/img/logo.png').relativePosition(350, 35).height('40').width('40').build()));
+    pdf.add((await new Img('../../../assets/img/logo.png').relativePosition(350, 60).height('40').width('40').build()));
 
     pdf.add(new Table([
       [
@@ -497,7 +500,7 @@ export class ProformaComponent implements OnInit {
         },
         ''
       ]
-    ]).layout('noBorders').alignment('center').fontSize(10).widths(['50%', '50%']).end);
+    ]).layout('noBorders').alignment('center').fontSize(10).widths(['50%', '50%']).margin([15,25,100,-35]).end);
     pdf.add(new  Txt('\n\n\n\n\n\n\n').end);
 
     pdf.add( new Table([
@@ -658,7 +661,7 @@ export class ProformaComponent implements OnInit {
             text: `${ this.servicioAdiAux[i].name }`, 
           },
           {
-            text: `$ ${this.servicioMedAux[i].value} `,
+            text: `$ ${this.servicioAdiAux[i].value} `,
           }
         ]
       ]).layout('noBorders').widths(['70%', '30%']).end);
@@ -721,8 +724,19 @@ export class ProformaComponent implements OnInit {
 
   reset(stepper: any){
     stepper.reset();
+    this.ubicacionObj = {};
+    this.amobladoObj = {};
+    this.cuidadoCogObj = {};
+    this.numhijosObj = 0;
+    this.tipoHabitacionObj = {};
+    this.cuidadoFisicoObj = {};
+    this.sumaTotalServAdicionales = 0;
+    this.sumaTotalServMedicos = 0;
+    this.dataSource.data = [{name: 'Servicios Medicos'}];
+    this.dataSourceAdi.data = [{name:"Servicios adicionales"}]
     this.servicioMedAux = [];
     this.servicioAdiAux = [];
+    // this.servicioAdiAux.push([]);
 
   }
 

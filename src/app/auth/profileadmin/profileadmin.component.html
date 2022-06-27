@@ -123,7 +123,12 @@
           <div class="row" style=" width: 75%;">
               <div class="col">
                   <span class="form-label">Nombre:</span>
-                  <input class="form-control" type="text" [(ngModel)]="nombre" (ngModelChange)="cambioNombre($event)" [value]="dataUser.displayName != null ? dataUser.displayName: ''">
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="pi pi-user"></i>
+                    </span>
+                    <input class="form-control" type="text" [(ngModel)]="nombre" (ngModelChange)="cambioNombre($event)" [value]="dataUser.displayName != null ? dataUser.displayName: ''">
+                  </div>
               </div>
               <div class="row profile__error" *ngIf="nombre == ''">
                 <span class="profileadmin__errornombre">El campo NOMBRE es obligatorio</span>
@@ -131,8 +136,15 @@
           </div>
           <div class="row" style="width: 75%">
               <div class="col">
+
                   <span class="form-label">Teléfono:</span>
-                  <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="pi pi-phone"></i>
+                    </span>
+                    <input type="text" class="form-control" [(ngModel)]="telefono" (ngModelChange)="cambioTelefono($event)" [value]="data.phone != null ? data.phone: ''">
+                  </div>
+
               </div>
               <div class="row profile__error" *ngIf="telefono == ''">
                 <span class="profileadmin__errornombre">El campo TELÉFONO es obligatorio</span>
@@ -140,8 +152,15 @@
             </div>
             <div class="row" style="width: 75%">
               <div class="col">
+
                 <span class="form-label">Dirección:</span>
-                <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="pi pi-map"></i>
+                  </span>
+                  <input type="text" class="form-control" [(ngModel)]="direccion" (ngModelChange)="cambioDireccion($event)" [value]="data.direccion != null ? data.direccion: ''">
+                </div>
+
                 
               </div>
               <div class="row profile__error" *ngIf="direccion == ''">
@@ -151,7 +170,12 @@
             <div class="row" style="width: 75%">
               <div class="col">
                 <span class="form-label">Correo:</span>
-                <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="pi pi-envelope"></i>
+                  </span>
+                  <input type="text" class="form-control" [(ngModel)]="correo" (ngModelChange)="cambioCorreo($event)" [value]="dataUser.email != null ? dataUser.email: ''">
+                </div>
               </div>
               <div class="row profile__error" *ngIf="correo == ''">
                 <span class="profileadmin__errornombre">El campo CORREO es obligatorio</span>
@@ -160,8 +184,22 @@
           </div>
           <div class="row" style="width: 75%">
             <div class="col">
+
               <span class="form-label">Contraseña:</span>
-              <input type="password" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="pi pi-lock"></i>
+                </span>
+                <input [type]="verpass ? 'password': 'text'" name="pass" class="form-control"  [(ngModel)]="passw" (ngModelChange)="cambioPass($event)"  placeholder="•••••••••••••••">
+                <!-- <input [type]="verpass ? 'password': 'text'" class="form-control" formControlName="password"> -->
+                <span *ngIf="verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                    <i class="pi pi-eye"></i>
+                </span>
+                <span *ngIf="!verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                    <i class="pi pi-eye-slash"></i>
+                </span>
+              </div>
+
               
             </div>
           </div>

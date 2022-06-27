@@ -119,7 +119,7 @@
         <h4 style="line-height: 51px;">Gestión de la información del asilo</h4>
       </div>
       <div class="col mt-5">
-        <mat-stepper labelPosition="bottom" #stepper linear>
+        <mat-stepper labelPosition="bottom" #stepper linear (selectionChange)="cambioStep($event)">
           <mat-step [stepControl]="misionGroup" *ngIf="aprobado">
             <form [formGroup]="misionGroup" class="container" >
               <ng-template matStepLabel>Misión y vision</ng-template>
@@ -214,8 +214,8 @@
                 </div>
               </div>
               <div class="d-flex justify-content-center">
-                <!-- <button mat-button (click)="siguientePestania()" matStepperNext type="button" class="btn btn-primary">Siguiente</button> -->
-                <button mat-raised-button color="primary" (click)="actualizar($event)">Actualizar</button>
+                <button mat-button *ngIf="dataMostrarMotivoRezchazo.length > 0 && (dataMostrarMotivoRezchazo[1]?.value || dataMostrarMotivoRezchazo[2]?.value)" (click)="siguientePestania()" matStepperNext type="button" class="btn btn-primary">Siguiente</button>
+                <button mat-raised-button *ngIf="dataMostrarMotivoRezchazo.length > 0 && ((!dataMostrarMotivoRezchazo[1]?.value && !dataMostrarMotivoRezchazo[2]?.value))"  color="primary" (click)="actualizar($event)">Actualizar</button>
               </div>
             </form>
           </mat-step>
@@ -520,7 +520,7 @@
               
               <p-messages severity="info" [(value)]="mensajes"></p-messages>
   
-              <div class="mb-3">
+              <div class="mb-3" *ngIf="dataMostrarMotivoRezchazo[1]?.value">
                 <h3></h3>
                 <label class="form-label">Imagen del asilo 
                   <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Debe seleccionar una foto del establecimiento, una vez seleccione se subira la imagen. " triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
@@ -539,7 +539,7 @@
                   </span>
                 </div>
               </div>
-              <div class="mb-3">
+              <div class="mb-3" *ngIf="dataMostrarMotivoRezchazo[2]?.value">
                 <label class="form-label">Documento
                   <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Suba el documento otorgado por el sri para su funcionamiento en pdf, una vez seleccionado el documento se subira automaticamente." triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                     <path
