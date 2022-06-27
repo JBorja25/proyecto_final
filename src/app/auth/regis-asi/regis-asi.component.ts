@@ -33,6 +33,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   fourthFormGroup: FormGroup;
   misionGroup: FormGroup;
   comprobarVacio: boolean =false;
+  imagen: string= '';
 /**swrvicios adicionales*/
 serviciosMedicos: any = [
   {
@@ -248,7 +249,8 @@ serviciosAdicionales: any[] = [
   async ngOnInit() {
     this._auth.insertName()
     .subscribe((resp) =>{
-      this.nombre = resp.displayName
+      this.nombre = resp.displayName;
+      this.imagen = resp.photoURL;
     })
     
     this.getDataFirebase(); 
