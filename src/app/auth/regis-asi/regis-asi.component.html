@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container" width="700" height="100vh" style="height: 100vh;" autosize >
+<mat-drawer-container class="example-container" width="700" height="100vh" style="height: 100vh;" autosize *ngIf="!rechazar" >
   <mat-drawer #drawer class="example-sidenav" mode="side" opened>
 
     <!--button (click)="showFiller = !showFiller" mat-raised-button>
@@ -138,6 +138,11 @@
                       <div class="row" *ngIf="errorNombre">
                         <span class="text-danger">
                           El nombre es un campo obligatorio
+                        </span>
+                      </div>
+                      <div class="row" *ngIf="errorNamePattern">
+                        <span class="text-danger">
+                          Solo puede ingresar letras, no numeros
                         </span>
                       </div>
                     </div>
@@ -562,16 +567,19 @@
       <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)">
       </app-regisall>
     </div> -->
+    <div class="d-flex justify-content-center align-items-center border">
 
-    <div *ngIf="aprobado">
-      <img src="/assets/img/aprobado.png" width="350" alt="pendiente" class="img-card-top"/>
-      <p>
-        su cuenta ha sido aprobada y verificada
-      </p>
-      <p>
-        visualice su informacion dando click <a class="btn btn-info" routerLink="/asilo/info">aqui</a>
-      </p>
+      <div *ngIf="aprobado">
+        <img src="/assets/img/aprobado.png" width="350" alt="pendiente" class="img-card-top"/>
+        <p>
+          su cuenta ha sido aprobada y verificada
+        </p>
+        <p>
+          visualice su informacion dando click <a class="btn btn-info" routerLink="/asilo/info">aqui</a>
+        </p>
+      </div>
     </div>
+
 
     <!-- <div *ngIf=" !mostrarFormulario">
       <div class="row">

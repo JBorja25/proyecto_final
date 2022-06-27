@@ -214,7 +214,14 @@
                       <span class="input-group-text">
                         <i class="pi pi-lock"></i>
                       </span>
-                      <input type="password" name="pass" class="form-control"  formControlName="passw"  placeholder="•••••••••••••••">
+                      <input [type]="verpass ? 'password': 'text'" name="pass" class="form-control"  formControlName="passw"  placeholder="•••••••••••••••">
+                      <!-- <input [type]="verpass ? 'password': 'text'" class="form-control" formControlName="password"> -->
+                      <span *ngIf="verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                          <i class="pi pi-eye"></i>
+                      </span>
+                      <span *ngIf="!verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                          <i class="pi pi-eye-slash"></i>
+                      </span>
                     </div>
                   </div>
                   <div class="row" *ngIf="errorPassw">

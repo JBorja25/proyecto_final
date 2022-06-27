@@ -50,8 +50,8 @@ export class ShowComponent implements OnInit, AfterViewInit {
     ) { }
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
-    this.cargarAsilosAprobados();
     this.getAsilosPendientes();
+    this.cargarAsilosAprobados();
     
   }
 
@@ -88,8 +88,13 @@ export class ShowComponent implements OnInit, AfterViewInit {
       this.postPendientes = [];
       for (let f of resp.docs) {
         
+        
+        if(!f.data().aprobado){
+          console.log(f.data());
 
+        }
         if(!f.data().aprobado && (f.data().confirmacion)){
+          
           let enviar = {
             name: f.data().name, address: f.data().address, email: f.data().email, fono: f.data().fono,
             foto: f.data().foto,
@@ -164,7 +169,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
         height: 'auto',
         closeOnNavigation:false,
         disableClose: true,
-        data: post.idDoc
+        data: post.idDoc  
       });
 
       dialog.afterClosed()

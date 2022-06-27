@@ -242,6 +242,7 @@ serviciosAdicionales: any[] = [
     });
     this.uuid = this._cookie.get('uid');
     this.registroAnterior = 'prueba de envio';
+    this.crearFormulario();
   }
 
   async ngOnInit() {
@@ -249,7 +250,6 @@ serviciosAdicionales: any[] = [
     .subscribe((resp) =>{
       this.nombre = resp.displayName
     })
-    this.crearFormulario();
     
     this.getDataFirebase(); 
     this.cargarinfo();
@@ -302,15 +302,17 @@ serviciosAdicionales: any[] = [
         validator.markAsTouched();
       })
     }
-    if(this.validaCedula(this.firstFormGroup.get('cedula').value)){
-      this._toast.error('La cédula no es valida ya que no es un formato correcto', 'Error en cedula', {
-        closeButton: true,
-        easeTime: 700,
-        easing: 'ease',
-        progressAnimation: 'increasing',
-        progressBar: true,
-        
-      });
+    if(this.firstFormGroup.get('cedula').value.length < 11){
+      if(this.validaCedula(this.firstFormGroup.get('cedula').value)){
+        this._toast.error('La cédula no es valida ya que no es un formato correcto', 'Error en cedula', {
+          closeButton: true,
+          easeTime: 700,
+          easing: 'ease',
+          progressAnimation: 'increasing',
+          progressBar: true,
+          
+        });
+      }
     }
 
   }
@@ -513,7 +515,7 @@ serviciosAdicionales: any[] = [
 
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]{2,254}')]],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
@@ -951,5 +953,10 @@ serviciosAdicionales: any[] = [
   }
   get errorDoc(){
     return this.fourthFormGroup.get('doc').hasError('required') && (this.fourthFormGroup.get('doc').touched || this.fourthFormGroup.get('doc').dirty);
+  }
+
+  get errorNamePattern(){
+    return this.firstFormGroup.get('name').hasError('pattern') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
+    
   }
 }

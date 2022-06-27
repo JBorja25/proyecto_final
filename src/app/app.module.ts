@@ -19,7 +19,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { SwiperModule } from 'swiper/angular';
+// import { SwiperModule } from 'swiper/angular';
 
 
 
@@ -98,6 +98,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
 import { MessagesModule } from 'primeng/messages';
+import { SwiperModule } from 'swiper/angular';
 
 
 
@@ -141,6 +142,7 @@ import { MessagesModule } from 'primeng/messages';
     AppRoutingModule,
     NgbModule,
     MatExpansionModule,
+    SwiperModule,
     SwiperModule,
     MatTreeModule,
     AngularFireAuthModule,

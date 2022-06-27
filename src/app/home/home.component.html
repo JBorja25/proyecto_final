@@ -1,6 +1,256 @@
 <app-navbar></app-navbar>
+<div class="container mt-5">
+  <div class="row ">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="col-md-5">
+          <span class="home__warning">Bienvenido a nuestro sitio</span>
+          <span class="home__title">Casa Esperanza</span>
+          <p class="home__subtitle">Casa Esperanza permite visualizar todo tipo de asilo registrado y asi como una información detallado de los servicios que presta cada uno de los asilos</p>
+          <div class="row">
+            <button class="btn btn-primary home__button">Quienes Somos</button>
+          </div>
+      </div>
+      
+      <div class="col-md-7">
+        <!-- <img class="home__img" src="assets/img/1.jpg" alt="fondo" /> -->
+        <div style="width: '100%'">
+          <p-carousel class=" text-center" [value]="fotos" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3000"
+          [showIndicators]="true" >
+            <ng-template let-fotos pTemplate="item" class="text-center">
+              <img class="text-center" [src]="fotos.path != '' ? fotos.path : '/assets/img/no-photo.png'" [alt]="fotos.alt" width="450" height="350">
+            <!-- <div class="card text-center mt-2 mb-2 ms-2"
+              style="box-shadow: 0 0 10px 0 gray; border-radius: 15px; width: 300px; height: auto;">
+              <div class="card-body">
+                <h2 class="card-subtitle">{{asilos.name}}</h2>
+                <p class="card-text">Direccion: {{ asilos.address }}</p>
+                <p class="text-muted"><a style="cursor: pointer;" class="stretched-link"
+                    (click)="abrirDialog(asilos.uid)">Ver más...</a></p>
+              </div>
+            </div> -->
+            </ng-template>
+          </p-carousel>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
-<style>
+  <div class="container mt-5 position-relative d-flex justify-content-center align-items-center ">
+
+      <div class="home__back d-flex justify-content-center align-items-center " id="somos">
+        <div class="row">
+          <div class="col text-center" >
+            <h5><b>¿Quienes Somos?</b></h5>
+            <div class="row">
+              <div class="col">
+              <p class="lead">
+                - Casa Esperanza te brinda un servicio de informacion de los diferentes asilos que hay en Quito,
+                como tambien dar a conocer sobre los servicios, y detallar los beneficios de un asilo. <br />
+                - Casa Esperanza tambien te da la opcion realizar una proforma para estima el costo aproximado de
+                una asilo
+
+
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    <!-- div para la seccion de afiliarse -->
+    <div class="d-flex justify-content-center align-items-center margin__top__10 home__border_afiliarse">
+      <div class="col">
+        <span class="text-primary text-start fontSize home__title_afiliarse"><b>Afiliarse</b></span>
+      </div>
+    </div>
+    <div class="row home__card mb-5">
+      <div class="row p-5">
+        <div class="col-md-4 p-text-center">
+          <img src='assets/img/valor.png' class='bd-placeholder-img ' width="200" height="200" alt="valor"/>
+        </div>
+        <div class="col">
+          <div class="row">
+            <span class="fontSize__subtitle mt-2">Quieres dar a conocer tu asilo! </span>
+          </div>
+          <div class="row">
+            <div class="col mt-3">
+              <span >Te encuentras en el lugar indicado ya que este es un sitio web que permite afiliarse y permite registrar toda la información sobre el asilo que administra. De esta manera se podria llegar de manera organica a más personas y dar a conocer su asilo.</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mt-3">
+              <span>Pues que esperas da click en el botón que se muestra a continuacion.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mb-5">
+        <Button class="btn btn-outline-primary"  routerLink="/register">Afiliarse</Button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center home__border_asilos__registrados margin__top__10">
+      <span class="text-primary text-center fontSize home__title_afiliarse"><b>Asilos registrados</b></span>
+      
+      
+    </div>
+    <div class="row" *ngIf="posts.length == 0">
+      <div class="col text-center">
+        No existen por el momento asilos registrados, Muchas gracias por la comprension, puede seguir revisando nuestro sitio web y volver en otro instante a revisar.
+      </div>
+    </div>
+      <div class="row mb-5" *ngIf="posts.length > 0">
+        <p-carousel [value]="posts" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000"
+        [showIndicators]="true">
+          <ng-template let-asilos pTemplate="item">
+            <div class="card text-center mt-2 mb-2 ms-2"
+              style="box-shadow: 0 0 10px 0 gray; border-radius: 15px; width: 300px; height: auto;">
+              <div class="card-body">
+                <img [src]="asilos.foto != '' ? asilos.foto : '/assets/img/no-photo.png'" [alt]="asilos.name"
+                  class="img-card-top" width="150" height="150">
+                <h2 class="card-subtitle">{{asilos.name}}</h2>
+                <p class="card-text">Direccion: {{ asilos.address }}</p>
+                <p class="text-muted"><a style="cursor: pointer;" class="stretched-link"
+                    (click)="abrirDialog(asilos.uid)">Ver más...</a></p>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+        <div class="d-flex justify-content-end">
+          <div class="text-end me-2">
+            <a style="cursor: pointer;" routerLink="/allasilos">Ver todos los asilos <i class="pi pi-angle-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+    <div class="d-flex justify-content-center align-items-center home__border_asilos__registrados margin__top__10">
+      <span class="text-primary text-center fontSize home__title_afiliarse"><b>Proforma</b></span>
+    </div>
+    <div class="home__card p-5">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col mt-3">
+              <span class="fontSize__subtitle mt-2">Calcula tu propio costo aproximado de un asilo</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span class="mt-2">Nuestras proformas tienen la opcion de calcular costos en base a servicios generales y principales brindados por los asilos.</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span>Pues que esperas da click en el botón que se muestra a continuacion, para conocer el costo accesible.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src='assets/img/valor.png' class='bd-placeholder-img ' width="200" height="200" alt="valor"/>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <Button class="btn btn-outline-primary"  routerLink="/p/cover">Ir a Proforma</Button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center home__border_asilos__caracteristicas margin__top__10">
+      <span class="text-primary text-start fontSize home__title_afiliarse"><b>Carácteristicas de casa esperanza</b></span>
+    </div>
+    <div class="mb-5 home__subir__caracteristicas">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="home__card__caracteristicas text-center h__100 d-flex justify-content-center align-items-center p-3">
+            <p>- Impartir informacion de diferentes asilos a la comunidad</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="home__card__caracteristicas text-center h__100 d-flex justify-content-center align-items-center p-3">
+            <p>- Dar a conocer sobre los servicios y beneficios de un asilo</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="home__card__caracteristicas text-center h__100 d-flex justify-content-center align-items-center p-3">
+            <p>- Dar a conocer sobre los servicios y beneficios de un asilo</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="home__card__caracteristicas text-center h__100 d-flex justify-content-center align-items-center p-3">
+            <p>- Brindar informacion personal y detallada de cada uno de los asilos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="home__footer text-center">
+  <div class="row pt-5 mt-3 mb-4 pb-3">
+
+    <div class="d-flex justify-content-center align-items-center " style="height: 50px">
+      <h4 class="fontSize text-white "><b>Contactos</b></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h4 class=" text-white"><b>Correo</b></h4>
+      <div class="row">
+        <div class="col">
+          <a href="mailto:jose.borja@epn.edu.ec" class="block">jose.borja@epn.edu.ec</a>
+          <a href="mailto:jose.borja_@hotmail.com" class="block">jose.borja_@hotmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <h4 class=" text-white"><b>Redes Sociales</b></h4>
+          <div class="row">
+            <div class="col">
+              <span>Facebook</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span>
+                Instagram
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span>
+                Twitter
+              </span>
+            </div>
+          </div>
+    </div>
+    <div class="col">
+      <h4 class="mt-3 text-white"><b>Sugerencias</b></h4>
+        <div class="d-flex justify-content-center">
+          <form>
+            <div class="form-group">
+              <label>Correo</label>
+              <Input class="form-control" placeholder="correo"  type="email" />
+
+            </div>
+            <div class="form-group">
+              <label>Mensaje</label>
+              <Textarea minRows="6" class="form-control" placeholder="Escriba una sugerencia"  type="email" ></Textarea>
+              
+
+            </div>
+            <!-- <FormControl sx={{ m: 1 }} variant="filled" class="home__input__sugerencia rounded"> -->
+            <!-- </FormControl> -->
+          
+            <!-- <FormControl sx={{ m: 1 }} variant="filled" class="home__input__sugerencia  rounded"> -->
+            <!-- </FormControl> -->
+          </form>
+        </div>
+    </div>
+  </div>
+  <!-- <div class="d-flex justify-content-center align-items-center"> -->
+    
+  <!-- </div> -->
+</div>
+
+<!-- <style>
   .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -14,16 +264,16 @@
       font-size: 3.5rem;
     }
   }
-</style>
+</style> -->
 
 
 <!-- Custom styles for this template -->
 
 
-<body>
+<!-- <body> -->
 
 
-  <main style="background-color:rgb(235, 235, 235);">
+  <!-- <main style="background-color:rgb(235, 235, 235);"> -->
 
 
     <!-- Carousel >
@@ -59,7 +309,7 @@
 </div-->
 
 
-    <div class="contenedor">
+    <!-- <div class="contenedor">
       <div class="row">
 
         <img src="assets/img/fondo.png" width="700px" height="500px">
@@ -78,18 +328,18 @@
           </p>
 
 
-        </div>
+        </div> -->
         <!-- /col-lg-8 -->
-      </div>
+      <!-- </div> -->
       <!-- /row -->
-    </div>
+    <!-- </div> -->
     <!-- /container -->
 
     <!-- Marketing messaging and featurettes
   ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container marketing">
+    <!-- <div class="container marketing">
 
       <br>
       <div class="col-md-12 container">
@@ -124,10 +374,10 @@
 
 
         </div>
-      </div>
+      </div> -->
 
       <!------------------------------------------------------------------------------------------>
-      <br>
+      <!-- <br>
       <div class="col-md-12 container">
 
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-200 position-relative">
@@ -152,15 +402,16 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
 
 
       <!-------------------------------------------------------------------------------->
 
 
-    </div><!-- /.container -->
+    <!-- </div> -->
+    <!-- /.container -->
 
-    <div class="container">
+    <!-- <div class="container">
       <div class="row mt-4">
         <div class="col-1 col-md-1"></div>
         <div class="col ms-2 text-start">
@@ -172,27 +423,12 @@
         <div class="col-1 col-md-1"></div>
       </div>
       <div class="row">
-        <p-carousel [value]="posts" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000"
-          [showIndicators]="true">
-          <ng-template let-asilos pTemplate="item">
-            <div class="card text-center mt-2 mb-2 ms-2"
-              style="box-shadow: 0 0 10px 0 gray; border-radius: 15px; width: 300px; height: auto;">
-              <div class="card-body">
-                <img [src]="asilos.foto != '' ? asilos.foto : '/assets/img/no-photo.png'" [alt]="asilos.name"
-                  class="img-card-top" width="150" height="150">
-                <h2 class="card-subtitle">{{asilos.name}}</h2>
-                <p class="card-text">Direccion: {{ asilos.address }}</p>
-                <p class="text-muted"><a style="cursor: pointer;" class="stretched-link"
-                    (click)="abrirDialog(asilos.uid)">Ver más...</a></p>
-              </div>
-            </div>
-          </ng-template>
-        </p-carousel>
+        
 
       </div>
-    </div>
+    </div> -->
     <!------------------------------------------------------------------------------------------>
-    <br>
+    <!-- <br>
     <div class="col-md-12 container">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
@@ -216,14 +452,14 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
     <!------------------------------------------------------------------------------------------>
-    <br>
-    <div class="col-md-12 container">
+    <!-- <br> -->
+    <!-- <div class="col-md-12 container">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-200 position-relative">
 
 
-        <div class="col-auto d-none d-lg-block col p-4">
+        <div class="col-auto d-none d-lg-block col p-4"> -->
           <!--br>
       <strong class="d-inline-block mb-4 text-primary">Caracteristicas de Casa Esperanza</strong>
       <h3 class="mb-0">Casa Esperanza  </h3>
@@ -235,7 +471,7 @@
         - Brindar informacion personal y detallada de cada uno de los asilos 
         </p -->
 
-          <section id="services" class="services section-bg">
+          <!-- <section id="services" class="services section-bg">
             <div class="container" data-aos="fade-up">
 
               <div class="section-title">
@@ -278,20 +514,21 @@
 
               </div>
 
-            </div>
-          </section><!-- End Services Section -->
-        </div>
+            </div> -->
+          <!-- </section> -->
+          <!-- End Services Section -->
+        <!-- </div>
 
       </div>
-    </div>
+    </div> -->
 
     <!------------------------------------------------------------------------------------>
     <!-------------------------------------------------------------------------------->
 
     <!-------------------------------------------------------------------------------->
-    <hr>
+    <!-- <hr> -->
     <!-- FOOTER -->
-    <div id="footer">
+    <!-- <div id="footer">
       <div class="container">
 
         <h4 align="center">CONTACTOS</h4>
@@ -303,26 +540,26 @@
               jose.borja@epn.edu.ec <br>
               jose.borja_@hotmail.com
             </p>
-          </div>
+          </div> -->
           <!-- /col-lg-4 -->
 
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <h4>Siguenos en</h4>
             <p>
               <a href="#">Instagram</a><br />
               <a href="#">Twitter</a><br />
               <a href="#">Facebook</a>
             </p>
-          </div>
+          </div> -->
           <!-- /col-lg-4 -->
 
 
           <!-- /col-lg-4 -->
-        </div>
+        <!-- </div>
       </div>
     </div>
 
-  </main>
+  </main> -->
 
 
   <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js"
@@ -330,4 +567,4 @@
     crossorigin="anonymous"></script>
 
 
-</body>
+<!-- </body> -->

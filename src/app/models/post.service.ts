@@ -31,6 +31,10 @@ export class PostService {
     return this.angularFirestore.collection('post', ref => ref.where('uid', '==', uid)).get();
   }
   getPostId(){
+    return this.angularFirestore.collection("post")
+                .get();
+  }
+  getPostIdLimit(){
     return this.angularFirestore.collection("post", ref => ref.limit(10))
                 .get();
   }

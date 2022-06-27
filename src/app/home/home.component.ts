@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../models/post.service';
-import SwiperCore, { Swiper } from 'swiper';
+import SwiperCore, { A11y, Autoplay, EffectCube, Navigation, Pagination, Scrollbar, Swiper, SwiperOptions } from 'swiper';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogasilosComponent } from './dialogasilos/dialogasilos/dialogasilos.component';
 import { Router } from '@angular/router';
+// import SwiperCore from 'swiper';
+
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
+import 'swiper/scss/scrollbar';
+import 'swiper/scss/effect-cube';
+import 'swiper/scss/autoplay';
+
 
 @Component({
   selector: 'app-home',
@@ -11,6 +20,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  fotos: any[] = [
+    {
+      alt: '1',
+      path: '../../assets/img/1.jpg' 
+    },
+    {
+      alt: '2',
+      path: '../../assets/img/2.jpg' 
+    },
+    {
+      alt: '3',
+      path: '../../assets/img/3.jpg' 
+    },
+    {
+      alt: '3',
+      path: '../../assets/img/servicios1.jpg' 
+    }
+  ]
+  config: SwiperOptions  = {
+    slidesPerView: 3,
+    spaceBetween: 50,
+    navigation: true,
+    pagination: { clickable: true },
+    scrollbar: { draggable: true },
+    autoplay: {delay:2500},
+    fadeEffect: {crossFade: true },
+    modules: [Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectCube]
+  };
 
   posts: any[] = [];
   fecha = new Date().getFullYear();
@@ -26,8 +64,15 @@ export class HomeComponent implements OnInit {
     
   }
 
+  onSwiper(swiper: any) {
+    console.log(swiper);
+  }
+  onSlideChange() {
+    console.log('slide change');
+  }
+
   getPosts(){
-    this._post.getPostId()
+    this._post.getPostIdLimit()
     .subscribe((resp: any) =>{
       console.log(resp);
       this.posts = [];

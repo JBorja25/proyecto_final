@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProfileadminComponent implements OnInit {
 
   token: string = '';
-
+  verpass: boolean = false;
   data: any = {};
   dataUser: any = {};
   nombre: string = '';
@@ -81,6 +81,9 @@ export class ProfileadminComponent implements OnInit {
 
 
       });
+  }
+  verContrasenia(){
+    this.verpass = !this.verpass;
   }
 
 

@@ -61,10 +61,16 @@
                                         <span class="pi pi-lock"></span>
                                     </span>
                                     <input [type]="verpass ? 'password': 'text'" class="form-control" formControlName="password">
+                                    <span *ngIf="verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                                        <i class="pi pi-eye"></i>
+                                    </span>
+                                    <span *ngIf="!verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                                        <i class="pi pi-eye-slash"></i>
+                                    </span>
                                 </div>
 
                             </div>
-                            <div class="d-flex justify-content-end">
+                            <!-- <div class="d-flex justify-content-end">
 
                                 <div  style="display:flex; justify-content: center ;width: 9% ;margin-top: -31.4px;">
                                     <svg *ngIf="verpass" xmlns="http://www.w3.org/2000/svg" (click)="verContrasenia()"
@@ -79,7 +85,7 @@
                                     </svg>
                                     
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row" *ngIf="errorPassword">

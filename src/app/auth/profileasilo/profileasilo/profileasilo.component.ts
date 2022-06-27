@@ -17,7 +17,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ProfileasiloComponent implements OnInit {
 
   token: string = '';
-
+  verpass: boolean = false;
   data: any = {};
   dataUser: any = {};
   nombre: string = '';
@@ -75,6 +75,10 @@ export class ProfileasiloComponent implements OnInit {
         
       }
     });
+  }
+
+  verContrasenia(){
+    this.verpass = !this.verpass;
   }
 
 
