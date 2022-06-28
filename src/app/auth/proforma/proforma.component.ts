@@ -488,6 +488,11 @@ export class ProformaComponent implements OnInit {
     const pdf = new PdfMakeWrapper();
     pdf.info({
       title: 'Proforma'
+    
+    });
+    pdf.info({
+ 
+      title: 'Casa Esperanza'
     });
     pdf.add(new  Txt('\n').end);
     
