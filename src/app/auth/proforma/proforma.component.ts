@@ -64,6 +64,8 @@ export class ProformaComponent implements OnInit {
   FourthFormGroup: FormGroup;
 
   suma:number=0;
+
+  sumaTotalSteps: any = {};
                     
   serviciosMedicos: medicosServicios[] = [
     {
@@ -258,6 +260,11 @@ export class ProformaComponent implements OnInit {
     for(let i=0; i<this.servicioMedAux.length; i++){
       this.sumaTotalServMedicos += this.servicioMedAux[i].value;
     }
+
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      sumaServiciosMedicos: this.sumaTotalServMedicos
+    }
     
     /* this.serviciosMedicos.forEach((v, index) => {
       console.log(v, index)
@@ -333,6 +340,11 @@ export class ProformaComponent implements OnInit {
     ];
 
     this.dataSourceAdi.data= adicionales;
+
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      sumaAdicional: this.sumaTotalServAdicionales
+    }
 
     /* this.serviciosMedicos.forEach((v, index) => {
       console.log(v, index)
@@ -747,28 +759,55 @@ export class ProformaComponent implements OnInit {
 
   cambiarUbicacion(evento : any){
     console.log(evento);
+    console.log(this.sumaTotalSteps);
     
     this.ubicacionObj = this.ubicaciones.find((v, index) => (index === this.firstFormGroup.value.selectUbi) && v);
+
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      sumaUbicacion: this.ubicacionObj.value
+    }
   }
 
   cambiarHabitacion(){
     this.tipoHabitacionObj = this.tipoHabitacion.find((v, index) => index === this.firstFormGroup.value.habitaciones && v);
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      sumaHabitacion: this.tipoHabitacionObj.value
+    }
   }
   cambiarAmobalda(){
     this.amobladoObj = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      sumaAmoblado: this.amobladoObj.value
+    }
     
   }
   cambiarCuidado(){
     this.cuidadoFisicoObj = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
+
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      sumaCuidadoFisico: this.cuidadoFisicoObj.value
+    }
   }
 
   cambiarCongnitivo(){
     this.cuidadoCogObj = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni && v);
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      sumaCognitivo: this.cuidadoCogObj.value
+    }
   }
 
   sumaTotalHijos(){
-    this.suma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value +this.cuidadoFisicoObj.value + this.cuidadoCogObj.value + this.sumaTotalServMedicos + this.sumaTotalServAdicionales;
-    this.sumaseccionHijos = this.suma / parseInt(this.FourthFormGroup.get('hijos').value);
+    // this.suma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value +this.cuidadoFisicoObj.value + this.cuidadoCogObj.value + this.sumaTotalServMedicos + this.sumaTotalServAdicionales;
+    // this.sumaseccionHijos = this.suma / parseInt(this.FourthFormGroup.get('hijos').value);
+    this.sumaTotalSteps = {
+      ...this.sumaTotalSteps,
+      hijos: Number.parseInt(this.FourthFormGroup.get('hijos').value)
+    }
   }
 
 }

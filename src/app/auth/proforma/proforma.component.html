@@ -92,6 +92,23 @@
                                         <td>$ {{tipoHabitacionObj.value}}</td>
                                    </tr>
                               </tbody>
+                              <tfoot>
+                                   <tr>
+                                        <td class="text-end me-3 pe-2">
+                                             Total:
+                                        </td>
+                                        <td *ngIf="sumaTotalSteps?.sumaUbicacion && !sumaTotalSteps?.sumaHabitacion">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion }}
+                                        </td>
+                                        <td *ngIf="!sumaTotalSteps?.sumaUbicacion && sumaTotalSteps?.sumaHabitacion">
+                                             $ {{ sumaTotalSteps?.sumaHabitacion }}
+                                        </td>
+                                        <td *ngIf="sumaTotalSteps?.sumaUbicacion && sumaTotalSteps?.sumaHabitacion">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion }}
+                                        </td>
+                                        
+                                   </tr>
+                              </tfoot>
                          </table>
                          
                     </div>
@@ -159,10 +176,30 @@
                                         <td>$ {{amobladoObj.value}}</td>
                                    </tr>
                                    <tr>
-                                        <td>Cuidado físico - {{ cuidadoFisicoObj.tipo }}</td>
+                                        <td>Cuidado Fisico - {{ cuidadoFisicoObj.amoblado }}</td>
                                         <td>$ {{cuidadoFisicoObj.value}}</td>
                                    </tr>
+                                   
                               </tbody>
+                              <tfoot>
+                                   <tr>
+                                        <th class="text-end me-3 pe-2">
+                                             Total: 
+                                        </th>
+                                        <td *ngIf="sumaTotalSteps?.sumaAmoblado && !sumaTotalSteps?.sumaCuidadoFisico">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado }}
+                                        </td>
+                                        <td *ngIf="!sumaTotalSteps?.sumaAmoblado && sumaTotalSteps?.sumaCuidadoFisico">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaCuidadoFisico }}
+                                        </td>
+                                        <td *ngIf="sumaTotalSteps?.sumaAmoblado && sumaTotalSteps?.sumaCuidadoFisico">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps?.sumaCuidadoFisico }}
+                                        </td>
+                                        <td *ngIf="!sumaTotalSteps">
+                                             $ 0
+                                        </td>
+                                   </tr>
+                              </tfoot>
                          </table>
                          
                     </div>
@@ -266,6 +303,22 @@
                                         <td>$ {{cuidadoCogObj.value}}</td>
                                    </tr>
                               </tbody>
+                              <tfoot>
+                                   <tr>
+                                        <th class="text-end me-3 pe-2">
+                                             Total: 
+                                        </th>
+                                        <td *ngIf="sumaTotalSteps?.sumaServiciosMedicos && !sumaTotalSteps?.sumaCognitivo">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaServiciosMedicos }}
+                                        </td>
+                                        <td *ngIf="!sumaTotalSteps?.sumaServiciosMedicos && sumaTotalSteps?.sumaCognitivo">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaCognitivo }}
+                                        </td>
+                                        <td *ngIf="sumaTotalSteps?.sumaServiciosMedicos && sumaTotalSteps?.sumaCognitivo">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaServiciosMedicos + sumaTotalSteps.sumaCognitivo }}
+                                        </td>
+                                   </tr>
+                              </tfoot>
                          </table>
                          
                     </div>
@@ -376,6 +429,34 @@
                                         <td></td>
                                    </tr> -->
                               </tbody>
+                              <tfoot>
+                                   <tr>
+                                        <th class="text-end me-3 pe-2">
+                                             Total: 
+                                        </th>
+                                        <td *ngIf="sumaTotalSteps?.sumaAdicional && !sumaTotalSteps?.hijos">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps.sumaCognitivo + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaServiciosMedicos + sumaTotalSteps.sumaAdicional }}
+                                        </td>
+                                        <td *ngIf="!sumaTotalSteps?.sumaAdicional && sumaTotalSteps?.hijos">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps.sumaCognitivo + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaServiciosMedicos + sumaTotalSteps.sumaAdicional }}
+                                        </td>
+                                        <td *ngIf="sumaTotalSteps?.sumaAdicional && sumaTotalSteps?.hijos">
+                                             $ {{ sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps.sumaCognitivo + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaServiciosMedicos + sumaTotalSteps.sumaAdicional }}
+                                        </td>
+                                        
+                                   </tr>
+                                   <tr>
+                                        <th class="text-end me-3 pe-2">
+                                             Total por hijos
+                                        </th>
+                                        <td *ngIf="!sumaTotalSteps?.sumaAdicional && sumaTotalSteps?.hijos">
+                                             $ {{ (sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaCognitivo) / sumaTotalSteps.hijos }}
+                                        </td>
+                                        <td *ngIf="sumaTotalSteps?.sumaAdicional && sumaTotalSteps?.hijos">
+                                             $ {{ (sumaTotalSteps?.sumaUbicacion + sumaTotalSteps?.sumaHabitacion + sumaTotalSteps?.sumaAmoblado + sumaTotalSteps?.sumaCuidadoFisico + sumaTotalSteps.sumaServiciosMedicos + sumaTotalSteps.sumaCognitivo + sumaTotalSteps.sumaAdicional) / sumaTotalSteps.hijos }}
+                                        </td>
+                                   </tr>
+                              </tfoot>
                          </table>
                          
                     </div>
