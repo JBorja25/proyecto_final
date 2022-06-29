@@ -778,6 +778,8 @@ export class ProformaComponent implements OnInit {
   }
   cambiarAmobalda(){
     this.amobladoObj = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
+    console.log(this.amobladoObj);
+    
     this.sumaTotalSteps = {
       ...this.sumaTotalSteps,
       sumaAmoblado: this.amobladoObj.value
@@ -787,6 +789,8 @@ export class ProformaComponent implements OnInit {
   cambiarCuidado(){
     this.cuidadoFisicoObj = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
 
+    console.log(this.cuidadoFisicoObj);
+    
     this.sumaTotalSteps = {
       ...this.sumaTotalSteps,
       sumaCuidadoFisico: this.cuidadoFisicoObj.value
