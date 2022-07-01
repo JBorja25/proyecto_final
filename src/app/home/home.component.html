@@ -206,46 +206,71 @@
       <h4 class=" text-white"><b>Redes Sociales</b></h4>
           <div class="row">
             <div class="col">
-              <i class="pi pi-facebook"></i> <span>Facebook</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <span>
-                <i class="pi pi-instagram"></i> Instagram
+              <span>  
+                <i class="pi pi-facebook me-1 text-primary"></i>
+                Facebook
               </span>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <span>
-                <i class="pi pi-twitter"></i> Twitter
+                <i class="pi pi-instagram me-1 text-danger"></i>   
+                Instagram
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span>
+                <i class="pi pi-twitter me-1 text-info"></i>    
+                Twitter
               </span>
             </div>
           </div>
     </div>
-    <div class="col">
-      <h4 class="mt-3 text-white"><b>Sugerencias</b></h4>
+    <div class="col mb-4">
+      <div class="row">
+        <div class="col text-center">
+
+          <h4 class="text-white"><b>Sugerencias</b></h4>
+        </div>
+      </div>
+      <div class="row">
         <div class="d-flex justify-content-center">
-          <form>
-            <div class="form-group">
+
+          <form [formGroup]="sugerenciasForm" (ngSubmit)="enviarSugerenciaCorreo()" style="width: 75%">
+            <div class="form-group text-start">
+              <label class="">Nombre</label>
+              <input class="form-control" placeholder="nombre"  type="text" formControlName="from_name" />
+              <div class="row" *ngIf="nombreError">
+                <span class="text-danger">El nombre es un campo obligatorio</span>
+              </div>
+            </div>
+            <div class="form-group text-start">
               <label>Correo</label>
-              <Input class="form-control" placeholder="correo"  type="email" />
-
+              <input class="form-control" placeholder="correo" formControlName="reply_to"  type="email" />
+              <div class="row" *ngIf="correoError">
+                <span class="text-danger">El correo es un campo obligatorio</span>
+              </div>
+              <div class="row" *ngIf="correoErrorPattern">
+                <span class="text-danger">Ingrese un correo valido.</span>
+              </div>
             </div>
-            <div class="form-group">
+            <div class="form-group text-start">
               <label>Mensaje</label>
-              <Textarea minRows="6" class="form-control" placeholder="Escriba una sugerencia"  type="email" ></Textarea>
-              
-
+              <textarea minRows="6" class="form-control" placeholder="Escriba una sugerencia" formControlName="message"  type="email" ></textarea>
+              <div class="row" *ngIf="mensajeError">
+                <span class="text-danger">El mensaje es un campo obligatorio</span>
+              </div>
+  
             </div>
-            <!-- <FormControl sx={{ m: 1 }} variant="filled" class="home__input__sugerencia rounded"> -->
-            <!-- </FormControl> -->
-          
-            <!-- <FormControl sx={{ m: 1 }} variant="filled" class="home__input__sugerencia  rounded"> -->
-            <!-- </FormControl> -->
+            <div class="d-flex justify-content-center mt-2 mb-2">
+              <button class="btn btn-primary" [disabled]="enviarSugerencia" type="submit"><i [ngClass]="!enviarSugerencia ? 'pi pi-save': 'pi pi-spin pi-spinner'"></i> Enviar sugerencia</button>
+            </div>
           </form>
         </div>
+      </div>
     </div>
   </div>
   <!-- <div class="d-flex justify-content-center align-items-center"> -->

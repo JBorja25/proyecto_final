@@ -48,6 +48,16 @@ export class ProfileasiloComponent implements OnInit {
     this.getDataFirebase();
     
     this.crearFormulario();
+
+    this._auth.insertCorreo()
+          .subscribe((resp) => {
+            
+            this.dataUser = resp;
+
+            
+          }
+
+          );
   } 
 
   crearFormulario(){
@@ -108,15 +118,7 @@ export class ProfileasiloComponent implements OnInit {
 
         
 
-        this._auth.insertCorreo()
-          .subscribe((resp) => {
-            
-            this.dataUser = resp;
-
-            
-          }
-
-          );
+        
 
 
       });
@@ -126,6 +128,19 @@ export class ProfileasiloComponent implements OnInit {
     this._cookie.deleteAll();
     await  this._auth.logout();
     this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
+  }
+  async cerrarProfile(){
+    const logout = await  this._auth.logout();
+    if(logout === undefined){
+      this._cookie.deleteAll();
+      this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
+      this.toastr.success('Informacion modificar con exito', 'Actualizacion', {
+        progressAnimation: 'decreasing',
+        progressBar: true
+      })
+
+    }
+    
   }
 
   guardar() {
@@ -137,60 +152,120 @@ export class ProfileasiloComponent implements OnInit {
         
 
         let nom =this.profileAsilo.get('nombre').value.length > 0 ? this.profileAsilo.get('nombre').value : this.dataUser.displayName; //copia lineas y cambiar
+        let dir = (this.profileAsilo.get('direccion').value.length > 0) ? this.profileAsilo.get('direccion').value : this.data.direccion;
+        let num = (this.profileAsilo.get('telefono').value.length > 0) ? this.profileAsilo.get('telefono').value : this.data.phone;
         cambiarnom.updateProfile({
           displayName: nom
         })
           .then((nombre) => {
             
-            this.getData();
-            
-            
-            
-           
-            
-            
-            if(this.profileAsilo.get('email').value.length > 2 && (this.profileAsilo.get('email').dirty || this.profileAsilo.get('email').touched)){
+            if((this.profileAsilo.get('email').dirty || this.profileAsilo.get('email').touched)){
               let corr = (this.profileAsilo.get('email').value.length > 0) ? this.profileAsilo.get('email').value : this.dataUser.email;
-
+              console.log(corr);
+              
               this._auth.insertCorreo()
                 .subscribe((respc) => {
+                  
+                  
                   respc.updateEmail(corr)
                     .then((r) => {
                       
-  
+                      this._auth.updateDireccion(dir, num, this.idDoc)
+                      .then((respDirec) => {
+                        
+                        // this.getData();
+                        this._auth.singout()
+                        .then((resp) =>{
+                          this.cerrarProfile();
+                        })
+      
+                      })
+                      .catch((error) => { });
+                      
                     })
                     .catch((err) => {
+                      console.log('ingresa error correo');
+                      this.toastr.warning('el correo ingresado ya existe', 'Correo invalido',{
+                        progressAnimation: 'increasing',
+                        progressBar: true
+                      })
                       
-  
+                      
                     })
+                    
                 })
-            }
+            }else if ((this.profileAsilo.get('passw').dirty || this.profileAsilo.get('passw').touched)) {
+                let passw = this.profileAsilo.get('passw').value;
+                cambiarnom.updatePassword(passw)
+                  .then((phone) => {
+            
+                  this._auth.updateDireccion(dir, num, this.idDoc)
+                    .then((respDirec) => {
+                      
+                      this.cerrarProfile()
 
+                    })
+                    .catch((error) => { });
+                    
+                  }).catch((error) => {
+                    console.log(error);
+                    
+                  })
+              }else if((this.profileAsilo.get('email').dirty || this.profileAsilo.get('email').touched) && (this.profileAsilo.get('passw').dirty || this.profileAsilo.get('passw').touched)){
+                let corr = (this.profileAsilo.get('email').value.length > 0) ? this.profileAsilo.get('email').value : this.dataUser.email;
 
-            if (this.profileAsilo.get('passw').value.length > 5 && (this.profileAsilo.get('passw').dirty || this.profileAsilo.get('passw').touched)) {
-              let passw = this.profileAsilo.get('passw').value;
-              cambiarnom.updatePassword(passw)
-                .then((phone) => {
+                this._auth.insertCorreo()
+                  .subscribe((respc) => {
+                    respc.updateEmail(corr)
+                      .then((r) => {
+                        let passw = this.profileAsilo.get('passw').value;
+                          cambiarnom.updatePassword(passw)
+                            .then((phone) => {
+                      
+                            this._auth.updateDireccion(dir, num, this.idDoc)
+                              .then((respDirec) => {
+                                
+                                this._auth.logout();
+
+                              })
+                              .catch((error) => { });
+                              
+                            }).catch((error) => {
+                              console.log(error);
+                              
+                            })
+                        
+                        
+                      })
+                      .catch((err) => {
+                        console.log('ingresa error correo y contrasenia');
+                        this.toastr.warning('el correo ingresado ya existe', 'Correo invalido',{
+                          progressAnimation: 'increasing',
+                          progressBar: true
+                        })
+                        
+                        
+                      })
+                      
+                  })
+              }else{
+                this._auth.updateDireccion(dir, num, this.idDoc)
+                .then((respDirec) => {
                   
-                }).catch((error) => {
-                  
+                  this.getData();
+
                 })
-            }
+                .catch((error) => { });
+                
+              }
+            
 
             
-            let dir = (this.profileAsilo.get('direccion').value.length > 0) ? this.profileAsilo.get('direccion').value : this.data.direccion;
-            let num = (this.profileAsilo.get('telefono').value.length > 0) ? this.profileAsilo.get('telefono').value : this.data.phone;
-            this._auth.updateDireccion(dir, num, this.idDoc)
-              .then((respDirec) => {
-                
-                this.getData();
-
-              })
-              .catch((error) => { });
+            
           })
           
       });
-      this.toastr.success('INFORMACION ', 'Actualizada!');
+      
 
       
   }
@@ -220,6 +295,7 @@ export class ProfileasiloComponent implements OnInit {
 
   cambiarcor() {
     if(this.correo.length > 0 || this.passw.length > 0){
+      this
       const dialog = this._dialog.open(ChangemailComponent, {
         disableClose: true,
       });
