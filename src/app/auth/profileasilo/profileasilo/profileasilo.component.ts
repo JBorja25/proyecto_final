@@ -127,19 +127,17 @@ export class ProfileasiloComponent implements OnInit {
   async cerrar(){
     this._cookie.deleteAll();
     await  this._auth.logout();
-    this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
+    this.router.navigateByUrl('/login', {replaceUrl: true});
   }
   async cerrarProfile(){
-    const logout = await  this._auth.logout();
-    if(logout === undefined){
-      this._cookie.deleteAll();
-      this.router.navigateByUrl('/login', {replaceUrl: true, skipLocationChange: false});
-      this.toastr.success('Informacion modificar con exito', 'Actualizacion', {
-        progressAnimation: 'decreasing',
-        progressBar: true
-      })
+    this._cookie.deleteAll();
+    this.router.navigateByUrl('/login', {replaceUrl: true});
+    const logout = await  this._auth.logout();    
+    this.toastr.success('Informacion modificar con exito', 'Actualizacion', {
+      progressAnimation: 'decreasing',
+      progressBar: true
+    })
 
-    }
     
   }
 
@@ -174,11 +172,12 @@ export class ProfileasiloComponent implements OnInit {
                       .then((respDirec) => {
                         
                         // this.getData();
-                        this._auth.singout()
+                       /* this._auth.singout()
                         .then((resp) =>{
-                          this.cerrarProfile();
+                          
                         })
-      
+      */
+     //this.cerrarProfile();
                       })
                       .catch((error) => { });
                       
@@ -202,7 +201,7 @@ export class ProfileasiloComponent implements OnInit {
                   this._auth.updateDireccion(dir, num, this.idDoc)
                     .then((respDirec) => {
                       
-                      this.cerrarProfile()
+                      //this.cerrarProfile()
 
                     })
                     .catch((error) => { });
@@ -225,7 +224,7 @@ export class ProfileasiloComponent implements OnInit {
                             this._auth.updateDireccion(dir, num, this.idDoc)
                               .then((respDirec) => {
                                 
-                                this._auth.logout();
+                                //this._auth.logout();
 
                               })
                               .catch((error) => { });

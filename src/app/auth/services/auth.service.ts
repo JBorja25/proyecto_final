@@ -104,7 +104,7 @@ export class AuthService {
   }
 
   insertCorreo(){
-    return this.afAuth.authState
+    return this.afAuth.user
   }
 
   updateDireccion(direccion: any, phone: any, idDoc: string){
