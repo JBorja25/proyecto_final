@@ -183,7 +183,9 @@ import { SwiperModule } from 'swiper/angular';
     MatRadioModule,
     CarouselModule,
     CardModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    }),
 
 
   ],

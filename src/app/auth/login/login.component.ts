@@ -72,6 +72,8 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.loginForm.value;
     this.authSvc.login(email, password)
       .then((resp) => {
+        console.log(resp);
+        
         Swal.fire({
           title: 'Validando credenciales',
           titleText: 'Comprobando credenciales, Espere por favor.......',

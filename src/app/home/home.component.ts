@@ -4,6 +4,10 @@ import SwiperCore, { A11y, Autoplay, EffectCube, Navigation, Pagination, Scrollb
 import { MatDialog } from '@angular/material/dialog';
 import { DialogasilosComponent } from './dialogasilos/dialogasilos/dialogasilos.component';
 import { Router } from '@angular/router';
+// para neviar correos
+import emailjs, {EmailJSResponseStatus} from '@emailjs/browser';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import SwiperCore from 'swiper';
 
 import 'swiper/scss';
@@ -12,6 +16,7 @@ import 'swiper/scss/pagination';
 import 'swiper/scss/scrollbar';
 import 'swiper/scss/effect-cube';
 import 'swiper/scss/autoplay';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -20,6 +25,9 @@ import 'swiper/scss/autoplay';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  sugerenciasForm:FormGroup;
+  enviarSugerencia: boolean = false;
 
   fotos: any[] = [
     {
@@ -56,11 +64,13 @@ export class HomeComponent implements OnInit {
   constructor(
     private _post: PostService,
     private _dialog: MatDialog,
-    private _route: Router
+    private _route: Router,
+    private _fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.getPosts();
+    this.crearFormulario();
     
   }
 
@@ -88,6 +98,54 @@ export class HomeComponent implements OnInit {
 
   abrirDialog(uid: any){
     this._route.navigateByUrl(`/info-asilo/${uid}`);
+  }
+
+  crearFormulario(){
+    this.sugerenciasForm = this._fb.group({
+      from_name: ['', [Validators.required]],
+      reply_to: ['', [Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
+      message: ['', [Validators.required]]
+    })
+  }
+
+  enviarSugerenciaCorreo(){
+
+    if(this.sugerenciasForm.invalid){
+      return Object.values( this.sugerenciasForm.controls ).forEach((validator) => {
+        validator.markAllAsTouched()
+      });
+    }
+    let templateParams = {
+      ...this.sugerenciasForm.getRawValue(),
+      to_name: 'Jose borja'
+    }
+    this.enviarSugerencia = true;
+    console.log(templateParams);
+
+    emailjs.send(environment.serviceID, environment.templateID, templateParams, environment.publicKey)
+    .then((resp) =>{
+      console.log(resp);
+      this.enviarSugerencia = false;
+      this.sugerenciasForm.reset();
+    })
+    .catch((err) =>{
+      console.log(err);
+      
+    })
+    
+  }
+  /* errores */
+  get nombreError(){
+    return this.sugerenciasForm.get('from_name').hasError('required') && (this.sugerenciasForm.get('from_name').touched || this.sugerenciasForm.get('from_name').dirty);
+  }
+  get correoError(){
+    return this.sugerenciasForm.get('reply_to').hasError('required') && (this.sugerenciasForm.get('reply_to').touched || this.sugerenciasForm.get('reply_to').dirty);
+  }
+  get correoErrorPattern(){
+    return this.sugerenciasForm.get('reply_to').hasError('pattern') && (this.sugerenciasForm.get('reply_to').touched || this.sugerenciasForm.get('reply_to').dirty);
+  }
+  get mensajeError(){
+    return this.sugerenciasForm.get('message').hasError('required') && (this.sugerenciasForm.get('reply_to').touched || this.sugerenciasForm.get('reply_to').dirty);
   }
 
 }

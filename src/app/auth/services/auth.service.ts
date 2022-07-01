@@ -31,6 +31,8 @@ export class AuthService {
     }
 
   }
+
+  
   async register(email: string, password: string) {
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
@@ -97,8 +99,12 @@ export class AuthService {
     return this.afAuth.user;
   }
 
+  singout(){
+    return this.afAuth.signOut();
+  }
+
   insertCorreo(){
-    return this.afAuth.authState;
+    return this.afAuth.user
   }
 
   updateDireccion(direccion: any, phone: any, idDoc: string){
