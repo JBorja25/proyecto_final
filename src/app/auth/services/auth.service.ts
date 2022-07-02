@@ -92,6 +92,9 @@ export class AuthService {
   insertName(){
     return this.afAuth.user;
   }
+  insertNameCurrent(){
+    return this.afAuth.currentUser;
+  }
   insertTelefono(nombre: any){
     return this.afAuth.user;
   }
@@ -104,7 +107,13 @@ export class AuthService {
   }
 
   insertCorreo(){
-    return this.afAuth.user
+    return this.afAuth.user;
+  }
+  insertPass(){
+    return this.afAuth.user;
+  }
+  insertCorreoAuth(){
+    return firebase.app().auth();
   }
 
   updateDireccion(direccion: any, phone: any, idDoc: string){
@@ -114,19 +123,14 @@ export class AuthService {
     });
   }
 
-  reautenticar(passw:any){
-    let user = firebase.auth().currentUser;
+  async reautenticar(passw:any){
+    let userEmail =await this.afAuth.currentUser;
+    
     let credential = firebase.auth.EmailAuthProvider.credential(
-      user.email,
+      userEmail.email,
       passw
     );
-    return user.reauthenticateWithCredential(credential);
-    /* try{
-    }
-    catch(error){
-    } */
-
-
+    return userEmail.reauthenticateWithCredential(credential);
   }
 
   passOlvido(email: string){
