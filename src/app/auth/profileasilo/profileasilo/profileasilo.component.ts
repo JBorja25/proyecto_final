@@ -176,7 +176,10 @@ export class ProfileasiloComponent implements OnInit {
                         .then((resp) =>{
                           
                         })
-      */
+      */              this.cambiarcor();
+                        this.getData();
+                        
+                       // this._auth.reautenticar()
      //this.cerrarProfile();
                       })
                       .catch((error) => { });
@@ -200,7 +203,7 @@ export class ProfileasiloComponent implements OnInit {
             
                   this._auth.updateDireccion(dir, num, this.idDoc)
                     .then((respDirec) => {
-                      
+                      this.getData();
                       //this.cerrarProfile()
 
                     })
@@ -223,7 +226,7 @@ export class ProfileasiloComponent implements OnInit {
                       
                             this._auth.updateDireccion(dir, num, this.idDoc)
                               .then((respDirec) => {
-                                
+                                this.getData();
                                 //this._auth.logout();
 
                               })
