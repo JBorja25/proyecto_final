@@ -87,13 +87,13 @@
           <div class="col-md-8">
             <div class="row">
               <mat-form-field appearance="standard">
-                <mat-label>Buscadoor</mat-label>
+                <mat-label>Buscar</mat-label>
                 <input matInput (keyup)="bucarValor($event.target)" placeholder="Ex. nombre" #input>
               </mat-form-field>
             </div>
             <div class="mat-elevation-z8">
 
-              <table mat-table [dataSource]="dataSource">
+              <table mat-table [dataSource]="dataSource" style="align-content:center ;">
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="Nombre">
@@ -119,7 +119,7 @@
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="telefono">
-                  <th mat-header-cell *matHeaderCellDef> Telefono </th>
+                  <th mat-header-cell *matHeaderCellDef> Teléfono </th>
                   <td mat-cell *matCellDef="let element"> {{element.fono}} </td>
                 </ng-container>
                 <ng-container matColumnDef="accion">
@@ -213,7 +213,7 @@
           <div class="col-md-8">
             <div class="row">
               <mat-form-field appearance="standard">
-                <mat-label>Busqueda</mat-label>
+                <mat-label>buscar</mat-label>
                 <input matInput (keyup)="bucarValorAprobados($event.target)" placeholder="Ex. nombre" #input>
               </mat-form-field>
             </div>
@@ -223,7 +223,7 @@
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="Nombre">
-                  <th mat-header-cell *matHeaderCellDef class="text-start"> NOMBRE </th>
+                  <th mat-header-cell *matHeaderCellDef class="text-start"> Nombre </th>
                   <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
 
@@ -234,19 +234,19 @@
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="direcicon">
-                  <th mat-header-cell *matHeaderCellDef class="text-start"> direcicon </th>
+                  <th mat-header-cell *matHeaderCellDef class="text-start"> Dirección </th>
                   <td mat-cell *matCellDef="let element"> {{element.address}} </td>
                 </ng-container>
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="email">
-                  <th mat-header-cell *matHeaderCellDef class="text-start"> email </th>
+                  <th mat-header-cell *matHeaderCellDef class="text-start"> Correo </th>
                   <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                 </ng-container>
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="telefono">
-                  <th mat-header-cell *matHeaderCellDef class="text-start"> telefono </th>
+                  <th mat-header-cell *matHeaderCellDef class="text-start"> Teléfono </th>
                   <td mat-cell *matCellDef="let element"> {{element.fono}} </td>
                 </ng-container>
 
