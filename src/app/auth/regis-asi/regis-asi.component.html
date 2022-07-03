@@ -17,7 +17,7 @@
         <span style="font-size:18px">{{nombre}}</span>
       </div>
       <div class="d-flex justify-content-center">
-        <small style="font-size: 13px; margin-top: -8px">Asilo Administrador</small>
+        <small style="font-size: 13px; margin-top: -8px">Asilo</small>
       </div>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
@@ -62,8 +62,8 @@
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>Cerrar Sesion</strong>
+          <p-avatar [image]="imagen != '' ? imagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle" class="ms-3"></p-avatar>
+          <strong class="ps-2">Cerrar Sesion</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
 
@@ -81,15 +81,15 @@
       </!--button-->
     <mat-toolbar color="primary">
       <button type="button" mat-button (click)="drawer.toggle()">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
       </button>
 
     </mat-toolbar>
     <br>
     <br>
     <!---------------------------------------------------------------------------------->
-    <div class="container" *ngIf="mostrarFormulario && !aprobado">
-      <div class="row mt-5"
+    <div class="" *ngIf="mostrarFormulario && !aprobado">
+      <div class="row mb-5 pb-5"
         style="display: flex; justify-content: center; margin:auto; height: auto; width: 95%;  border: 1px solid #CCC; border-radius: 5px; width:85%;  box-shadow: 0 0 10px rgb(163, 163, 163);">
         <div class="row bg-info text-white"
           style="border: 1px solid #CCC; border-radius: 5px; width:95%;  height: 55px; box-shadow: 0 0 10px rgb(163, 163, 163); margin-top:-25px">

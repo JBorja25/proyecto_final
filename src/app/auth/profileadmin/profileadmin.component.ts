@@ -99,6 +99,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
             this.data = resp;
             
             this.dataUser = this._auth.insertCorreoAuth().currentUser;
+            this.nombre = this.dataUser.displayName;
             console.log(this.dataUser);
             
             this.profileAdmin.setValue({
