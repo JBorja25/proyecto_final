@@ -128,7 +128,12 @@
                 <div class="mb-3">
 
                   <label class="form-label">Cédula/RUC</label>
-                  <input formControlName="cedula" name="cedula" id="cedula" type="number" class="form-control" required>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="pi pi-id-card"></i>
+                    </span>
+                    <input formControlName="cedula" name="cedula" id="cedula" type="number" class="form-control" required>
+                  </div>
                 </div>
                 <div class="row" *ngIf="errorCedula">
                   <span class="text-danger">
@@ -143,7 +148,12 @@
                 <div class="mb-3">
                   <!-- <h3>Esta seccion informativa permite llenar los datos del asilo</h3> -->
                   <label class="form-label">Nombre</label>
-                  <input formControlName="name" name="name" id="name" type="text" class="form-control" required>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="pi pi-user"></i>
+                    </span>
+                    <input formControlName="name" name="name" id="name" type="text" class="form-control" required>
+                  </div>
                   <div class="row text-start" *ngIf="errorNombre">
                     <span class="text-danger">
                       El nombre es un campo obligatorio
@@ -152,7 +162,12 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Direciion</label>
-                  <input formControlName="address" name="address" type="text" class="form-control" required>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="pi pi-map"></i>
+                    </span>
+                    <input formControlName="address" name="address" type="text" class="form-control" required>
+                  </div>
                   <div class="row text-start" *ngIf="errorAddress">
                     <span class="text-danger">
                       La direccion es un campo obligatorio
@@ -161,7 +176,12 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Correo</label>
-                  <input formControlName="email" type="text" class="form-control" required>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="pi pi-envelope"></i>
+                    </span>
+                    <input formControlName="email" type="text" class="form-control" required>
+                  </div>
                   <div class="row text-start" *ngIf="errorEmail">
                     <span class="text-danger">
                       El correo es un campo obligatorio
@@ -175,7 +195,12 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Telefono</label>
-                  <input formControlName="fono" type="number" class="form-control" required>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="pi pi-phone"></i>
+                    </span>
+                    <input formControlName="fono" type="number" class="form-control" required>
+                  </div>
                   <div class="row text-start" *ngIf="errorFono">
                     <span class="text-danger">
                       El teléfono es un campo obligatorio.
@@ -202,7 +227,7 @@
           <div class="mb-3">
             <h5>Esta sección permite seleccionar los horarios y dias de atencion del asilo </h5>
             <label class="form-label">Selecione días de atencion
-              <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="Sleeciones los dias de atencion del asilo."
+              <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo" ngbPopover="Sleeciones los dias de atencion del asilo."
                 triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                 viewBox="0 0 50 50">
                 <path
@@ -231,7 +256,7 @@
                 <div class="col">
 
                   <label class="form-label">Seleccione hora de atencion
-                    <svg placement="end" popoverClass="cambiar_fondo"
+                    <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="seleccione el horario de atencion del asilo" triggers="mouseenter:mouseleave"
                       xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -250,14 +275,16 @@
                   </div>
                   <div class="row">
                     <span><b> Fin:</b></span>
-                    <input type="time" class="form-control" [(ngModel)]="horaHasta" step="1800" min="00:00">
+                    <input type="time" class="form-control" [(ngModel)]="horaHasta" max="22:00:00">
                     <div class="row text-start" *ngIf="horaHasta == ''">
                       <span class="text-danger">
                         Debe indicar una hora fin ejemplo (17:30).
                       </span>
                     </div>
                   </div>
-                  <Div></Div>
+                  <div>
+                    <!-- <p-password></p-password> -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -281,7 +308,7 @@
               <div class="col info__asilo">
                 <div class=" info__asilo__label">
                   <label class="form-label label__padding">Alimentacion
-                    <svg placement="end" popoverClass="cambiar_fondo"
+                    <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="Selecione si presentan servicio de alimentacion." triggers="mouseenter:mouseleave"
                       xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -324,7 +351,7 @@
               <div class="col info__asilo">
                 <div class="info__asilo__label">
                   <label class="form-label label__padding">Aseo personal
-                    <svg placement="end" popoverClass="cambiar_fondo"
+                    <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="Selecione si presentan servicio de aseo personal." triggers="mouseenter:mouseleave"
                       xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -365,7 +392,7 @@
               <div class="col info__asilo">
                 <div class="info__asilo__label">
                   <label class="form-label">Transporte
-                    <svg placement="end" popoverClass="cambiar_fondo"
+                    <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="Selecione si presentan servicio de transporte." triggers="mouseenter:mouseleave"
                       xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
                       <path
@@ -427,7 +454,7 @@
                           </mat-icon>
                         </button>
                         <span style="font-size: 18px">{{node.name}}
-                          <svg placement="end" popoverClass="cambiar_fondo"
+                          <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                             ngbPopover="Son servicios que presta el asilo parael cuidado permanente del adulto mayor."
                             triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                             viewBox="0 0 50 50">
@@ -478,7 +505,7 @@
                           </mat-icon>
                         </button>
                         <span style="font-size: 18px">{{node.name}}
-                          <svg placement="end" popoverClass="cambiar_fondo"
+                          <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                             ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar."
                             triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                             viewBox="0 0 50 50">
@@ -528,7 +555,7 @@
                           </mat-icon>
                         </button>
                         <span style="font-size: 18px">{{node.name}}
-                          <svg placement="end" popoverClass="cambiar_fondo"
+                          <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                             ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar."
                             triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                             viewBox="0 0 50 50">
@@ -580,7 +607,7 @@
                           </mat-icon>
                         </button>
                         <span style="font-size: 18px">{{node.name}}
-                          <svg placement="end" popoverClass="cambiar_fondo"
+                          <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                             ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar."
                             triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                             viewBox="0 0 50 50">
@@ -628,7 +655,7 @@
                           </mat-icon>
                         </button>
                         <span style="font-size: 18px">{{node.name}}
-                          <svg placement="end" popoverClass="cambiar_fondo"
+                          <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                             ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar."
                             triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                             viewBox="0 0 50 50">
@@ -678,7 +705,7 @@
                           </mat-icon>
                         </button>
                         <span style="font-size: 18px">{{node.name}}
-                          <svg placement="end" popoverClass="cambiar_fondo"
+                          <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                             ngbPopover="Son servicios que presta el asilo al adulto mayor para su bienestar y debe seleccionar cual desea ocupar."
                             triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                             viewBox="0 0 50 50">
@@ -722,7 +749,7 @@
               <h5>Esta sección te permite seleccioar la imagen del asilo</h5>
 
               <label class="form-label">Imagen del Asilo
-                <svg placement="end" popoverClass="cambiar_fondo" ngbPopover="ingrese la foto del asilo"
+                <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo" ngbPopover="ingrese la foto del asilo"
                   triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                   viewBox="0 0 50 50">
                   <path
@@ -760,7 +787,7 @@
               <div class="col" *ngIf="dataCantidadPersonal.alimentacion !== 'no'">
                 <label>
                   Personal Alimentacion
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     [ngbPopover]="(dataCantidadPersonal.alimentacion !== 'no' || dataCantidadPersonal.aimentacion !== '') ? 'Debe indicar la cantidad de personal que dispone para el servicio de alimentacion' : 'No puede indicar la cantidad de personal de alimentacion ya que usted selecciono '+ dataCantidadPersonal.aliemtacion"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -768,7 +795,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="cantidadAlimentacion"
+                <input MatInput type="number" class="form-control" formControlName="cantidadAlimentacion"
                   placeholder="0">
                 <div class="row" *ngIf="errorCantidadAlimentacion">
                   <span class="text-danger">
@@ -779,7 +806,7 @@
               <div class="col" *ngIf="dataCantidadPersonal.transporte !== 'No'">
                 <label>
                   Personal Transporte
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de transporte"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -787,7 +814,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="cantidadTransporte" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="cantidadTransporte" placeholder="0">
                 <div class="row" *ngIf="errorCantidadTransporte">
                   <span class="text-danger">
                     El campo servicios transporte es obligatorio y debe ser mayor a 0
@@ -796,7 +823,7 @@
               </div>
               <div class="col" *ngIf="dataCantidadPersonal.aseo !== 'no'">
                 <label>Cantidad de personal Aseo
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de aseo"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -804,7 +831,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="cantidadaseo" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="cantidadaseo" placeholder="0">
                 <div class="row" *ngIf="errorCantidadAseo">
                   <span class="text-danger">
                     El campo servicios aseo es obligatorio y debe ser mayor a 0
@@ -813,7 +840,7 @@
               </div>
               <div class="col" *ngIf="serviciosMedicosBool">
                 <label>Cantidad de personal Control medico
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de control medico"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -821,7 +848,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="cmedico" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="cmedico" placeholder="0">
                 <div class="row" *ngIf="errorCantidadMedico">
                   <span class="text-danger">
                     El campo servicios medicos es obligatorio y debe ser mayor a 0
@@ -830,7 +857,7 @@
               </div>
               <div class="col" *ngIf="serviciosTerapeuticosBool">
                 <label>Cantidad de personal Servicios terapeuticos
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios terapeuticos"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -838,7 +865,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="ctera" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="ctera" placeholder="0">
                 <div class="row" *ngIf="errorCantidadTera">
                   <span class="text-danger">
                     El campo servicios terapeuticos es obligatorio y debe ser mayor a 0
@@ -847,7 +874,7 @@
               </div>
               <div class="col" *ngIf="serviciosSanitariosBool">
                 <label>Cantidad de personal Servicios Sanitarios
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios sanitarios"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -855,7 +882,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="csanitario" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="csanitario" placeholder="0">
                 <div class="row" *ngIf="errorCantidadSanitario">
                   <span class="text-danger">
                     El campo servicios sanitarios es obligatorio y debe ser mayor a 0
@@ -864,7 +891,7 @@
               </div>
               <div class="col" *ngIf="serviciosComodidadBool">
                 <label>Cantidad de personal Servicios de comodidad
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios de comodidad que son los espacios disponibles."
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -872,7 +899,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="ccomodidad" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="ccomodidad" placeholder="0">
                 <div class="row" *ngIf="errorCantidadComodidad">
                   <span class="text-danger">
                     El campo servicios comodidad es obligatorio y debe ser mayor a 0
@@ -881,7 +908,7 @@
               </div>
               <div class="col" *ngIf="serviciosAtencionBool">
                 <label>Cantidad de personal Servicios de atencion
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios, servicios para el bienestar del adulto."
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -889,7 +916,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="catencion" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="catencion" placeholder="0">
                 <div class="row" *ngIf="errorCantidadAtencion">
                   <span class="text-danger">
                     El campo servicios atencion es obligatorio y debe ser mayor a 0
@@ -898,7 +925,7 @@
               </div>
               <div class="col" *ngIf="serviciosAdicionalesBool">
                 <label>Cantidad de personal servicios complementarios
-                  <svg placement="end" popoverClass="cambiar_fondo"
+                  <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios complementarios, como peluqueria u otros que no estan contemplados en los sservicios principales."
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                     viewBox="0 0 50 50">
@@ -906,7 +933,7 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input matInput type="number" class="form-control" formControlName="ccomplementarios" placeholder="0">
+                <input MatInput type="number" class="form-control" formControlName="ccomplementarios" placeholder="0">
                 <div class="row" *ngIf="errorCantidadAdicionales">
                   <span class="text-danger">
                     El campo servicios complementarios es obligatorio y debe ser mayor a 0

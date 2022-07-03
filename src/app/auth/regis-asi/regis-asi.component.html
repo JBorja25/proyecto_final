@@ -132,7 +132,12 @@
                   <div style="width: 50%;">
                     <div class="mb-3">
                       <label class="form-label">Cédula/RUC:</label>
-                      <input formControlName="cedula" type="text" class="form-control" required>
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="pi pi-id-card"></i>
+                        </span>
+                        <input formControlName="cedula" type="text" class="form-control" required>
+                      </div>
                       <div class="row" *ngIf="errorCedula">
                         <span class="text-danger">
                           La cédula es un campo obligatorio
@@ -146,7 +151,12 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Nombre: </label>
-                      <input formControlName="name" type="text" class="form-control" required>
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="pi pi-user"></i>
+                        </span>
+                        <input formControlName="name" type="text" class="form-control" required>
+                      </div>
                       <div class="row" *ngIf="errorNombre">
                         <i class="pi pi-user"></i>
                         <span class="text-danger">
@@ -161,7 +171,12 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Dirección: </label>
-                      <input formControlName="address" type="text" class="form-control" required>
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="pi pi-map"></i>
+                        </span>
+                        <input formControlName="address" type="text" class="form-control" required>
+                      </div>
                       <div class="row" *ngIf="errorAddress">
                         <span class="text-danger">
                           La direccion es un campo obligatorio
@@ -184,7 +199,12 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Telefono:</label>
-                      <input formControlName="fono" type="text" class="form-control" required>
+                      <div class="inpu-group">
+                        <span class="input-group-text">
+                          <i class="pi pi-phone"></i>
+                        </span>
+                        <input formControlName="fono" type="text" class="form-control" required>
+                      </div>
                       <div class="row" *ngIf="errorFono">
                         <span class="text-danger">
                           El teléfono es un campo obligatorio
@@ -455,7 +475,7 @@
                         </div>
                         <div class="col-md-3 mt-3">
                           <span>Cantidad de Personal</span>
-                          <input class="form-control" type="number" formControlName="cantidadAtencion">
+                          <input class="form-control" type="number" formControlName="cantidadAtencion" placeholder="0">
                         </div>
                       </div>
                     </div>

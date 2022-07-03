@@ -95,6 +95,7 @@ import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component'
 
 /* PrimeNG */
 import { CarouselModule } from 'primeng/carousel';
+import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
 import { MessagesModule } from 'primeng/messages';
@@ -145,6 +146,7 @@ import { SwiperModule } from 'swiper/angular';
     SwiperModule,
     SwiperModule,
     MatTreeModule,
+    PasswordModule,
     AngularFireAuthModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

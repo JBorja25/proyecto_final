@@ -171,3 +171,17 @@ p {
 .form-control {
     padding: .375rem .25rem
 }
+
+
+.info__barras::before{
+  content: '';
+  width: 26%;
+  border: 1px solid #ccc;
+  
+}
+.info__barras::after{
+  content: '';
+  width: 26%;
+  border: 1px solid #ccc;
+  
+}
