@@ -14,12 +14,12 @@
       </div>
 
       <div class="row">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-3">
 
-          <span style="font-size:18px; display: block;">{{dataUser?.displayName ? dataUser?.displayName : ''}}</span>
+          <span style="font-size:18px; display: block;">{{dataUser?.displayName ? dataUser?.displayName : ''}}  </span>
         </div>
         <div class="d-flex justify-content-center">
-          <small style="font-size: 13px; margin-top: -8px">Asilo</small>
+          <small style="font-size: 13px; margin-top: -8px"> <br> Asilo</small>
         </div>
 
       </div>
@@ -105,7 +105,7 @@
 
         <div style="height: 25px; margin-top: -4px">
           <div class="col" style="display: flex; justify-content: center;color: #999999 ">
-            <span>DUEÑO DEL ASILO</span>
+            <span>  ASILO ADMINISTRADOR</span>
           </div>
         </div>
         <div class="row mb-0" style="height: 25px; margin-top: -30px">
@@ -137,11 +137,9 @@
 
         <div class="row" style="display: flex; justify-content: center; width: 75%;">
           <div class="col">
-            <span class="form-label">Nombre: *</span>
+            <span class="form-label">Nombre: </span>
             <div class="input-group">
-              <span class="input-group-text">
-                <i class="pi pi-user"></i>
-              </span>
+
               <input class="form-control" type="text" formControlName="nombre">
             </div>
           </div>

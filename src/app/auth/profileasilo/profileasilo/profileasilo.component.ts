@@ -178,58 +178,6 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
           console.log('se actulizo el correo y la direccion');
           
         })
-<<<<<<< HEAD
-          .then((nombre) => {
-            
-            if((this.profileAsilo.get('email').dirty || this.profileAsilo.get('email').touched)){
-              let corr = (this.profileAsilo.get('email').value.length > 0) ? this.profileAsilo.get('email').value : this.dataUser.email;
-              console.log(corr);
-              
-              this._auth.insertCorreo()
-                .subscribe((respc) => {
-                  
-                  
-                  respc.updateEmail(corr)
-                    .then((r) => {
-                      
-                      this._auth.updateDireccion(dir, num, this.idDoc)
-                      .then((respDirec) => {
-                        
-                        // this.getData();
-                       /* this._auth.singout()
-                        .then((resp) =>{
-                          
-                        })
-      */              this.cambiarcor();
-                        this.getData();
-                        
-                       // this._auth.reautenticar()
-     //this.cerrarProfile();
-                      })
-                      .catch((error) => { });
-                      
-                    })
-                    .catch((err) => {
-                      console.log('ingresa error correo');
-                      this.toastr.warning('el correo ingresado ya existe', 'Correo invalido',{
-                        progressAnimation: 'increasing',
-                        progressBar: true
-                      })
-                      
-                      
-                    })
-                    
-                })
-            }else if ((this.profileAsilo.get('passw').dirty || this.profileAsilo.get('passw').touched)) {
-                let passw = this.profileAsilo.get('passw').value;
-                cambiarnom.updatePassword(passw)
-                  .then((phone) => {
-            
-                  this._auth.updateDireccion(dir, num, this.idDoc)
-                    .then((respDirec) => {
-                      this.getData();
-                      //this.cerrarProfile()
-=======
         .catch((error) =>{
           console.log(error);
           
@@ -238,7 +186,6 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
         
       })
     });
->>>>>>> 521184780e257028a219b04020b15f34ce529f7f
 
     // this.subscription.push(nombreUserFirebase);
       
@@ -246,20 +193,6 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
       
   }
 
-<<<<<<< HEAD
-                this._auth.insertCorreo()
-                  .subscribe((respc) => {
-                    respc.updateEmail(corr)
-                      .then((r) => {
-                        let passw = this.profileAsilo.get('passw').value;
-                          cambiarnom.updatePassword(passw)
-                            .then((phone) => {
-                      
-                            this._auth.updateDireccion(dir, num, this.idDoc)
-                              .then((respDirec) => {
-                                this.getData();
-                                //this._auth.logout();
-=======
   actualizarCorreo(){
     let correo = (!this.errorCorreo && this.errorCorreoVacio) ? this.profileAsilo.get('email').value : this.dataUser.email;
     console.log(correo);
@@ -268,7 +201,6 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
     
     if(correo != this.dataUser.email){
       this.subscription.push(
->>>>>>> 521184780e257028a219b04020b15f34ce529f7f
 
         this._auth.insertCorreo()
         .subscribe((respCorreo) =>{

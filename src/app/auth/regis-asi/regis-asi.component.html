@@ -16,7 +16,7 @@
       <div class="d-flex justify-content-center">
         <span style="font-size:18px">{{nombre}}</span>
       </div>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center mt-3">
         <small style="font-size: 13px; margin-top: -8px">Asilo</small>
       </div>
       <hr>
@@ -93,7 +93,7 @@
         style="display: flex; justify-content: center; margin:auto; height: auto; width: 95%;  border: 1px solid #CCC; border-radius: 5px; width:85%;  box-shadow: 0 0 10px rgb(163, 163, 163);">
         <div class="row bg-info text-white"
           style="border: 1px solid #CCC; border-radius: 5px; width:95%;  height: 55px; box-shadow: 0 0 10px rgb(163, 163, 163); margin-top:-25px">
-          <h4 style="line-height: 51px;">Este módulo te permite solicitar la afiliación del asilo</h4>
+          <h5 style="line-height: 51px;">Este módulo te permite solicitar la afiliación del asilo</h5>
         </div>
         <div class="col mt-5">
           <mat-stepper labelPosition="bottom" #stepper linear>
@@ -126,7 +126,7 @@
             <mat-step [stepControl]="firstFormGroup">
               <form [formGroup]="firstFormGroup" class="container">
                 <ng-template matStepLabel>Datos Principales</ng-template>
-                <h3>Esta sección te permite agregar la basica información del asilo</h3>
+                <h5>Esta sección te permite agregar la basica información del asilo</h5>
                 <div style="display:flex; justify-content: center; align-items: center;">
 
                   <div style="width: 50%;">
@@ -148,6 +148,7 @@
                       <label class="form-label">Nombre: </label>
                       <input formControlName="name" type="text" class="form-control" required>
                       <div class="row" *ngIf="errorNombre">
+                        <i class="pi pi-user"></i>
                         <span class="text-danger">
                           El nombre es un campo obligatorio
                         </span>
@@ -329,7 +330,7 @@
                     <div class="row">
                       <div class="col mt-3">
                         <label class="form-label">Servicios Médicos
-                          <svg placement="end" popoverClass="cambiar_fondo" fill="#00ff55"
+                          <svg placement="end" popoverClass="cambiar_fondo" fill="#00ff55" 
                             ngbPopover="Son servicios que presta el asilo parael cuidado permanente del adulto mayor."
                             triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
                             viewBox="0 0 50 50">
