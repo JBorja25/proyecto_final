@@ -321,7 +321,23 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
 
   cambiarcor() {
     
-    if((this.patternCorreo && this.profileAsilo.get('email').value.length > 2)){
+    if((this.patternCorreo && this.correo.length > 0) && this.passw.length > 6 && !this.errorPassw){
+      const dialog = this._dialog.open(ChangemailComponent, {
+        disableClose: true,
+      });
+      dialog.afterClosed()
+        .subscribe((resp) => {
+          
+          
+          if (resp) {
+            this.actualizarCorreoAndPassw();
+            // this.actualizarPassword();
+            this.passw = '';
+            // this._auth.logout();
+            
+          }
+        });
+    }else if((this.patternCorreo && this.profileAsilo.get('email').value.length > 2)){
       
       const dialog = this._dialog.open(ChangemailComponent, {
         disableClose: true,
@@ -353,22 +369,6 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
           if (resp) {
             this.actualizarPassword();
             
-            this.passw = '';
-            // this._auth.logout();
-            
-          }
-        });
-    }else if((this.patternCorreo && this.correo.length > 0) && this.passw.length > 6 && !this.errorPassw){
-      const dialog = this._dialog.open(ChangemailComponent, {
-        disableClose: true,
-      });
-      dialog.afterClosed()
-        .subscribe((resp) => {
-          
-          
-          if (resp) {
-            this.actualizarCorreoAndPassw();
-            // this.actualizarPassword();
             this.passw = '';
             // this._auth.logout();
             
