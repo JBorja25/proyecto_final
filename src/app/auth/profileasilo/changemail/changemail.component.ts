@@ -1,6 +1,7 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-changemail',
@@ -10,10 +11,12 @@ import { AuthService } from '../../services/auth.service';
 export class ChangemailComponent implements OnInit {
 
   contrasenia:string = '';
+  verpass: boolean = false;
 
   constructor(
     private _auth: AuthService,
-    private _dialog: MatDialogRef<ChangemailComponent>
+    private _dialog: MatDialogRef<ChangemailComponent>,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +35,11 @@ export class ChangemailComponent implements OnInit {
       }
     })
     .catch((err) =>{
-
+      this._toastr.warning('Credenciales incorrecta', 'Error Contraseña', {
+        progressAnimation: 'increasing',
+        progressBar: true,
+        closeButton: true
+      })
     });
 
   }
@@ -47,6 +54,10 @@ export class ChangemailComponent implements OnInit {
 
   cambioPass(evento: any){
     this.contrasenia = evento;
+  }
+
+  verContrasenia(){
+    this.verpass = !this.verpass;
   }
 
 }
