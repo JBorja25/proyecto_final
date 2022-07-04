@@ -5,7 +5,7 @@
     <!--button (click)="showFiller = !showFiller" mat-raised-button>
         Toggle extra text
       </!--button-->
-    <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style=" height: 100vh;">
       <div class="row" style="display: block;">
         <div class="col text-center">
 
@@ -35,8 +35,10 @@
         </li>
         <li class="nav-item mt-4" *ngIf="aprobado">
           <a routerLink="/asilo/info" class="nav-link active">
-            <i class="pi pi-book me-3"></i>
-            Información general
+            <i class="pi pi-user me-3"></i>
+            <span style="font-size: 15px;">
+              Información general
+            </span>
           </a>
         </li>
         <!--li class="nav-item">
@@ -60,7 +62,7 @@
       </ul>
       <hr>
       <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" role="button" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <p-avatar [image]="imagen != '' ? imagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle" class="ms-3"></p-avatar>
           <strong class="ps-2">Cerrar Sesion</strong>
