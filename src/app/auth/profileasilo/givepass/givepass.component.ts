@@ -435,7 +435,7 @@ data: any;
 
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+')]],
       address: ['', [Validators.required]],
       email: ['',[ Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
@@ -1161,6 +1161,10 @@ data: any;
   }
   get errorTransporte(){
     return (this.fourthFormGroup.get('transporte').hasError('required')) && ( this.fourthFormGroup.get('transporte').touched ||this.fourthFormGroup.get('transporte').dirty )
+  }
+
+  get errorNombrePattern(){
+    return this.firstFormGroup.get('name').hasError('pattern') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
   }
 
 
