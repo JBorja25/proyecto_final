@@ -20,6 +20,11 @@
                     <div class="row" *ngIf="errorNombreMin">
                         <span class="text-danger">El nombre debe tener al menos dos caracteres.</span>   
                     </div>
+                    <div class="row" *ngIf="errorNombrePattern">
+                        <span class="text-danger">
+                          El campo nombre no puede contener numeros y caracteres especiales.
+                        </span>
+                      </div>
                     
                     <div class="form-group">
                         <label for="direccion">Dirección</label>

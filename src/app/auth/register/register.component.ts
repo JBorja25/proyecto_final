@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
       registerForm=new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      nombre: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      nombre: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+')]),
       direccion: new FormControl('', [Validators.required, Validators.minLength(2)])
   });
 
@@ -155,5 +155,9 @@ export class RegisterComponent implements OnInit {
   }
   get errorPasswordMin(){
     return this.registerForm.get('password').hasError('minlength') && (this.registerForm.get('password').touched || this.registerForm.get('password').dirty);
+  }
+
+  get errorNombrePattern(){
+    return this.registerForm.get('nombre').hasError('pattern') && (this.registerForm.get('nombre').touched || this.registerForm.get('nombre').dirty);
   }
 }
