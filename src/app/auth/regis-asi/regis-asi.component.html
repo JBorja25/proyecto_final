@@ -187,7 +187,13 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Correo: </label>
-                      <input formControlName="email" type="text" class="form-control" required>
+                      <div  class="input-group">
+                        <span class="input-group-text">
+                          <i class="pi pi-map"></i>
+                        </span>
+                        <input formControlName="email" type="text" class="form-control" required>
+                      </div>
+                     
                       <div class="row" *ngIf="errorEmail">
                         <span class="text-danger">
                           El correo es un campo obligatorio
@@ -201,9 +207,9 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Telefono:</label>
-                      <div class="inpu-group">
+                      <div class="input-group">
                         <span class="input-group-text">
-                          <i class="pi pi-phone"></i>
+                          <i class="pi pi-id-card"></i>
                         </span>
                         <input formControlName="fono" type="text" class="form-control" required>
                       </div>
@@ -234,7 +240,7 @@
 
               </ng-template>
               <div class="mb-3">
-                <h3>Esta sección informativa permite seleccionar los horarios y dias de atención del asilo </h3>
+                <h5>Esta sección te permite seleccionar los horarios y dias de atención del asilo </h5>
                 <label class="form-label">Selecione día y hora de atención
                   <svg placement="end" popoverClass="cambiar_fondo" fill="#00ff55"
                     ngbPopover="Seleccione los dias de atencion del asilo." triggers="mouseenter:mouseleave"

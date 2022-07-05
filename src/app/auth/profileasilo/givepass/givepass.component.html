@@ -159,6 +159,11 @@
                       El nombre es un campo obligatorio
                     </span>
                   </div>
+                  <div class="row" *ngIf="errorNombrePattern">
+                    <span class="text-danger">
+                      El campo nombre no puede contener numeros y caracteres especiales.
+                    </span>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Direciion</label>

@@ -533,7 +533,7 @@ export class ProformaComponent implements OnInit {
         {
           text: 'Nombre ', bold: true
         },
-        'Jose Borja',
+        'Casa Esperanza',
         {
           text: 'Fecha', bold: true
         },
@@ -557,12 +557,12 @@ export class ProformaComponent implements OnInit {
         {
           text: 'Cédula', bold: true
         },
-        'cedual',
+        '1726749056',
         {
           text: 'Correo', bold: true
         },
         {
-          text: 'jose.borja@epn.edu.ec'
+          text: 'casaesperanza@gmail.com'
         }
       ]
     ]).layout('noBorders').fontSize(11).widths(['25%', '25%', '20%', '30%']).end);
