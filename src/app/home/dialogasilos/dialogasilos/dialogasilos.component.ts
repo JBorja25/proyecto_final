@@ -18,6 +18,7 @@ export class DialogasilosComponent implements OnInit {
   serviciosTerapeuticos: boolean = false;
   serviciosAdicionales: boolean = false;
   serviciosInstalaciones: boolean = false;
+  mostrarBox: boolean = false;
   // serviciosMedicos: boolean = false;
   constructor(
     private _post: PostService,
@@ -55,6 +56,13 @@ export class DialogasilosComponent implements OnInit {
   navegarSeccion(fragment: string){
     // this._router.navigateByUrl(`info-asilo/${ this.uid }#` + fragment);
     window.location.replace(`info-asilo/${ this.uid }#` + fragment);
+  }
+
+  botonMostrarBox(){
+    console.log(this.mostrarBox);
+    
+    this.mostrarBox = !this.mostrarBox;
+    console.log(this.mostrarBox);
   }
 
 
