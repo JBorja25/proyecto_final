@@ -58,12 +58,7 @@ export class DialogasilosComponent implements OnInit {
     window.location.replace(`info-asilo/${ this.uid }#` + fragment);
   }
 
-  botonMostrarBox(){
-    console.log(this.mostrarBox);
-    
-    this.mostrarBox = !this.mostrarBox;
-    console.log(this.mostrarBox);
-  }
+ 
 
 
   get serviciosMedicosFunc(){

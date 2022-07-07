@@ -184,3 +184,54 @@
     top: -15px;
 }
 
+.message-asilo{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    // border: 1px solid black;
+    height: calc(100% - 60px);
+    width: 320px;
+    max-height: 510px !important;
+    min-height: 220px !important;
+  }
+  .fab-button-message{
+    height: auto;
+    // border: 1px solid black;
+  }
+  
+  .message-asilo-fab-button{
+    position: inherit;
+    bottom: inherit;
+    right: inherit;
+  }
+  
+  .mostrar{
+    animation: fadein 1s;
+  }
+  
+  .no-mostrar{
+    animation: fadeout 2s;
+  }
+  
+  
+  @keyframes fadein {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+  }
+  
+  @keyframes fadeout {
+    100%{
+      opacity: 1;
+    }
+    50%{
+      opacity: 0.5;
+    }
+    0%{
+      opacity: 0;
+    }
+  }
+

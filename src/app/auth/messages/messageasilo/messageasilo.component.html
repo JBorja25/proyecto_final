@@ -1,10 +1,10 @@
-<section class="iniciar-chat" *ngIf="!invitado">
+<section class="iniciar-chat" *ngIf="mostrarBox">
     <div class="row" *ngIf="!display">
         <div class="col text-start mt-3 ms-3">
             <p-avatar [image]="dataAsilo ? dataAsilo.foto : 'assets/img/no-photo.png'" size="large" shape="circle"></p-avatar>
         </div>
         <div class="col text-end mt-4">
-            <button pButton pRipple type="button" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-text me-2"></button>
+            <!-- <button pButton pRipple type="button" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-text me-2"></button> -->
             <button pButton pRipple type="button" icon="pi pi-minus" class="p-button-rounded p-button-text me-2"></button>
             
         </div>
@@ -67,7 +67,10 @@
     
 <section class="avenue-messenger" *ngIf="invitado">
     <div class="text-end mt-0 me-1"> 
-        <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-rounded p-button-text me-2"></button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="p-button-rounded p-button-text me-2">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <!-- <button pButton pRipple type="button" [matMenuTriggersFor]="menu" icon="pi pi-bars" class=""></button> -->
 
         <!-- <button mat-icon-button color="accent" class="text-end" aria-label="Example icon button with a menu icon">
             <mat-icon>menu</mat-icon>
@@ -75,7 +78,7 @@
     </div>
     <div class="foto">
         <div class="mitad">
-            <img src="assets/img/1.jpg" alt="1" class="circular"  />
+            <img [src]="dataAsilo ? dataAsilo.foto : 'assets/img/no-photo.png'" alt="1" class="circular"  />
         </div>
     </div>
     
@@ -84,15 +87,79 @@
             <span><b>{{ dataAsilo.name }}</b></span>
             
         </div>
+        <div class="row">
+            <div class="d-flex justify-content-center" style="font-size: 10px; color: #777;">
+                {{hora.getHours()}}:{{minutos}}
+            </div>
+            <div class="col text-center" style="font-size: 10px; color: #777;" *ngIf="!finalizarChat">
+                Esta conversación se conservará durante la pestaña este activo asi como cuando no salga de la página actual.
+                Para eliminarla antes, elige "Finalizar chat" en el menú desplegable.
+                
+            </div>
+            <div class="col text-center" style="font-size: 10px; color: #777;" *ngIf="finalizarChat">
+                <div class="row">
+                    <span><b>¿Seguro que quieres finalizar el chat?</b></span>
+                    <div>Se eliminará tu conversación con {{dataAsilo.name}} y no podrá enviar mensajes.</div>
+                    <div class="d-flex justify-content-center">
+                        <button pButton pRipple label="Confirmar" type="button" icon="pi pi-check" class="me-3" (click)="confirmar()"></button>
+                        <button pButton pRipple label="Cancelar" type="button" class="p-button-secondary" icon="pi pi-times" (click)="cancelar()"></button>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
         <div class="messages">
-            <div class="contenido-mensaje">
-                messagges
+            <div class="contenido-mensaje" *ngIf="dataMensajes">
+                <!-- {{ idDocumento }} -->
+                <div class="row" *ngFor="let f of dataMensajes.mensajes">
+                    <div class="d-flex w-100" [ngClass]="{'justify-content-end': f.uid == uidUser, 'justify-content-start': f.uid != uidUser}">
+                        <!-- <div [ngClass]="{'': f.uid == uidUser, '': f.uid != uidUser}"> -->
+
+                        <div style="width:75%;" class="me-3 mt-1" [ngClass]="{'text-end': f.uid == uidUser, 'text-start': f.uid != uidUser}">
+                            <span style="border-radius: 12px;" class="p-1 text-white badge" [ngClass]="{'bg-primary': f.uid === uidUser, 'bg-success' : f.uid !== uidUser, 'text-wrap text-break': mensaje > 15}">
+                                {{ f.mensaje }}
+                                <!-- {{ f.mensaje.length}} -->
+                            </span>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
                 
             </div>
         </div>
         <div class="message-box">
-            <textarea class="message-input" [(ngModel)]="mensaje" (ngModelChange)="cambioValor($event)" placeholder="Escriba un mensaje..."></textarea>
-            <button type="submit" class="message-submit"><i class="pi pi-send"></i></button>
+            <form [formGroup]="mensajeGroup" (ngSubmit)="enviarMensaje()">
+
+                <textarea class="message-input" formControlName="mensaje" placeholder="Escriba un mensaje..."></textarea>
+                <button type="submit" class="message-submit"><i class="pi pi-send"></i></button>
+            </form>
         </div>
     </div>
 </section>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>login</mat-icon>
+        <span>Iniciar sesión</span>
+    </button>
+    <button mat-menu-item (click)="minimizar()">
+        <mat-icon>minimize</mat-icon>
+        <span>Minimizar</span>
+    </button>
+    <button mat-menu-item (click)="finalizarChatFun()">
+        <mat-icon>close</mat-icon>
+        <span>Finalizar chat</span>
+    </button>
+</mat-menu>
+
+<div class="message-asilo">
+    <div class="message-asilo-fab-button">
+        <div class="d-flex justify-content-end">
+            <button (click)="botonMostrarBox()" mat-fab color="primary" aria-label="mensajes para el asilo">
+                <mat-icon>message</mat-icon>
+            </button>
+        </div>
+
+    </div>
+</div>

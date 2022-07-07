@@ -592,20 +592,4 @@
 
         </div> 
 </div>-->
-<div class="message-asilo">
-    <div class="row" *ngIf="mostrarBox" [ngClass]="{'mostrar' : mostrarBox, 'no-mostrar': !mostrarBox}">
-        <div >
-
-            <app-messageasilo [dataAsilo]="posts"#asilomessage></app-messageasilo>
-        </div>
-
-    </div>
-    <div class="message-asilo-fab-button">
-        <div class="d-flex justify-content-end">
-            <button (click)="botonMostrarBox()" mat-fab color="primary" aria-label="mensajes para el asilo">
-                <mat-icon>message</mat-icon>
-            </button>
-        </div>
-
-    </div>
-</div>
+<app-messageasilo [dataAsilo]="posts"#asilomessage></app-messageasilo>
