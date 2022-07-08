@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import firebase from 'firebase/compat/app';
+import * as firebase from 'firebase/compat/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 // import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
@@ -114,7 +114,7 @@ export class AuthService {
     return this.afAuth.user;
   }
   insertCorreoAuth(){
-    return firebase.app().auth();
+    return firebase.default.app().auth();
   }
 
   updateDireccion(direccion: any, phone: any, idDoc: string){
@@ -127,7 +127,7 @@ export class AuthService {
   async reautenticar(passw:any){
     let userEmail =await this.afAuth.currentUser;
     
-    let credential = firebase.auth.EmailAuthProvider.credential(
+    let credential = firebase.default.auth.EmailAuthProvider.credential(
       userEmail.email,
       passw
     );
@@ -144,6 +144,10 @@ export class AuthService {
 
   anonimoUser(){
     return this.afAuth
+  }
+
+  eliminarUsuarioActual(){
+    firebase.default.auth().currentUser?.delete();
   }
 
   

@@ -42,6 +42,14 @@
             </span>
           </a>
         </li>
+        <li class="nav-item mt-4" *ngIf="aprobado">
+          <a [routerLink]="['/asilo/mensajes/', uid]" class="nav-link active">
+            <i class="pi pi-user me-3"></i>
+            <span style="font-size: 15px;">
+              Mensajes
+            </span>
+          </a>
+        </li>
 
 
       </ul>

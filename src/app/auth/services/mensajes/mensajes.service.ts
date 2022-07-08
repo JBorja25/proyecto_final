@@ -13,10 +13,12 @@ export class MensajesService {
   private _angularFire: AngularFirestore
   ) { }
 
-  guardarMensajes(data: any){
+  guardarMensajes(data: any, uidAsilo: string, uidUser: string){
     let enviar = {
       tipo: 'anonimo',
-      mensajes: firebase.default.firestore.FieldValue.arrayUnion(data)
+      mensajes: firebase.default.firestore.FieldValue.arrayUnion(data),
+      asilo: uidAsilo,
+      user: uidUser
     }
     return this._angularFire.collection('mensajes').add(enviar)
   }
@@ -24,13 +26,16 @@ export class MensajesService {
   getMensajes(){
     return this._angularFire.collection('mensajes').get();
   }
-  getMensajesId(idDoc: string){
-    return this._angularFire.collection('mensajes').doc(idDoc).get();
+  getMensajesId(idDocAsilo: string, uidUser: string){
+    return this._angularFire.collection('mensajes', ref => ref.where('asilo', '==', idDocAsilo).where('user', '==', uidUser)).get();
   }
 
-  updateMensajes(dataMensajes: any, mensaje: any, uid: string, idDoc: string){
+  updateMensajes(mensaje: any, uid: string, idDoc: string, id: any){
+    console.log(mensaje, idDoc);
+    
     let mensajes = {
       uid,
+      id,
       mensaje,
       time: this.hora.getTime(),
       hora: `${this.hora.getHours()}:${this.hora.getMinutes() < 10 ? '0'+this.hora.getMinutes() : this.hora.getMinutes()}:${ this.hora.getSeconds() < 10 ? '0'+this.hora.getSeconds() : this.hora.getSeconds()}`
@@ -39,4 +44,14 @@ export class MensajesService {
       mensajes: firebase.default.firestore.FieldValue.arrayUnion(mensajes)
     })
   }
+
+  eliminarDocs(idDoc: string){
+    return this._angularFire.collection('mensajes').doc(idDoc).delete();
+  }
+
+  getDocsid(idAsilo: string, idUser: string){
+    return this._angularFire.collection('mensajes', ref => ref.where('user', '==', idUser).where('asilo', '==', idAsilo)).get();
+  }
+
+ 
 }

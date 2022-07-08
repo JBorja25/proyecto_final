@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageasiloComponent } from 'src/app/auth/messages/messageasilo/messageasilo.component';
 import { PostService } from 'src/app/models/post.service';
 
 @Component({
@@ -8,7 +9,9 @@ import { PostService } from 'src/app/models/post.service';
   templateUrl: './dialogasilos.component.html',
   styleUrls: ['./dialogasilos.component.scss']
 })
-export class DialogasilosComponent implements OnInit {
+export class DialogasilosComponent implements OnInit, OnDestroy {
+  @ViewChild('asilomessage') asilomensajes: MessageasiloComponent;
+
   posts: any = {};
   uid: string= '';
   fecha = new Date().getFullYear();
@@ -32,6 +35,7 @@ export class DialogasilosComponent implements OnInit {
       console.log();
       
     this.getPosts();
+    window.location.replace(`info-asilo/${ this.uid }#inicio`);
   }
 
   getPosts(){
@@ -83,6 +87,10 @@ export class DialogasilosComponent implements OnInit {
 
   get HorariosDias(){
     return this.posts?.horas?.diasSemana && this.posts.horas.diasSemana.every((dias) => dias.completed === true) ;
+  }
+
+  ngOnDestroy(): void {
+    this.asilomensajes.ngOnDestroy();
   }
   
 

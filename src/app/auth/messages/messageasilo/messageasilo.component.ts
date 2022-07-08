@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -9,12 +9,12 @@ import { MensajesService } from '../../services/mensajes/mensajes.service';
   templateUrl: './messageasilo.component.html',
   styleUrls: ['./messageasilo.component.scss']
 })
-export class MessageasiloComponent implements OnInit {
-
+export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestroy {
+  @ViewChild('msj-id') id__msj: ElementRef;
   @Input() dataAsilo:any = {};
   // @Input() urlImg: string = '';
-  
-
+  elemento: any;
+  iniciarChatBoolean: boolean = false;
   mensajeGroup: FormGroup;
   subscription: Subscription[] = [];
   mensaje: number = 0;
@@ -24,9 +24,9 @@ export class MessageasiloComponent implements OnInit {
   idDocumento: string = '';
   uidUser: string = '';
   hora = new Date();
-  dataMensajes: any;
+  dataMensajes: any= {};
   minutos = (this.hora.getMinutes() < 10) ? '0'+this.hora.getMinutes() : this.hora.getMinutes();
-
+  ocultarChat: boolean =false;
   mostrarBox: boolean = false;
 
 
@@ -36,11 +36,23 @@ export class MessageasiloComponent implements OnInit {
     private _fb: FormBuilder
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     // 
     // this.getMensajes();
     this.crearFormulario();
+    
+     
   }
+  ngAfterContentInit(): void {
+    
+  }
+
+  scrollMensajes(){
+    this.elemento = document.getElementById('msj-id');
+    console.log(this.elemento);
+    this.elemento.scrollTop = this.elemento.scrollHeight;
+  }
+  
 
   
   crearFormulario(){
@@ -49,70 +61,108 @@ export class MessageasiloComponent implements OnInit {
     })
   }
 
-  enviarMensaje(){
+  enviarMensaje( mensajegroup: FormGroup ){
     
-    // 
-    this.mensaje = this.mensajeGroup.get('mensaje').value.length;
-    // console.log();
+    // this._auth.anonimoUser()
+    // .onAuthStateChanged((user) =>{
+    //   this.msj.getDocsid(this.dataAsilo.uid, user.uid)
+    //   .subscribe((resp) =>{
+    //     console.log(resp);
+    //     for(let f of resp.docs){
+
+    //       this.msj.eliminarDocs(f.id)
+    //       .then(() =>{
+    //         console.log('eliminado');
+            
+    //       })
+    //     }
+    //   });
+    // })
+        
+        
     
     
     if(this.mensajeGroup.invalid){
       return;
     }
-    let mensajes: any = {};
+    this.mensaje = this.mensajeGroup.get('mensaje').value.length;
     if(this.invitado){
-      this._auth.anonimoUser()
-      .onAuthStateChanged((user) =>{
-        
-
+      // let mensajes: any = {};
+      // this._auth.anonimoUser()
+      // .onAuthStateChanged((user) =>{
+      //   // if(user?.uid){
+      //     // this.uidUser = user?.uid ? user.uid : ''
+      //   // }
+      // })
+      if(this.uidUser.length > 0){
         if(this.idDocumento.length > 0){
-          console.log(this.mensajeGroup.get('mensaje').value);
-          console.log(this.idDocumento);
-          
-          this.msj.updateMensajes(this.dataMensajes, this.mensajeGroup.get('mensaje').value, user.uid, this.idDocumento)
+          this.msj.updateMensajes(mensajegroup.value.mensaje, this.uidUser, this.idDocumento, this.generarId())
           .then(() =>{
-            // this.dataMensajes = [];
-            this.msj.getMensajesId(this.idDocumento)
-            .subscribe((resp) =>{
-              console.log(resp.data());
+            console.log('actualizado el documento');
+            this.subscription.push(
               
-              this.dataMensajes = resp.data();
-              // this.uidUser = user.uid;
-              this.mensajeGroup.reset()
-              
-            })
+              this.msj.getMensajesId(this.dataAsilo.uid, this.uidUser)
+              .subscribe((resp: any) =>{
+                for(let f of resp.docs){
+                  console.log(f.data());
+                  this.dataMensajes = f.data();
+                  this.mensajeGroup.reset();
+                  
+                  
+                }
+              })
+            )
+            
+            setTimeout(() => {
+              this.scrollMensajes()
+                  
+                }, 300);
+            
+          } )
+          .catch((error) =>{
+            console.log(error);
             
           })
 
         }else{
-          mensajes = {
-                uid: user.uid,
-                mensaje: this.mensajeGroup.get('mensaje').value,
-                time: this.hora.getTime(),
-                hora: `${this.hora.getHours()}:${this.hora.getMinutes() < 10 ? '0'+this.hora.getMinutes() : this.hora.getMinutes()}:${ this.hora.getSeconds() < 10 ? '0'+this.hora.getSeconds() : this.hora.getSeconds()}`
-              }
-          this.msj.guardarMensajes(mensajes)
-          .then((resp) =>{
-            
-            // this.idDocumento = '';
-            // this.dataMensajes = [];
-            this.idDocumento = resp.id;
-            this.msj.getMensajesId(this.idDocumento)
-            .subscribe((resp) =>{
-              console.log(resp.data());
-              console.log(this.idDocumento);
-              
-              this.dataMensajes = resp.data();
-              this.uidUser = user.uid;
-              this.mensajeGroup.reset()
-            })
+          if(this.mensajeGroup.invalid){
+            return;
+          }
+          let guardarMensajes = {
+            uid: this.uidUser,
+            id: this.generarId(),
+            mensaje: mensajegroup.value.mensaje, 
+            time: this.hora.getTime(),
+            hora: `${this.hora.getHours()}:${this.hora.getMinutes() < 10 ? '0'+this.hora.getMinutes() : this.hora.getMinutes()}:${ this.hora.getSeconds() < 10 ? '0'+this.hora.getSeconds() : this.hora.getSeconds()}`
+          }
+          this.msj.guardarMensajes(guardarMensajes, this.dataAsilo.uid, this.uidUser)
+          .then((ref) =>{
+            this.idDocumento = ref.id;
+            console.log('el documento se ha guardado');
+            this.subscription.push(
+
+              this.msj.getMensajesId(this.dataAsilo.uid, this.uidUser)
+              .subscribe((resp: any) =>{
+                for(let f of resp.docs){
+                  console.log(f.data());
+                  this.dataMensajes = f.data();
+                  this.mensajeGroup.reset();
+                }
+              })
+            )
+            console.log(this.elemento);
+            console.log(this.id__msj);
+            setTimeout(() => {
+              this.scrollMensajes()
+                  
+                }, 300);
           })
           .catch((error) =>{
-    
-          });
+            console.log('error en el documento');
+            
+          })
         }
-  
-      })
+      }
     }
   }
 
@@ -150,15 +200,20 @@ export class MessageasiloComponent implements OnInit {
   }
 
   iniciarInvitado(){
+    this.iniciarChatBoolean = true;
     this._auth.anonimo()
     .then((resp) =>{
       
       this.invitado = true;
       this.mostrarBox = false;
+      // this.ocultarChat = true;
+      this.uidUser = resp?.user?.uid ? resp.user.uid : '';
       
+      this.iniciarChatBoolean = false;
     })
     .catch((error) =>{
       
+      this.iniciarChatBoolean = false;
       
     })
   }
@@ -175,28 +230,54 @@ export class MessageasiloComponent implements OnInit {
     this.mostrarBox = false;
     this.display = false;
     this.finalizarChat = false;
+    this.ocultarChat = false;
+    this.subscription.forEach((valor) =>{
+      valor.unsubscribe();
+    });
+    if(this.idDocumento.length > 0){
+      this.msj.eliminarDocs(this.idDocumento);
+      this.idDocumento = '';
+      this.dataMensajes = {}
+    }else{
+      this.idDocumento = '';
+      this.dataMensajes = {}
+
+    }
+    this._auth.eliminarUsuarioActual();
   }
 
   minimizar(){
-    if(this.invitado && this.display && !this.mostrarBox){
+    if(this.invitado && !this.mostrarBox){
       this.invitado = false;
     }
   }
 
   botonMostrarBox(){
-    if(this.invitado && this.display && !this.mostrarBox){
+    if(this.invitado && !this.mostrarBox){
+      // this.mostrarBox = false;
       this.invitado = false;
+      this.ocultarChat = true;
+    }else if(this.ocultarChat){
+      this.invitado = true;
     }else{
-      if(!this.invitado && this.display && !this.mostrarBox){
-        this.invitado = true;
-      }else{
-        
-        
-        this.mostrarBox = !this.mostrarBox;
-        
-      }
+      this.mostrarBox = !this.mostrarBox;
     }
+    // if(this.invitado && !this.mostrarBox){
+    //   this.invitado = false;
+    // }else{
+    //   if(!this.invitado && !this.mostrarBox){
+    //     this.invitado = true;
+    //   }else{
+        
+        
+        
+    //   }
+    // }
     
+  }
+
+  ngOnDestroy(): void {
+    this.confirmar();
   }
 
 }

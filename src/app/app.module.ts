@@ -104,6 +104,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { MessagesModule } from 'primeng/messages';
 import { SwiperModule } from 'swiper/angular';
 import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo.component';
+import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
 
 
 
@@ -139,6 +140,7 @@ import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo
    MostrarPipe,
    AllsilosComponent,
    MessageasiloComponent,
+   ModuleasiloComponent,
    
 
    
