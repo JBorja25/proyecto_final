@@ -26,6 +26,7 @@ import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogas
 import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
 import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.component';
 import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component';
+import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
 
 
 
@@ -43,7 +44,9 @@ const routes: Routes = [
       { path: 'regisall', component: RegisallComponent },
       { path: 'regis-asi', component: RegisAsiComponent },
       { path: 'profile', component: ProfileasiloComponent },
-      { path: 'info', component: GivepassComponent }
+      { path: 'info', component: GivepassComponent },
+      { path: 'mensajes/:uid', component: ModuleasiloComponent }
+
     ]
   },
 

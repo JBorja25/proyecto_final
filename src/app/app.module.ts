@@ -95,6 +95,7 @@ import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component'
 
 /* PrimeNG */
 import { CarouselModule } from 'primeng/carousel';
+import { ChipModule } from 'primeng/chip';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
@@ -103,6 +104,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { MessagesModule } from 'primeng/messages';
 import { SwiperModule } from 'swiper/angular';
 import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo.component';
+import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
 
 
 
@@ -138,6 +140,7 @@ import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo
    MostrarPipe,
    AllsilosComponent,
    MessageasiloComponent,
+   ModuleasiloComponent,
    
 
    
@@ -154,6 +157,7 @@ import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo
     AngularFireAuthModule,
     ButtonModule,
     DialogModule,
+    ChipModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideMessaging(() => getMessaging()),
