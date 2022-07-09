@@ -13,12 +13,13 @@ export class MensajesService {
   private _angularFire: AngularFirestore
   ) { }
 
-  guardarMensajes(data: any, uidAsilo: string, uidUser: string){
+  guardarMensajes(data: any, uidAsilo: string, uidUser: string, id: string){
     let enviar = {
       tipo: 'anonimo',
       mensajes: firebase.default.firestore.FieldValue.arrayUnion(data),
       asilo: uidAsilo,
-      user: uidUser
+      user: uidUser,
+      id
     }
     return this._angularFire.collection('mensajes').add(enviar)
   }
@@ -27,7 +28,7 @@ export class MensajesService {
     return this._angularFire.collection('mensajes').get();
   }
   getMensajesId(idDocAsilo: string, uidUser: string){
-    return this._angularFire.collection('mensajes', ref => ref.where('asilo', '==', idDocAsilo).where('user', '==', uidUser)).get();
+    return this._angularFire.collection('mensajes', ref => ref.where('asilo', '==', idDocAsilo).where('user', '==', uidUser)).valueChanges();
   }
 
   updateMensajes(mensaje: any, uid: string, idDoc: string, id: any){
@@ -51,6 +52,19 @@ export class MensajesService {
 
   getDocsid(idAsilo: string, idUser: string){
     return this._angularFire.collection('mensajes', ref => ref.where('user', '==', idUser).where('asilo', '==', idAsilo)).get();
+  }
+
+  getMessagesByIdAsilo(idChat: string){
+    return this._angularFire.collection('mensajes', ref => ref.where('asilo', '==', idChat)).valueChanges();
+  }
+  getMessagesByIdChat(idChat: string){
+    return this._angularFire.collection('mensajes', ref => ref.where('id', '==', idChat)).valueChanges();
+  }
+  // getMessagesByIdChat(idChat: string){
+  //   return this._angularFire.collection('mensajes', ref => ref.where('id', '==', idChat)).valueChanges();
+  // }
+  getChatByIdChat(idChat: string){
+    return this._angularFire.collection('mensajes', ref => ref.where('id', '==', idChat)).get();
   }
 
  

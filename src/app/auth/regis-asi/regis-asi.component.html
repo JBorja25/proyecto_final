@@ -17,7 +17,7 @@
         <span style="font-size:18px">{{nombre}}</span>
       </div>
       <div class="d-flex justify-content-center mt-3">
-        <small style="font-size: 13px; margin-top: -8px">Asilo</small>
+        <small style="font-size: 13px; " class="mt-1">Asilo</small>
       </div>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
@@ -38,6 +38,14 @@
             <i class="pi pi-user me-3"></i>
             <span style="font-size: 15px;">
               Información general
+            </span>
+          </a>
+        </li>
+        <li class="nav-item mt-4">
+          <a [routerLink]="['/asilo/mensajes/', uuid]" class="nav-link active">
+            <i class="pi pi-user me-3"></i>
+            <span style="font-size: 15px;">
+              Mensajes
             </span>
           </a>
         </li>
