@@ -1,8 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageasiloComponent } from 'src/app/auth/messages/messageasilo/messageasilo.component';
 import { PostService } from 'src/app/models/post.service';
+
+declare var L: any;
 
 @Component({
   selector: 'app-dialogasilos',
@@ -11,7 +13,7 @@ import { PostService } from 'src/app/models/post.service';
 })
 export class DialogasilosComponent implements OnInit, OnDestroy {
   @ViewChild('asilomessage') asilomensajes: MessageasiloComponent;
-
+  @ViewChild('mapa') mapElement: ElementRef;
   posts: any = {};
   uid: string= '';
   fecha = new Date().getFullYear();
@@ -22,13 +24,19 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
   serviciosAdicionales: boolean = false;
   serviciosInstalaciones: boolean = false;
   mostrarBox: boolean = false;
+  marcadores: any[]= [];
   // serviciosMedicos: boolean = false;
+  optionsMapa: any;
+  infoWindow: any;
+  map:any;
   constructor(
     private _post: PostService,
     private _activated: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    
   ) { 
     this.uid = this._activated.snapshot.paramMap.get('uid');
+    
   }
 
   ngOnInit(): void {
@@ -46,20 +54,55 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
       for(let f of resp.docs){
         console.log(f.data());
         this.posts = f.data();
-
-        
+        this.mapa(f.data().latlong.latitude, f.data().latlong.longitude);
+        this.agregarMarcador();
         // if(f.data().tipo != ' admin'){
         //   this.posts.push(f.data());
         // }
       }
-      console.log(this.posts);
+      console.log(this.posts.latlong.latitude);
       
     })
+  }
+
+  agregarMarcador(){
+    let popup:any;
+    const html = `
+        
+        <b><h5><b>${ this.posts.name }</b></h5></b>
+        <span>${ this.posts.address }</span><br/>
+        `;
+        let marker = L.marker([this.posts.latlong.latitude, this.posts.latlong.longitude])
+                .addTo(this.map);
+                
+        this.marcadores.push(marker);
+                
+        marker.on('click', () => {
+          popup = L.popup()
+          .setLatLng([this.posts.latlong.latitude, this.posts.latlong.longitude])
+          .setContent(html)
+          .openOn(this.map);
+        });
   }
 
   navegarSeccion(fragment: string){
     // this._router.navigateByUrl(`info-asilo/${ this.uid }#` + fragment);
     window.location.replace(`info-asilo/${ this.uid }#` + fragment);
+  }
+
+  mapa(latitude: number, longitude: number){
+    // await loading.present();
+    this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+      }).addTo(this.map);
+      // this.agregarMarcadores();
+
+      // setTimeout(() => {
+      //   loading.dismiss();
+      // }, 1500);
   }
 
  

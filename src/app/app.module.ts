@@ -96,6 +96,7 @@ import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component'
 /* PrimeNG */
 import { CarouselModule } from 'primeng/carousel';
 import { ChipModule } from 'primeng/chip';
+import { GMapModule } from 'primeng/gmap';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
@@ -161,6 +162,7 @@ import { ContentComponent } from './auth/messages/messageasilo/messagecontent/co
     ButtonModule,
     DialogModule,
     ChipModule,
+    GMapModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideMessaging(() => getMessaging()),
