@@ -102,10 +102,10 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
             this.subscription.push(
               
               this.msj.getMensajesId(this.dataAsilo.uid, this.uidUser)
-              .subscribe((resp: any) =>{
-                for(let f of resp.docs){
-                  console.log(f.data());
-                  this.dataMensajes = f.data();
+              .subscribe((resp) =>{
+                for(let f of resp){
+                  console.log(f);
+                  this.dataMensajes = f;
                   this.mensajeGroup.reset();
                   
                   
@@ -135,17 +135,17 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
             time: this.hora.getTime(),
             hora: `${this.hora.getHours()}:${this.hora.getMinutes() < 10 ? '0'+this.hora.getMinutes() : this.hora.getMinutes()}:${ this.hora.getSeconds() < 10 ? '0'+this.hora.getSeconds() : this.hora.getSeconds()}`
           }
-          this.msj.guardarMensajes(guardarMensajes, this.dataAsilo.uid, this.uidUser)
+          this.msj.guardarMensajes(guardarMensajes, this.dataAsilo.uid, this.uidUser, this.generarId())
           .then((ref) =>{
             this.idDocumento = ref.id;
             console.log('el documento se ha guardado');
             this.subscription.push(
 
               this.msj.getMensajesId(this.dataAsilo.uid, this.uidUser)
-              .subscribe((resp: any) =>{
-                for(let f of resp.docs){
-                  console.log(f.data());
-                  this.dataMensajes = f.data();
+              .subscribe((resp) =>{
+                for(let f of resp){
+                  console.log(f);
+                  this.dataMensajes = f;
                   this.mensajeGroup.reset();
                 }
               })

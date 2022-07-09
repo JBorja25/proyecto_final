@@ -102,9 +102,11 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
 import { MessagesModule } from 'primeng/messages';
+import { PickListModule } from 'primeng/picklist';
 import { SwiperModule } from 'swiper/angular';
 import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo.component';
 import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
+import { ContentComponent } from './auth/messages/messageasilo/messagecontent/content/content.component';
 
 
 
@@ -141,6 +143,7 @@ import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/mo
    AllsilosComponent,
    MessageasiloComponent,
    ModuleasiloComponent,
+   ContentComponent,
    
 
    
@@ -168,7 +171,7 @@ import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/mo
     MessagesModule,
     FormsModule,
     ReactiveFormsModule,
-  
+    PickListModule,
     AvatarModule,
     AngularFireStorageModule,
     MatSidenavModule,

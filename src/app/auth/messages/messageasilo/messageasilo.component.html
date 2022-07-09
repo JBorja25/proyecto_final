@@ -116,7 +116,7 @@
                         <!-- <div [ngClass]="{'': f.uid == uidUser, '': f.uid != uidUser}"> -->
 
                         <div style="width:75%;" class="mt-1" [ngClass]="{'text-end me-3': f.uid == uidUser, ' ms-3 text-start': f.uid != uidUser}">
-                            <span style="border-radius: 12px;" class="p-1 text-white badge" [ngClass]="{'bg-primary text-end': f.uid === uidUser, 'bg-success text-start' : f.uid !== uidUser, 'text-wrap text-break': (mensaje > 15 || f.mensaje > 15)}">
+                            <span style="border-radius: 12px;" class="p-1 text-white badge" [ngClass]="{'bg-primary text-end': f.uid === uidUser, 'bg-success text-start' : f.uid !== uidUser, 'text-wrap text-break': (mensaje > 15 || f.mensaje.length > 15)}">
                                 {{ f.mensaje }}
                                 <!-- {{ f.mensaje.length}} -->
                             </span>
