@@ -388,7 +388,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
       // this.getData();
       this.guardar();
       this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
-      this.getData();
+      // this.getData();
     }
 
 
@@ -445,9 +445,8 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
   }
 
   get errorDireccionMax(){
-    return this.profileAdmin.get('direccion').value.length > 0 && (this.profileAdmin.get('direccion').touched || this.profileAdmin.get('direccion').dirty);
+    return this.profileAdmin.get('direccion').hasError('maxlength') && (this.profileAdmin.get('direccion').touched || this.profileAdmin.get('direccion').dirty);
   }
-
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
