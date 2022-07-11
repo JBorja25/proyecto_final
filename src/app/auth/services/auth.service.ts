@@ -85,6 +85,9 @@ export class AuthService {
   getPost(uid: string){
     return this._f.collection('post', ref => ref.where('uid', '==', uid)).get();
   }
+  getAllPost(){
+    return this._f.collection('post').get();
+  }
 
   getCurrentUser(){
     return this.afAuth.currentUser;

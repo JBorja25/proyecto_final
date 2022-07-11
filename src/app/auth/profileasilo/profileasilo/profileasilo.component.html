@@ -168,6 +168,11 @@
               El campo nombre no puede contener numeros y caracteres especiales.
             </span>
           </div>
+          <div class="row" *ngIf="errorNombreMax">
+            <span class="text-danger">
+                El campo nombre debe tener un máximo de 20 caracteres.
+            </span>
+          </div>
         </div>
 
         <div class="row" style="width: 75%">
@@ -193,6 +198,11 @@
                 <i class="pi pi-map"></i>
               </span>
               <input type="text" class="form-control" formControlName="direccion">
+            </div>
+            <div class="row" *ngIf="errorDireccionMax">
+              <span class="text-danger">
+                El campo direccion no debe sobrepasar los 50 caracteres.
+              </span>
             </div>
 
           </div>

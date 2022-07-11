@@ -58,9 +58,9 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
 
   crearFormulario(){
     this.profileAdmin = this._fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+')]],
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+'), Validators.maxLength(20)]],
       telefono: ['', [Validators.pattern('[0-9]{7,}')]],
-      direccion: [''],
+      direccion: ['', [Validators.maxLength(60)]],
       email: ['', [Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       passw: ['', [Validators.minLength(6)]]
     })
@@ -438,6 +438,14 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
   }
   get errorPasswVacio(){
     return this.profileAdmin.get('passw').value.length > 0 && (this.profileAdmin.get('passw').touched || this.profileAdmin.get('passw').dirty);
+  }
+
+  get errorNombreMax(){
+    return this.profileAdmin.get('nombre').hasError('maxlength') && (this.profileAdmin.get('nombre').touched || this.profileAdmin.get('nombre').dirty);
+  }
+
+  get errorDireccionMax(){
+    return this.profileAdmin.get('direccion').value.length > 0 && (this.profileAdmin.get('direccion').touched || this.profileAdmin.get('direccion').dirty);
   }
 
 

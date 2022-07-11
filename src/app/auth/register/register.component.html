@@ -22,9 +22,14 @@
                     </div>
                     <div class="row" *ngIf="errorNombrePattern">
                         <span class="text-danger">
-                          El campo nombre no puede contener numeros y caracteres especiales.
+                            El campo nombre no puede contener numeros y caracteres especiales.
                         </span>
-                      </div>
+                    </div>
+                    <div class="row" *ngIf="errorNombreMax">
+                        <span class="text-danger">
+                            El campo nombre debe tener un máximo de 20 caracteres.
+                        </span>
+                    </div>
                     
                     <div class="form-group">
                         <label for="direccion">Dirección</label>
@@ -41,6 +46,11 @@
                     <div class="row" *ngIf="errorDireccionMin">
                         <span class="text-danger">La dirección es invalida</span>   
                     </div>
+                    <div class="row" *ngIf="errorDireccionMax">
+                        <span class="text-danger">
+                          El campo direccion no debe sobrepasar los 50 caracteres.
+                        </span>
+                      </div>
                     <div class="form-group">
                         <label for="email">Correo</label>
                         <div class="input-group">
@@ -66,10 +76,10 @@
                                         <span class="pi pi-lock"></span>
                                     </span>
                                     <input [type]="verpass ? 'password': 'text'" class="form-control" formControlName="password">
-                                    <span *ngIf="verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                                    <span *ngIf="!verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
                                         <i class="pi pi-eye"></i>
                                     </span>
-                                    <span *ngIf="!verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
+                                    <span *ngIf="verpass" style="cursor:pointer" class="input-group-text" (click)="verContrasenia()">
                                         <i class="pi pi-eye-slash"></i>
                                     </span>
                                 </div>

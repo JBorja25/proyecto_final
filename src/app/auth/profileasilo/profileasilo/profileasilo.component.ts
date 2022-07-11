@@ -47,20 +47,20 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
 
   ngOnInit(): void {
     this.token = this._cookie.get('uid');
+    this.crearFormulario();
 
     this.getData();
     this.getDataFirebase();
     
-    this.crearFormulario();
 
   }
 
 
   crearFormulario(){
     this.profileAsilo = this._fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+')]],
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+'), Validators.maxLength(20)]],
       telefono: ['', [Validators.pattern('[0-9]{7,}')]],
-      direccion: [''],
+      direccion: ['', [Validators.maxLength(60)]],
       email: ['', [Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       passw: ['', [Validators.minLength(6)]]
     })
@@ -162,9 +162,9 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
   guardar() {
     console.log('entra en guardar');
     
-    let nombre = (!this.errorNombre && !this.errorNombreMin && !this.errorNombrePattern) ? this.profileAsilo.get('nombre').value : this.dataUser.displayName;
-    let dir = (this.profileAsilo.get('direccion').value.length > 0) ? this.profileAsilo.get('direccion').value : this.data.direccion;
-    let phone = (!this.errorPhone) ? this.profileAsilo.get('telefono').value : this.data.phone;
+    let nombre = (!this.errorNombre && !this.errorNombreMin && !this.errorNombrePattern) ? this.profileAsilo.get('nombre').value.trim() : this.dataUser.displayName;
+    let dir = (this.profileAsilo.get('direccion').value.length > 0) ? this.profileAsilo.get('direccion').value.trim() : this.data.direccion;
+    let phone = (!this.errorPhone) ? this.profileAsilo.get('telefono').value.trim() : this.data.phone;
     console.log(`erro nombre ${ this.errorNombre } error nombre min ${ this.errorNombreMin } error patter ${ this.errorNombrePattern }`);
     
     console.log(nombre);
@@ -194,7 +194,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
   }
 
   actualizarCorreo(){
-    let correo = (!this.errorCorreo && this.errorCorreoVacio) ? this.profileAsilo.get('email').value : this.dataUser.email;
+    let correo = (!this.errorCorreo && this.errorCorreoVacio) ? this.profileAsilo.get('email').value.trim() : this.dataUser.email;
     console.log(correo);
     console.log(this.errorCorreo);
     console.log(this.errorCorreoVacio);
@@ -230,7 +230,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
     // this.subscription.push(correoUserFirebase);
   }
   actualizarPassword(){
-    let password = (!this.errorPassw && this.errorPasswVacio) ? this.profileAsilo.get('passw').value : '';
+    let password = (!this.errorPassw && this.errorPasswVacio) ? this.profileAsilo.get('passw').value.trim() : '';
     this.subscription.push(
 
       this._auth.insertCorreo()
@@ -254,8 +254,8 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
   }
 
   actualizarCorreoAndPassw(){
-    let password = (!this.errorPassw && this.errorPasswVacio) ? this.profileAsilo.get('passw').value : '';
-    let correo = (!this.errorCorreo && this.errorCorreoVacio) ? this.profileAsilo.get('email').value : this.dataUser.email;
+    let password = (!this.errorPassw && this.errorPasswVacio) ? this.profileAsilo.get('passw').value.trim() : '';
+    let correo = (!this.errorCorreo && this.errorCorreoVacio) ? this.profileAsilo.get('email').value.trim() : this.dataUser.email;
 
     this.subscription.push(
 
@@ -283,7 +283,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
         })
         .catch((error) =>{
           console.log(error);
-          this.toastWarning(`El correo ${ this.profileAsilo.get('email').value } ingresado ya se encuentra registrado.`, 'Error  correo electronico');
+          this.toastWarning(`El correo ${ this.profileAsilo.get('email').value.trim() } ingresado ya se encuentra registrado.`, 'Error  correo electronico');
           
         })
       })
@@ -303,7 +303,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
     this.direccion = evento;
   }
   cambioCorreo(evento: any) {
-    this.correo = evento.value;
+    this.correo = evento.value.trim();
     // console.log(this.correo);
     
     if(this.correo.match('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')){
@@ -316,7 +316,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
     console.log(evento.value);
     console.log(this.errorPassw);
     
-    this.passw = evento.value;
+    this.passw = evento.value.trim();
   }
 
   cambiarcor() {
@@ -452,6 +452,13 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
   }
   get errorPasswVacio(){
     return this.profileAsilo.get('passw').value.length > 0 && (this.profileAsilo.get('passw').touched || this.profileAsilo.get('passw').dirty);
+  }
+  get errorDireccionMax(){
+    return this.profileAsilo.get('direccion').value.length > 0 && (this.profileAsilo.get('direccion').touched || this.profileAsilo.get('direccion').dirty);
+  }
+
+  get errorNombreMax(){
+    return this.profileAsilo.get('nombre').hasError('maxlength') && (this.profileAsilo.get('nombre').touched || this.profileAsilo.get('nombre').dirty);
   }
 
 

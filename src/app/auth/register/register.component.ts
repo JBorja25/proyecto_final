@@ -18,8 +18,8 @@ export class RegisterComponent implements OnInit {
       registerForm=new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      nombre: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+')]),
-      direccion: new FormControl('', [Validators.required, Validators.minLength(2)])
+      nombre: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+'), Validators.maxLength(20)]),
+      direccion: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(60)])
   });
 
   enviarFirebase: any = {};
@@ -38,79 +38,81 @@ export class RegisterComponent implements OnInit {
     }
 
     const{email, password ,nombre}=this.registerForm.value;
-     this.authSvc.register(email, password)
+     this.authSvc.register(email.trim(), password.trim())
      .then((user) =>{
+      if(user){
 
-       console.log(user);
-       const swaluser = Swal.fire({
-        title: 'Validando Campos...',
-        text: 'Registro Existoso, gracias por formar parte de mejor sitio web.',
-        confirmButtonText: 'Aceptar',
-        icon: 'success',
-        timer: 2000 ,
-        didOpen: () => {
-          Swal.showLoading();
-        }
-      });
-      
-        this.enviarFirebase = {
-          direccion: this.registerForm.get('direccion').value,
-          tipo: 'asilo',
-          uid: user.user.uid,
-          phone: '',
-          password: this.registerForm.get('password').value,
-          foto: ''
-        }
-  
-        this.authSvc.insertName()
-        .subscribe((resp) =>{
-          resp.updateProfile({
-            displayName: nombre
-          }).then((resp) =>{
-            console.log(resp);
-            
-          })
-  
-          
-        });
-  
-      this.authSvc.guardarInfoRegistro(this.enviarFirebase)
-      .then((respFirebase: any)=>{
-        console.log(respFirebase.user);
-          
-          if(user && respFirebase.id.length > 2){
-            // console.log('regsitrado correctamente');
-            Swal.close();
-            this.authSvc.guardarCookie('asilos', user.user.uid);
-  
-            this.router.navigateByUrl('asilo/regis-asi');
-            
-          }else{
-            console.log('no se pudo registrar');
-            Swal.close();
-            
-            
-          }
-      } )
-      .catch((erroResp) =>{
-        console.log(erroResp);
+        console.log(user);
         Swal.fire({
-          title: 'Error de registro',
-          text: 'No se pudo registrar por un error desconocido',
-          confirmButtonText: 'Aceptar',
-          icon: 'error',
-          confirmButtonAriaLabel: 'Aceptar'
-        });
-      });
+         title: 'Validando Campos...',
+         text: 'Registro Existoso, gracias por formar parte de mejor sitio web.',
+         confirmButtonText: 'Aceptar',
+         icon: 'success',
+         timer: 2000 
+       });
+       Swal.showLoading();
+       
+         this.enviarFirebase = {
+           direccion: this.registerForm.get('direccion').value.trim(),
+           tipo: 'asilo',
+           uid: user.user.uid,
+           phone: '',
+           password: this.registerForm.get('password').value.trim(),
+           foto: ''
+         }
+   
+         this.authSvc.insertName()
+         .subscribe((resp) =>{
+           resp.updateProfile({
+             displayName: nombre
+           }).then((resp) =>{
+             console.log(resp);
+             
+           })
+   
+           
+         });
+   
+       this.authSvc.guardarInfoRegistro(this.enviarFirebase)
+       .then((respFirebase: any)=>{
+         console.log(respFirebase.user);
+           
+           if(user && respFirebase.id.length > 2){
+             // console.log('regsitrado correctamente');
+             Swal.close();
+             this.authSvc.guardarCookie('asilos', user.user.uid);
+   
+             this.router.navigateByUrl('asilo/regis-asi');
+             
+           }else{
+             console.log('no se pudo registrar');
+             Swal.close();
+             
+             
+           }
+       } )
+       .catch((erroResp) =>{
+         console.log(erroResp);
+         Swal.fire({
+           title: 'Error de registro',
+           text: 'No se pudo registrar por un error desconocido',
+           confirmButtonText: 'Aceptar',
+           icon: 'error',
+           confirmButtonAriaLabel: 'Aceptar'
+         });
+       });
+      }
+
      })
      .catch((error) =>{
       // console.log(error);
+      Swal.close();
       Swal.fire({
-        title: 'Error de correo electronico',
-        text: 'No puede utilizar el correo electronico ' + this.registerForm.get('email').value + ' debido a que ya se encuentra registrado.',
+        title: 'Error de registro',
+        text: 'No puede utilizar el correo electronico ' + this.registerForm.get('email').value.trim() + ' debido a que ya se encuentra registrado.',
         confirmButtonText: 'Aceptar',
         icon: 'error',
-        
+        confirmButtonAriaLabel: 'Aceptar'
       });
       
      })
@@ -141,6 +143,9 @@ export class RegisterComponent implements OnInit {
   get errorDireccionMin(){
     return this.registerForm.get('direccion').hasError('minlength') && (this.registerForm.get('direccion').touched || this.registerForm.get('direccion').dirty);
   }
+  get errorDireccionMax(){
+    return this.registerForm.get('direccion').hasError('maxlength') && (this.registerForm.get('direccion').touched || this.registerForm.get('direccion').dirty);
+  }
 
 
   get errorCorreo(){
@@ -159,5 +164,8 @@ export class RegisterComponent implements OnInit {
 
   get errorNombrePattern(){
     return this.registerForm.get('nombre').hasError('pattern') && (this.registerForm.get('nombre').touched || this.registerForm.get('nombre').dirty);
+  }
+  get errorNombreMax(){
+    return this.registerForm.get('nombre').hasError('maxlength') && (this.registerForm.get('nombre').touched || this.registerForm.get('nombre').dirty);
   }
 }
