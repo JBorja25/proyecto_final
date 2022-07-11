@@ -90,9 +90,13 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
 
   getData() {
     this.subscription.push(
-
+      
       this._auth.traerDataFirebase(this.token)
-        .subscribe((resp: any) => {
+      .subscribe((resp: any) => {
+          this.data = {};
+
+          console.log(resp);
+          
           
   
           for (let f of resp.docs) {
@@ -100,15 +104,15 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
             this.idDoc = f.id;
             console.log(f.data());
             
-            this.data = resp;
+            this.data = f.data();
             
             this.dataUser = this._auth.insertCorreoAuth().currentUser;
             console.log(this.dataUser);
             
             this.profileAsilo.setValue({
               nombre: this.dataUser.displayName,
-              telefono: f.data().phone,
-              direccion: f.data().direccion,
+              telefono: this.data.phone,
+              direccion: this.data.direccion,
               email: '',
               passw: ''
             })
@@ -166,6 +170,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
     let dir = (this.profileAsilo.get('direccion').value.length > 0) ? this.profileAsilo.get('direccion').value.trim() : this.data.direccion;
     let phone = (!this.errorPhone) ? this.profileAsilo.get('telefono').value.trim() : this.data.phone;
     console.log(`erro nombre ${ this.errorNombre } error nombre min ${ this.errorNombreMin } error patter ${ this.errorNombrePattern }`);
+    console.log(dir, phone);
     
     console.log(nombre);
     const nombreUserFirebase = this._auth.insertNameCurrent()
@@ -193,6 +198,51 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
       
   }
 
+  traer(){
+    this.token = this._cookie.get('uid');
+    this._auth.traerDataFirebase(this.token)
+      .subscribe((resp: any) => {
+          this.data = {};
+
+          console.log(resp);
+          
+          
+          this.profileAsilo.reset();
+  
+          for (let f of resp.docs) {
+            // this.data = f.data()
+            this.idDoc = f.id;
+            console.log(f.data());
+            
+            this.data = f.data();
+            
+            this.dataUser = this._auth.insertCorreoAuth().currentUser;
+            console.log(this.dataUser);
+            
+            this.profileAsilo.setValue({
+              nombre: this.dataUser.displayName,
+              telefono: this.data.phone,
+              direccion: this.data.direccion,
+              email: '',
+              passw: ''
+            })
+            // .subscribe((respAPI) =>{
+            //   console.log(respAPI);
+              
+            //   this.dataUser = respAPI;
+            // });
+          }
+          
+  
+  
+          
+  
+          
+  
+  
+        })
+  }
+
   actualizarCorreo(){
     let correo = (!this.errorCorreo && this.errorCorreoVacio) ? this.profileAsilo.get('email').value.trim() : this.dataUser.email;
     console.log(correo);
@@ -210,7 +260,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
           respCorreo.updateEmail(correo)
           .then((rCorreo) =>{
             console.log(rCorreo, 'se actualizo el correo');
-            this.guardar();
+            this.traer();
             this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
             this.cerrar(true);
             // this.getData();
@@ -238,7 +288,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
         respPassword.updatePassword(password)
         .then((rPassw) =>{
           console.log(rPassw);
-          this.guardar();
+          this.traer();
           this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
           this.cerrar(true);
           // this.getData();
@@ -269,7 +319,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
             respPassword.updatePassword(password)
             .then((rPassw) =>{
               console.log(rPassw);
-              this.guardar();
+              this.traer();
               this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
               // this.getData();
               this.cerrar(true);
@@ -376,9 +426,9 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
         });
     }else{
       // this.getData();
-      this.guardar();
+      this.guardar()
       this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
-      this.getData();
+      // this.traer();
     }
 
     
@@ -454,7 +504,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
     return this.profileAsilo.get('passw').value.length > 0 && (this.profileAsilo.get('passw').touched || this.profileAsilo.get('passw').dirty);
   }
   get errorDireccionMax(){
-    return this.profileAsilo.get('direccion').value.length > 0 && (this.profileAsilo.get('direccion').touched || this.profileAsilo.get('direccion').dirty);
+    return this.profileAsilo.get('direccion').hasError('maxlength') && (this.profileAsilo.get('direccion').touched || this.profileAsilo.get('direccion').dirty);
   }
 
   get errorNombreMax(){

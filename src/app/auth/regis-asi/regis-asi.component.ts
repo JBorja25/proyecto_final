@@ -34,6 +34,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   misionGroup: FormGroup;
   comprobarVacio: boolean =false;
   imagen: string= '';
+  informacion: any;
   verificarCedulaBool: boolean = false;
 /**swrvicios adicionales*/
 serviciosMedicos: any = [
@@ -248,11 +249,7 @@ serviciosAdicionales: any[] = [
   }
 
   async ngOnInit() {
-    this._auth.insertName()
-    .subscribe((resp) =>{
-      this.nombre = resp.displayName;
-      this.imagen = resp.photoURL;
-    })
+    
     
     this.getDataFirebase(); 
     this.cargarinfo();
@@ -792,6 +789,8 @@ serviciosAdicionales: any[] = [
               fono: f.data().fono,
               cedula: f.data().cedula
             });
+            this.nombre = resp.displayName;
+            this.imagen = resp.photoURL;
           });
           this.misionGroup.setValue({
             mision: f.data()?.mision ? f.data()?.mision : '',
@@ -991,7 +990,7 @@ serviciosAdicionales: any[] = [
   }
 
   get errorDireccionMax(){
-    return this.firstFormGroup.get('address').value.length > 0 && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+    return this.firstFormGroup.get('address').hasError('maxlength') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
   }
   get errorNombreMax(){
     return this.firstFormGroup.get('name').hasError('maxlength') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
