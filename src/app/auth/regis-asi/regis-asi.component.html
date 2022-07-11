@@ -136,7 +136,7 @@
             <mat-step [stepControl]="firstFormGroup">
               <form [formGroup]="firstFormGroup" class="container">
                 <ng-template matStepLabel>Datos Principales</ng-template>
-                <h5>Esta sección te permite agregar la basica información del asilo</h5>
+                <h5>Esta sección te permite agregar la  información  basica  del asilo</h5>
                 <div style="display:flex; justify-content: center; align-items: center;">
 
                   <div style="width: 50%;">
@@ -179,7 +179,7 @@
                       </div>
                       <div class="row" *ngIf="errorNamePattern">
                         <span class="text-danger">
-                          Solo puede ingresar letras, no numeros.
+                          Solo puede ingresar letras, no numeros ni caracteres.
                         </span>
                       </div>
                       <div class="row" *ngIf="errorNombreMax">
