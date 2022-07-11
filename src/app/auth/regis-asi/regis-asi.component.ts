@@ -340,7 +340,11 @@ serviciosAdicionales: any[] = [
     
     if(this.rechazar){
       let enviarFirebase = {
-        ...this.firstFormGroup.value.trim(),
+        name:this.firstFormGroup.get('name').value.trim(),
+        address:this.firstFormGroup.get('address').value.trim(),
+        email:this.firstFormGroup.get('email').value.trim(),
+        fono:this.firstFormGroup.get('fono').value.trim(),
+        cedula:this.firstFormGroup.get('cedula').value.trim(),
         foto: this.urlFotofirebase === '' ? this.data.foto : '',
         documento: this.documentoPDF === '' ? this.data.documento: '',
         // horas: this.dias,
@@ -382,7 +386,12 @@ serviciosAdicionales: any[] = [
       
 
         let enviarFirebase = {
-          ...this.firstFormGroup.value.trim(),
+          // ...this.firstFormGroup.value.trim(),
+          name:this.firstFormGroup.get('name').value.trim(),
+          address:this.firstFormGroup.get('address').value.trim(),
+          email:this.firstFormGroup.get('email').value.trim(),
+          fono:this.firstFormGroup.get('fono').value.trim(),
+          cedula:this.firstFormGroup.get('cedula').value.trim(),
           foto: this.urlFotofirebase,
           documento: this.documentoPDF,
           mensaje: '',
