@@ -59,6 +59,10 @@ serviciosTerapeuticosBool_4: boolean =false;
 serviciosComodidadBool_5: boolean =false;
 serviciosAdicionalesBool_6: boolean =false;
 
+horainicialMayor: boolean =false;
+horaiguales: boolean = false;
+horamenorocho: boolean = false;
+
 dataCantidadPersonal: any = {};
 
 /**
@@ -435,7 +439,7 @@ data: any;
 
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+')]],
+      name: ['', [Validators.required, Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+'), Validators.maxLength(20)]],
       address: ['', [Validators.required]],
       email: ['',[ Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
@@ -642,7 +646,7 @@ data: any;
       });
     }
 
-    this._post.updatePost(this.firstFormGroup.getRawValue(), this.idDoc)
+    this._post.updatePost({...this.firstFormGroup.value.trim()}, this.idDoc)
     .then((resp) =>{
       
       this.toastr.success('datos actualizados', 'Actualizados', {
@@ -658,6 +662,74 @@ data: any;
     })
     
   } 
+
+  cambioHoraFinal(){
+    
+    
+    this.horainicialMayor = false;
+    this.horaiguales = false;
+    this.horamenorocho = false;
+    if(this.horaDesde.trim() !== '' && this.horaHasta.trim() !== ''){
+      let split = this.horaDesde.split(':');
+      let numberDesde = Number.parseInt(split[0]);
+      numberDesde += 8;
+      let unirDesde = numberDesde < 10? '0'+numberDesde+':'+split[1] : numberDesde+":"+split[1]
+      
+      let splitHasta = this.horaHasta.split(':');
+      let numberHasta = Number.parseInt(splitHasta[0]);
+      let horasDiferencia = this.calculardiferencia(this.horaDesde, this.horaHasta);
+      console.log(horasDiferencia);
+      
+      if(this.horaDesde > this.horaHasta){
+        
+        this.horainicialMayor = true;
+        
+      }else if(this.horaDesde == this.horaHasta ){
+        
+        this.horaiguales = true;
+        this.horamenorocho = true;
+      }else if( horasDiferencia < 8 ){
+        this.horamenorocho = true;
+      }
+    }
+    
+    
+  }
+  calculardiferencia(valorincial: any, valorfinal: any){
+    var hora_inicio = valorincial;
+    var hora_final = valorfinal;
+    
+    // Expresión regular para comprobar formato
+    var formatohora = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    
+    // Si algún valor no tiene formato correcto sale
+    // if (!(hora_inicio.match(formatohora)
+    //       && hora_final.match(formatohora))){
+    //   return;
+    // }
+    
+    // Calcula los minutos de cada hora
+    var minutos_inicio = hora_inicio.split(':')
+      .reduce((p, c) => parseInt(p) * 60 + parseInt(c));
+    var minutos_final = hora_final.split(':')
+      .reduce((p, c) => parseInt(p) * 60 + parseInt(c));
+    
+    // Si la hora final es anterior a la hora inicial sale
+    // if (minutos_final < minutos_inicio){
+    
+    //   return;
+    // } 
+      
+    
+    // Diferencia de minutos
+    var diferencia = minutos_final - minutos_inicio;
+    
+    // Cálculo de horas y minutos de la diferencia
+    var horas = Math.floor(diferencia / 60);
+    var minutos = diferencia % 60;
+    
+    return horas > 0 && horas;
+  }
 
   actualizarHorarios(){
     
@@ -1165,6 +1237,10 @@ data: any;
 
   get errorNombrePattern(){
     return this.firstFormGroup.get('name').hasError('pattern') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
+  }
+
+  get errorNombreMax(){
+    return this.firstFormGroup.get('name').hasError('maxlength') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
   }
 
 

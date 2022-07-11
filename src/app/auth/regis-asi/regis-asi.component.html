@@ -9,14 +9,14 @@
       <div class="row" style="display: block;">
         <div class="col text-center">
 
-          <p-avatar [image]="imagen != '' ? imagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle"
+          <p-avatar [image]="imagen != '' ? imagen : './assets/img/no-photo.png'" alt="no photo " shape="circle"
             size="xlarge"></p-avatar>
         </div>
       </div>
       <div class="d-flex justify-content-center">
         <span style="font-size:18px">{{nombre}}</span>
       </div>
-      <div class="d-flex justify-content-center mt-3">
+      <div class="d-flex justify-content-center">
         <small style="font-size: 13px; " class="mt-1">Asilo</small>
       </div>
       <hr>
@@ -72,7 +72,7 @@
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" role="button" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <p-avatar [image]="imagen != '' ? imagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle" class="ms-3"></p-avatar>
+          <p-avatar [image]="imagen != '' ? imagen : 'assets/img/no-photo.png'" alt="no photo " shape="circle" class="ms-3"></p-avatar>
           <strong class="ps-2">Cerrar Sesion</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -146,7 +146,7 @@
                         <span class="input-group-text">
                           <i class="pi pi-id-card"></i>
                         </span>
-                        <input formControlName="cedula" type="text" class="form-control" required>
+                        <input formControlName="cedula" type="text" (keyup)="verificarCedula($event)" class="form-control" required>
                       </div>
                       <div class="row" *ngIf="errorCedula">
                         <span class="text-danger">
@@ -155,7 +155,12 @@
                       </div>
                       <div class="row" *ngIf="errorCedulaPattern">
                         <span class="text-danger">
-                          La cedula tiene que tener a menos 10 o 13 digitos para ser valido.
+                          La cedula tiene que tener a menos 10 o 13 digitos para ser valido y no debe tener letras ni espacios en blanco.
+                        </span>
+                      </div>
+                      <div class="row" *ngIf="verificarCedulaBool">
+                        <span class="text-danger">
+                          La cédula ingresada ya se encuentra registrada.
                         </span>
                       </div>
                     </div>
@@ -168,16 +173,20 @@
                         <input formControlName="name" type="text" class="form-control" required>
                       </div>
                       <div class="row" *ngIf="errorNombre">
-                        <i class="pi pi-user"></i>
                         <span class="text-danger">
                           El nombre es un campo obligatorio
                         </span>
                       </div>
                       <div class="row" *ngIf="errorNamePattern">
                         <span class="text-danger">
-                          Solo puede ingresar letras, no numeros
+                          Solo puede ingresar letras, no numeros.
                         </span>
                       </div>
+                      <div class="row" *ngIf="errorNombreMax">
+                        <span class="text-danger">
+                            El campo nombre debe tener un máximo de 20 caracteres.
+                        </span>
+                    </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Dirección: </label>
@@ -190,6 +199,11 @@
                       <div class="row" *ngIf="errorAddress">
                         <span class="text-danger">
                           La direccion es un campo obligatorio
+                        </span>
+                      </div>
+                      <div class="row" *ngIf="errorDireccionMax">
+                        <span class="text-danger">
+                          El campo direccion no debe sobrepasar los 50 caracteres.
                         </span>
                       </div>
                     </div>
@@ -228,14 +242,14 @@
                       </div>
                       <div class="row" *ngIf="errorFonoPattern">
                         <span class="text-danger">
-                          El teléfono debe tener a menos 7 a 10 digitos.
+                          El teléfono debe tener a menos 7 a 10 digitos y no debe tener caracteres alfabeticos ni espacios en blanco.
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button mat-button (click)="siguientePestania()" matStepperNext type="button"
+                  <button mat-button (click)="siguientePestania()" [disabled]="verificarCedulaBool" matStepperNext type="button"
                     class="btn btn-primary">Siguiente</button>
                 </div>
               </form>

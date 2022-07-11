@@ -34,6 +34,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   misionGroup: FormGroup;
   comprobarVacio: boolean =false;
   imagen: string= '';
+  verificarCedulaBool: boolean = false;
 /**swrvicios adicionales*/
 serviciosMedicos: any = [
   {
@@ -305,7 +306,7 @@ serviciosAdicionales: any[] = [
       })
     }
     if(this.firstFormGroup.get('cedula').value.length < 11){
-      if(this.validaCedula(this.firstFormGroup.get('cedula').value)){
+      if(this.validaCedula(this.firstFormGroup.get('cedula').value.trim())){
         this._toast.error('La cédula no es valida ya que no es un formato correcto', 'Error en cedula', {
           closeButton: true,
           easeTime: 700,
@@ -339,7 +340,7 @@ serviciosAdicionales: any[] = [
     
     if(this.rechazar){
       let enviarFirebase = {
-        ...this.firstFormGroup.value,
+        ...this.firstFormGroup.value.trim(),
         foto: this.urlFotofirebase === '' ? this.data.foto : '',
         documento: this.documentoPDF === '' ? this.data.documento: '',
         // horas: this.dias,
@@ -381,7 +382,7 @@ serviciosAdicionales: any[] = [
       
 
         let enviarFirebase = {
-          ...this.firstFormGroup.value,
+          ...this.firstFormGroup.value.trim(),
           foto: this.urlFotofirebase,
           documento: this.documentoPDF,
           mensaje: '',
@@ -458,7 +459,7 @@ serviciosAdicionales: any[] = [
       const rul =URL.createObjectURL(evento.target.files[0]);
       this.mostrarImagen = (evento.target.files.length > 0) ? this._sanitazer.bypassSecurityTrustUrl(rul): '';
       
-      this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value)
+      this._fotos.insertImages(this.FotoSubir, this.firstFormGroup.get('name').value.trim())
       .then((resp)=>{
         
         
@@ -517,8 +518,8 @@ serviciosAdicionales: any[] = [
 
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
-      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]{1,254}')]],
-      address: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]{1,254}'), Validators.maxLength(20)]],
+      address: ['', [Validators.required, Validators.maxLength(60)]],
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
       cedula: ['', [Validators.required, Validators.pattern('[0-9]{10,13}')]]
@@ -921,6 +922,24 @@ serviciosAdicionales: any[] = [
     return cedula_valida;
   }
 
+  verificarCedula(evento: any){
+    this.verificarCedulaBool = false;
+    if(evento.target.value.trim().length === 10 || evento.target.value.trim().length === 13){
+      this._auth.getAllPost()
+      .subscribe((resp: any) =>{
+        for(let f of resp.docs){
+          if(f.data().cedula.trim() === evento.target.value.trim()){
+            console.log('es identica');
+            this.verificarCedulaBool = true;
+            return;
+          }else{
+            this.verificarCedulaBool = false;
+          }
+        }
+      })
+    }
+  }
+
 
   /* errores */
   get errorCedula(){
@@ -960,5 +979,12 @@ serviciosAdicionales: any[] = [
   get errorNamePattern(){
     return this.firstFormGroup.get('name').hasError('pattern') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
     
+  }
+
+  get errorDireccionMax(){
+    return this.firstFormGroup.get('address').value.length > 0 && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+  }
+  get errorNombreMax(){
+    return this.firstFormGroup.get('name').hasError('maxlength') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
   }
 }
