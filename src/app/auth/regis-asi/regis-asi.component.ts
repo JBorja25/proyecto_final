@@ -34,6 +34,7 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   misionGroup: FormGroup;
   comprobarVacio: boolean =false;
   imagen: string= '';
+  informacion: any;
   verificarCedulaBool: boolean = false;
 /**swrvicios adicionales*/
 serviciosMedicos: any = [
@@ -248,11 +249,7 @@ serviciosAdicionales: any[] = [
   }
 
   async ngOnInit() {
-    this._auth.insertName()
-    .subscribe((resp) =>{
-      this.nombre = resp.displayName;
-      this.imagen = resp.photoURL;
-    })
+    
     
     this.getDataFirebase(); 
     this.cargarinfo();
@@ -340,7 +337,11 @@ serviciosAdicionales: any[] = [
     
     if(this.rechazar){
       let enviarFirebase = {
-        ...this.firstFormGroup.value.trim(),
+        name:this.firstFormGroup.get('name').value.trim(),
+        address:this.firstFormGroup.get('address').value.trim(),
+        email:this.firstFormGroup.get('email').value.trim(),
+        fono:this.firstFormGroup.get('fono').value.trim(),
+        cedula:this.firstFormGroup.get('cedula').value.trim(),
         foto: this.urlFotofirebase === '' ? this.data.foto : '',
         documento: this.documentoPDF === '' ? this.data.documento: '',
         // horas: this.dias,
@@ -382,7 +383,12 @@ serviciosAdicionales: any[] = [
       
 
         let enviarFirebase = {
-          ...this.firstFormGroup.value.trim(),
+          // ...this.firstFormGroup.value.trim(),
+          name:this.firstFormGroup.get('name').value.trim(),
+          address:this.firstFormGroup.get('address').value.trim(),
+          email:this.firstFormGroup.get('email').value.trim(),
+          fono:this.firstFormGroup.get('fono').value.trim(),
+          cedula:this.firstFormGroup.get('cedula').value.trim(),
           foto: this.urlFotofirebase,
           documento: this.documentoPDF,
           mensaje: '',
@@ -783,6 +789,8 @@ serviciosAdicionales: any[] = [
               fono: f.data().fono,
               cedula: f.data().cedula
             });
+            this.nombre = resp.displayName;
+            this.imagen = resp.photoURL;
           });
           this.misionGroup.setValue({
             mision: f.data()?.mision ? f.data()?.mision : '',
@@ -982,7 +990,7 @@ serviciosAdicionales: any[] = [
   }
 
   get errorDireccionMax(){
-    return this.firstFormGroup.get('address').value.length > 0 && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+    return this.firstFormGroup.get('address').hasError('maxlength') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
   }
   get errorNombreMax(){
     return this.firstFormGroup.get('name').hasError('maxlength') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
