@@ -19,6 +19,8 @@ export const environment = {
   serviceID: 'service_xuc03sh',
   templateID: 'template_zfotn4u',
   publicKey: 'SNVr2lITfB8PPjIPe',
-  production: true
+  production: true,
+  servicecorreo:'service_l8ikryr',
+  templatecorreo:'template_qvqhpzm'
 
 };
