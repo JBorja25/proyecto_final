@@ -1,3 +1,5 @@
+import { async } from '@firebase/util';
+import  emailjs  from '@emailjs/browser';
 import { AuthService } from './../services/auth.service';
 /*import { auth } from 'firebase/app';*/
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { provideRoutes, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +31,17 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
+  enviarcorreo(){
+    let templateParams = {
+      from_name:'casa esperanza',
+      email_to:this.registerForm.get('email').value.trim(),
+      reply_to:'noreply@gmail.com',
+      to_name: 'Jose borja'
+    }
+    const emailen=emailjs.send(environment.servicecorreo, environment.templatecorreo, templateParams, environment.publicKey)
+    return emailen;
+  }
   async onRegister(){
 
     if(this.registerForm.invalid){
@@ -41,80 +54,94 @@ export class RegisterComponent implements OnInit {
      this.authSvc.register(email.trim(), password.trim())
      .then((user) =>{
       if(user){
+         this.enviarcorreo()
+         .then((ok) =>{
+          
 
-        console.log(user);
-        Swal.fire({
-         title: 'Validando Campos...',
-         text: 'Registro Existoso, gracias por formar parte de mejor sitio web.',
-         confirmButtonText: 'Aceptar',
-         icon: 'success',
-         timer: 2000 
-       });
-       Swal.showLoading();
-       
-         this.enviarFirebase = {
-           direccion: this.registerForm.get('direccion').value.trim(),
-           tipo: 'asilo',
-           uid: user.user.uid,
-           phone: '',
-           password: this.registerForm.get('password').value.trim(),
-           foto: ''
-         }
-   
-         this.authSvc.insertName()
-         .subscribe((resp) =>{
-           resp.updateProfile({
-             displayName: nombre
-           }).then((resp) =>{
-             console.log(resp);
-             
-           })
-   
-           
-         });
-   
-       this.authSvc.guardarInfoRegistro(this.enviarFirebase)
-       .then((respFirebase: any)=>{
-         console.log(respFirebase.user);
-           
-           if(user && respFirebase.id.length > 2){
-             // console.log('regsitrado correctamente');
-             Swal.close();
-             this.authSvc.guardarCookie('asilos', user.user.uid);
-   
-             this.router.navigateByUrl('asilo/regis-asi');
-             
-           }else{
-             console.log('no se pudo registrar');
-             Swal.close();
-             
-             
-           }
-       } )
-       .catch((erroResp) =>{
-         console.log(erroResp);
-         Swal.fire({
-           title: 'Error de registro',
-           text: 'No se pudo registrar por un error desconocido',
-           confirmButtonText: 'Aceptar',
-           icon: 'error',
-           confirmButtonAriaLabel: 'Aceptar'
-         });
-       });
+           console.log(user);
+           Swal.fire({
+            title: 'Validando Campos...',
+            text: 'Registro Existoso, gracias por formar parte de mejor sitio web, se ha enviado un correo de registro',
+            confirmButtonText: 'Aceptar',
+            icon: 'success',
+            timer: 2000 
+          });
+          Swal.showLoading();
+          
+            this.enviarFirebase = {
+              direccion: this.registerForm.get('direccion').value.trim(),
+              tipo: 'asilo',
+              uid: user.user.uid,
+              phone: '',
+              password: this.registerForm.get('password').value.trim(),
+              foto: ''
+            }
+      
+            this.authSvc.insertName()
+            .subscribe((resp) =>{
+              resp.updateProfile({
+                displayName: nombre
+              }).then((resp) =>{
+                console.log(resp);
+                
+              })
+      
+              
+            });
+      
+          this.authSvc.guardarInfoRegistro(this.enviarFirebase)
+          .then(async(respFirebase: any)=>{
+            console.log(respFirebase.user);
+            
+              if(user && respFirebase.id.length > 2){
+                // console.log('regsitrado correctamente');
+                Swal.close();
+                this.authSvc.guardarCookie('asilos', user.user.uid);
+      
+                this.router.navigateByUrl('asilo/regis-asi');
+                
+              }else{
+                console.log('no se pudo registrar');
+                Swal.close();
+                
+                
+              }
+          } )
+          .catch((erroResp) =>{
+            console.log(erroResp);
+            Swal.fire({
+              title: 'Error de registro',
+              text: 'No se pudo registrar por un error desconocido',
+              confirmButtonText: 'Aceptar',
+              icon: 'error',
+              confirmButtonAriaLabel: 'Aceptar'
+            });
+          });
+         }).catch((ah)=>{
+          Swal.close();
+          Swal.fire({
+            title: 'Error de registro',
+            text: 'No se ha podido enviar el correo del registro intentelo de nuevo',
+            confirmButtonText: 'Aceptar',
+            icon: 'error',
+            confirmButtonAriaLabel: 'Aceptar'
+          });
+         
+         })
       }
 
      })
      .catch((error) =>{
+       Swal.close();
+       Swal.fire({
+         title: 'Error de registro',
+         text: 'No puede utilizar el correo electronico ' + this.registerForm.get('email').value.trim() + ' debido a que ya se encuentra registrado.',
+         confirmButtonText: 'Aceptar',
+         icon: 'error',
+         confirmButtonAriaLabel: 'Aceptar'
+       });
+       
       // console.log(error);
-      Swal.close();
-      Swal.fire({
-        title: 'Error de registro',
-        text: 'No puede utilizar el correo electronico ' + this.registerForm.get('email').value.trim() + ' debido a que ya se encuentra registrado.',
-        confirmButtonText: 'Aceptar',
-        icon: 'error',
-        confirmButtonAriaLabel: 'Aceptar'
-      });
-      
      })
 
 

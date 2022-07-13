@@ -23,8 +23,9 @@ export const environment = {
   },
   serviceID: 'service_xuc03sh',
   templateID: 'template_zfotn4u',
-  publicKey: 'SNVr2lITfB8PPjIPe'
-
+  publicKey: 'SNVr2lITfB8PPjIPe',
+  servicecorreo:'service_l8ikryr',
+  templatecorreo:'template_qvqhpzm'
 };
 
 
