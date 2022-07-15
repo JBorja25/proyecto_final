@@ -1,4 +1,4 @@
-import { AfterContentInit, Component } from '@angular/core';
+import { AfterContentInit, Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth/services/auth.service';
@@ -9,6 +9,11 @@ import 'swiper/css/bundle';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterContentInit  {
+  // @HostListener('window:beforeunload')
+  // onUnload(){
+  //   // alert('hola');
+  //   return false;
+  // }
   title = 'login';
   tipo: string= '';
 
