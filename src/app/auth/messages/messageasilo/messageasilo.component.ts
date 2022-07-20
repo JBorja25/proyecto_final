@@ -1,6 +1,7 @@
-import { AfterContentInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 import { MensajesService } from '../../services/mensajes/mensajes.service';
 
@@ -12,7 +13,10 @@ import { MensajesService } from '../../services/mensajes/mensajes.service';
 export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('msj-id') id__msj: ElementRef;
   @Input() dataAsilo:any = {};
+  @Output() invitadoEvent: EventEmitter<any> = new EventEmitter(); 
+  @Output() idDocString: EventEmitter<String> = new EventEmitter(); 
   // @Input() urlImg: string = '';
+  beforeClose:boolean = false;
   elemento: any;
   iniciarChatBoolean: boolean = false;
   mensajeGroup: FormGroup;
@@ -40,12 +44,18 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
     // 
     // this.getMensajes();
     this.crearFormulario();
+   
     
      
   }
   ngAfterContentInit(): void {
     
   }
+
+  
+
+  
+  
 
   scrollMensajes(){
     this.elemento = document.getElementById('msj-id');
@@ -138,6 +148,7 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
           this.msj.guardarMensajes(guardarMensajes, this.dataAsilo.uid, this.uidUser, this.generarId())
           .then((ref) =>{
             this.idDocumento = ref.id;
+            this.idDocString.emit(this.idDocumento);
             console.log('el documento se ha guardado');
             this.subscription.push(
 
@@ -203,13 +214,15 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
     this.iniciarChatBoolean = true;
     this._auth.anonimo()
     .then((resp) =>{
-      
+      this.beforeClose = true;
       this.invitado = true;
+      this.invitadoEvent.emit(this.invitado);
       this.mostrarBox = false;
       // this.ocultarChat = true;
       this.uidUser = resp?.user?.uid ? resp.user.uid : '';
       
       this.iniciarChatBoolean = false;
+      
     })
     .catch((error) =>{
       
@@ -226,6 +239,24 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
   }
 
   confirmar(){
+    if(this.idDocumento.length > 0){
+      this.msj.eliminarDocs(this.idDocumento);
+      this.idDocumento = '';
+      this.dataMensajes = {};
+      this._auth.eliminarUsuarioActual();
+      this.msj.eliminarDocs(this.idDocumento);
+      
+    }else if(this.uidUser.length > 0){
+      this.msj.eliminarDocs(this.idDocumento);
+      this.idDocumento = '';
+      this.dataMensajes = {};
+      this._auth.eliminarUsuarioActual();
+      
+    }else{
+
+      this.idDocumento = '';
+      this.dataMensajes = {}
+    }
     this.invitado = false;
     this.mostrarBox = false;
     this.display = false;
@@ -234,16 +265,7 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
     this.subscription.forEach((valor) =>{
       valor.unsubscribe();
     });
-    if(this.idDocumento.length > 0){
-      this.msj.eliminarDocs(this.idDocumento);
-      this.idDocumento = '';
-      this.dataMensajes = {}
-    }else{
-      this.idDocumento = '';
-      this.dataMensajes = {}
-
-    }
-    this._auth.eliminarUsuarioActual();
+    
   }
 
   minimizar(){

@@ -51,6 +51,7 @@
     "@angular/compiler-cli": "~13.3.0",
     "@briebug/jest-schematic": "^4.0.0",
     "@types/jest": "latest",
+    "@types/jquery": "^3.5.14",
     "@types/node": "^12.11.1",
     "jest": "latest",
     "typescript": "~4.6.2"

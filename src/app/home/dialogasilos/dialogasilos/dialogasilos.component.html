@@ -1,3 +1,6 @@
+
+
+
 <div style="width: 100%" id="inicio">
 
 
@@ -616,4 +619,4 @@
 
         </div> 
 </div>-->
-<app-messageasilo [dataAsilo]="posts" #asilomessage></app-messageasilo>
+<app-messageasilo [dataAsilo]="posts" #asilomessage (invitadoEvent)="invitadoFun($event)" (idDocString)="idDocFun($event)"></app-messageasilo>

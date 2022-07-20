@@ -1,19 +1,25 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageasiloComponent } from 'src/app/auth/messages/messageasilo/messageasilo.component';
 import { PostService } from 'src/app/models/post.service';
 
+import * as firebase from 'firebase/compat/app';
+
 declare var L: any;
+declare var bowser: any;
 
 @Component({
   selector: 'app-dialogasilos',
   templateUrl: './dialogasilos.component.html',
   styleUrls: ['./dialogasilos.component.scss']
 })
-export class DialogasilosComponent implements OnInit, OnDestroy {
+export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('asilomessage') asilomensajes: MessageasiloComponent;
   @ViewChild('mapa') mapElement: ElementRef;
+ 
+
+  didEnterBeforeUnload = false;
   posts: any = {};
   uid: string= '';
   fecha = new Date().getFullYear();
@@ -25,9 +31,11 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
   serviciosInstalaciones: boolean = false;
   mostrarBox: boolean = false;
   marcadores: any[]= [];
+  invitado: boolean = false;
   // serviciosMedicos: boolean = false;
   optionsMapa: any;
   infoWindow: any;
+  idDocumento: string = '';
   map:any;
   constructor(
     private _post: PostService,
@@ -43,7 +51,102 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
       console.log();
       
     this.getPosts();
-    window.location.replace(`info-asilo/${ this.uid }#inicio`);
+    
+
+    window.addEventListener('beforeunload', (e) => {
+      const confirmationMessage="o/";
+  
+      (e || window.event).returnValue = confirmationMessage;    // Gecko + IE
+      return confirmationMessage;                                // Webkit, Safari, Chrome etc.
+    });
+    
+    window.addEventListener('unload', () => {
+      // await firebase.default.auth().currentUser?.delete();
+      this.ngOnDestroy();
+      
+      console.log('ago');
+      
+    });
+
+    
+    
+    
+  }
+
+  invitadoFun(evento: any){
+    this.invitado = evento;
+  }
+  idDocFun(evento: any){
+    this.idDocumento = evento;
+  }
+
+  // verificarChat(){
+  //   if(this.uidUser.length > 0){
+  //     Swal.fire({
+  //       allowEscapeKey: false,
+  //       allowOutsideClick: false,
+  //       confirmButtonText: 'Aceptar',
+  //       cancelButtonText: 'Cancelar',
+  //       showConfirmButton: true,
+  //       didOpen: (e) =>{
+  //         console.log(e);
+          
+  //       }
+  //     })
+  //   }
+  // }
+
+  ngAfterContentInit(): void {
+    // window.location.replace(`info-asilo/${ this.uid }#inicio`);
+     //Check if browser is IE
+    // if (navigator.userAgent.search("Edg") >= 0) {
+    //   // insert conditional IE code here
+    //   console.log('edge');
+
+    //   window.addEventListener('beforeunload', function(e) {
+    //     console.log(e);
+        
+    //   })
+      
+    // }
+    // //Check if browser is Chrome
+    // else if (navigator.userAgent.search("Chrome") >= 0) {
+    //   // insert conditional Chrome code here
+    //   console.log('chrome');
+      
+    //   window.addEventListener('beforeunload', function(e) {
+    //     console.log(e);
+        
+    //   })
+    // }
+    // //Check if browser is Firefox 
+    // else if (navigator.userAgent.search("Firefox") >= 0) {
+    //   // insert conditional Firefox Code here
+    //   console.log('Firefox');
+    //   window.addEventListener('beforeunload', function(e) {
+    //     console.log(e);
+        
+    //   })
+    // }
+    // //Check if browser is Safari
+    // else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+    //   // insert conditional Safari code here
+    //   console.log('Safary y chrome');
+    //   console.log('Safary y chrome');
+    //   window.addEventListener('beforeunload', function(e) {
+    //     console.log(e);
+        
+    //   })
+    // }
+    // //Check if browser is Opera
+    // else if (navigator.userAgent.search("Opera") >= 0) {
+    //   // insert conditional Opera code here
+    //   console.log('opera');
+    //   window.addEventListener('beforeunload', function(e) {
+    //     console.log(e);
+        
+    //   })
+    // }
   }
 
   getPosts(){
@@ -133,6 +236,7 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // confirm('algo por confirmar');
     this.asilomensajes.ngOnDestroy();
   }
   
