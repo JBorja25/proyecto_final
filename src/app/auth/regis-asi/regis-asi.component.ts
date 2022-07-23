@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { Post } from '../../models/post.model';
+// import { Post } from '../../models/post.model';
 import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 import { ThemePalette } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
@@ -21,12 +21,15 @@ export interface diasI {
   diasSemana?: diasI[]
 }
 
+declare var L: any;
+
 @Component({
   selector: 'app-regis-asi',
   templateUrl: './regis-asi.component.html',
   styleUrls: ['./regis-asi.component.scss']
 })
-export class RegisAsiComponent implements OnInit, AfterViewInit {
+export class RegisAsiComponent implements OnInit, AfterContentInit {
+  @ViewChild('mapa') mapElement: ElementRef;
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -36,145 +39,6 @@ export class RegisAsiComponent implements OnInit, AfterViewInit {
   imagen: string= '';
   informacion: any;
   verificarCedulaBool: boolean = false;
-/**swrvicios adicionales*/
-serviciosMedicos: any = [
-  {
-    name: 'Servicios Medicos',
-    children: [
-      {name:'Oxigeno', value: false}, 
-      {name:'Terapias Respiratorias', value: false}, 
-      {name: 'Terapias Musculares', value: false}, 
-      {name: 'Cuidados Postoperatorios', value: false}, 
-      {name: 'Dialisis', value: false}, 
-      {name: 'Sondas', value: false}, 
-      {name: 'Ostomias', value: false}, 
-      {name: 'Terapias Cognitivas', value: false}, 
-      {name: 'Terapias Diabetes', value: false}, 
-    ]
-  }
-                            
-]
-/*------------------------------------------------------*/
-/**swrvicios adicionales*/
-serviciosSanitarios: any = [
-  {
-    name: 'Servicios Sanitarios',
-    children: [
-      {name:'Cuidados de enfermería 24 horas', value: false}, 
-      {name:'Valoración gerontológica', value: false}, 
-      {name: 'Asistencia médica', value: false}, 
-      {name: 'Cuidados continuados para enfermos crónicos', value: false}, 
-      {name: 'Gestión farmacéutica', value: false}, 
-    ]
-  }
-                            
-]
-/*------------------------------------------------------*/
-/**swrvicios adicionales*/
-serviciosTerapeuticos: any = [
-  {
-    name: 'Servicios Terapeuticos',
-    children: [
-      {name:'Programa de estimulación cognitiva', value: false}, 
-      {name:'Programa de estimulación multisensorial', value: false}, 
-      {name: 'Programa de mantenimiento y actividad física', value: false}, 
-      {name: 'Programa de terapia funcional', value: false}, 
-      {name: 'Programa de rehabilitación y fisioterapia', value: false}, 
-      {name: 'Programa de terapia ocupacional para apoyo en las ABIVD´s*', value: false}, 
-      {name: 'Programa de atención centrada en la persona', value: false}, 
-      {name: 'Programa de memoria y reminiscencias', value: false}, 
-      
-    ]
-  }
-                            
-]
-/*------------------------------------------------------*/
-/**swrvicios adicionales*/
-serviciosComodidad: any = [
-  {
-    name: 'Servicios Comodidad',
-    children: [
-      {name:'Cocina propia', value: false}, 
-      {name:'Comedor', value: false}, 
-      {name: 'Sala de T.V.', value: false}, 
-      {name: 'Sala de estar', value: false}, 
-      {name: 'Rincones significativos', value: false}, 
-      {name: 'Patio y terrazas', value: false}, 
-      {name: 'Limpieza y lavandería', value: false}, 
-
-    ]
-  }
-                            
-]
-/*------------------------------------------------------*/
-serviciosatencion: any = [
-  {
-    name: 'Servicios atencion',
-    children: [
-      {name:'Itinerario personalizado', value: false}, 
-      {name:'Plan de atención integral', value: false}, 
-      {name: 'Personal de referencia', value: false}, 
-      {name: 'Proyecto de vida', value: false}, 
-      {name: 'Escuela de familias', value: false}, 
-      {name: 'Grupo de apoyo familiar', value: false}, 
-     ]
-  }
-                            
-]
-
-
-
-  controles: any[] = [
-    {
-      name:'Siquiatria',
-      value: false
-    },
-    {
-      name:'Fisioterapia',
-      value: false
-    },
-    {
-      name:'Sicoterapia',
-      value: false
-    },
-    {
-      name:'Terapia ocupacionales',
-      value: false
-    }
-];
-
-transportes: any[] = [
-  {
-    name: 'Si',
-    value: false
-  },
-  {
-    name: 'No',
-    value: false
-  }
-];
-cantidadAseo: string= ''
-cantidadServicios: string= ''
-cantidadTransporte: string= ''
-cantidadAdicionales: string= ''
-cantidadSanitarios: string= ''
-cantidadTerapeuticos: string= ''
-cantidadInstalaciones: string= ''
-cantidadAtencion: string= ''
-
-cantidadAlimentacion: string = '';
-
-serviciosMedicosSelected: any[] = [];
-serviciosAdicionalesSelected: any[] = [];
-
-serviciosAdicionales: any[] = [
-  {serd:'Peluqueria',value:false},  
-  {serd:'Entrega de Medicamentos',value:false},  
-  {serd:'Acompañamiento a Citas Medicas',value:false},  
-  {serd:'Dieta Especial',value:false},  
-  {serd:'Cama Hospitalaria',value:false},  
-  ]
-
   toppings: FormGroup;
   showFiller = false;
   public postForm:FormGroup;
@@ -223,7 +87,31 @@ serviciosAdicionales: any[] = [
   horaDesde: string='';
   horaHasta: string = '';
   mensaje: string= '';
-  
+  map: any;
+
+  dataTree = [
+    {
+      "label": "Indicaciones",
+      "data": "Indicaciones",
+      "children": [ 
+        {
+        "label": "El mapa le servirá para indicar un aproximado de la dirección de su establecimiento en el mapa moviendolo con el cursor.",
+        "icon": "pi pi-arrow-right",
+        "data": "El mapa le servirá para indicar un aproximado de la dirección de su establecimiento en el mapa moviendolo con el cursor.",
+        
+      }, 
+      {
+        "label": "Puede hacer zoom presionando la tecla ctrl + la rueda del ratón o utilizando los botones de + o - que se ecuentran en la parte superior",
+        "icon": "pi pi-arrow-right",
+        "data": "Puede hacer zoom presionando la tecla ctrl + la rueda del ratón",
+        
+      } 
+    ],
+    "expanded": true
+  }
+];
+  coords: any = {};
+  marcadores: any;
   constructor(
     public postService:PostService,
     public formBuilder:FormBuilder,
@@ -246,28 +134,90 @@ serviciosAdicionales: any[] = [
     this.uuid = this._cookie.get('uid');
     this.registroAnterior = 'prueba de envio';
     this.crearFormulario();
+
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     
     
     this.getDataFirebase(); 
     this.cargarinfo();
+    this.rool=this._cookie.get('tipo');
+    setTimeout(() => {
+      this.mapa();
+    }, 300);
   }
-  ngAfterViewInit(): void {
+  
+  ngAfterContentInit(): void {
     
-    this.rool=this._cookie.get('tipo')
-    /* this._auth.traerDataFirebase(this.uuid)
-    .subscribe((respData: any) =>{
-      for(let f of respData.docs){
+    setTimeout(() => {
+      this.map.addEventListener("click", (e) =>{
+        console.log('funciona el click', e);
+        console.log(this.marcadores);
+        
+        if(this.marcadores !== undefined){
+          
+          this.map.removeLayer(this.marcadores);
+          this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+          
+        }else{
+          this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+
+        }
+
+        // L.remove();
+        // console.log(this.map.getCenter());
         
         
-        
-       
-        
-      }
-    }); */
+      });
+
+      this.map.addEventListener("move", () =>{
+        navigator.geolocation.getCurrentPosition((location) =>{
+          this.map.flyTo([location.coords.latitude, location.coords.longitude], 13);
+          
+          
+        })
+      })
+    }, 600);
     
+  }
+
+
+
+   
+  mapa(latitude: number = -0.2580184401705081, longitude: number = -78.5413005746294){
+    // await loading.present();
+    this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+      }).addTo(this.map);
+      // this.agregarMarcadores();
+
+      // setTimeout(() => {
+      //   loading.dismiss();
+      // }, 1500);
+  }
+
+  agregarMarcador(){
+    let popup:any;
+    // const html = `
+        
+    //     <b><h5><b>${ this.posts.name }</b></h5></b>
+    //     <span>${ this.posts.address }</span><br/>
+    //     `;
+        // let marker = L.marker([this.posts.latlong.latitude, this.posts.latlong.longitude])
+        //         .addTo(this.map);
+                
+        // this.marcadores.push(marker);
+                
+        // marker.on('click', () => {
+        //   popup = L.popup()
+        //   .setLatLng([this.posts.latlong.latitude, this.posts.latlong.longitude])
+        //   .setContent(html)
+        //   .openOn(this.map);
+        // });
   }
   
   
@@ -525,44 +475,17 @@ serviciosAdicionales: any[] = [
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]{1,254}'), Validators.maxLength(20)]],
-      address: ['', [Validators.required, Validators.maxLength(60)]],
       email: ['', [Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
       cedula: ['', [Validators.required, Validators.pattern('[0-9]{10,13}')]]
     });
 
-    /* this.SecondFormGroup = this._fb.group({
-      lunes: ['', Validators.required],
-      martes: ['', Validators.required],
-      miercoles: ['', Validators.required],
-      jueves: ['', Validators.required],
-      viernes: ['', Validators.required],
-      sabado: ['', Validators.required],
-      domingo: ['', Validators.required]
-    }); */
+    this.SecondFormGroup = this._fb.group({
+      address: ['', [Validators.required, Validators.maxLength(60)]]
+    });
     this.fourthFormGroup = this._fb.group({
       img: ['', Validators.required],
       doc: ['', Validators.required]
-    });
-
-    this.thirdFormGroup = this._fb.group({
-      alimentacion: ['0'],
-      aseo: ['0'],
-      transporte: ['0'],
-      cantidadAseo: [''],
-      cantidadServicios: [''],
-      cantidadTransporte: [''],
-      cantidadAdicionales: [''],
-      cantidadSanitarios: [''],
-      cantidadTerapeuticos: [''],
-      cantidadInstalaciones: [''],
-      cantidadAtencion: [''],
-      cantidadAlimentacion: ['']
-    });
-
-    this.misionGroup = this._fb.group({
-      mision: ['', Validators.required],
-      vision: ['', Validators.required]
     });
 
   }
@@ -592,182 +515,7 @@ serviciosAdicionales: any[] = [
     this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
   }
 
-  serviciosmedicos(evento: any){
-    
-    
-    if(evento.checked){
-      // this.serviciosMedicosSelected.push(evento.source.value);
-      this.serviciosMedicos.map((t: any) =>{
-        // 
-        
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = true;
-          }
-          return v;
-        })
-      })
-      
-    }else{
-      this.serviciosMedicos.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = false;
-          }
-          return v;
-        })
-      })
-      
-      
-    }
-    
-  }
-
-  serviciosSanitariosFun(evento: any){
-    // 
-    
-    if(evento.checked){
-      // this.serviciosMedicosSelected.push(evento.source.value);
-      this.serviciosSanitarios.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = true;
-          }
-          return v;
-        })
-      })
-      
-    }else{
-      this.serviciosSanitarios.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = false;
-          }
-          return v;
-        })
-      })
-      
-      
-    }
-    
-  }
-  serviciosTerapeuticosFun(evento: any){
-    // 
-    
-    if(evento.checked){
-      // this.serviciosMedicosSelected.push(evento.source.value);
-      this.serviciosTerapeuticos.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = true;
-          }
-          return v;
-        })
-      })
-      
-    }else{
-      this.serviciosTerapeuticos.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = false;
-          }
-          return v;
-        })
-      })
-      
-      
-    }
-    
-  }
-  serviciosInstlaciones(evento: any){
-    // 
-    
-    if(evento.checked){
-      // this.serviciosMedicosSelected.push(evento.source.value);
-      this.serviciosComodidad.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = true;
-          }
-          return v;
-        })
-      })
-      
-    }else{
-      this.serviciosComodidad.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = false;
-          }
-          return v;
-        })
-      })
-      
-      
-    }
-    
-  }
-  serviciosAtencion(evento: any){
-    // 
-    
-    if(evento.checked){
-      // this.serviciosMedicosSelected.push(evento.source.value);
-      this.serviciosatencion.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = true;
-          }
-          return v;
-        })
-      })
-      
-    }else{
-      this.serviciosatencion.map((t) =>{
-        return t.children.map((v) =>{
-          if(evento.source.value === v.name){
-            v.value = false;
-          }
-          return v;
-        })
-      })
-      
-      
-    }
-    
-  }
   
-  transporte(evento: any) {
-    
-  }
-  
-  serviciosadicionales(evento : any) {
-    
-    
-    
-    if(evento.checked){
-      // this.serviciosMedicosSelected.push(evento.source.value);
-      // this.serviciosAdicionales = this.serviciosAdicionales.forEach()
-      this.serviciosAdicionales.map((t) =>{
-        if(evento.source.value === t.serd){
-          t.value = true;
-        }
-        return t;
-      })
-      
-      
-      // this.serviciosAdicionalesSelected.push(evento.source.value);
-    }else{
-      this.serviciosAdicionales.map((t) =>{
-        if(evento.source.value === t.serd){
-          t.value = false;
-        }
-        return t;
-      })
-      
-      
-    }
-
-  }
   cargarinfo(){
 
     this.postService.getPostByUid(this.uuid)
@@ -804,42 +552,7 @@ serviciosAdicionales: any[] = [
             }
           }
           
-          if(f.data()?.controlesMedicos){
-  
-            for(let i = 0; i < this.serviciosMedicos[0].children.length; i++){
-              this.serviciosMedicos[0].children[i].value = f.data().controlesMedicos[0].children[i].value;
-            }
-          }
-          if(f.data()?.serviciosAdicionales){
-  
-            for(let i = 0; i < this.serviciosAdicionales.length; i++){
-              this.serviciosAdicionales[i].value = f.data().serviciosAdicionales[i].value;
-            }
-          }
-          if(f.data()?.servicioSanitarios){
-  
-            for(let i = 0; i < this.serviciosSanitarios[0].children.length; i++){
-              this.serviciosSanitarios[0].children[i].value = f.data().servicioSanitarios[0].children[i].value;
-            }
-          }
-          if(f.data()?.servisioTerapeuticos){
-  
-            for(let i = 0; i < this.serviciosTerapeuticos[0].children.length; i++){
-              this.serviciosTerapeuticos[0].children[i].value = f.data().servisioTerapeuticos[0].children[i].value;
-            }
-          }
-          if(f.data()?.serviciosComodidad){
-  
-            for(let i = 0; i < this.serviciosComodidad[0].children.length; i++){
-              this.serviciosComodidad[0].children[i].value = f.data().serviciosComodidad[0].children[i].value;
-            }
-          }
-          if(f.data()?.serviciosAtencion){
-  
-            for(let i = 0; i < this.serviciosatencion[0].children.length; i++){
-              this.serviciosatencion[0].children[i].value = f.data().serviciosAtencion[0].children[i].value;
-            }
-          }
+          
           
           this.horaDesde = f.data()?.horaDesde ?f.data()?.horaDesde : '' ;
           this.horaHasta = f.data()?.horaHasta?f.data()?.horaHasta : '';
@@ -960,7 +673,7 @@ serviciosAdicionales: any[] = [
     return this.firstFormGroup.get('name').hasError('required') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
   }
   get errorAddress(){
-    return this.firstFormGroup.get('address').hasError('required') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+    return this.SecondFormGroup.get('address').hasError('required') && (this.SecondFormGroup.get('address').touched || this.SecondFormGroup.get('address').dirty);
   }
   get errorEmail(){
     return this.firstFormGroup.get('email').hasError('required') && (this.firstFormGroup.get('email').touched || this.firstFormGroup.get('email').dirty);
@@ -990,7 +703,7 @@ serviciosAdicionales: any[] = [
   }
 
   get errorDireccionMax(){
-    return this.firstFormGroup.get('address').hasError('maxlength') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+    return this.SecondFormGroup.get('address').hasError('maxlength') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
   }
   get errorNombreMax(){
     return this.firstFormGroup.get('name').hasError('maxlength') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);

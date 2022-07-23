@@ -80,73 +80,10 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
     this.idDocumento = evento;
   }
 
-  // verificarChat(){
-  //   if(this.uidUser.length > 0){
-  //     Swal.fire({
-  //       allowEscapeKey: false,
-  //       allowOutsideClick: false,
-  //       confirmButtonText: 'Aceptar',
-  //       cancelButtonText: 'Cancelar',
-  //       showConfirmButton: true,
-  //       didOpen: (e) =>{
-  //         console.log(e);
-          
-  //       }
-  //     })
-  //   }
-  // }
+  
 
   ngAfterContentInit(): void {
-    // window.location.replace(`info-asilo/${ this.uid }#inicio`);
-     //Check if browser is IE
-    // if (navigator.userAgent.search("Edg") >= 0) {
-    //   // insert conditional IE code here
-    //   console.log('edge');
-
-    //   window.addEventListener('beforeunload', function(e) {
-    //     console.log(e);
-        
-    //   })
-      
-    // }
-    // //Check if browser is Chrome
-    // else if (navigator.userAgent.search("Chrome") >= 0) {
-    //   // insert conditional Chrome code here
-    //   console.log('chrome');
-      
-    //   window.addEventListener('beforeunload', function(e) {
-    //     console.log(e);
-        
-    //   })
-    // }
-    // //Check if browser is Firefox 
-    // else if (navigator.userAgent.search("Firefox") >= 0) {
-    //   // insert conditional Firefox Code here
-    //   console.log('Firefox');
-    //   window.addEventListener('beforeunload', function(e) {
-    //     console.log(e);
-        
-    //   })
-    // }
-    // //Check if browser is Safari
-    // else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
-    //   // insert conditional Safari code here
-    //   console.log('Safary y chrome');
-    //   console.log('Safary y chrome');
-    //   window.addEventListener('beforeunload', function(e) {
-    //     console.log(e);
-        
-    //   })
-    // }
-    // //Check if browser is Opera
-    // else if (navigator.userAgent.search("Opera") >= 0) {
-    //   // insert conditional Opera code here
-    //   console.log('opera');
-    //   window.addEventListener('beforeunload', function(e) {
-    //     console.log(e);
-        
-    //   })
-    // }
+    
   }
 
   getPosts(){
@@ -159,9 +96,6 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
         this.posts = f.data();
         this.mapa(f.data().latlong.latitude, f.data().latlong.longitude);
         this.agregarMarcador();
-        // if(f.data().tipo != ' admin'){
-        //   this.posts.push(f.data());
-        // }
       }
       console.log(this.posts.latlong.latitude);
       
