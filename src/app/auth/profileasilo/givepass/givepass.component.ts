@@ -1272,7 +1272,7 @@ data: any;
 
   cambioStep(stepper: any){
     // 
-    if((stepper.steps.length - 1) === 5){
+    if((stepper.steps.length - 1) === 6){
       this._post.getPostByUid(this.uid)
       .subscribe((resp: any) =>{
         
