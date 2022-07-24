@@ -398,10 +398,11 @@
 
             </div>
             <!-- Alimentacion -->
-            <div class="row mt-4">
-              <div class="col info__asilo">
-                <div class=" info__asilo__label">
-                  <label class="form-label label__padding">Alimentacion
+            <div class="row mt-4" style="border: 1px solid #ccc">
+              <div class="col">
+                <div class="row">
+
+                  <label class="form-label">Alimentacion
                     <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="Selecione si presentan servicio de alimentacion." triggers="mouseenter:mouseleave"
                       xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
@@ -411,7 +412,7 @@
                   </label>
                 </div>
                 <div class="row mt-2 ">
-                  <div class="col-md-4 ms-5">
+                  <div class="col-md-4">
                     <mat-form-field appearence="fill">
                       <mat-label>Seleccione una..</mat-label>
                       <mat-select formControlName="alimentacion" (valueChange)="cambioValorAlimentacion($event)">
@@ -435,16 +436,11 @@
                   </div>
 
                 </div>
-
               </div>
+              <div class="col">
+                <div class="row">
 
-            </div>
-            <!-- aseo personal -->
-            <div></div>
-            <div class="row mt-5">
-              <div class="col info__asilo">
-                <div class="info__asilo__label">
-                  <label class="form-label label__padding">Aseo personal
+                  <label class="form-label">Aseo personal
                     <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="Selecione si presentan servicio de aseo personal." triggers="mouseenter:mouseleave"
                       xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
@@ -454,7 +450,7 @@
                   </label>
                 </div>
                 <div class="row mt-2 ">
-                  <div class="col-md-4 ms-5">
+                  <div class="col-md-4">
                     <mat-form-field appearence="fill">
                       <mat-label>Seleccione una..</mat-label>
                       <mat-select formControlName="aseo" value="0" (valueChange)="cambioValorAseo($event)">
@@ -479,12 +475,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- trasnporte -->
-            <div></div>
-            <div class="row mt-5">
-              <div class="col info__asilo">
-                <div class="info__asilo__label">
+              <div class="col">
+                <div class="row">
+
                   <label class="form-label">Transporte
                     <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="Selecione si presentan servicio de transporte." triggers="mouseenter:mouseleave"
@@ -493,9 +486,10 @@
                         d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                     </svg>
                   </label>
+                  
                 </div>
                 <div class="row mt-2 ">
-                  <div class="col-md-4 ms-5">
+                  <div class="col-md-4">
                     <mat-form-field appearence="fill">
                       <mat-label>Seleccione una..</mat-label>
                       <mat-select (valueChange)="transporte($event)" formControlName="transporte" value="0">
@@ -518,11 +512,33 @@
                     </span>
                   </div>
                 </div>
+              </div>
+              <!-- <div class="col info__asilo">
+                <div class=" info__asilo__label">
+                  
+                </div>
+                
+
+              </div> -->
+
+            </div>
+            <!-- aseo personal -->
+            <!-- <div></div>
+            <div class="row mt-5">
+              <div class="col info__asilo">
+                
+              </div>
+            </div>
+            
+            <div></div>
+            <div class="row mt-5">
+              <div class="col info__asilo">
+                
                 <div class="row">
                   <div class="info__asilo__expand__content"></div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- servicio medico -->
             <div class="row mt-5">
               <div class="col info__asilo__expand">
@@ -890,11 +906,21 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="cantidadAlimentacion"
+                <input  type="number" class="form-control" formControlName="cantidadAlimentacion"
                   placeholder="0">
                 <div class="row" *ngIf="errorCantidadAlimentacion">
                   <span class="text-danger">
                     El campo servicios alimentacion es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorCalimentacionMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorCalimentacionPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -909,10 +935,20 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="cantidadTransporte" placeholder="0">
+                <input  type="number" class="form-control" formControlName="cantidadTransporte" placeholder="0">
                 <div class="row" *ngIf="errorCantidadTransporte">
                   <span class="text-danger">
                     El campo servicios transporte es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorCTransporteMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorCTransportePattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -926,10 +962,20 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="cantidadaseo" placeholder="0">
+                <input  type="number" class="form-control" formControlName="cantidadaseo" placeholder="0">
                 <div class="row" *ngIf="errorCantidadAseo">
                   <span class="text-danger">
                     El campo servicios aseo es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcantidadaseoMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcantidadaseoPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -943,10 +989,20 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="cmedico" placeholder="0">
+                <input  type="number" class="form-control" formControlName="cmedico" placeholder="0">
                 <div class="row" *ngIf="errorCantidadMedico">
                   <span class="text-danger">
                     El campo servicios medicos es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcmedicoMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcmedicoPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -960,10 +1016,20 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="ctera" placeholder="0">
+                <input  type="number" class="form-control" formControlName="ctera" placeholder="0">
                 <div class="row" *ngIf="errorCantidadTera">
                   <span class="text-danger">
                     El campo servicios terapeuticos es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcteraMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcteraPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -977,12 +1043,23 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="csanitario" placeholder="0">
+                <input  type="number" class="form-control" formControlName="csanitario" placeholder="0">
                 <div class="row" *ngIf="errorCantidadSanitario">
                   <span class="text-danger">
                     El campo servicios sanitarios es obligatorio y debe ser mayor a 0
                   </span>
                 </div>
+                <div class="row" *ngIf="errorcsanitarioMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcsanitarioPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+
               </div>
               <div class="col" *ngIf="serviciosComodidadBool">
                 <label>Cantidad de personal Servicios de comodidad
@@ -994,10 +1071,20 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="ccomodidad" placeholder="0">
+                <input  type="number" class="form-control" formControlName="ccomodidad" placeholder="0">
                 <div class="row" *ngIf="errorCantidadComodidad">
                   <span class="text-danger">
                     El campo servicios comodidad es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorccomodidadMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorccomodidadPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -1011,10 +1098,20 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="catencion" placeholder="0">
+                <input  type="number" class="form-control" formControlName="catencion" placeholder="0">
                 <div class="row" *ngIf="errorCantidadAtencion">
                   <span class="text-danger">
                     El campo servicios atencion es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcatencionMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorcatencionPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -1028,10 +1125,20 @@
                       d="M25.75 44 25.25 38.5H23.25Q16.1 38.5 11.05 33.45Q6 28.4 6 21.25Q6 14.1 11.075 9.05Q16.15 4 23.35 4Q26.9 4 29.925 5.275Q32.95 6.55 35.2 8.85Q37.45 11.15 38.725 14.275Q40 17.4 40 21.1Q40 27.8 36.225 34.025Q32.45 40.25 25.75 44ZM23.35 32.85Q24.15 32.85 24.7 32.3Q25.25 31.75 25.25 30.95Q25.25 30.15 24.7 29.6Q24.15 29.05 23.35 29.05Q22.55 29.05 22 29.6Q21.45 30.15 21.45 30.95Q21.45 31.75 22 32.3Q22.55 32.85 23.35 32.85ZM22 26.05H24.5Q24.5 24.8 24.925 23.975Q25.35 23.15 26.7 21.8Q28.05 20.45 28.6 19.325Q29.15 18.2 29.15 16.9Q29.15 14.65 27.625 13.2Q26.1 11.75 23.55 11.75Q21.45 11.75 19.8 12.85Q18.15 13.95 17.35 15.85L19.65 16.8Q20.2 15.5 21.175 14.875Q22.15 14.25 23.4 14.25Q24.9 14.25 25.75 14.975Q26.6 15.7 26.6 16.9Q26.6 17.85 26.05 18.825Q25.5 19.8 24.1 21.25Q22.75 22.65 22.375 23.5Q22 24.35 22 26.05ZM28.25 35.5V38.6Q32.35 35.15 34.675 30.475Q37 25.8 37 21.1Q37 14.9 33.125 10.95Q29.25 7 23.35 7Q17.35 7 13.175 11.175Q9 15.35 9 21.25Q9 27.15 13.175 31.325Q17.35 35.5 23.25 35.5ZM23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Q23 22.8 23 22.8Z" />
                   </svg>
                 </label>
-                <input MatInput type="number" class="form-control" formControlName="ccomplementarios" placeholder="0">
+                <input  type="number" class="form-control" formControlName="ccomplementarios" placeholder="0">
                 <div class="row" *ngIf="errorCantidadAdicionales">
                   <span class="text-danger">
                     El campo servicios complementarios es obligatorio y debe ser mayor a 0
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorccomplementariosMax">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
+                  </span>
+                </div>
+                <div class="row" *ngIf="errorccomplementariosPattern">
+                  <span class="text-danger">
+                    Debe ingresar un numero del 1 al 10.
                   </span>
                 </div>
               </div>

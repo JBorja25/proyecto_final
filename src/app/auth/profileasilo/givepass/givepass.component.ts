@@ -558,15 +558,15 @@ data: any;
     });
 
     this.cantidadPersonalFormGroup = this._fb.group({
-      cantidadAlimentacion: [''],
-      cantidadTransporte: [''],
-      cantidadaseo: [''],
-      cmedico: [''],
-      ctera: [''],
-      csanitario: [''],
-      ccomodidad: [''],
-      catencion: [''],
-      ccomplementarios: ['']
+      cantidadAlimentacion: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      cantidadTransporte: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      cantidadaseo: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      cmedico: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      ctera: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      csanitario: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      ccomodidad: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      catencion: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+      ccomplementarios: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
 
     })
 
@@ -1073,10 +1073,11 @@ data: any;
 
 
   cantidadPersonal(){
+    console.log(this.cantidadPersonalFormGroup.invalid);
     
     if(this.cantidadPersonalFormGroup.invalid){
       return Object.values( this.cantidadPersonalFormGroup.controls ).forEach((validators) =>{
-        validators.markAllAsTouched()
+        validators.markAllAsTouched();
       });
     }
     
@@ -1272,7 +1273,7 @@ data: any;
 
   cambioStep(stepper: any){
     // 
-    if((stepper.steps.length - 1) === 5){
+    if((stepper.steps.length - 1) === 6){
       this._post.getPostByUid(this.uid)
       .subscribe((resp: any) =>{
         
@@ -1286,6 +1287,8 @@ data: any;
           this.serviciosComodidadBool = (f.data().serviciosComodidad)?f.data().serviciosComodidad[0].children.some( (v) => v.value === true): false;
           this.serviciosAtencionBool = (f.data().serviciosAtencion) ? f.data().serviciosAtencion[0].children.some( (v) => v.value === true): false;
           this.serviciosAdicionalesBool = (f.data().serviciosAdicionales) ? f.data().serviciosAdicionales.some( (v) => v.value === true): false;
+          
+          console.log(this.serviciosMedicosBool);
           
         }
       })
@@ -1392,6 +1395,77 @@ data: any;
 
   get errorDireccionMax(){
     return this.ubicacionForm.get('address').hasError('maxlength') && (this.ubicacionForm.get('address').touched || this.ubicacionForm.get('address').dirty);
+  }
+
+  // this.cantidadPersonalFormGroup = this._fb.group({
+  //   cantidadAlimentacion: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   cantidadTransporte: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   cantidadaseo: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   cmedico: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   ctera: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   csanitario: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   ccomodidad: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   catencion: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]],
+  //   ccomplementarios: ['',[Validators.pattern('[0-9]{1,2}'), Validators.maxLength(2)]]
+
+  // })
+
+  // errores para personal
+
+  get errorccomplementariosPattern(){
+    return this.cantidadPersonalFormGroup.get('ccomplementarios').hasError('pattern') && (this.cantidadPersonalFormGroup.get('ccomplementarios').touched || this.cantidadPersonalFormGroup.get('ccomplementarios').invalid);
+  }
+  get errorccomplementariosMax(){
+    return this.cantidadPersonalFormGroup.get('ccomplementarios').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('ccomplementarios').touched || this.cantidadPersonalFormGroup.get('ccomplementarios').invalid);
+  }
+  get errorcatencionPattern(){
+    return this.cantidadPersonalFormGroup.get('catencion').hasError('pattern') && (this.cantidadPersonalFormGroup.get('catencion').touched || this.cantidadPersonalFormGroup.get('catencion').invalid);
+  }
+  get errorcatencionMax(){
+    return this.cantidadPersonalFormGroup.get('catencion').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('catencion').touched || this.cantidadPersonalFormGroup.get('catencion').invalid);
+  }
+  get errorccomodidadPattern(){
+    return this.cantidadPersonalFormGroup.get('ccomodidad').hasError('pattern') && (this.cantidadPersonalFormGroup.get('ccomodidad').touched || this.cantidadPersonalFormGroup.get('ccomodidad').invalid);
+  }
+  get errorccomodidadMax(){
+    return this.cantidadPersonalFormGroup.get('ccomodidad').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('ccomodidad').touched || this.cantidadPersonalFormGroup.get('ccomodidad').invalid);
+  }
+  get errorcsanitarioPattern(){
+    return this.cantidadPersonalFormGroup.get('csanitario').hasError('pattern') && (this.cantidadPersonalFormGroup.get('csanitario').touched || this.cantidadPersonalFormGroup.get('csanitario').invalid);
+  }
+  get errorcsanitarioMax(){
+    return this.cantidadPersonalFormGroup.get('csanitario').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('csanitario').touched || this.cantidadPersonalFormGroup.get('csanitario').invalid);
+  }
+
+  get errorcteraPattern(){
+    return this.cantidadPersonalFormGroup.get('ctera').hasError('pattern') && (this.cantidadPersonalFormGroup.get('ctera').touched || this.cantidadPersonalFormGroup.get('ctera').invalid);
+  }
+  get errorcteraMax(){
+    return this.cantidadPersonalFormGroup.get('ctera').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('ctera').touched || this.cantidadPersonalFormGroup.get('ctera').invalid);
+  }
+  get errorcmedicoPattern(){
+    return this.cantidadPersonalFormGroup.get('cmedico').hasError('pattern') && (this.cantidadPersonalFormGroup.get('cmedico').touched || this.cantidadPersonalFormGroup.get('cmedico').invalid);
+  }
+  get errorcmedicoMax(){
+    return this.cantidadPersonalFormGroup.get('cmedico').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('cmedico').touched || this.cantidadPersonalFormGroup.get('cmedico').invalid);
+  }
+  get errorCalimentacionPattern(){
+    return this.cantidadPersonalFormGroup.get('cantidadAlimentacion').hasError('pattern') && (this.cantidadPersonalFormGroup.get('cantidadAlimentacion').touched || this.cantidadPersonalFormGroup.get('cantidadAlimentacion').invalid);
+  }
+  get errorCalimentacionMax(){
+    return this.cantidadPersonalFormGroup.get('cantidadAlimentacion').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('cantidadAlimentacion').touched || this.cantidadPersonalFormGroup.get('cantidadAlimentacion').invalid);
+  }
+  get errorCTransportePattern(){
+    return this.cantidadPersonalFormGroup.get('cantidadTransporte').hasError('pattern') && (this.cantidadPersonalFormGroup.get('cantidadTransporte').touched || this.cantidadPersonalFormGroup.get('cantidadTransporte').invalid);
+  }
+  get errorCTransporteMax(){
+    return this.cantidadPersonalFormGroup.get('cantidadTransporte').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('cantidadTransporte').touched || this.cantidadPersonalFormGroup.get('cantidadTransporte').invalid);
+  }
+  get errorcantidadaseoPattern(){
+    return this.cantidadPersonalFormGroup.get('cantidadaseo').hasError('pattern') && (this.cantidadPersonalFormGroup.get('cantidadaseo').touched || this.cantidadPersonalFormGroup.get('cantidadaseo').invalid);
+  }
+  get errorcantidadaseoMax(){
+    return this.cantidadPersonalFormGroup.get('cantidadaseo').hasError('maxlength') && (this.cantidadPersonalFormGroup.get('cantidadaseo').touched || this.cantidadPersonalFormGroup.get('cantidadaseo').invalid);
   }
 
 
