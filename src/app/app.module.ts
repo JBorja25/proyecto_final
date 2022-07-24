@@ -104,6 +104,7 @@ import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
 import { MessagesModule } from 'primeng/messages';
 import { PickListModule } from 'primeng/picklist';
+import { TreeModule } from 'primeng/tree';
 import { SwiperModule } from 'swiper/angular';
 import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo.component';
 import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
@@ -163,6 +164,7 @@ import { ContentComponent } from './auth/messages/messageasilo/messagecontent/co
     DialogModule,
     ChipModule,
     GMapModule,
+    TreeModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideMessaging(() => getMessaging()),

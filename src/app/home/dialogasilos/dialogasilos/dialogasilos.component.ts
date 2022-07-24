@@ -1,19 +1,25 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageasiloComponent } from 'src/app/auth/messages/messageasilo/messageasilo.component';
 import { PostService } from 'src/app/models/post.service';
 
+import * as firebase from 'firebase/compat/app';
+
 declare var L: any;
+declare var bowser: any;
 
 @Component({
   selector: 'app-dialogasilos',
   templateUrl: './dialogasilos.component.html',
   styleUrls: ['./dialogasilos.component.scss']
 })
-export class DialogasilosComponent implements OnInit, OnDestroy {
+export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('asilomessage') asilomensajes: MessageasiloComponent;
   @ViewChild('mapa') mapElement: ElementRef;
+ 
+
+  didEnterBeforeUnload = false;
   posts: any = {};
   uid: string= '';
   fecha = new Date().getFullYear();
@@ -25,9 +31,11 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
   serviciosInstalaciones: boolean = false;
   mostrarBox: boolean = false;
   marcadores: any[]= [];
+  invitado: boolean = false;
   // serviciosMedicos: boolean = false;
   optionsMapa: any;
   infoWindow: any;
+  idDocumento: string = '';
   map:any;
   constructor(
     private _post: PostService,
@@ -43,7 +51,39 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
       console.log();
       
     this.getPosts();
-    window.location.replace(`info-asilo/${ this.uid }#inicio`);
+    
+
+    window.addEventListener('beforeunload', (e) => {
+      const confirmationMessage="o/";
+  
+      (e || window.event).returnValue = confirmationMessage;    // Gecko + IE
+      return confirmationMessage;                                // Webkit, Safari, Chrome etc.
+    });
+    
+    window.addEventListener('unload', () => {
+      // await firebase.default.auth().currentUser?.delete();
+      this.ngOnDestroy();
+      
+      console.log('ago');
+      
+    });
+
+    
+    
+    
+  }
+
+  invitadoFun(evento: any){
+    this.invitado = evento;
+  }
+  idDocFun(evento: any){
+    this.idDocumento = evento;
+  }
+
+  
+
+  ngAfterContentInit(): void {
+    
   }
 
   getPosts(){
@@ -54,11 +94,8 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
       for(let f of resp.docs){
         console.log(f.data());
         this.posts = f.data();
-        this.mapa(f.data().latlong.latitude, f.data().latlong.longitude);
+        this.mapa(f.data().lat, f.data().lng);
         this.agregarMarcador();
-        // if(f.data().tipo != ' admin'){
-        //   this.posts.push(f.data());
-        // }
       }
       console.log(this.posts.latlong.latitude);
       
@@ -72,14 +109,14 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
         <b><h5><b>${ this.posts.name }</b></h5></b>
         <span>${ this.posts.address }</span><br/>
         `;
-        let marker = L.marker([this.posts.latlong.latitude, this.posts.latlong.longitude])
+        let marker = L.marker([this.posts.lat, this.posts.lng])
                 .addTo(this.map);
                 
         this.marcadores.push(marker);
                 
         marker.on('click', () => {
           popup = L.popup()
-          .setLatLng([this.posts.latlong.latitude, this.posts.latlong.longitude])
+          .setLatLng([this.posts.lat, this.posts.lng])
           .setContent(html)
           .openOn(this.map);
         });
@@ -133,6 +170,7 @@ export class DialogasilosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // confirm('algo por confirmar');
     this.asilomensajes.ngOnDestroy();
   }
   

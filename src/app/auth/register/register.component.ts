@@ -54,8 +54,9 @@ export class RegisterComponent implements OnInit {
      this.authSvc.register(email.trim(), password.trim())
      .then((user) =>{
       if(user){
-         this.enviarcorreo()
-         .then((ok) =>{
+        //  this.enviarcorreo()
+        //  .then((ok) =>{
+        //   console.log(ok);
           
 
            console.log(user);
@@ -117,17 +118,17 @@ export class RegisterComponent implements OnInit {
               confirmButtonAriaLabel: 'Aceptar'
             });
           });
-         }).catch((ah)=>{
-          Swal.close();
-          Swal.fire({
-            title: 'Error de registro',
-            text: 'No se ha podido enviar el correo del registro intentelo de nuevo',
-            confirmButtonText: 'Aceptar',
-            icon: 'error',
-            confirmButtonAriaLabel: 'Aceptar'
-          });
+        //  }).catch((ah)=>{
+        //   Swal.close();
+        //   Swal.fire({
+        //     title: 'Error de registro',
+        //     text: 'No se ha podido enviar el correo del registro intentelo de nuevo',
+        //     confirmButtonText: 'Aceptar',
+        //     icon: 'error',
+        //     confirmButtonAriaLabel: 'Aceptar'
+        //   });
          
-         })
+        //  })
       }
 
      })
