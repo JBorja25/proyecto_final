@@ -18,6 +18,8 @@ interface medicosServicios{
   children?:medicosServicios[]
 }
 
+declare  var L: any
+
 @Component({
   selector: 'app-givepass',
   templateUrl: './givepass.component.html',
@@ -26,9 +28,14 @@ interface medicosServicios{
 export class GivepassComponent implements OnInit, AfterContentInit {
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
+  ubicacionForm: FormGroup;
   thirdFormGroup: FormGroup;
+  coords: any;
+  map: any;
   fourthFormGroup: FormGroup;
   misionGroup: FormGroup;
+  marcadores: any;
+  coordsBoolean: boolean = false;
   cantidadPersonalFormGroup: FormGroup;
   token: string = '';
   alimentacion: string = '';
@@ -62,6 +69,45 @@ serviciosAdicionalesBool_6: boolean =false;
 horainicialMayor: boolean =false;
 horaiguales: boolean = false;
 horamenorocho: boolean = false;
+dataTree = [
+  {
+    "label": "Lea detenidamente las indicaciones",
+    "data": "Indicaciones",
+    "children": [ 
+      {
+      "label": "El mapa le servirá para indicar un aproximado de la dirección de su establecimiento en el mapa moviendolo con el cursor.",
+      "icon": "pi pi-arrow-right",
+      "data": "El mapa le servirá para indicar un aproximado de la dirección de su establecimiento en el mapa moviendolo con el cursor.",
+      
+    }, 
+    {
+      "label": "Puede hacer zoom presionando la tecla ctrl + la rueda del ratón",
+      "icon": "pi pi-arrow-right",
+      "data": "Puede hacer zoom presionando la tecla ctrl + la rueda del ratón",
+      
+    }, 
+    {
+      "label": "Utilizando los botones de + o - que se ecuentran en la parte superior",
+      "icon": "pi pi-arrow-right",
+      "data": "Utilizando los botones de + o - que se ecuentran en la parte superior",
+      
+    }, 
+    {
+      "label": "Seleccionar la ubicación es obligatorio",
+      "icon": "pi pi-arrow-right",
+      "data": "Seleccionar la ubicación es obligatorio",
+      
+    } ,
+    {
+      "label": "Al finalizar de click en el mapa para indicar la ubicación",
+      "icon": "pi pi-arrow-right",
+      "data": "Al finalizar de click en el mapa para indicar la ubicación",
+      
+    } 
+  ],
+  "expanded": true
+  }
+]
 
 dataCantidadPersonal: any = {};
 
@@ -290,6 +336,10 @@ data: any;
   
   ngOnInit(): void {
     this.token = this._cookie.get('uid');
+
+    setTimeout(() => {
+      this.mapa();
+    }, 400);
     
     this.crearFormulario();
     this.getDataFirebase();
@@ -315,10 +365,13 @@ data: any;
           this.nombre = resp.displayName;
           this.firstFormGroup.setValue({
             name: f.data().name,
-            address: f.data().address,
+            
             email: f.data().email,
             fono: f.data().fono,
             cedula: f.data().cedula
+          });
+          this.ubicacionForm.setValue({
+            address: f.data().address
           });
         });
         this.misionGroup.setValue({
@@ -390,6 +443,37 @@ data: any;
         catencion: f.data()?.catencion ? f.data()?.catencion: '',
         ccomplementarios: f.data()?.ccomplementarios ? f.data()?.ccomplementarios: '',
       })
+      this.coords = {
+        lat: f.data().lat,
+        lng: f.data().lng
+      }
+      
+      setTimeout(() => {
+        this.marcadores = L.marker([f.data().lat, f.data().lng]).addTo(this.map);
+        this.map.addEventListener("click", (e) =>{
+          console.log('funciona el click', e);
+          // console.log(this.marcadores);
+          
+          if(this.marcadores !== undefined){
+            
+            this.map.removeLayer(this.marcadores);
+            this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+            this.coordsBoolean = false;
+            // console.log(this.marcadores);
+            this.coords = e.latlng;
+          }else{
+            this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+            this.coords = e.latlng;
+            this.coordsBoolean = false;
+            // console.log(this.marcadores);
+  
+          }
+  
+          // L.remove();
+          
+          
+        });
+      });
        
 
       //  
@@ -440,7 +524,6 @@ data: any;
   crearFormulario(){
     this.firstFormGroup = this._fb.group({
       name: ['', [Validators.required, Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+'), Validators.maxLength(20)]],
-      address: ['', [Validators.required]],
       email: ['',[ Validators.required, Validators.pattern('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')]],
       fono: ['', [Validators.required, Validators.pattern('[0-9]{7,10}')]],
       cedula: ['', [Validators.required, Validators.pattern('[0-9]{10,13}')]]
@@ -451,6 +534,9 @@ data: any;
       vision: ['', [Validators.required]]
     });
 
+    this.ubicacionForm = this._fb.group({
+      address: ['', [Validators.required, Validators.maxLength(60)]]
+    });
     this.SecondFormGroup = this._fb.group({
       lunes: ['', Validators.required],
       martes: ['', Validators.required],
@@ -484,6 +570,22 @@ data: any;
 
     })
 
+
+  }
+
+  
+  siguienteUbicacion(){
+    if(this.SecondFormGroup.invalid){
+      if(this.coords === undefined){
+        this.coordsBoolean = true;
+      }
+      return Object.values(this.SecondFormGroup.controls).forEach((validator) =>{
+        validator.markAllAsTouched();
+      });
+    }
+
+    console.log(this.coords);
+    
 
   }
 
@@ -662,6 +764,37 @@ data: any;
     })
     
   } 
+
+  actualizarUbicaciones(evento: any){
+    if(this.ubicacionForm.invalid){
+      if(this.coords === undefined){
+        this.coordsBoolean = true;
+      }
+      return Object.values(this.ubicacionForm.controls).forEach((validator) =>{
+        validator.markAllAsTouched();
+      });
+    }
+
+    let enviarFirebaseUpdated = {
+      address: this.ubicacionForm.get('address').value,
+      ...this.coords
+    }
+    this._post.updatePost(enviarFirebaseUpdated, this.idDoc)
+    .then((resp) =>{
+      
+      this.toastr.success('datos actualizados', 'Actualizados', {
+        progressAnimation: 'decreasing',
+        progressBar: true,
+        closeButton: true,
+      })
+      this.cargarinfo();
+    })
+    .catch((error) =>{
+      
+      
+    })
+
+  }
 
   cambioHoraFinal(){
     
@@ -1122,6 +1255,20 @@ data: any;
     }
 
   }
+  mapa(latitude: number = -0.2580184401705081, longitude: number = -78.5413005746294){
+    // await loading.present();
+    this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+      }).addTo(this.map);
+      // this.agregarMarcadores();
+
+      // setTimeout(() => {
+      //   loading.dismiss();
+      // }, 1500);
+  }
 
   cambioStep(stepper: any){
     // 
@@ -1178,7 +1325,7 @@ data: any;
     return this.firstFormGroup.get('name').hasError('required') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
   }
   get errorAddress(){
-    return this.firstFormGroup.get('address').hasError('required') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+    return this.ubicacionForm.get('address').hasError('required') && (this.ubicacionForm.get('address').touched || this.ubicacionForm.get('address').dirty);
   }
   get errorEmail(){
     return this.firstFormGroup.get('email').hasError('required') && (this.firstFormGroup.get('email').touched || this.firstFormGroup.get('email').dirty);
@@ -1241,6 +1388,10 @@ data: any;
 
   get errorNombreMax(){
     return this.firstFormGroup.get('name').hasError('maxlength') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
+  }
+
+  get errorDireccionMax(){
+    return this.ubicacionForm.get('address').hasError('maxlength') && (this.ubicacionForm.get('address').touched || this.ubicacionForm.get('address').dirty);
   }
 
 

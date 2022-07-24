@@ -181,7 +181,7 @@
                     </span>
                   </div>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label class="form-label">Dirección</label>
                   <div class="input-group">
                     <span class="input-group-text">
@@ -194,7 +194,7 @@
                       La dirección es un campo obligatorio
                     </span>
                   </div>
-                </div>
+                </div> -->
                 <div class="mb-3">
                   <label class="form-label">Correo</label>
                   <div class="input-group">
@@ -243,6 +243,63 @@
                <button mat-raised-button class="btn btn-success" style="margin: 7px;" matStepperNext>Siguiente</button>
             </div>
           </form>
+        </mat-step>
+        <mat-step [stepControl]="ubicacionForm">
+          <ng-template matStepLabel>Ubicación del establecimiento</ng-template>
+          <div class="row">
+            <h5>Esta sección te permite agregar la  información  basica  del asilo</h5>
+          </div>
+          <form [formGroup]="ubicacionForm"  style="width: 100%">
+
+            <div class="row">
+              <div class="col " >
+                <div class="d-flex justify-content-center">
+
+                  <div class="mb-3" style="width: 50%;">
+                    <label class="form-label">Dirección: </label>
+                    <div class="input-group text-center">
+                      <span class="input-group-text">
+                        <i class="pi pi-map"></i>
+                      </span>
+                      <input formControlName="address" type="text" class="form-control" required>
+                    </div>
+                    <div class="row" *ngIf="errorAddress">
+                      <span class="text-danger">
+                        La direccion es un campo obligatorio
+                      </span>
+                    </div>
+                    <div class="row" *ngIf="errorDireccionMax">
+                      <span class="text-danger">
+                        El campo direccion no debe sobrepasar los 50 caracteres.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <p-tree [value]="dataTree" class="mb-2"></p-tree>
+          </div>
+          <div class="row" *ngIf="coordsBoolean">
+            <span class="text-danger">
+              Debe indicar la ubicación de su establecimiento en el mapa.
+            </span>
+          </div>
+          <div id="mapa" style="display:block"></div>
+
+
+          
+
+          <div class="d-flex justify-content-center align-items-center">
+            <button mat-raised-button [disabled]="!ubicacionForm.invalid && coords == undefined" class="btn btn-primary" (click)="actualizarUbicaciones($event)">Actualizar</button>
+            <button mat-raised-button  class="btn btn-success" style="margin: 7px;" matStepperNext>Siguiente</button>
+            <!-- <button mat-button  matStepperPrevious type="button"
+                class="btn btn-primary me-2 mt-2">Atras</button>
+            <button mat-button [disabled]="!ubicacionForm.invalid && coords == undefined" matStepperNext type="button"
+                class="btn btn-primary ms-1 mt-2" (click)="siguienteUbicacion()">Siguiente</button> -->
+          </div>
+
         </mat-step>
         <mat-step [stepControl]="SecondFormGroup">
 

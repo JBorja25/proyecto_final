@@ -94,7 +94,7 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
       for(let f of resp.docs){
         console.log(f.data());
         this.posts = f.data();
-        this.mapa(f.data().latlong.latitude, f.data().latlong.longitude);
+        this.mapa(f.data().lat, f.data().lng);
         this.agregarMarcador();
       }
       console.log(this.posts.latlong.latitude);
@@ -109,14 +109,14 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
         <b><h5><b>${ this.posts.name }</b></h5></b>
         <span>${ this.posts.address }</span><br/>
         `;
-        let marker = L.marker([this.posts.latlong.latitude, this.posts.latlong.longitude])
+        let marker = L.marker([this.posts.lat, this.posts.lng])
                 .addTo(this.map);
                 
         this.marcadores.push(marker);
                 
         marker.on('click', () => {
           popup = L.popup()
-          .setLatLng([this.posts.latlong.latitude, this.posts.latlong.longitude])
+          .setLatLng([this.posts.lat, this.posts.lng])
           .setContent(html)
           .openOn(this.map);
         });

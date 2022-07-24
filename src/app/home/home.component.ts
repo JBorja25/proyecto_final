@@ -18,6 +18,7 @@ import 'swiper/scss/effect-cube';
 import 'swiper/scss/autoplay';
 import { environment } from 'src/environments/environment';
 
+declare var L: any;
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
 
   sugerenciasForm:FormGroup;
   enviarSugerencia: boolean = false;
-
+  map: any;
   fotos: any[] = [
     {
       alt: '1',
@@ -59,8 +60,9 @@ export class HomeComponent implements OnInit {
   };
 
   posts: any[] = [];
+  marcadores: any[] = [];
   fecha = new Date().getFullYear();
-
+  dataAsilo:any = {};
   constructor(
     private _post: PostService,
     private _dialog: MatDialog,
@@ -71,6 +73,26 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getPosts();
     this.crearFormulario();
+
+    setTimeout(() => {
+      this.mapa();
+    }, 300);
+
+    setTimeout(() => {
+      navigator.permissions.query({name: 'geolocation'})
+      .then((permiso) => {
+        if(permiso.state == 'granted'){
+          navigator.geolocation.getCurrentPosition((location) =>{
+            this.map.flyTo([location.coords.latitude, location.coords.longitude], 9);
+          })
+        }else if(permiso.state == 'prompt'){
+          navigator.geolocation.getCurrentPosition((location) =>{
+            this.map.flyTo([location.coords.latitude, location.coords.longitude], 9);
+
+          })
+        }
+      })
+    }, 900);
     
   }
 
@@ -89,6 +111,9 @@ export class HomeComponent implements OnInit {
       for(let f of resp.docs){
         if(f.data().tipo != ' admin' && f.data().aprobado){
           this.posts.push(f.data());
+          setTimeout(() => {
+            this.agregarMarcador(f.data());
+          }, 600);
         }
       }
       console.log(this.posts);
@@ -133,6 +158,40 @@ export class HomeComponent implements OnInit {
       
     })
     
+  }
+
+  mapa(latitude: number = -0.2580184401705081, longitude: number = -78.5413005746294){
+    // await loading.present();
+    this.map = L.map('mapa', {center: [latitude, longitude], zoom:9});
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+      }).addTo(this.map);
+      // this.agregarMarcadores();
+      // setTimeout(() => {
+      //   loading.dismiss();
+      // }, 1500);
+  }
+
+  agregarMarcador(dataAsilo: any){
+    let popup:any;
+    const html = `
+        
+        <b><h5><b>${ dataAsilo.name }</b></h5></b>
+        <span>${ dataAsilo.address }</span><br/>
+        `;
+        let marker = L.marker([dataAsilo.lat, dataAsilo.lng])
+                .addTo(this.map);
+                
+        this.marcadores.push(marker);
+                
+        marker.on('click', () => {
+          popup = L.popup()
+          .setLatLng([dataAsilo.lat, dataAsilo.lng])
+          .setContent(html)
+          .openOn(this.map);
+        });
   }
   /* errores */
   get nombreError(){

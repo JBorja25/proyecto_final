@@ -239,12 +239,22 @@
               <div class="row">
                 <p-tree [value]="dataTree" class="mb-2"></p-tree>
               </div>
+              <div class="row" *ngIf="coordsBoolean">
+                <span class="text-danger">
+                  Debe indicar la ubicación de su establecimiento en el mapa.
+                </span>
+              </div>
               <div id="mapa" style="display:block"></div>
 
 
               
 
-              
+              <div class="d-flex justify-content-center align-items-center">
+                <button mat-button  matStepperPrevious type="button"
+                    class="btn btn-primary me-2 mt-2">Atras</button>
+                <button mat-button [disabled]="!SecondFormGroup.invalid && coords == undefined" matStepperNext type="button"
+                    class="btn btn-primary ms-1 mt-2" (click)="siguienteUbicacion()">Siguiente</button>
+              </div>
 
             </mat-step>
             

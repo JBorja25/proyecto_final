@@ -62,24 +62,9 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   data: any= {};
 
   documentoPDF: string = '';
-
+  coordsBoolean: boolean = false;
   // variables para los checkboxes
 
-  dias: diasI = {
-    name: 'Todos los dias',
-    completed: false,
-    color: 'primary',
-    diasSemana: [
-      { name: 'Lunes', completed: false, color: 'primary'},
-      { name: 'Martes', completed: false, color: 'primary'},
-      { name: 'Miercoles', completed: false, color: 'primary'},
-      { name: 'Jueves', completed: false, color: 'primary'},
-      { name: 'Viernes', completed: false, color: 'primary'},
-      { name: 'Sabado', completed: false, color: 'primary'},
-      { name: 'Domingo', completed: false, color: 'primary'}
-    ]
-  }
-  allComplete: boolean = false;
 
 
   // ===============================================================
@@ -91,7 +76,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
 
   dataTree = [
     {
-      "label": "Indicaciones",
+      "label": "Lea detenidamente las indicaciones",
       "data": "Indicaciones",
       "children": [ 
         {
@@ -101,16 +86,34 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
         
       }, 
       {
-        "label": "Puede hacer zoom presionando la tecla ctrl + la rueda del ratón o utilizando los botones de + o - que se ecuentran en la parte superior",
+        "label": "Puede hacer zoom presionando la tecla ctrl + la rueda del ratón",
         "icon": "pi pi-arrow-right",
         "data": "Puede hacer zoom presionando la tecla ctrl + la rueda del ratón",
+        
+      }, 
+      {
+        "label": "Utilizando los botones de + o - que se ecuentran en la parte superior",
+        "icon": "pi pi-arrow-right",
+        "data": "Utilizando los botones de + o - que se ecuentran en la parte superior",
+        
+      }, 
+      {
+        "label": "Seleccionar la ubicación es obligatorio",
+        "icon": "pi pi-arrow-right",
+        "data": "Seleccionar la ubicación es obligatorio",
+        
+      } ,
+      {
+        "label": "Al finalizar de click en el mapa para indicar la ubicación",
+        "icon": "pi pi-arrow-right",
+        "data": "Al finalizar de click en el mapa para indicar la ubicación",
         
       } 
     ],
     "expanded": true
   }
 ];
-  coords: any = {};
+  coords: any;
   marcadores: any;
   constructor(
     public postService:PostService,
@@ -145,10 +148,12 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     this.rool=this._cookie.get('tipo');
     setTimeout(() => {
       this.mapa();
-    }, 300);
+    }, 400);
   }
   
   ngAfterContentInit(): void {
+    console.log(this.coords);
+    
     
     setTimeout(() => {
       this.map.addEventListener("click", (e) =>{
@@ -159,14 +164,18 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
           
           this.map.removeLayer(this.marcadores);
           this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
-          
+          this.coordsBoolean = false;
+          // console.log(this.marcadores);
+          this.coords = e.latlng;
         }else{
           this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+          this.coords = e.latlng;
+          this.coordsBoolean = false;
+          // console.log(this.marcadores);
 
         }
 
         // L.remove();
-        // console.log(this.map.getCenter());
         
         
       });
@@ -178,8 +187,23 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
           
         })
       })
-    }, 600);
+    }, 800);
     
+  }
+
+  siguienteUbicacion(){
+    if(this.SecondFormGroup.invalid){
+      if(this.coords === undefined){
+        this.coordsBoolean = true;
+      }
+      return Object.values(this.SecondFormGroup.controls).forEach((validator) =>{
+        validator.markAllAsTouched();
+      });
+    }
+
+    console.log(this.coords);
+    
+
   }
 
 
@@ -285,57 +309,57 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     }
     
     
-    if(this.rechazar){
-      let enviarFirebase = {
-        name:this.firstFormGroup.get('name').value.trim(),
-        address:this.firstFormGroup.get('address').value.trim(),
-        email:this.firstFormGroup.get('email').value.trim(),
-        fono:this.firstFormGroup.get('fono').value.trim(),
-        cedula:this.firstFormGroup.get('cedula').value.trim(),
-        foto: this.urlFotofirebase === '' ? this.data.foto : '',
-        documento: this.documentoPDF === '' ? this.data.documento: '',
-        // horas: this.dias,
-        // horaDesde: this.horaDesde,
-        // horaHasta: this.horaHasta,
-        // transporte: this.thirdFormGroup.get('transporte').value,
-        // aseo: this.thirdFormGroup.get('aseo').value,
-        // alimentacion: this.thirdFormGroup.get('transporte').value,
-        // cantidadAlimentacion: this.thirdFormGroup.get('cantidadAlimentacion').value,
-        // cantidadAseo: this.thirdFormGroup.get('cantidadAseo').value,
-        // cantidadServicios: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadTransporte: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadAdicionales: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadSanitarios: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadTerapeuticos: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadInstalaciones: this.thirdFormGroup.get('cantidadAseo').value, 
-        // cantidadAtencion: this.thirdFormGroup.get('cantidadAseo').value, 
-        // controlesMedicos: this.serviciosMedicos[0].children,
-        // serviciosAdicionales: this.serviciosAdicionales,
-        // serviciosatencion: this.serviciosatencion[0].children,
-        // servicioscomodidad: this.serviciosComodidad[0].children,
-        // serviciosterapeuticos: this.serviciosTerapeuticos[0].children,
-        // serviciosSanitarios: this.serviciosSanitarios[0].children,
-        // mision: this.misionGroup.get('mision').value,
-        // vision: this.misionGroup.get('vision').value
-      }
-      // 
+    // if(this.rechazar){
+    //   let enviarFirebase = {
+    //     name:this.firstFormGroup.get('name').value.trim(),
+    //     address:this.firstFormGroup.get('address').value.trim(),
+    //     email:this.firstFormGroup.get('email').value.trim(),
+    //     fono:this.firstFormGroup.get('fono').value.trim(),
+    //     cedula:this.firstFormGroup.get('cedula').value.trim(),
+    //     foto: this.urlFotofirebase === '' ? this.data.foto : '',
+    //     documento: this.documentoPDF === '' ? this.data.documento: '',
+    //     // horas: this.dias,
+    //     // horaDesde: this.horaDesde,
+    //     // horaHasta: this.horaHasta,
+    //     // transporte: this.thirdFormGroup.get('transporte').value,
+    //     // aseo: this.thirdFormGroup.get('aseo').value,
+    //     // alimentacion: this.thirdFormGroup.get('transporte').value,
+    //     // cantidadAlimentacion: this.thirdFormGroup.get('cantidadAlimentacion').value,
+    //     // cantidadAseo: this.thirdFormGroup.get('cantidadAseo').value,
+    //     // cantidadServicios: this.thirdFormGroup.get('cantidadAseo').value, 
+    //     // cantidadTransporte: this.thirdFormGroup.get('cantidadAseo').value, 
+    //     // cantidadAdicionales: this.thirdFormGroup.get('cantidadAseo').value, 
+    //     // cantidadSanitarios: this.thirdFormGroup.get('cantidadAseo').value, 
+    //     // cantidadTerapeuticos: this.thirdFormGroup.get('cantidadAseo').value, 
+    //     // cantidadInstalaciones: this.thirdFormGroup.get('cantidadAseo').value, 
+    //     // cantidadAtencion: this.thirdFormGroup.get('cantidadAseo').value, 
+    //     // controlesMedicos: this.serviciosMedicos[0].children,
+    //     // serviciosAdicionales: this.serviciosAdicionales,
+    //     // serviciosatencion: this.serviciosatencion[0].children,
+    //     // servicioscomodidad: this.serviciosComodidad[0].children,
+    //     // serviciosterapeuticos: this.serviciosTerapeuticos[0].children,
+    //     // serviciosSanitarios: this.serviciosSanitarios[0].children,
+    //     // mision: this.misionGroup.get('mision').value,
+    //     // vision: this.misionGroup.get('vision').value
+    //   }
+    //   // 
       
-      this.postService.updatePost(enviarFirebase, this.idDoc)
-      .then((resp) =>{
+    //   this.postService.updatePost(enviarFirebase, this.idDoc)
+    //   .then((resp) =>{
         
-        this.getDataFirebase();
+    //     this.getDataFirebase();
 
-        // this._fotos.insertImages(this.FotoSubir);
+    //     // this._fotos.insertImages(this.FotoSubir);
 
-      })
-    }else{
+    //   })
+    // }else{
 
       
 
         let enviarFirebase = {
           // ...this.firstFormGroup.value.trim(),
           name:this.firstFormGroup.get('name').value.trim(),
-          address:this.firstFormGroup.get('address').value.trim(),
+          address:this.SecondFormGroup.get('address').value.trim(),
           email:this.firstFormGroup.get('email').value.trim(),
           fono:this.firstFormGroup.get('fono').value.trim(),
           cedula:this.firstFormGroup.get('cedula').value.trim(),
@@ -350,6 +374,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
           cuentaVerificada:false,
           nomostrarImagen: false,
           correcciones: false,
+          ...this.coords
           // horas: this.dias,
           // horaDesde: this.horaDesde,
           // horaHasta: this.horaHasta,
@@ -385,7 +410,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   
         })
         
-    }
+    // }
     
     
     
@@ -491,29 +516,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   }
 
   // funcion para seleccionar todas los dias
-  algunasCompletadas():boolean {
-    if(this.dias.diasSemana == null){
-      return false;
-    }
-    return this.dias.diasSemana.filter((t:any) => t.completed).length > 0 && !this.allComplete;
-  }
-
-  setearTodos(completed: boolean){
-    this.allComplete = completed;
-    this.dias.completed = completed;
-    if(this.dias.diasSemana == null){
-      return;
-    }
-    
-    
-    this.dias.diasSemana.forEach((t) => t.completed = completed);
-  }
-
-  actualizarSeleccionados(){
-    
-    
-    this.allComplete = this.dias.diasSemana != null && this.dias.diasSemana.every((t) => t.completed);
-  }
+  
 
   
   cargarinfo(){
@@ -544,13 +547,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
             mision: f.data()?.mision ? f.data()?.mision : '',
             vision: f.data()?.vision ? f.data()?.vision : ''
           })
-          
-          if(f.data()?.horas){
-  
-            for(let i = 0; i < this.dias.diasSemana.length; i++){
-              this.dias.diasSemana[i].completed = f.data().horas.diasSemana[i].completed;
-            }
-          }
+      
           
           
           
@@ -703,7 +700,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   }
 
   get errorDireccionMax(){
-    return this.SecondFormGroup.get('address').hasError('maxlength') && (this.firstFormGroup.get('address').touched || this.firstFormGroup.get('address').dirty);
+    return this.SecondFormGroup.get('address').hasError('maxlength') && (this.SecondFormGroup.get('address').touched || this.SecondFormGroup.get('address').dirty);
   }
   get errorNombreMax(){
     return this.firstFormGroup.get('name').hasError('maxlength') && (this.firstFormGroup.get('name').touched || this.firstFormGroup.get('name').dirty);
