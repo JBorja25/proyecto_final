@@ -172,7 +172,7 @@
                   </div>
                   <div class="row" *ngIf="errorNombrePattern">
                     <span class="text-danger">
-                      El campo nombre no puede contener numeros y caracteres especiales.
+                      El campo nombre no puede contener números y caracteres especiales.
                     </span>
                   </div>
                   <div class="row" *ngIf="errorNombreMax">
@@ -303,10 +303,10 @@
         </mat-step>
         <mat-step [stepControl]="SecondFormGroup">
 
-          <ng-template matStepLabel>Horario de Atencion</ng-template>
+          <ng-template matStepLabel>Horario de Atención</ng-template>
           <div class="mb-3">
-            <h5>Esta sección te permite seleccionar los horarios y dias de atencion del asilo </h5>
-            <label class="form-label">Selecione días de atencion
+            <h5>Esta sección te permite seleccionar los horarios y dias de atención del asilo </h5>
+            <label class="form-label">Selecione días de atención
               <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                 ngbPopover="Sleeciones los dias de atencion del asilo." triggers="mouseenter:mouseleave"
                 xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
@@ -329,13 +329,13 @@
                   </ul>
                   <div class="row" *ngIf="verificarFalse">
                     <span class="text-danger">
-                      Debe seleccionar por lo menos una dia de atencion
+                      Debe seleccionar por lo menos una dia de atención
                     </span>
                   </div>
                 </div>
                 <div class="col">
 
-                  <label class="form-label">Seleccione hora de atencion
+                  <label class="form-label">Seleccione hora de atención
                     <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                       ngbPopover="seleccione el horario de atencion del asilo" triggers="mouseenter:mouseleave"
                       xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 50 50">
@@ -897,7 +897,7 @@
             <div class="row row-cols-3">
               <div class="col" *ngIf="dataCantidadPersonal.alimentacion !== 'no'">
                 <label>
-                  Personal Alimentacion
+                  Personal Alimentación
                   <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     [ngbPopover]="(dataCantidadPersonal.alimentacion !== 'no' || dataCantidadPersonal.aimentacion !== '') ? 'Debe indicar la cantidad de personal que dispone para el servicio de alimentacion' : 'No puede indicar la cantidad de personal de alimentacion ya que usted selecciono '+ dataCantidadPersonal.aliemtacion"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
@@ -910,17 +910,17 @@
                   placeholder="0">
                 <div class="row" *ngIf="errorCantidadAlimentacion">
                   <span class="text-danger">
-                    El campo servicios alimentacion es obligatorio y debe ser mayor a 0
+                    El campo servicios alimentación es obligatorio y debe ser mayor a 0
                   </span>
                 </div>
                 <div class="row" *ngIf="errorCalimentacionMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorCalimentacionPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -943,12 +943,12 @@
                 </div>
                 <div class="row" *ngIf="errorCTransporteMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorCTransportePattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -970,17 +970,17 @@
                 </div>
                 <div class="row" *ngIf="errorcantidadaseoMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorcantidadaseoPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
               <div class="col" *ngIf="serviciosMedicosBool">
-                <label>Cantidad de personal Control medico
+                <label>Cantidad de personal Control médico
                   <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para el servicio de control medico"
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
@@ -997,12 +997,12 @@
                 </div>
                 <div class="row" *ngIf="errorcmedicoMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorcmedicoPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -1024,12 +1024,12 @@
                 </div>
                 <div class="row" *ngIf="errorcteraMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorcteraPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -1051,12 +1051,12 @@
                 </div>
                 <div class="row" *ngIf="errorcsanitarioMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorcsanitarioPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
 
@@ -1079,17 +1079,17 @@
                 </div>
                 <div class="row" *ngIf="errorccomodidadMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorccomodidadPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
               <div class="col" *ngIf="serviciosAtencionBool">
-                <label>Cantidad de personal Servicios de atencion
+                <label>Cantidad de personal Servicios de atención
                   <svg fill="#00ff55" placement="end" popoverClass="cambiar_fondo"
                     ngbPopover="Debe indicar la cantidad de personal que dispone para los servicios, servicios para el bienestar del adulto."
                     triggers="mouseenter:mouseleave" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
@@ -1101,17 +1101,17 @@
                 <input  type="number" class="form-control" formControlName="catencion" placeholder="0">
                 <div class="row" *ngIf="errorCantidadAtencion">
                   <span class="text-danger">
-                    El campo servicios atencion es obligatorio y debe ser mayor a 0
+                    El campo servicios atención es obligatorio y debe ser mayor a 0
                   </span>
                 </div>
                 <div class="row" *ngIf="errorcatencionMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorcatencionPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
@@ -1133,12 +1133,12 @@
                 </div>
                 <div class="row" *ngIf="errorccomplementariosMax">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
                 <div class="row" *ngIf="errorccomplementariosPattern">
                   <span class="text-danger">
-                    Debe ingresar un numero del 1 al 10.
+                    Debe ingresar un número del 1 al 10.
                   </span>
                 </div>
               </div>
