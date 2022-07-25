@@ -52,21 +52,23 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
       
     this.getPosts();
     
+    if(this.invitado){
 
-    window.addEventListener('beforeunload', (e) => {
-      const confirmationMessage="o/";
-  
-      (e || window.event).returnValue = confirmationMessage;    // Gecko + IE
-      return confirmationMessage;                                // Webkit, Safari, Chrome etc.
-    });
+      window.addEventListener('beforeunload', (e) => {
+        const confirmationMessage="o/";
     
-    window.addEventListener('unload', () => {
-      // await firebase.default.auth().currentUser?.delete();
-      this.ngOnDestroy();
+        (e || window.event).returnValue = confirmationMessage;    // Gecko + IE
+        return confirmationMessage;                                // Webkit, Safari, Chrome etc.
+      });
       
-      console.log('ago');
-      
-    });
+      window.addEventListener('unload', () => {
+        // await firebase.default.auth().currentUser?.delete();
+        this.ngOnDestroy();
+        
+        console.log('ago');
+        
+      });
+    }
 
     
     
