@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 import { ThemePalette } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
 import mapboxgl, {Map} from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+import { environment } from 'src/environments/environment';
  
 mapboxgl.accessToken = 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ';
 
@@ -38,6 +39,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   misionGroup: FormGroup;
+  opened: boolean = true;
   comprobarVacio: boolean =false;
   imagen: string= '';
   informacion: any;
@@ -129,7 +131,8 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     private _formBuilder: FormBuilder,
     private _fb: FormBuilder,
     private _post: PostService,
-    private _toast: ToastrService
+    private _toast: ToastrService,
+    private _render: Renderer2
   ) {
     this.postForm= this.formBuilder.group({
       name:['',Validators.required],
@@ -157,7 +160,18 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {
     console.log(this.coords);
     
-    
+    setTimeout(() => {
+      this.map.on('resize' , () =>{
+        console.log('resize');
+        if(!this.opened){
+          this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
+          this._render.addClass(this.mapElement.nativeElement, 'mapa');
+          this.map.resize();
+
+          
+        }
+      });
+    }, 600);
     // setTimeout(() => {
     //   this.map.addEventListener("click", (e) =>{
     //     console.log('funciona el click', e);
@@ -202,18 +216,42 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   }
 
   siguienteUbicacion(){
-    if(this.SecondFormGroup.invalid){
-      if(this.coords === undefined){
-        this.coordsBoolean = true;
-      }
-      return Object.values(this.SecondFormGroup.controls).forEach((validator) =>{
-        validator.markAllAsTouched();
-      });
+    if(this.coords === undefined){
+      this.coordsBoolean = true;
     }
+    
 
     console.log(this.coords);
     
 
+  }
+
+  abrirSide(drawer: any){
+    if(drawer.opened){
+      this._render.addClass(this.mapElement.nativeElement, 'mapa-resize');
+      this._render.removeClass(this.mapElement.nativeElement, 'mapa');
+      this.map.resize();
+      console.log('entra opened');
+      this.opened = false;
+      
+      
+      
+    }else{
+      console.log('entra else opened');
+      this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
+      this._render.addClass(this.mapElement.nativeElement, 'mapa');
+      this.map.resize();
+      this.opened = true;
+
+    }
+    
+    // console.log(this.mapElement);
+    // if(this.opened){
+    //   this.opened = false;
+    // }
+    // console.log(this.mapElement);
+    
+    return drawer.toggle();
   }
 
 
@@ -221,10 +259,10 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
    
   mapa(latitude: number = -0.2580184401705081, longitude: number = -78.5413005746294){
     // await loading.present();
-    mapboxgl.accessToken = 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ';
-    const map = new mapboxgl.Map({
+    mapboxgl.accessToken = environment.keymapbox;
+    this.map = new mapboxgl.Map({
     container: 'mapa', // container ID
-    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    style: 'mapbox://styles/mapbox/streets-v11?optimize=true', // style URL
     center: [longitude, latitude], // starting position [lng, lat]
     zoom: 11, // starting zoom
     boxZoom: true,
@@ -235,13 +273,13 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
 
     
     
-    map.on('click', (e) => {
+    this.map.on('click', (e) => {
       e.preventDefault();
       console.log(e);
 
       if(this.marcadores !== undefined){
         this.marcadores.remove();
-        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
+        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
         this.coordsBoolean = false;
         this.coords = e.lngLat;
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
@@ -249,19 +287,19 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
           console.log(resp);
           
           this.SecondFormGroup.setValue({
-            address: resp.features[0].place_name
+            address: 'Cerca de ' + resp.display_name
           })
         })
       }else{
         
-        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
+        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
         this.coordsBoolean = false;
         this.coords = e.lngLat;
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
         .subscribe((resp: any) =>{
           console.log(resp);
           this.SecondFormGroup.setValue({
-            address: resp.features[0].place_name
+            address: 'Cerca de ' + resp.display_name
           })
         })
       }
@@ -570,7 +608,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     });
 
     this.SecondFormGroup = this._fb.group({
-      address: ['', [Validators.required, Validators.maxLength(60)]]
+      address: ['', [Validators.required]]
     });
     this.fourthFormGroup = this._fb.group({
       img: ['', Validators.required],

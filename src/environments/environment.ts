@@ -25,7 +25,8 @@ export const environment = {
   templateID: 'template_zfotn4u',
   publicKey: 'SNVr2lITfB8PPjIPe',
   servicecorreo:'service_l8ikryr',
-  templatecorreo:'template_qvqhpzm'
+  templatecorreo:'template_qvqhpzm',
+  keymapbox:'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
 };
 
 

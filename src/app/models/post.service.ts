@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //importar modulo de db de firebase
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { environment } from 'src/environments/environment';
 
 
 //importar modulo nuestro
@@ -105,7 +106,9 @@ export class PostService {
 
 
   consultarGeocoding(longitude: any, latitude: any){
-    return this._http.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ`)
+    const apimapbox = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${environment.keymapbox}`
+    const apiopenstreet = `https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=0&zoom=18&lat=${latitude}&lon=${longitude}`
+    return this._http.get(apiopenstreet);
   }
 
 
