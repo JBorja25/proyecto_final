@@ -109,6 +109,7 @@ import { SwiperModule } from 'swiper/angular';
 import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo.component';
 import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
 import { ContentComponent } from './auth/messages/messageasilo/messagecontent/content/content.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -165,6 +166,7 @@ import { ContentComponent } from './auth/messages/messageasilo/messagecontent/co
     ChipModule,
     GMapModule,
     TreeModule,
+    HttpClientModule,
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideMessaging(() => getMessaging()),

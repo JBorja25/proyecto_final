@@ -182,16 +182,16 @@ export class HomeComponent implements OnInit {
         <span>${ dataAsilo.address }</span><br/>
         `;
         let marker = L.marker([dataAsilo.lat, dataAsilo.lng])
-                .addTo(this.map);
+                .addTo(this.map).bindPopup(html);
                 
         this.marcadores.push(marker);
                 
-        marker.on('click', () => {
-          popup = L.popup()
-          .setLatLng([dataAsilo.lat, dataAsilo.lng])
-          .setContent(html)
-          .openOn(this.map);
-        });
+        // marker.on('click', () => {
+        //   popup = L.popup()
+        //   .setLatLng([dataAsilo.lat, dataAsilo.lng])
+        //   .setContent(html)
+        //   .openOn(this.map);
+        // });
   }
   /* errores */
   get nombreError(){

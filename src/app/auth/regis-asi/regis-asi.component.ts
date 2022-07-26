@@ -12,6 +12,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 import { ThemePalette } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
+import mapboxgl, {Map} from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+ 
+mapboxgl.accessToken = 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ';
 
 // uso de interface por obligacion de material design
 export interface diasI {
@@ -29,7 +32,7 @@ declare var L: any;
   styleUrls: ['./regis-asi.component.scss']
 })
 export class RegisAsiComponent implements OnInit, AfterContentInit {
-  @ViewChild('mapa') mapElement: ElementRef;
+  @ViewChild('mapaDiv') mapElement!: ElementRef;
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -143,8 +146,8 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   ngOnInit() {
     
     
-    this.getDataFirebase(); 
-    this.cargarinfo();
+    // this.getDataFirebase(); 
+    // this.cargarinfo();
     this.rool=this._cookie.get('tipo');
     setTimeout(() => {
       this.mapa();
@@ -155,39 +158,46 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     console.log(this.coords);
     
     
-    setTimeout(() => {
-      this.map.addEventListener("click", (e) =>{
-        console.log('funciona el click', e);
-        console.log(this.marcadores);
+    // setTimeout(() => {
+    //   this.map.addEventListener("click", (e) =>{
+    //     console.log('funciona el click', e);
+    //     console.log(this.marcadores);
         
-        if(this.marcadores !== undefined){
+    //     if(this.marcadores !== undefined){
           
-          this.map.removeLayer(this.marcadores);
-          this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
-          this.coordsBoolean = false;
-          // console.log(this.marcadores);
-          this.coords = e.latlng;
-        }else{
-          this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
-          this.coords = e.latlng;
-          this.coordsBoolean = false;
-          // console.log(this.marcadores);
-
-        }
-
-        // L.remove();
-        
-        
-      });
-
-      this.map.addEventListener("move", () =>{
-        navigator.geolocation.getCurrentPosition((location) =>{
-          this.map.flyTo([location.coords.latitude, location.coords.longitude], 13);
+    //       this.map.removeLayer(this.marcadores);
+    //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng], {alt: this.firstFormGroup.get('name').value }).addTo(this.map);
+    //       this.coordsBoolean = false;
+    //       console.log(this.map.project([e.latlng.lat, e.latlng.lng], 12));
+    //       console.log(this.marcadores.toGeoJSON());
+    //       // console.log(this.marcadores.gtContent());
           
           
-        })
-      })
-    }, 800);
+    //       this.coords = e.latlng;
+    //     }else{
+    //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng], {alt: this.firstFormGroup.get('name').value}).addTo(this.map);
+    //       this.coords = e.latlng;*
+    //       console.log(this.marcadores);
+    //       this.coordsBoolean = false;
+    //       // console.log(this.marcadores);
+    //       console.log(this.marcadores.toGeoJSON());
+    //       console.log(this.map.project([e.latlng.lat, e.latlng.lng], 12));
+
+    //     }
+
+    //     // L.remove();
+        
+        
+    //   });
+
+    //   this.map.addEventListener("move", () =>{
+    //     navigator.geolocation.getCurrentPosition((location) =>{
+    //       this.map.flyTo([location.coords.latitude, location.coords.longitude], 13);
+          
+          
+    //     })
+    //   })
+    // }, 800);
     
   }
 
@@ -211,12 +221,66 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
    
   mapa(latitude: number = -0.2580184401705081, longitude: number = -78.5413005746294){
     // await loading.present();
-    this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
-        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
-      }).addTo(this.map);
+    mapboxgl.accessToken = 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ';
+    const map = new mapboxgl.Map({
+    container: 'mapa', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [longitude, latitude], // starting position [lng, lat]
+    zoom: 11, // starting zoom
+    boxZoom: true,
+    scrollZoom: true,
+    doubleClickZoom: true
+    // projection: 'globe' // display the map as a 3D globe
+    }).addControl(new mapboxgl.NavigationControl());
+
+    
+    
+    map.on('click', (e) => {
+      e.preventDefault();
+      console.log(e);
+
+      if(this.marcadores !== undefined){
+        this.marcadores.remove();
+        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
+        this.coordsBoolean = false;
+        this.coords = e.lngLat;
+        this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
+        .subscribe((resp: any) =>{
+          console.log(resp);
+          
+          this.SecondFormGroup.setValue({
+            address: resp.features[0].place_name
+          })
+        })
+      }else{
+        
+        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
+        this.coordsBoolean = false;
+        this.coords = e.lngLat;
+        this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
+        .subscribe((resp: any) =>{
+          console.log(resp);
+          this.SecondFormGroup.setValue({
+            address: resp.features[0].place_name
+          })
+        })
+      }
+
+      
+      
+      
+    // map.setFog({}); // Set the default atmosphere style
+});
+    // this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // maxZoom: 19,
+    // attribution: '© OpenStreetMap'
+    //   }).addTo(this.map);
+      // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      //   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      //   id: 'mapbox/streets-v11',
+      //   accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+      // }).addTo(this.map);
       // this.agregarMarcadores();
 
       // setTimeout(() => {
