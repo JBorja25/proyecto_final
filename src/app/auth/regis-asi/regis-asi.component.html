@@ -221,10 +221,16 @@
 
                     <div class="mb-3">
                       <label class="form-label">Referencia: <i class="pi pi-map"></i></label>
-                      <p>{{SecondFormGroup.get('address').value}}</p>
+                      <p>{{direccion}}</p>
                       <input formControlName="address" type="hidden"
                       class="form-control auto-height" readonly>
 
+                    </div>
+                    <div class="row" *ngIf="loading">
+                      <span class="text-info">
+                        <i class="pi pi-spin pi-spinner"></i>
+                        Espere un momento estamos obteniendo la referencia.
+                      </span>
                     </div>
 
                   </div>
@@ -243,6 +249,7 @@
                   </div>
                 </div>
               </form>
+              
 
               <div class="row" *ngIf="coordsBoolean">
                 <span class="text-danger">

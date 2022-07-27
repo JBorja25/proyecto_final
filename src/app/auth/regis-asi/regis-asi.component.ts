@@ -118,6 +118,8 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     "expanded": true
   }
 ];
+  loading: boolean = false;
+  direccion: string = '';
   coords: any;
   marcadores: any;
   constructor(
@@ -160,18 +162,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {
     console.log(this.coords);
     
-    setTimeout(() => {
-      this.map.on('resize' , () =>{
-        console.log('resize');
-        if(!this.opened){
-          this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
-          this._render.addClass(this.mapElement.nativeElement, 'mapa');
-          this.map.resize();
-
-          
-        }
-      });
-    }, 600);
+    
     // setTimeout(() => {
     //   this.map.addEventListener("click", (e) =>{
     //     console.log('funciona el click', e);
@@ -270,13 +261,22 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     doubleClickZoom: true
     // projection: 'globe' // display the map as a 3D globe
     }).addControl(new mapboxgl.NavigationControl());
+    this.map.on('resize' , () =>{
+      console.log('resize');
+      if(!this.opened){
+        this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
+        this._render.addClass(this.mapElement.nativeElement, 'mapa');
+        this.map.resize();
 
+        
+      }
+    });
     
     
     this.map.on('click', (e) => {
       e.preventDefault();
       console.log(e);
-
+      this.loading = true;
       if(this.marcadores !== undefined){
         this.marcadores.remove();
         this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
@@ -285,10 +285,12 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
         .subscribe((resp: any) =>{
           console.log(resp);
+          this.direccion = 'Cerca de ' +resp.display_name
           
           this.SecondFormGroup.setValue({
             address: 'Cerca de ' + resp.display_name
-          })
+          });
+          this.loading = false;
         })
       }else{
         
@@ -298,9 +300,11 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
         .subscribe((resp: any) =>{
           console.log(resp);
+          this.direccion = 'Cerca de ' +resp.display_name
           this.SecondFormGroup.setValue({
             address: 'Cerca de ' + resp.display_name
-          })
+          });
+          this.loading = false;
         })
       }
 

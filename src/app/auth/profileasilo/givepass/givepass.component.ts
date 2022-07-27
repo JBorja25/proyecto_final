@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -10,6 +10,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import mapboxgl from 'mapbox-gl';
+import { environment } from 'src/environments/environment';
 
 
 interface medicosServicios{
@@ -26,12 +28,16 @@ declare  var L: any
   styleUrls: ['./givepass.component.scss']
 })
 export class GivepassComponent implements OnInit, AfterContentInit {
+  @ViewChild('mapaDiv') mapElement!: ElementRef;
   firstFormGroup: FormGroup;
   SecondFormGroup: FormGroup;
   ubicacionForm: FormGroup;
   thirdFormGroup: FormGroup;
   coords: any;
   map: any;
+  opened: boolean = true;
+  loading: boolean = false;
+  direccion: string = '';
   fourthFormGroup: FormGroup;
   misionGroup: FormGroup;
   marcadores: any;
@@ -298,7 +304,8 @@ data: any;
     private _post: PostService,
     private _fotos: SubirfotosService,
     private _sanitazer: DomSanitizer,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _render: Renderer2
     ) {
     this.uid = this._token.get('uid');
     
@@ -337,17 +344,44 @@ data: any;
   ngOnInit(): void {
     this.token = this._cookie.get('uid');
 
-    setTimeout(() => {
-      this.mapa();
-    }, 400);
+    
     
     this.crearFormulario();
     this.getDataFirebase();
     
     this.cargarinfo();
+
     
     
     
+    
+  }
+  abrirSide(drawer: any){
+    if(drawer.opened){
+      this._render.addClass(this.mapElement.nativeElement, 'mapa-resize');
+      this._render.removeClass(this.mapElement.nativeElement, 'mapa');
+      this.map.resize();
+      console.log('entra opened');
+      this.opened = false;
+      
+      
+      
+    }else{
+      console.log('entra else opened');
+      this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
+      this._render.addClass(this.mapElement.nativeElement, 'mapa');
+      this.map.resize();
+      this.opened = true;
+
+    }
+    
+    // console.log(this.mapElement);
+    // if(this.opened){
+    //   this.opened = false;
+    // }
+    // console.log(this.mapElement);
+    
+    return drawer.toggle();
   }
 
   cargarinfo(){
@@ -360,6 +394,7 @@ data: any;
         
         this.idDoc = f.id;
         this.data = f.data();
+        this.direccion = 'Cerca de ' + f.data().address;
         this._auth.insertName()
         .subscribe((resp) =>{
           this.nombre = resp.displayName;
@@ -447,33 +482,38 @@ data: any;
         lat: f.data().lat,
         lng: f.data().lng
       }
-      
       setTimeout(() => {
-        this.marcadores = L.marker([f.data().lat, f.data().lng]).addTo(this.map);
-        this.map.addEventListener("click", (e) =>{
-          console.log('funciona el click', e);
-          // console.log(this.marcadores);
+        
+        this.mapa(this.coords.lat, this.coords.lng);
+        this.marcadores = new mapboxgl.Marker().setLngLat([f.data().lng, f.data().lat]).addTo(this.map);
+      }, 400);
+      
+      // setTimeout(() => {
+      //   this.marcadores = L.marker([f.data().lat, f.data().lng]).addTo(this.map);
+      //   this.map.addEventListener("click", (e) =>{
+      //     console.log('funciona el click', e);
+      //     // console.log(this.marcadores);
           
-          if(this.marcadores !== undefined){
+      //     if(this.marcadores !== undefined){
             
-            this.map.removeLayer(this.marcadores);
-            this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
-            this.coordsBoolean = false;
-            // console.log(this.marcadores);
-            this.coords = e.latlng;
-          }else{
-            this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
-            this.coords = e.latlng;
-            this.coordsBoolean = false;
-            // console.log(this.marcadores);
+      //       this.map.removeLayer(this.marcadores);
+      //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+      //       this.coordsBoolean = false;
+      //       // console.log(this.marcadores);
+      //       this.coords = e.latlng;
+      //     }else{
+      //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+      //       this.coords = e.latlng;
+      //       this.coordsBoolean = false;
+      //       // console.log(this.marcadores);
   
-          }
+      //     }
   
-          // L.remove();
+      //     // L.remove();
           
           
-        });
-      });
+      //   });
+      // });
        
 
       //  
@@ -535,7 +575,7 @@ data: any;
     });
 
     this.ubicacionForm = this._fb.group({
-      address: ['', [Validators.required, Validators.maxLength(60)]]
+      address: ['', [Validators.required]]
     });
     this.SecondFormGroup = this._fb.group({
       lunes: ['', Validators.required],
@@ -1258,17 +1298,79 @@ data: any;
   }
   mapa(latitude: number = -0.2580184401705081, longitude: number = -78.5413005746294){
     // await loading.present();
-    this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
-        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
-      }).addTo(this.map);
-      // this.agregarMarcadores();
+    mapboxgl.accessToken = environment.keymapbox;
+    this.map = new mapboxgl.Map({
+    container: 'mapa', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11?optimize=true', // style URL
+    center: [longitude, latitude], // starting position [lng, lat]
+    zoom: 11, // starting zoom
+    boxZoom: true,
+    scrollZoom: true,
+    doubleClickZoom: true
+    // projection: 'globe' // display the map as a 3D globe
+    }).addControl(new mapboxgl.NavigationControl());
+    // this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
+    //   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    //     id: 'mapbox/streets-v11',
+    //     accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+    //   }).addTo(this.map);
+    //   // this.agregarMarcadores();
 
-      // setTimeout(() => {
-      //   loading.dismiss();
-      // }, 1500);
+    //   // setTimeout(() => {
+    //   //   loading.dismiss();
+    //   // }, 1500);
+    
+    this.map.on('resize' , () =>{
+      console.log('resize');
+      if(!this.opened){
+        this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
+        this._render.addClass(this.mapElement.nativeElement, 'mapa');
+        this.map.resize();
+
+        
+      }
+    });
+    this.map.on('click', (e) => {
+      e.preventDefault();
+      console.log(e);
+      this.loading = true;
+      if(this.marcadores !== undefined){
+        this.marcadores.remove();
+        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
+        this.coordsBoolean = false;
+        this.coords = e.lngLat;
+        this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
+        .subscribe((resp: any) =>{
+          console.log(resp);
+          this.direccion = 'Cerca de ' +resp.display_name
+          
+          this.ubicacionForm.setValue({
+            address: 'Cerca de ' + resp.display_name
+          });
+          this.loading = false;
+        })
+      }else{
+        
+        this.marcadores = new mapboxgl.Marker().setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
+        this.coordsBoolean = false;
+        this.coords = e.lngLat;
+        this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
+        .subscribe((resp: any) =>{
+          console.log(resp);
+          this.direccion = 'Cerca de ' +resp.display_name
+          this.ubicacionForm.setValue({
+            address: 'Cerca de ' + resp.display_name
+          });
+          this.loading = false;
+        })
+      }
+
+      
+      
+      
+    // map.setFog({}); // Set the default atmosphere style
+});
   }
 
   cambioStep(stepper: any){

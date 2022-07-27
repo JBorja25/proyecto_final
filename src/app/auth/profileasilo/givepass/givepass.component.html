@@ -73,7 +73,7 @@
 
   <div class="row example-sidenav-content" style="width: 100%;">
     <mat-toolbar color="primary">
-      <button type="button" mat-button (click)="drawer.toggle()">
+      <button type="button" mat-button (click)="abrirSide(drawer)">
         <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
       </button>
 
@@ -249,44 +249,52 @@
           <div class="row">
             <h5>Esta sección te permite agregar la  información  basica  del asilo</h5>
           </div>
+          <div class="row">
+            <p-tree [value]="dataTree" class="mb-2"></p-tree>
+          </div>
           <form [formGroup]="ubicacionForm"  style="width: 100%">
 
             <div class="row">
-              <div class="col " >
-                <div class="d-flex justify-content-center">
+              <div class="col col-md-7 ">
 
-                  <div class="mb-3" style="width: 50%;">
-                    <label class="form-label">Dirección: </label>
-                    <div class="input-group text-center">
-                      <span class="input-group-text">
-                        <i class="pi pi-map"></i>
-                      </span>
-                      <input formControlName="address" type="text" class="form-control" required>
-                    </div>
-                    <div class="row" *ngIf="errorAddress">
-                      <span class="text-danger">
-                        La direccion es un campo obligatorio
-                      </span>
-                    </div>
-                    <div class="row" *ngIf="errorDireccionMax">
-                      <span class="text-danger">
-                        El campo direccion no debe sobrepasar los 50 caracteres.
-                      </span>
-                    </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Referencia: <i class="pi pi-map"></i></label>
+                  <p>{{direccion}}</p>
+                  <input formControlName="address" type="hidden"
+                  class="form-control auto-height" readonly>
+
+                </div>
+                <div class="row" *ngIf="loading">
+                  <span class="text-info">
+                    <i class="pi pi-spin pi-spinner"></i>
+                    Espere un momento estamos obteniendo la referencia.
+                  </span>
+                </div>
+
+              </div>
+              <div class="col"c></div>
+              <div class="col col-md-4" *ngIf="coords !== undefined">
+                <div class="row">
+
+                  <p>Georeferenciacion: </p>
+                </div>
+                <div class="row">
+                  <div class="d-flex justify-content-start align-items-center">
+                    
+                    <p>( {{coords?.lat | number:'1.1-6'}}, {{coords?.lng | number:'1.1-6'}})</p>
                   </div>
                 </div>
               </div>
             </div>
           </form>
-          <div class="row">
-            <p-tree [value]="dataTree" class="mb-2"></p-tree>
-          </div>
+          
           <div class="row" *ngIf="coordsBoolean">
             <span class="text-danger">
               Debe indicar la ubicación de su establecimiento en el mapa.
             </span>
           </div>
-          <div id="mapa" style="display:block"></div>
+          <div #mapaDiv id="mapa" class="mapa"></div>
 
 
           
