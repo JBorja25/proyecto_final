@@ -5,6 +5,8 @@ import { MessageasiloComponent } from 'src/app/auth/messages/messageasilo/messag
 import { PostService } from 'src/app/models/post.service';
 
 import * as firebase from 'firebase/compat/app';
+import mapboxgl from 'mapbox-gl';
+import { environment } from 'src/environments/environment';
 
 declare var L: any;
 declare var bowser: any;
@@ -97,32 +99,23 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
         console.log(f.data());
         this.posts = f.data();
         this.mapa(f.data().lat, f.data().lng);
-        this.agregarMarcador();
+        // this.agregarMarcador();
+        const html = `
+        
+        <b><h5><b>${ f.data().name }</b></h5></b>
+        <span>${ f.data().address }</span><br/>
+        `;
+        let marker = new mapboxgl.Marker().setLngLat([f.data().lng, f.data().lat]).setPopup(new mapboxgl.Popup().setHTML(html)).addTo(this.map);
+        marker.togglePopup();
+        // marker.togglePopup();
+        
       }
-      console.log(this.posts.latlong.latitude);
+      
       
     })
   }
 
-  agregarMarcador(){
-    let popup:any;
-    const html = `
-        
-        <b><h5><b>${ this.posts.name }</b></h5></b>
-        <span>${ this.posts.address }</span><br/>
-        `;
-        let marker = L.marker([this.posts.lat, this.posts.lng])
-                .addTo(this.map);
-                
-        this.marcadores.push(marker);
-                
-        marker.on('click', () => {
-          popup = L.popup()
-          .setLatLng([this.posts.lat, this.posts.lng])
-          .setContent(html)
-          .openOn(this.map);
-        });
-  }
+ 
 
   navegarSeccion(fragment: string){
     // this._router.navigateByUrl(`info-asilo/${ this.uid }#` + fragment);
@@ -130,13 +123,26 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
   }
 
   mapa(latitude: number, longitude: number){
-    // await loading.present();
-    this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
-        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
-      }).addTo(this.map);
+    // await loading.present();\
+    mapboxgl.accessToken = environment.keymapbox;
+    this.map = new mapboxgl.Map({
+    container: 'mapa', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11?optimize=true', // style URL
+    center: [longitude, latitude], // starting position [lng, lat]
+    zoom: 11, // starting zoom
+    boxZoom: true,
+    scrollZoom: true,
+    doubleClickZoom: true
+    // projection: 'globe' // display the map as a 3D globe
+    }).addControl(new mapboxgl.NavigationControl());
+
+    new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(this.map);
+    // this.map = L.map('mapa', {center: [latitude, longitude], zoom:12});
+    //   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    //     id: 'mapbox/streets-v11',
+    //     accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+    //   }).addTo(this.map);
       // this.agregarMarcadores();
 
       // setTimeout(() => {

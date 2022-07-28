@@ -17,6 +17,8 @@ import 'swiper/scss/scrollbar';
 import 'swiper/scss/effect-cube';
 import 'swiper/scss/autoplay';
 import { environment } from 'src/environments/environment';
+import mapboxgl from 'mapbox-gl';
+import { ToastrService } from 'ngx-toastr';
 
 declare var L: any;
 
@@ -67,32 +69,58 @@ export class HomeComponent implements OnInit {
     private _post: PostService,
     private _dialog: MatDialog,
     private _route: Router,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.getPosts();
     this.crearFormulario();
 
-    setTimeout(() => {
-      this.mapa();
-    }, 300);
-
+    // setTimeout(() => {
+    //   this.mapa();
+    // }, 300);
+    
     setTimeout(() => {
       navigator.permissions.query({name: 'geolocation'})
       .then((permiso) => {
         if(permiso.state == 'granted'){
           navigator.geolocation.getCurrentPosition((location) =>{
+            this.mapa(location.coords.latitude, location.coords.longitude);
+            this.getPosts();
             this.map.flyTo([location.coords.latitude, location.coords.longitude], 9);
           })
         }else if(permiso.state == 'prompt'){
           navigator.geolocation.getCurrentPosition((location) =>{
+            this.mapa(location.coords.latitude, location.coords.longitude);
+            
             this.map.flyTo([location.coords.latitude, location.coords.longitude], 9);
-
+            
+          })
+        }else{
+          this.mapa();
+          this.getPosts();
+          // this.map.flyTo([location.coords.latitude, location.coords.longitude], 9);
+          this._toastr.warning('No tenemos permiso para acceder a la ubicación, si desea tener una mayor precisión debe activar los permisos en la configuraciones del navegador', 'Permisos de ubicación',{
+            closeButton: true,
+            easeTime: 1000,
+            easing: 'ease-in',
+            progressAnimation: 'increasing',
+            progressBar: true
           })
         }
       })
-    }, 900);
+      .catch((error) =>{
+        this._toastr.warning('No tiene activado la ubicación', 'Permisos de ubicación',{
+          closeButton: true,
+          easeTime: 1000,
+          easing: 'ease-in',
+          progressAnimation: 'increasing',
+          progressBar: true
+        })
+
+      })
+    }, 600);
     
   }
 
@@ -113,7 +141,7 @@ export class HomeComponent implements OnInit {
           this.posts.push(f.data());
           setTimeout(() => {
             this.agregarMarcador(f.data());
-          }, 600);
+          }, 700);
         }
       }
       console.log(this.posts);
@@ -162,12 +190,23 @@ export class HomeComponent implements OnInit {
 
   mapa(latitude: number = -0.2580184401705081, longitude: number = -78.5413005746294){
     // await loading.present();
-    this.map = L.map('mapa', {center: [latitude, longitude], zoom:9});
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
-        accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
-      }).addTo(this.map);
+    mapboxgl.accessToken = environment.keymapbox;
+    this.map = new mapboxgl.Map({
+    container: 'mapa', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11?optimize=true', // style URL
+    center: [longitude, latitude], // starting position [lng, lat]
+    zoom: 11, // starting zoom
+    boxZoom: true,
+    scrollZoom: true,
+    doubleClickZoom: true
+    // projection: 'globe' // display the map as a 3D globe
+    }).addControl(new mapboxgl.NavigationControl());
+    // this.map = L.map('mapa', {center: [latitude, longitude], zoom:9});
+    //   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    //     id: 'mapbox/streets-v11',
+    //     accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
+    //   }).addTo(this.map);
       // this.agregarMarcadores();
       // setTimeout(() => {
       //   loading.dismiss();
@@ -175,16 +214,25 @@ export class HomeComponent implements OnInit {
   }
 
   agregarMarcador(dataAsilo: any){
-    let popup:any;
-    const html = `
+    // let popup:any;
+    if(dataAsilo?.lng && dataAsilo?.lat){
+      const html = `
         
         <b><h5><b>${ dataAsilo.name }</b></h5></b>
         <span>${ dataAsilo.address }</span><br/>
         `;
-        let marker = L.marker([dataAsilo.lat, dataAsilo.lng])
-                .addTo(this.map).bindPopup(html);
-                
+        let marker = new mapboxgl.Marker().setLngLat([dataAsilo.lng, dataAsilo.lat]).setPopup(new mapboxgl.Popup().setHTML(html)).addTo(this.map);
+        // marker.togglePopup();
         this.marcadores.push(marker);
+
+        marker.on('click', () =>{
+          console.log(marker.getPopup());
+          console.log('entra click');
+          
+          
+          
+        })
+    }
                 
         // marker.on('click', () => {
         //   popup = L.popup()
