@@ -32,7 +32,7 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss", 
+              "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -107,6 +107,16 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "login:build:production",
+            "firebaseProject": "login-ng-bdfe8",
+            "firebaseHostingSite": "login-ng-bdfe8"
           }
         }
       }

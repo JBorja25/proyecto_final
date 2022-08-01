@@ -110,6 +110,7 @@ import { MessageasiloComponent } from './auth/messages/messageasilo/messageasilo
 import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
 import { ContentComponent } from './auth/messages/messageasilo/messagecontent/content/content.component';
 import { HttpClientModule } from '@angular/common/http';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 
 
 
@@ -207,6 +208,7 @@ import { HttpClientModule } from '@angular/common/http';
     ToastrModule.forRoot({
       preventDuplicates: true
     }),
+    provideDatabase(() => getDatabase()),
 
 
   ],
