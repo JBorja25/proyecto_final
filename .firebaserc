@@ -1,21 +1,8 @@
 {
   "projects": {
-    "default": "login-ng-bdfe8"
+    "casaesperanzaweb": "casaesperanzaweb",
+    "default": "casaesperanzaweb"
   },
-  "targets": {
-    "casaesperanzaweb": {
-      "hosting": {
-        "login": [
-          "casaesperanzaweb"
-        ]
-      }
-    },
-    "login-ng-bdfe8": {
-      "hosting": {
-        "login": [
-          "login-ng-bdfe8"
-        ]
-      }
-    }
-  }
+  "targets": {},
+  "etags": {}
 }

@@ -99,7 +99,7 @@ dataTree = [
       
     }, 
     {
-      "label": "Seleccionar la ubicación es obligatorio",
+      "label": "Seleccionar la ubicación del asilo",
       "icon": "pi pi-arrow-right",
       "data": "Seleccionar la ubicación es obligatorio",
       

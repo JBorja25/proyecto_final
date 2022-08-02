@@ -115,8 +115,8 @@
             "prerender": false,
             "ssr": false,
             "browserTarget": "login:build:production",
-            "firebaseProject": "login-ng-bdfe8",
-            "firebaseHostingSite": "login-ng-bdfe8"
+            "firebaseProject": "casaesperanzaweb",
+            "firebaseHostingSite": "casaesperanzaweb"
           }
         }
       }
