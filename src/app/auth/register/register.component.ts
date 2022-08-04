@@ -1,4 +1,4 @@
-import { async } from '@firebase/util';
+
 import  emailjs  from '@emailjs/browser';
 import { AuthService } from './../services/auth.service';
 /*import { auth } from 'firebase/app';*/
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { CookieService } from 'ngx-cookie-service';
-import { provideRoutes, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 
@@ -56,10 +56,10 @@ export class RegisterComponent implements OnInit {
       if(user){
         //  this.enviarcorreo()
         //  .then((ok) =>{
-        //   console.log(ok);
+        //   
           
 
-           console.log(user);
+           
            Swal.fire({
             title: 'Validando Campos...',
             text: 'Registro Existoso, gracias por formar parte de mejor sitio web, se ha enviado un correo de registro',
@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
               resp.updateProfile({
                 displayName: nombre
               }).then((resp) =>{
-                console.log(resp);
+                
                 
               })
       
@@ -92,24 +92,24 @@ export class RegisterComponent implements OnInit {
       
           this.authSvc.guardarInfoRegistro(this.enviarFirebase)
           .then(async(respFirebase: any)=>{
-            console.log(respFirebase.user);
+            
             
               if(user && respFirebase.id.length > 2){
-                // console.log('regsitrado correctamente');
+                // 
                 Swal.close();
                 this.authSvc.guardarCookie('asilos', user.user.uid);
       
                 this.router.navigateByUrl('asilo/regis-asi');
                 
               }else{
-                console.log('no se pudo registrar');
+                
                 Swal.close();
                 
                 
               }
           } )
           .catch((erroResp) =>{
-            console.log(erroResp);
+            
             Swal.fire({
               title: 'Error de registro',
               text: 'No se pudo registrar por un error desconocido',
@@ -142,7 +142,7 @@ export class RegisterComponent implements OnInit {
          confirmButtonAriaLabel: 'Aceptar'
        });
        
-      // console.log(error);
+      // 
      })
 
 

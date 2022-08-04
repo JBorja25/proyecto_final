@@ -94,13 +94,13 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
           for (let f of resp.docs) {
             // this.data = f.data()
             this.idDoc = f.id;
-            console.log(f.data());
+            
             
             this.data = resp;
             
             this.dataUser = this._auth.insertCorreoAuth().currentUser;
             this.nombre = this.dataUser.displayName;
-            console.log(this.dataUser);
+            
             
             this.profileAdmin.setValue({
               nombre: this.dataUser.displayName,
@@ -122,14 +122,14 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
 
   guardar() {
 
-    console.log('entra en guardar');
+    
     
     let nombre = (!this.errorNombre && !this.errorNombreMin && !this.errorNombrePattern) ? this.profileAdmin.get('nombre').value.trim() : this.dataUser.displayName;
     let dir = (this.profileAdmin.get('direccion').value.length > 0) ? this.profileAdmin.get('direccion').value.trim() : this.data.direccion;
     let phone = (!this.errorPhone) ? this.profileAdmin.get('telefono').value.trim() : this.data.phone;
-    console.log(`erro nombre ${ this.errorNombre } error nombre min ${ this.errorNombreMin } error patter ${ this.errorNombrePattern }`);
     
-    console.log(nombre);
+    
+    
     this.promises.push(
 
       this._auth.insertNameCurrent()
@@ -139,14 +139,14 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
         }).then((r) =>{
           this._auth.updateDireccion(dir, phone, this.idDoc)
           .then((resp) =>{
-            console.log('se actulizo el correo y la direccion');
+            
             
           })
           .catch((error) =>{
-            console.log(error);
+            
             
           })
-          console.log(r, 'se actualizo el nombre');
+          
           
         })
       })
@@ -155,28 +155,28 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
 
   actualizarCorreo(){
     let correo = (!this.errorCorreo && this.errorCorreoVacio) ? this.profileAdmin.get('email').value : this.dataUser.email;
-    console.log(correo);
-    console.log(this.errorCorreo);
-    console.log(this.errorCorreoVacio);
+    
+    
+    
     
     if(correo != this.dataUser.email){
       this.subscription.push(
 
         this._auth.insertCorreo()
         .subscribe((respCorreo) =>{
-          console.log(correo);
-          console.log(this.dataUser.email);
+          
+          
           
           respCorreo.updateEmail(correo)
           .then((rCorreo) =>{
-            console.log(rCorreo, 'se actualizo el correo');
+            
             this.guardar();
             this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
             this.cerrar(true);
             // this.getData();
           })
           .catch((error) =>{
-            console.log(error);
+            
             if(error.code === 'auth/email-already-in-use'){
 
               this.toastWarning(`El correo ${ this.profileAdmin.get('email').value } ingresado ya se encuentra registrado, ingrese otro.`, 'Error  correo electronico');
@@ -200,7 +200,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
       .subscribe((respPassword) =>{
         respPassword.updatePassword(password)
         .then((rPassw) =>{
-          console.log(rPassw);
+          
           this.guardar();
           this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
           this.cerrar(true);
@@ -208,7 +208,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
           
         })
         .catch((error) =>{
-          console.log(error);
+          
           
         })
       })
@@ -226,7 +226,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
       .subscribe((respCorreo) =>{
         respCorreo.updateEmail(correo)
         .then((rCorreo) =>{
-          console.log(rCorreo, 'se actualizo el correo');
+          
           
         })
         .catch((error) =>{
@@ -240,11 +240,11 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this._auth.insertPass()
       .subscribe((respPassword) =>{
-        console.log('entra para cambiar pass');
+        
         
         respPassword.updatePassword(password)
         .then((rPassw) =>{
-          console.log(rPassw);
+          
           this.guardar();
           this.toastSuccess('Datos actualizados correctamente', 'Datos personales');
           // this.getData();
@@ -252,7 +252,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
           
         })
         .catch((error) =>{
-          console.log(error);
+          
           
         })
       })
@@ -330,7 +330,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
   cambiarcor(){
 
     if((this.patternCorreo && this.profileAdmin.get('email').value.length > 0) && (this.profileAdmin.get('email').value.length > 6 && !this.errorPassw)){
-      console.log('entra para cambiar pass y correo');
+      
       
       const dialog = this._dialog.open(ChangemailComponent, {
         disableClose: true,
@@ -354,7 +354,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
       });
       dialog.afterClosed()
         .subscribe((resp) => {
-          console.log(resp);
+          
           
           
           if (resp) {
@@ -367,7 +367,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
         });
       
     }else if(this.profileAdmin.get('passw').value.length > 6 && !this.errorPassw){
-      console.log('entra en pass');
+      
       
       const dialog = this._dialog.open(ChangemailComponent, {
         disableClose: true,
@@ -396,7 +396,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
 
   cambioCorreo(evento: any) {
     this.correo = evento.value;
-    // console.log(this.correo);
+    // 
     
     if(this.correo.match('^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?$')){
       this.patternCorreo = true;
@@ -405,8 +405,8 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
     }
   }
   cambioPass(evento: any) {
-    console.log(evento.value);
-    console.log(this.errorPassw);
+    
+    
     
     this.passw = evento.value;
   }

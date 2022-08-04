@@ -26,7 +26,7 @@ export class CambiarimgComponent implements OnInit {
     private _toastr: ToastrService
 
   ) { 
-    console.log(this.data);
+    
     
   }
 
@@ -38,19 +38,19 @@ export class CambiarimgComponent implements OnInit {
   }
 
   cambiarIMG(evento: any){
-    console.log(evento);
+    
 
     if(evento?.target.files.length > 0){
 
       this.img = evento.target.files[0];
       this.guardarImagenAnterior = evento.target.files[0];
       const obj = URL.createObjectURL(evento.target.files[0]);
-      console.log(obj);
+      
       
       this.urlimg = (evento.target.files.length > 0) ? this._sanitize.bypassSecurityTrustUrl(obj): '';
     }{
-      console.log(this.urlimg);
-      console.log(this.guardarImagenAnterior);
+      
+      
       this._toastr.warning('Se va a guardar la imagen anterior seleccionada', 'Guardar Imagen',{
         closeButton: true,
         easeTime: 1000,
@@ -73,14 +73,14 @@ export class CambiarimgComponent implements OnInit {
             photoURL: url
           })
           .then((respPhoto) =>{
-            console.log('se subio la foto');
+            
             
             
           })
           .catch((err) =>{});
         })
       });
-      console.log('se subio la imagen');
+      
       this.cerrar(true);
     })
     .catch((error)=>{});

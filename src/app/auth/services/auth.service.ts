@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 /*import {auth} from '@angular/fire/app';
 import {User} from '@angular/fire';*/
-import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import * as firebase from 'firebase/compat/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 // import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 // import { getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -18,7 +17,6 @@ export class AuthService {
   //public user:User;
 
   resultado: any;
-
   constructor(public afAuth: AngularFireAuth, private _f:AngularFirestore, private _cookie: CookieService ) { }
 
   async login(email: string, password: string) {
@@ -27,7 +25,7 @@ export class AuthService {
       return result;
 
     } catch (error) {
-      console.log(error);
+      
       return error;
     }
 
@@ -40,7 +38,7 @@ export class AuthService {
       return result;
 
     } catch (error) {
-      console.log(error);
+      
       return error;
     }
 
@@ -49,7 +47,7 @@ export class AuthService {
   }
 
   guardarCookie(tipo: any, token: any){
-    console.log('entra en guardar');
+    
     
     if(tipo === 'admin'){
       this._cookie.set('tipo', tipo, { path: '/', sameSite: 'Lax' });
@@ -78,7 +76,7 @@ export class AuthService {
       this._cookie.deleteAll('/');
       await this.afAuth.signOut();
     } catch (error) {
-      console.log(error);
+      
     }
   }
 

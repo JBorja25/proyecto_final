@@ -18,7 +18,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   dataMensajes: any[] = [];
   subscription: Subscription[] = [];
   idDoc: string= '';
-  mensajesGroup: FormGroup;
+  mensajesGroup: FormGroup
 
   elemento: any;
   mensaje: string= '';
@@ -29,7 +29,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.id);
+    
     this.getIdDocumento();
     this.crearFomulario();
     this.getAllMessagesById();
@@ -62,9 +62,9 @@ export class ContentComponent implements OnInit, OnDestroy {
             this.dataMensajes = [];
             this.dataMensajes = msj;
             for (let i = 0; i < this.dataMensajes.length; i++) {
-              console.log('entra');
+              
 
-              console.log(this.dataMensajes[i]);
+              
 
               this.dataMensajes[i] = ({ ...this.dataMensajes[i], foto: '/assets/img/user_message.png' });
             }
@@ -86,7 +86,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
     this._msj.updateMensajes(this.mensajesGroup.value.mensaje, this.uid, this.idDoc, this.generarId())
       .then(() => {
-        console.log('actualizado el documento');
+        
         this.subscription.push(
 
           this._msj.getMessagesByIdChat(this.id)
@@ -95,9 +95,9 @@ export class ContentComponent implements OnInit, OnDestroy {
                 this.dataMensajes = [];
                 this.dataMensajes = resp;
                 for (let i = 0; i < this.dataMensajes.length; i++) {
-                  console.log('entra');
+                  
     
-                  console.log(this.dataMensajes[i]);
+                  
     
                   this.dataMensajes[i] = ({ ...this.dataMensajes[i], foto: '/assets/img/user_message.png' });
                   this.mensajesGroup.reset();
@@ -115,7 +115,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
       })
       .catch((error) => {
-        console.log(error);
+        
 
       })
 
@@ -124,7 +124,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   scrollMensajes(){
     this.elemento = document.getElementById('msj-id');
-    // console.log(this.elemento);
+    // 
     this.elemento.scrollTop = this.elemento.scrollHeight;
   }
   generarId(){
@@ -146,7 +146,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.id = '';
     this.dataMensajes = [];
 
-    console.log('destruye');
+    
 
   }
 

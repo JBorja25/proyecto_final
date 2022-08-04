@@ -1,15 +1,10 @@
-import { AfterContentInit, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageasiloComponent } from 'src/app/auth/messages/messageasilo/messageasilo.component';
 import { PostService } from 'src/app/models/post.service';
-
-import * as firebase from 'firebase/compat/app';
 import mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 
-declare var L: any;
-declare var bowser: any;
 
 @Component({
   selector: 'app-dialogasilos',
@@ -50,7 +45,7 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
   }
 
   ngOnInit(): void {
-      console.log();
+      
       
     this.getPosts();
     
@@ -67,7 +62,7 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
         // await firebase.default.auth().currentUser?.delete();
         this.ngOnDestroy();
         
-        console.log('ago');
+        
         
       });
     }
@@ -93,10 +88,10 @@ export class DialogasilosComponent implements OnInit, AfterContentInit, OnDestro
   getPosts(){
     this._post.getPostByUid(this.uid)
     .subscribe((resp: any) =>{
-      console.log(resp);
+      
       this.posts = [];
       for(let f of resp.docs){
-        console.log(f.data());
+        
         this.posts = f.data();
         this.mapa(f.data().lat, f.data().lng);
         // this.agregarMarcador();

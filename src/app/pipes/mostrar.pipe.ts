@@ -8,7 +8,7 @@ export class MostrarPipe implements PipeTransform {
   transform(value: any) {
     if(value !== undefined){
       
-      console.log(value);
+      // console.log(value);
       
       return value[0].children;
     }

@@ -14,7 +14,6 @@ export class AuthasilosGuard implements CanActivate {
 
     let tipo = this._cookie.get('tipo');
     let uuid:string = this._cookie.get('uid');
-    console.log(tipo, uuid);
     
     if(uuid.length > 2){
 

@@ -29,10 +29,8 @@ export class AppComponent implements AfterContentInit  {
     }else{
       this.authSvc.logout();
     } */
-    console.log('ejecucion');
     
     this.tipo = (this._cookie.check('tipo')) ? this._cookie.get('tipo') : '';
-    console.log(this.tipo);
   }
   ngAfterContentInit(): void {
     

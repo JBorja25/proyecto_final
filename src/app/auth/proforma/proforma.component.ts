@@ -1,7 +1,7 @@
-import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
+import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from '@angular/material/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
 import * as moment from 'moment';
 
 import { Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
@@ -54,7 +54,6 @@ export class ProformaComponent implements OnInit {
   amobladoBool: boolean = false;
   cuidadoFisicoBool: boolean = false;
   cambioCognitivoBool: boolean = false;
-
   numhijos:number=0;
   numhijosObj:number=0;
 
@@ -177,7 +176,7 @@ export class ProformaComponent implements OnInit {
   //eventos generales
   selectChangeHandler (event: any) {
     //update the ui
-    console.log(event);
+    
     this.ubicacionBool = true;
     
     this.ubicacionObj = this.ubicaciones.find((v, index) => {
@@ -211,7 +210,7 @@ export class ProformaComponent implements OnInit {
   }
 
   inputTipoHabitacion(){
-    // console.log(this.habitacion);
+    // 
     this.tipoHabitacionBool = true;
     this.tipoHabitacionObj = this.tipoHabitacion.find((v, index) => index==parseInt(this.habitacion) && v);
     if(this.ubicacionBool && this.amobladoBool && this.cuidadoFisicoBool){
@@ -225,18 +224,18 @@ export class ProformaComponent implements OnInit {
   //eventos del imput
   // funciona paraobtener el valor de los ervicios medicos
   serviciosmedicos(evento :any){
-    console.log(evento.checked);
-    console.log(evento.source);
-    console.log(this.thirdFormGroup.get('servMed').value);
     
-    console.log(evento.source.value);
+    
+    
+    
+    
     if(evento.checked){
       let findObj = this.serviciosMedicos.map((valor)=>{
         return valor.children.find((v) =>{
           return (v.name === evento.source.value) && v
         })
       })
-      console.log(findObj);
+      
       
       this.servicioMedAux.push(...findObj);
 
@@ -247,7 +246,7 @@ export class ProformaComponent implements OnInit {
     }
 
     
-    console.log(this.servicioMedAux);
+    
 
     let servicios: medicosServicios[] = [
       {
@@ -267,24 +266,24 @@ export class ProformaComponent implements OnInit {
     }
     
     /* this.serviciosMedicos.forEach((v, index) => {
-      console.log(v, index)
-      console.log(evento.target.value);
+      
+      
       
     }); */
     /* if(evento.target.checked){
-      // console.log('entra agregar', this.servicio.find((v, index) => index === i), i);
+      // 
       
       this.servicioMedAux.push(this.serviciosMedicos.find((v, index) => index===parseInt(evento.target.value) && v));
-      console.log(this.servicioMedAux);
+      
       this.sumaTotalServMedicos = 0;
       for(let i = 0; i < this.servicioMedAux.length; i++){
         this.sumaTotalServMedicos += this.servicioMedAux[i].value;
       }
     }else{
-      console.log('entra borrar');
+      
       let findObj = this.serviciosMedicos.find((v, index) => index === parseInt(evento.target.value) && v)
       let index = this.servicioMedAux.findIndex((v, index) => v == findObj);
-      console.log(index);
+      
       
       this.servicioMedAux.splice(index, 1);
       this.sumaTotalServMedicos = 0;
@@ -292,7 +291,7 @@ export class ProformaComponent implements OnInit {
         this.sumaTotalServMedicos -= this.servicioMedAux[i].value;
       }
       
-      console.log(this.servicioMedAux);
+      
       this.sumaTotalProforma +=this.sumaTotalServMedicos;
       
     }
@@ -309,15 +308,15 @@ export class ProformaComponent implements OnInit {
     
   }
   serviciosadicionales(evento :any){
-    console.log(evento.checked);
-    console.log(evento.source.value);
+    
+    
     if(evento.checked){
       let findObj = this.serviciosAdicionales.map((valor)=>{
         return valor.children.find((v) =>{
           return (v.name === evento.source.value) && v
         })
       })
-      console.log(findObj);
+      
       
       this.servicioAdiAux.push(...findObj);
 
@@ -347,20 +346,20 @@ export class ProformaComponent implements OnInit {
     }
 
     /* this.serviciosMedicos.forEach((v, index) => {
-      console.log(v, index)
-      console.log(evento.target.value);
+      
+      
       
     }); */
     /* if(evento.checked){
-      // console.log('entra agregar', this.servicio.find((v, index) => index === i), i);
+      // 
       this.servicioAdiAux.push(this.serviciosAdicionales.find((v,index) => v===evento.source.value.value && v));
-      console.log(this.servicioAdiAux);
+      
       this.sumaTotalServAdicionales = 0;
       for(let i = 0; i < this.servicioAdiAux.length; i++){
         this.sumaTotalServAdicionales += this.servicioAdiAux[i].value;
       }
     }else{
-      console.log('entra borrar');
+      
       let findObj = this.serviciosAdicionales.find((v, index) => v === (evento.source.value.value) && v)
       let index = this.servicioAdiAux.findIndex(v => v == findObj);
       this.servicioAdiAux.splice(index, 1);
@@ -368,7 +367,7 @@ export class ProformaComponent implements OnInit {
       for(let i = 0; i < this.servicioAdiAux.length; i++){
         this.sumaTotalServAdicionales -= this.servicioAdiAux[i].value;
       }
-      console.log(this.servicioAdiAux);
+      
       this.sumaTotalProforma += this.sumaTotalServAdicionales;
       
     }
@@ -424,8 +423,8 @@ export class ProformaComponent implements OnInit {
     this.amobladoObj = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
     this.cuidadoFisicoObj = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
      this.cuidadoCogObj = this.cuidadoCog.find((v, index) => index === this.thirdFormGroup.value.servCogni && v);
-    console.log(this.servicioMedAux);
-    console.log(this.servicioAdiAux);
+    
+    
     this.sumaTotalServMedicos = 0;
     this.sumaTotalServAdicionales = 0;
     for(let i=0; i<this.servicioMedAux.length; i++){
@@ -437,10 +436,10 @@ export class ProformaComponent implements OnInit {
 
     this.suma = this.ubicacionObj.value + this.tipoHabitacionObj.value + this.amobladoObj.value +this.cuidadoFisicoObj.value + this.cuidadoCogObj.value + this.sumaTotalServMedicos + this.sumaTotalServAdicionales;
 
-    console.log(this.servicioMedAux);
+    
     
 
-    console.log( this.suma );
+    
     let servicios: medicosServicios[] = [
       {
         name: 'Servicios Medicos ' + '('+ this.servicioMedAux.length +')',
@@ -453,7 +452,7 @@ export class ProformaComponent implements OnInit {
         children: this.servicioAdiAux
       }
     ];
-    console.log(adicionales);
+    
     
     
     this.numhijos   =this.FourthFormGroup.get('hijos').value;
@@ -461,30 +460,23 @@ export class ProformaComponent implements OnInit {
     
     this.dataSource.data = servicios;
     this.dataSourceAdi.data= adicionales;
-    console.log(this.dataSourceAdi);
     
-
-    // console.log(this.servicioMedAux, this.servicioAdiAux);
-    // console.log(cog);
+ 
     
-    // console.log(ubicaciones.value + hab.value);
     
-    /*console.log(this.ubicacionObj);
-    console.log(this.tipoHabitacionObj);
-    console.log(this.amobladoObj);
-    console.log(this.cuidadoFisicoObj);
-    console.log(this.cuidadoCogObj);
-    console.log(this.servicioAdiAux);
-    console.log(this.servicioMedAux);
-    console.log(this.FourthFormGroup.get('hijos')?.value);*/
+    
+    
+    
+    
+    
     
   }
   hasChild = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
   hasChildAdi = (_: number, node: medicosServicios) => node.children && node.children.length > 0;
 
   cambioStep(step: any){
-    console.log(step);
-    console.log(step.selectedIndex);
+    
+    
     if((step.steps.length -1) === 4 && this.FourthFormGroup.get('hijos')?.value){
       this.calcular();
     }
@@ -492,8 +484,8 @@ export class ProformaComponent implements OnInit {
   }
 
   async descargar(){
-    console.log(this.servicioMedAux);
-    console.log(this.servicioAdiAux);
+    
+    
     // return;
     
     PdfMakeWrapper.setFonts(pdfFonts);
@@ -758,8 +750,8 @@ export class ProformaComponent implements OnInit {
   }
 
   cambiarUbicacion(evento : any){
-    console.log(evento);
-    console.log(this.sumaTotalSteps);
+    
+    
     
     this.ubicacionObj = this.ubicaciones.find((v, index) => (index === this.firstFormGroup.value.selectUbi) && v);
 
@@ -778,7 +770,7 @@ export class ProformaComponent implements OnInit {
   }
   cambiarAmobalda(){
     this.amobladoObj = this.amoblado.find((v, index) => index === this.SecondFormGroup.value.amobladoType && v);
-    console.log(this.amobladoObj);
+    
     
     this.sumaTotalSteps = {
       ...this.sumaTotalSteps,
@@ -789,7 +781,7 @@ export class ProformaComponent implements OnInit {
   cambiarCuidado(){
     this.cuidadoFisicoObj = this.cuidadoFisico.find((v, index) => index === this.SecondFormGroup.value.cuidadoFisicoForm && v);
 
-    console.log(this.cuidadoFisicoObj);
+    
     
     this.sumaTotalSteps = {
       ...this.sumaTotalSteps,

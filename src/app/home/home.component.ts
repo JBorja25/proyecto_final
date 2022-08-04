@@ -1,7 +1,6 @@
 import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { PostService } from '../models/post.service';
 import { A11y, Autoplay, EffectCube, Navigation, Pagination, Scrollbar, SwiperOptions } from 'swiper';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 // para neviar correos
 import emailjs from '@emailjs/browser';

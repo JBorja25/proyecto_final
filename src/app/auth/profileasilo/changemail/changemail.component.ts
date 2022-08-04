@@ -29,7 +29,7 @@ export class ChangemailComponent implements OnInit {
     }
     this._auth.reautenticar(this.contrasenia)
     .then((resp) =>{
-      console.log(resp);
+      
       if(resp.user.uid.length > 0){
         this.cerrarDialog(true);
       }

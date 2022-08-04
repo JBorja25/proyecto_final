@@ -17,12 +17,11 @@ export class AuthGuard implements CanActivate {
   canActivate():boolean{
     let tipo = this._cookie.get('tipo');
     let uuid:string = this._cookie.get('uid');
-    console.log(tipo,uuid);
     
     if(uuid.length > 2){
 
       if(tipo == 'admin'){
-        console.log('entra en admin');
+
         
         // this._router.navigateByUrl('/gerente/show');
         return true;

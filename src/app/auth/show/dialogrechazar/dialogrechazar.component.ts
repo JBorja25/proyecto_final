@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialogrechazar',
@@ -12,7 +12,6 @@ export class DialogrechazarComponent implements OnInit {
 
   mensaje: string= '';
   formRechazo: FormGroup;
-
   motivoRechazo: any[] = [
     {
       name: 'Datos personales',
@@ -49,7 +48,7 @@ export class DialogrechazarComponent implements OnInit {
   }
 
   cambioValor(evento: any){
-    console.log(evento);
+    
     if(evento.checked){
 
       this.motivoRechazo.map((valor,index) =>{
@@ -65,7 +64,7 @@ export class DialogrechazarComponent implements OnInit {
       })
     }
 
-    // console.log(this.motivoRechazo);
+    // 
     
     
   }

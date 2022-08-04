@@ -38,7 +38,6 @@ export class NavbarComponent implements AfterViewInit {
       // this._cookie.deleteAll();
      
     } catch (error) {
-      console.log(error);
       this._cookie.deleteAll();
     // this._cookie.deleteAll();
       return error;

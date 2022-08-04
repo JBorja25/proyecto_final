@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 //importa el modelo 
-import { Post } from 'src/app/models/post.model';
 //importar servico
 import { PostService } from 'src/app/models/post.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,7 +12,6 @@ import { RechazadosComponent } from './rechazados/rechazados.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogrechazarComponent } from './dialogrechazar/dialogrechazar.component';
 import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-show',
   templateUrl: './show.component.html',
@@ -90,7 +88,7 @@ export class ShowComponent implements OnInit, AfterViewInit {
         
         
         if(!f.data().aprobado){
-          console.log(f.data());
+          
 
         }
         if(!f.data().aprobado && (f.data().confirmacion)){

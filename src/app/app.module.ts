@@ -54,6 +54,7 @@ import { DialogasilosModule } from './home/dialogasilos/dialogasilos/dialogasilo
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    DialogasilosModule,
     MatExpansionModule,
     AngularFireAuthModule,
     ButtonModule,

@@ -361,13 +361,13 @@ data: any;
       this._render.addClass(this.mapElement.nativeElement, 'mapa-resize');
       this._render.removeClass(this.mapElement.nativeElement, 'mapa');
       this.map.resize();
-      console.log('entra opened');
+      
       this.opened = false;
       
       
       
     }else{
-      console.log('entra else opened');
+      
       this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
       this._render.addClass(this.mapElement.nativeElement, 'mapa');
       this.map.resize();
@@ -375,11 +375,11 @@ data: any;
 
     }
     
-    // console.log(this.mapElement);
+    // 
     // if(this.opened){
     //   this.opened = false;
     // }
-    // console.log(this.mapElement);
+    // 
     
     return drawer.toggle();
   }
@@ -491,21 +491,21 @@ data: any;
       // setTimeout(() => {
       //   this.marcadores = L.marker([f.data().lat, f.data().lng]).addTo(this.map);
       //   this.map.addEventListener("click", (e) =>{
-      //     console.log('funciona el click', e);
-      //     // console.log(this.marcadores);
+      //     
+      //     // 
           
       //     if(this.marcadores !== undefined){
             
       //       this.map.removeLayer(this.marcadores);
       //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
       //       this.coordsBoolean = false;
-      //       // console.log(this.marcadores);
+      //       // 
       //       this.coords = e.latlng;
       //     }else{
       //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
       //       this.coords = e.latlng;
       //       this.coordsBoolean = false;
-      //       // console.log(this.marcadores);
+      //       // 
   
       //     }
   
@@ -623,8 +623,7 @@ data: any;
         validator.markAllAsTouched();
       });
     }
-
-    console.log(this.coords);
+    
     
 
   }
@@ -851,7 +850,7 @@ data: any;
       let splitHasta = this.horaHasta.split(':');
       let numberHasta = Number.parseInt(splitHasta[0]);
       let horasDiferencia = this.calculardiferencia(this.horaDesde, this.horaHasta);
-      console.log(horasDiferencia);
+      
       
       if(this.horaDesde > this.horaHasta){
         
@@ -1113,7 +1112,7 @@ data: any;
 
 
   cantidadPersonal(){
-    console.log(this.cantidadPersonalFormGroup.invalid);
+    
     
     if(this.cantidadPersonalFormGroup.invalid){
       return Object.values( this.cantidadPersonalFormGroup.controls ).forEach((validators) =>{
@@ -1322,7 +1321,7 @@ data: any;
     //   // }, 1500);
     
     this.map.on('resize' , () =>{
-      console.log('resize');
+      
       if(!this.opened){
         this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
         this._render.addClass(this.mapElement.nativeElement, 'mapa');
@@ -1333,7 +1332,7 @@ data: any;
     });
     this.map.on('click', (e) => {
       e.preventDefault();
-      console.log(e);
+      
       this.loading = true;
       if(this.marcadores !== undefined){
         this.marcadores.remove();
@@ -1342,7 +1341,7 @@ data: any;
         this.coords = e.lngLat;
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
         .subscribe((resp: any) =>{
-          console.log(resp);
+          
           this.direccion = 'Cerca de ' +resp.display_name
           
           this.ubicacionForm.setValue({
@@ -1357,7 +1356,7 @@ data: any;
         this.coords = e.lngLat;
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
         .subscribe((resp: any) =>{
-          console.log(resp);
+          
           this.direccion = 'Cerca de ' +resp.display_name
           this.ubicacionForm.setValue({
             address: 'Cerca de ' + resp.display_name
@@ -1390,7 +1389,7 @@ data: any;
           this.serviciosAtencionBool = (f.data().serviciosAtencion) ? f.data().serviciosAtencion[0].children.some( (v) => v.value === true): false;
           this.serviciosAdicionalesBool = (f.data().serviciosAdicionales) ? f.data().serviciosAdicionales.some( (v) => v.value === true): false;
           
-          console.log(this.serviciosMedicosBool);
+          
           
         }
       })

@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { MensajesService } from 'src/app/auth/services/mensajes/mensajes.service';
 
-import { of } from 'rxjs';
+// import { of } from 'rxjs';
 import { ContentComponent } from '../../messageasilo/messagecontent/content/content.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
@@ -87,13 +87,13 @@ export class ModuleasiloComponent implements OnInit, AfterContentInit, OnDestroy
         this.dataMensajes = msj;
         
         for(let i=0; i < this.dataMensajes.length; i++){
-          console.log('entra');
           
-          console.log(this.dataMensajes[i]);
+          
+          
           
           this.dataMensajes[i] = ({...this.dataMensajes[i], foto: '/assets/img/user_message.png'});
         }
-        console.log(this.dataMensajes);
+        
       })
     );
   }

@@ -12,7 +12,6 @@ export class MensajesService {
   constructor(
   private _angularFire: AngularFirestore
   ) { }
-
   guardarMensajes(data: any, uidAsilo: string, uidUser: string, id: string){
     let enviar = {
       tipo: 'anonimo',
@@ -32,7 +31,7 @@ export class MensajesService {
   }
 
   updateMensajes(mensaje: any, uid: string, idDoc: string, id: any){
-    console.log(mensaje, idDoc);
+    
     
     let mensajes = {
       uid,

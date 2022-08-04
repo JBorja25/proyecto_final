@@ -71,7 +71,6 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   // variables para los checkboxes
 
 
-
   // ===============================================================
   // variables para las horas
   horaDesde: string='';
@@ -160,33 +159,33 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
   }
   
   ngAfterContentInit(): void {
-    console.log(this.coords);
+    
     
     
     // setTimeout(() => {
     //   this.map.addEventListener("click", (e) =>{
-    //     console.log('funciona el click', e);
-    //     console.log(this.marcadores);
+    //     
+    //     
         
     //     if(this.marcadores !== undefined){
           
     //       this.map.removeLayer(this.marcadores);
     //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng], {alt: this.firstFormGroup.get('name').value }).addTo(this.map);
     //       this.coordsBoolean = false;
-    //       console.log(this.map.project([e.latlng.lat, e.latlng.lng], 12));
-    //       console.log(this.marcadores.toGeoJSON());
-    //       // console.log(this.marcadores.gtContent());
+    //       
+    //       
+    //       // 
           
           
     //       this.coords = e.latlng;
     //     }else{
     //       this.marcadores = L.marker([e.latlng.lat, e.latlng.lng], {alt: this.firstFormGroup.get('name').value}).addTo(this.map);
     //       this.coords = e.latlng;*
-    //       console.log(this.marcadores);
+    //       
     //       this.coordsBoolean = false;
-    //       // console.log(this.marcadores);
-    //       console.log(this.marcadores.toGeoJSON());
-    //       console.log(this.map.project([e.latlng.lat, e.latlng.lng], 12));
+    //       // 
+    //       
+    //       
 
     //     }
 
@@ -212,7 +211,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     }
     
 
-    console.log(this.coords);
+    
     
 
   }
@@ -222,13 +221,13 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
       this._render.addClass(this.mapElement.nativeElement, 'mapa-resize');
       this._render.removeClass(this.mapElement.nativeElement, 'mapa');
       this.map.resize();
-      console.log('entra opened');
+      
       this.opened = false;
       
       
       
     }else{
-      console.log('entra else opened');
+      
       this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
       this._render.addClass(this.mapElement.nativeElement, 'mapa');
       this.map.resize();
@@ -236,11 +235,11 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
 
     }
     
-    // console.log(this.mapElement);
+    // 
     // if(this.opened){
     //   this.opened = false;
     // }
-    // console.log(this.mapElement);
+    // 
     
     return drawer.toggle();
   }
@@ -262,7 +261,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     // projection: 'globe' // display the map as a 3D globe
     }).addControl(new mapboxgl.NavigationControl());
     this.map.on('resize' , () =>{
-      console.log('resize');
+      
       if(!this.opened){
         this._render.removeClass(this.mapElement.nativeElement, 'mapa-resize');
         this._render.addClass(this.mapElement.nativeElement, 'mapa');
@@ -275,7 +274,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     
     this.map.on('click', (e) => {
       e.preventDefault();
-      console.log(e);
+      
       this.loading = true;
       if(this.marcadores !== undefined){
         this.marcadores.remove();
@@ -284,7 +283,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
         this.coords = e.lngLat;
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
         .subscribe((resp: any) =>{
-          console.log(resp);
+          
           this.direccion = 'Cerca de ' +resp.display_name
           
           this.SecondFormGroup.setValue({
@@ -299,7 +298,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
         this.coords = e.lngLat;
         this._post.consultarGeocoding(e.lngLat.lng, e.lngLat.lat)
         .subscribe((resp: any) =>{
-          console.log(resp);
+          
           this.direccion = 'Cerca de ' +resp.display_name
           this.SecondFormGroup.setValue({
             address: 'Cerca de ' + resp.display_name
@@ -753,7 +752,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
       .subscribe((resp: any) =>{
         for(let f of resp.docs){
           if(f.data().cedula.trim() === evento.target.value.trim()){
-            console.log('es identica');
+            
             this.verificarCedulaBool = true;
             return;
           }else{

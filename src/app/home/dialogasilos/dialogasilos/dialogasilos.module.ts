@@ -11,6 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MessageasiloComponent } from 'src/app/auth/messages/messageasilo/messageasilo.component';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
 
 
 
@@ -31,7 +34,9 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
-    PipesModule
+    PipesModule,
+    MatMenuModule,
+    ButtonModule
   ],
   exports: [
     DialogasilosComponent

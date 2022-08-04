@@ -58,7 +58,7 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
 
   scrollMensajes(){
     this.elemento = document.getElementById('msj-id');
-    console.log(this.elemento);
+    
     this.elemento.scrollTop = this.elemento.scrollHeight;
   }
   
@@ -76,12 +76,12 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
     // .onAuthStateChanged((user) =>{
     //   this.msj.getDocsid(this.dataAsilo.uid, user.uid)
     //   .subscribe((resp) =>{
-    //     console.log(resp);
+    //     
     //     for(let f of resp.docs){
 
     //       this.msj.eliminarDocs(f.id)
     //       .then(() =>{
-    //         console.log('eliminado');
+    //         
             
     //       })
     //     }
@@ -107,13 +107,13 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
         if(this.idDocumento.length > 0){
           this.msj.updateMensajes(mensajegroup.value.mensaje, this.uidUser, this.idDocumento, this.generarId())
           .then(() =>{
-            console.log('actualizado el documento');
+            
             this.subscription.push(
               
               this.msj.getMensajesId(this.dataAsilo.uid, this.uidUser)
               .subscribe((resp) =>{
                 for(let f of resp){
-                  console.log(f);
+                  
                   this.dataMensajes = f;
                   this.mensajeGroup.reset();
                   
@@ -129,7 +129,7 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
             
           } )
           .catch((error) =>{
-            console.log(error);
+            
             
           })
 
@@ -148,27 +148,27 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
           .then((ref) =>{
             this.idDocumento = ref.id;
             this.idDocString.emit(this.idDocumento);
-            console.log('el documento se ha guardado');
+            
             this.subscription.push(
 
               this.msj.getMensajesId(this.dataAsilo.uid, this.uidUser)
               .subscribe((resp) =>{
                 for(let f of resp){
-                  console.log(f);
+                  
                   this.dataMensajes = f;
                   this.mensajeGroup.reset();
                 }
               })
             )
-            console.log(this.elemento);
-            console.log(this.id__msj);
+            
+            
             setTimeout(() => {
               this.scrollMensajes()
                   
                 }, 300);
           })
           .catch((error) =>{
-            console.log('error en el documento');
+            
             
           })
         }
@@ -238,7 +238,9 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
   }
 
   confirmar(){
-    if(this.idDocumento.length > 0){
+    if(this.idDocumento.length > 0 || this.idDocumento != ''){
+      
+      
       this.msj.eliminarDocs(this.idDocumento);
       this.idDocumento = '';
       this.dataMensajes = {};
@@ -246,12 +248,22 @@ export class MessageasiloComponent implements OnInit, AfterContentInit, OnDestro
       this.msj.eliminarDocs(this.idDocumento);
       
     }else if(this.uidUser.length > 0){
-      this.msj.eliminarDocs(this.idDocumento);
-      this.idDocumento = '';
-      this.dataMensajes = {};
-      this._auth.eliminarUsuarioActual();
+      if(this.idDocumento.length > 0){
+
+        
+        this.msj.eliminarDocs(this.idDocumento);
+        this.idDocumento = '';
+        this.dataMensajes = {};
+        this._auth.eliminarUsuarioActual();
+      }else{
+        this.idDocumento = '';
+        this.dataMensajes = {};
+        this._auth.eliminarUsuarioActual();
+
+      }
       
     }else{
+      
 
       this.idDocumento = '';
       this.dataMensajes = {}
