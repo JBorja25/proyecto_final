@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SubirfotosService } from '../services/subirfotos/subirfotos.service';
 import { ThemePalette } from '@angular/material/core';
 import { ToastrService } from 'ngx-toastr';
-import mapboxgl, {Map} from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 import { environment } from 'src/environments/environment';
  
 mapboxgl.accessToken = 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ';

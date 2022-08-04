@@ -16,7 +16,7 @@
         <div class="col-md-4" *ngFor="let asilos of posts" >
             <div class="card text-center mt-2 mb-2 ms-2" style="box-shadow: 0 0 10px 0 gray; border-radius: 15px; width: 300px; height: auto;">
                 <div class="card-body">
-                  <img [src]="asilos.foto != '' ? asilos.foto : '/assets/img/no-photo.png'" [alt]="asilos.name" class="img-card-top" width="150" height="150">
+                  <img loading="lazy" [src]="asilos.foto != '' ? asilos.foto : '/assets/img/no-photo.png'" [alt]="asilos.name" class="img-card-top" width="150" height="150">
                   <h2 class="card-subtitle">{{asilos.name}}</h2>
                   <p class="card-text">Direccion: {{ asilos.address }}</p>
                   <p class="text-muted"><a style="cursor: pointer;" [routerLink]="['/info-asilo', asilos.uid]" class="stretched-link">Ver más...</a></p>

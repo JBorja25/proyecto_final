@@ -1,7 +1,6 @@
 import { AfterContentInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 import { MensajesService } from '../../services/mensajes/mensajes.service';
 

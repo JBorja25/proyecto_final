@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProformaComponent } from './proforma.component';
+import { OlvidopassComponent } from './olvidopass.component';
 
 const routes: Routes = [
-  { 
-    path: 'proforma', 
-    component: ProformaComponent 
+  {
+    path: '',
+    component: OlvidopassComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProformaRoutingModule { }
+export class OlvidopassRoutingModule { }
