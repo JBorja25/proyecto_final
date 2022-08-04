@@ -876,7 +876,7 @@
                 </svg>
               </label>
               <div>
-                <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" style="width: 150px;">
+                <img [src]="mostrarImagen" *ngIf="mostrarImagen != ''" width="150" loading="lazy">
               </div>
               <br>
               <input type="file" accept="image/png, image/jpg, image/jpeg" (change)="cambioImagen($event)"

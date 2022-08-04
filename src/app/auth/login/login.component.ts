@@ -1,8 +1,7 @@
 //import { User } from '@angular/fire';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { provideRoutes, Router } from '@angular/router';
-import { async } from '@firebase/util';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -15,9 +14,9 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
   verpass: boolean =true;
-  nombre: any;
+
   //   =new FormGroup({
   //     email: new FormControl(''),
   //     password: new FormControl(''),
@@ -59,16 +58,6 @@ export class LoginComponent implements OnInit {
 
 
   async onLogin() {
-
-
-    
-    /* if (!this.loginForm.invalid) {
-      
-
-      return;
-    } */
-    
-
     const { email, password } = this.loginForm.value;
     this.authSvc.login(email, password)
       .then((resp) => {
@@ -144,38 +133,25 @@ export class LoginComponent implements OnInit {
         
         if(erro.code == 'auth/wrong-password' || erro.code == 'auth/user-not-found'){
 
-          Swal.fire({
-            title: 'Validando credenciales',
-            text: 'Usuario y contraseña son incorrectos, revise por favor',
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-            icon: 'error',
-            confirmButtonText: 'Aceptar',
-          });
+          this.errorCredenciales('Validando credenciales', 'Usuario y contraseña son incorrectos, revise por favor');
         }else{
-          Swal.fire({
-            title: 'Validando credenciales',
-            text: 'Su cuenta ha sido temporalmente bloqueada debido a varios intentos, por favor intente mas tarde. Si el error persiste comuniquese con nombre@gmail.com',
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-            icon: 'error',
-            confirmButtonText: 'Aceptar',
-          });
+          this.errorCredenciales('Validando credenciales', 'Su cuenta ha sido temporalmente bloqueada debido a varios intentos, por favor intente mas tarde. Si el error persiste comuniquese con nombre@gmail.com')
         }
 
       });
-    /* try {
-      // const user=await this.authSvc.login(email, password); 
-      
 
+  }
 
-    } catch (error) {
-      
-      // return error;
-    } */
-
+  errorCredenciales(title: string, text: string){
+    Swal.fire({
+      title,
+      text,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+      allowEnterKey: true,
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+    });
   }
 
   verContrasenia(){

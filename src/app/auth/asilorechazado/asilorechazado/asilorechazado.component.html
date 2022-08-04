@@ -1,16 +1,5 @@
 <mat-drawer-container class="example-container" style="height: 100%; width: 100%;" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side" style="margin-left: 5px;" opened>
-    <!--p>Auto-resizing sidenav</!--p>
-      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        PERFIL
-       </button>
-       <br>
-       <br>
-       <br>
-       <button-- (click)="showFiller = !showFiller"  mat-raised-button color="primary">
-         AFILIACION 
-       </button-->
 
     <div class="d-flex flex-column flex-shrink-0 p-5 text-white bg-dark" style="width: 280px; height: 100vh;">
       <div class="row" style="display: block;">
@@ -590,11 +579,6 @@
     </div>
     
   </div>
-
-  <!-- <div *ngIf="aprobado">
-    <app-regisall [registroAnterio]="registroAnterior" [idDoc]="idDoc" (llenado)="llenadoFormulario($event)">
-    </app-regisall>
-  </div> -->
 
   <div *ngIf="aprobado">
     <img src="/assets/img/aprobado.png" width="350" alt="pendiente" class="img-card-top"/>

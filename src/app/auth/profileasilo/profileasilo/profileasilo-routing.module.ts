@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProformaComponent } from './proforma.component';
+import { ProfileasiloComponent } from './profileasilo.component';
 
 const routes: Routes = [
-  { 
-    path: 'proforma', 
-    component: ProformaComponent 
+  {
+    path: '',
+    component: ProfileasiloComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProformaRoutingModule { }
+export class ProfileasiloRoutingModule { }

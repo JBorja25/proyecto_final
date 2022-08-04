@@ -1,32 +1,11 @@
-import { Prueba2Component } from './shared/prueba2/prueba2/prueba2.component';
-import { PruebaComponent } from './shared/prueba/prueba/prueba.component';
-
-
-import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
 //importar componentes
-import { ShowComponent } from './auth/show/show.component';
-import { CreateComponent } from './auth/create/create.component';
-import { EditComponent } from './auth/edit/edit.component';
-import { RegisAsiComponent } from './auth/regis-asi/regis-asi.component';
 import { AuthGuard } from './guards/auth.guard';
-import { RegisterComponent } from './auth/register/register.component';
-import { LoginComponent } from './auth/login/login.component';
-import { PerfilesComponent } from './auth/perfiles/perfiles.component';
 import { AuthasilosGuard } from './guards/authasilos.guard';
-import { RegisallComponent } from './auth/regisall/regisall.component';
-import { ProformaComponent } from './auth/proforma/proforma.component';
-import { ProfileasiloComponent } from './auth/profileasilo/profileasilo/profileasilo.component';
 import { ProfileadminComponent } from './auth/profileadmin/profileadmin.component';
-import { ChangemailComponent } from './auth/profileasilo/changemail/changemail.component';
-import { GivepassComponent } from './auth/profileasilo/givepass/givepass.component';
 import { DialogasilosComponent } from './home/dialogasilos/dialogasilos/dialogasilos.component';
-import { CoverproformaComponent } from './auth/coverproforma/coverproforma/coverproforma.component';
-import { OlvidopassComponent } from './auth/olvidopass/olvidopass/olvidopass.component';
-import { AllsilosComponent } from './auth/allasilos/allsilos/allsilos.component';
-import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/moduleasilo.component';
 
 
 
@@ -34,18 +13,40 @@ import { ModuleasiloComponent } from './auth/messages/moduleasilo/moduleasilo/mo
 
 const routes: Routes = [
 
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { 
+    path: 'home',
+    // component: HomeComponent
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  },
+  { 
+    path: 'login', 
+    loadChildren: ()=> import('./auth/login/login.module').then(m => m.LoginModule)
+  },
+  { 
+    path: 'register',
+    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule)
+  },
   {
     path: 'asilo',
     canActivate: [AuthasilosGuard],
+    canLoad: [AuthasilosGuard],
     children: [
-      { path: 'regisall', component: RegisallComponent },
-      { path: 'regis-asi', component: RegisAsiComponent },
-      { path: 'profile', component: ProfileasiloComponent },
-      { path: 'info', component: GivepassComponent },
-      { path: 'mensajes/:uid', component: ModuleasiloComponent }
+      { 
+        path: 'regis-asi', 
+        loadChildren: () => import('./auth/regis-asi/regis-asi.module').then(m => m.RegisAsiModule)
+      },
+      { 
+        path: 'profile',
+        loadChildren: () => import('./auth/profileasilo/profileasilo/profileasilo.module').then(m => m.ProfileasiloModule)
+      },
+      { 
+        path: 'info', 
+        loadChildren: () => import('./auth/profileasilo/givepass/givepass.module').then(m => m.GivepassModule)
+      },
+      { 
+        path: 'mensajes/:uid', 
+        loadChildren: () => import('./auth/messages/moduleasilo/moduleasilo/moduleasilo.module').then(m => m.ModuleasiloModule)
+      }
 
     ]
   },
@@ -53,34 +54,54 @@ const routes: Routes = [
   {
     path: 'gerente',
     canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     children: [
-      { path: 'show', component: ShowComponent },
-      { path: 'edit/:id', component: EditComponent },
-      { path: 'create', component: CreateComponent },
-      { path: 'profile', component: ProfileadminComponent }
+      { 
+        path: 'show', 
+        loadChildren: () => import('./auth/show/show.module').then(m=>m.ShowModule)
+      },
+      { 
+        path: 'profile', 
+        loadChildren: () => import('./auth/profileadmin/profileadmin.module').then(m => m.ProfileadminModule)
+      }
     ]
   },
 
-  { path: 'perfiles', component: PerfilesComponent },
+  { 
+    path: 'perfiles', 
+    loadChildren: () => import('./auth/perfiles/perfiles.module').then( m => m.PerfilesModule)
+  },
   { path: 'p',
     children: [
       {
         path: 'cover',
-        component: CoverproformaComponent
+        loadChildren: () => import('./auth/coverproforma/coverproforma/coverproforma.module').then(m => m.CoverproformaModule)
       },
       {
         path: 'proforma',
-        component: ProformaComponent
+        loadChildren: () => import('./auth/proforma/proforma.module').then( m => m.ProformaModule)
       }
     ]
   },
   { path: 'info-asilo/:uid', component:DialogasilosComponent },
-  { path: 'olvido-pass', component:OlvidopassComponent },
+  { 
+    path: 'olvido-pass',
+    loadChildren: () => import('./auth/olvidopass/olvidopass/olvidopass.module').then(m => m.OlvidopassModule)
+  },
   {
-    path: 'allasilos', component: AllsilosComponent
+    path: 'allasilos',
+    loadChildren: () => import('../app/auth/allasilos/allsilos/allsilos.module').then(m => m.AllsilosModule)
   },
   // { path: 'proforma', loadChildren: () => import('./auth/proforma/proforma.component').then(m => m.ProformaComponent) },
-  { path: '**', component: HomeComponent },
+  // { 
+  //   path: '/',
+  //   loadChildren: () => import('../app/home/home.module').then(m => m.HomeModule) 
+  // },
+  { 
+    path: '**',
+    // component: HomeComponent
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule) 
+  },
 
 
 

@@ -75,6 +75,7 @@
     <mat-toolbar color="primary">
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+        <!-- <i class="pi pi-bars"></i> -->
       </button>
 
     </mat-toolbar>
@@ -82,7 +83,7 @@
   </div>
   <div class="d-flex justify-content-center align-items-center" *ngIf="dataMensajes.length === 0">
     <div>
-      <img src="assets/img/nomsj.png" alt="no mensajes" />
+      <img src="assets/img/nomsj.png" loading="lazy" alt="no mensajes" />
     </div>
   </div>
   <div class="row" *ngIf="dataMensajes.length === 0">

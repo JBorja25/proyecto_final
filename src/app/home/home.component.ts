@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { PostService } from '../models/post.service';
-import SwiperCore, { A11y, Autoplay, EffectCube, Navigation, Pagination, Scrollbar, Swiper, SwiperOptions } from 'swiper';
+import { A11y, Autoplay, EffectCube, Navigation, Pagination, Scrollbar, SwiperOptions } from 'swiper';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogasilosComponent } from './dialogasilos/dialogasilos/dialogasilos.component';
 import { Router } from '@angular/router';
 // para neviar correos
-import emailjs, {EmailJSResponseStatus} from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import SwiperCore from 'swiper';
 
 import 'swiper/scss';
 import 'swiper/scss/navigation';
@@ -19,17 +17,17 @@ import 'swiper/scss/autoplay';
 import { environment } from 'src/environments/environment';
 import mapboxgl from 'mapbox-gl';
 import { ToastrService } from 'ngx-toastr';
-
-declare var L: any;
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterContentInit, OnDestroy {
 
-  sugerenciasForm:FormGroup;
+  subscriptions: Subscription[] = [];
+  sugerenciasForm!:FormGroup;
   enviarSugerencia: boolean = false;
   map: any;
   fotos: any[] = [
@@ -67,7 +65,6 @@ export class HomeComponent implements OnInit {
   dataAsilo:any = {};
   constructor(
     private _post: PostService,
-    private _dialog: MatDialog,
     private _route: Router,
     private _fb: FormBuilder,
     private _toastr: ToastrService
@@ -76,11 +73,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getPosts();
     this.crearFormulario();
+  }
 
-    // setTimeout(() => {
-    //   this.mapa();
-    // }, 300);
-    
+  ngAfterContentInit(): void {
     setTimeout(() => {
       navigator.permissions.query({name: 'geolocation'})
       .then((permiso) => {
@@ -94,6 +89,7 @@ export class HomeComponent implements OnInit {
           navigator.geolocation.getCurrentPosition((location) =>{
             this.mapa(location.coords.latitude, location.coords.longitude);
             
+            this.getPosts();
             this.map.flyTo([location.coords.latitude, location.coords.longitude], 9);
             
           })
@@ -101,51 +97,44 @@ export class HomeComponent implements OnInit {
           this.mapa();
           this.getPosts();
           // this.map.flyTo([location.coords.latitude, location.coords.longitude], 9);
-          this._toastr.warning('No tenemos permiso para acceder a la ubicación, si desea tener una mayor precisión debe activar los permisos en la configuraciones del navegador', 'Permisos de ubicación',{
-            closeButton: true,
-            easeTime: 1000,
-            easing: 'ease-in',
-            progressAnimation: 'increasing',
-            progressBar: true
-          })
+          this.mensajeToast('No tenemos permiso para acceder a la ubicación, si desea tener una mayor precisión debe activar los permisos en la configuraciones del navegador', 'Permisos de ubicación')
         }
       })
       .catch((error) =>{
-        this._toastr.warning('No tiene activado la ubicación', 'Permisos de ubicación',{
-          closeButton: true,
-          easeTime: 1000,
-          easing: 'ease-in',
-          progressAnimation: 'increasing',
-          progressBar: true
-        })
-
+        this.mensajeToast('No tiene activado la ubicación', 'Permisos de ubicación');
       })
     }, 600);
-    
-  }
 
-  onSwiper(swiper: any) {
-    console.log(swiper);
-  }
-  onSlideChange() {
-    console.log('slide change');
+    setTimeout(() => {
+      for(let i = 0; i < this.posts?.length; i++){
+        this.agregarMarcador(this.posts[i]);
+      }
+    }, 1000);
   }
 
   getPosts(){
-    this._post.getPostIdLimit()
-    .subscribe((resp: any) =>{
-      console.log(resp);
-      this.posts = [];
-      for(let f of resp.docs){
-        if(f.data().tipo != ' admin' && f.data().aprobado){
-          this.posts.push(f.data());
-          setTimeout(() => {
-            this.agregarMarcador(f.data());
-          }, 700);
-        }
-      }
-      console.log(this.posts);
-      
+    this.subscriptions.push(
+
+      this._post.getPostIdLimit()
+      .subscribe((resp: any) =>{
+        this.posts = [];
+        for(let f of resp.docs){
+          if(f.data().tipo != ' admin' && f.data().aprobado){
+            this.posts.push(f.data());
+            
+          }
+        } 
+      })
+    );
+  }
+
+  mensajeToast(message: string, title: string){
+    this._toastr.warning(message, title,{
+      closeButton: true,
+      easeTime: 1000,
+      easing: 'ease-in',
+      progressAnimation: 'increasing',
+      progressBar: true
     })
   }
 
@@ -173,16 +162,16 @@ export class HomeComponent implements OnInit {
       to_name: 'Jose borja'
     }
     this.enviarSugerencia = true;
-    console.log(templateParams);
+    
 
     emailjs.send(environment.serviceID, environment.templateID, templateParams, environment.publicKey)
     .then((resp) =>{
-      console.log(resp);
+      
       this.enviarSugerencia = false;
       this.sugerenciasForm.reset();
     })
     .catch((err) =>{
-      console.log(err);
+      
       
     })
     
@@ -199,18 +188,9 @@ export class HomeComponent implements OnInit {
     boxZoom: true,
     scrollZoom: true,
     doubleClickZoom: true
-    // projection: 'globe' // display the map as a 3D globe
+    
     }).addControl(new mapboxgl.NavigationControl());
-    // this.map = L.map('mapa', {center: [latitude, longitude], zoom:9});
-    //   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    //     id: 'mapbox/streets-v11',
-    //     accessToken: 'pk.eyJ1IjoidHlzb24yMSIsImEiOiJja28wZWc2eGUwY3J4Mm9udzgxZ2UyczJtIn0.EL9SXrORqd-RVmxedhJdxQ'
-    //   }).addTo(this.map);
-      // this.agregarMarcadores();
-      // setTimeout(() => {
-      //   loading.dismiss();
-      // }, 1500);
+    
   }
 
   agregarMarcador(dataAsilo: any){
@@ -224,14 +204,6 @@ export class HomeComponent implements OnInit {
         let marker = new mapboxgl.Marker().setLngLat([dataAsilo.lng, dataAsilo.lat]).setPopup(new mapboxgl.Popup().setHTML(html)).addTo(this.map);
         // marker.togglePopup();
         this.marcadores.push(marker);
-
-        marker.on('click', () =>{
-          console.log(marker.getPopup());
-          console.log('entra click');
-          
-          
-          
-        })
     }
                 
         // marker.on('click', () => {
@@ -255,128 +227,13 @@ export class HomeComponent implements OnInit {
     return this.sugerenciasForm.get('message').hasError('required') && (this.sugerenciasForm.get('reply_to').touched || this.sugerenciasForm.get('reply_to').dirty);
   }
 
-}
-
-
-/**
-* Template Name: Reveal - v4.7.0
-* Template URL: https://bootstrapmade.com/reveal-bootstrap-corporate-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-
-  /**
-   * Easy selector helper function
-
-  /**
-   * Easy event listener function
-   */
-
-
-  /**
-   * Easy on scroll event listener 
-   */
-  const onscroll = (el, listener) => {
-    el.addEventListener('scroll', listener)
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((eliminar) =>{
+      eliminar.unsubscribe();
+    });
+    this.marcadores = [];
+    this.map.remove();
   }
 
-  
-  /**
-   * Clients Slider
-   */
-  new Swiper('.hero-slider', {
-    speed: 1000,
-    loop: true,
-    effect: 'fade',
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    }
-  });
+}
 
-  /**
-   * Clients Slider
-   */
-  new Swiper('.clients-slider', {
-    speed: 400,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 2,
-        spaceBetween: 20
-      },
-      480: {
-        slidesPerView: 3,
-        spaceBetween: 20
-      },
-      640: {
-        slidesPerView: 4,
-        spaceBetween: 20
-      },
-      992: {
-        slidesPerView: 6,
-        spaceBetween: 20
-      }
-    }
-  });
-
-  /**
-
-
-
-  /**
-   * Portfolio details slider
-   */
-  new Swiper('.portfolio-details-slider', {
-    speed: 400,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    }
-  });
-
-  /**
-   * Testimonials slider
-   */
-  new Swiper('.testimonials-slider', {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20
-      },
-
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 20
-      }
-    }
-  })
