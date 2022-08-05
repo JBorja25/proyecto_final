@@ -55,19 +55,19 @@ export class ModuleasiloComponent implements OnInit, AfterContentInit, OnDestroy
 
       this._auth.insertName()
       .subscribe((resp) =>{
-        this.mostrarImagen = resp.photoURL;
         this.nombre = resp.displayName;
       })
-    );
-  }
-
-
-  ocultar(){
-    this._auth.getPost(this.uid)
-    .subscribe((respData: any) =>{
-      
-      if(respData.docs.length > 0){
-        for(let f of respData.docs){
+      );
+    }
+    
+    
+    ocultar(){
+      this._auth.getPost(this.uid)
+      .subscribe((respData: any) =>{
+        
+        if(respData.docs.length > 0){
+          for(let f of respData.docs){
+          this.mostrarImagen = f.data().foto;
           this.aprobado = f.data().aprobado;
           
         }

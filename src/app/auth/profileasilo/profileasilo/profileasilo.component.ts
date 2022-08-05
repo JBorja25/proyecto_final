@@ -35,7 +35,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
   patternCorreo: boolean = false;
 
   profileAsilo: FormGroup;
-
+  foto: string= '';
   constructor(
     private _auth: AuthService,
     private _cookie: CookieService,
@@ -75,7 +75,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
       if(respData.docs.length > 0){
         for(let f of respData.docs){
           this.aprobado = f.data().aprobado;
-          
+          this.foto = f.data().foto;
           this.mostrarFormulario = f.data().mostrarRegistroAsilo;
         }
         
@@ -95,16 +95,15 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
       .subscribe((resp: any) => {
           this.data = {};
 
-          
-          
-          
-  
+            
           for (let f of resp.docs) {
             // this.data = f.data()
             this.idDoc = f.id;
             
             
             this.data = f.data();
+            console.log(this.data);
+            
             
             this.dataUser = this._auth.insertCorreoAuth().currentUser;
             

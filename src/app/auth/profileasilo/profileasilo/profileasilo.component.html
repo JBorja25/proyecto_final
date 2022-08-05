@@ -8,11 +8,12 @@
       <div class="row" style="display: block;">
         <div class="col text-center">
 
-          <p-avatar [image]="dataUser.photoURL != null ? dataUser.photoURL : '/assets/img/no-photo.png'" alt="no photo "
+          <p-avatar [image]="foto != '' ? foto : 'assets/img/no-photo.png'" alt="no photo "
             shape="circle" size="xlarge"></p-avatar>
+          </div>
         </div>
-      </div>
-
+        
+        <!-- {{ data.foto }} -->
       <div class="row">
         <div class="d-flex justify-content-center">
 
@@ -60,7 +61,7 @@
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" role="button" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <p-avatar [image]="dataUser.photoURL != null ? dataUser.photoURL : '/assets/img/no-photo.png'" alt="no photo "
+          <p-avatar [image]="foto != '' ? foto : 'assets/img/no-photo.png'" alt="no photo "
             shape="circle" class="ms-3"></p-avatar>
           <strong class="ps-2">Cerrar Sesion</strong>
         </a>
@@ -106,7 +107,7 @@
 
         <div class="col-md-8" style="display:flex; justify-content: center;  margin-top:-50px">
 
-          <img [src]="dataUser.photoURL != null ? dataUser.photoURL : '/assets/img/no-photo.png'" alt="no photo"
+          <img [src]="foto != '' ? foto : '/assets/img/no-photo.png'" alt="no photo"
             style="height: 150px; width: 150px;border-radius: 150%; border: 1px solid #ccc; box-shadow: 0 0 10px rgb(163, 163, 163); " loading="lazy" />
         </div>
 
