@@ -124,6 +124,11 @@ export class AuthService {
       phone
     });
   }
+  updatefoto(foto: string, idDoc: string){
+    return this._f.collection('registro').doc(idDoc).update({
+      foto,
+    });
+  }
 
   async reautenticar(passw:any){
     let userEmail =await this.afAuth.currentUser;

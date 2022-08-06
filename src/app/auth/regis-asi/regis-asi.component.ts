@@ -129,7 +129,6 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
     private _auth: AuthService,
     private _fotos: SubirfotosService,
     private _sanitazer: DomSanitizer,
-    private _formBuilder: FormBuilder,
     private _fb: FormBuilder,
     private _post: PostService,
     private _toast: ToastrService,
@@ -647,6 +646,7 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
             });
             this.nombre = resp.displayName;
             this.imagen = resp.photoURL;
+            this.imagen = resp.photoURL ? resp.photoURL : '';
           });
           this.misionGroup.setValue({
             mision: f.data()?.mision ? f.data()?.mision : '',
@@ -658,7 +658,6 @@ export class RegisAsiComponent implements OnInit, AfterContentInit {
           
           this.horaDesde = f.data()?.horaDesde ?f.data()?.horaDesde : '' ;
           this.horaHasta = f.data()?.horaHasta?f.data()?.horaHasta : '';
-         this.mostrarImagen = f.data()?.foto?f.data()?.foto : '';
          this.fourthFormGroup.setValue({
           img: '',
           doc: ''

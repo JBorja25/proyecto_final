@@ -75,7 +75,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
       if(respData.docs.length > 0){
         for(let f of respData.docs){
           this.aprobado = f.data().aprobado;
-          this.foto = f.data().foto;
+          // this.foto = f.data().foto;
           this.mostrarFormulario = f.data().mostrarRegistroAsilo;
         }
         
@@ -90,47 +90,32 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
 
   getData() {
     this.subscription.push(
-      
-      this._auth.traerDataFirebase(this.token)
-      .subscribe((resp: any) => {
-          this.data = {};
 
-            
+      this._auth.traerDataFirebase(this.token)
+        .subscribe((resp: any) => {
+          
+  
           for (let f of resp.docs) {
             // this.data = f.data()
             this.idDoc = f.id;
             
             
-            this.data = f.data();
-            console.log(this.data);
-            
+            this.data = resp;
             
             this.dataUser = this._auth.insertCorreoAuth().currentUser;
+            this.nombre = this.dataUser.displayName;
             
             
             this.profileAsilo.setValue({
               nombre: this.dataUser.displayName,
-              telefono: this.data.phone,
-              direccion: this.data.direccion,
+              telefono: f.data().phone,
+              direccion: f.data().direccion,
               email: '',
               passw: ''
-            })
-            // .subscribe((respAPI) =>{
-            //   
-              
-            //   this.dataUser = respAPI;
-            // });
+            });
           }
-          
-  
-  
-          
-  
-          
-  
-  
         })
-    )
+    );
   }
 
   async cerrar(cambios: boolean = false){
@@ -216,6 +201,7 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
             this.data = f.data();
             
             this.dataUser = this._auth.insertCorreoAuth().currentUser;
+            this.foto = this._auth.insertCorreoAuth().currentUser?.photoURL != null ? this._auth.insertCorreoAuth().currentUser?.photoURL : 'assets/img/no-photo.png';
             
             
             this.profileAsilo.setValue({
@@ -457,7 +443,8 @@ export class ProfileasiloComponent implements OnInit , OnDestroy {
     const dialog = this._dialog.open(CambiarimgComponent, {
       disableClose: false,
       data: {
-        data: this.dataUser.displayName
+        data: this.dataUser.displayName,
+        id: this.idDoc
       }
 
     });

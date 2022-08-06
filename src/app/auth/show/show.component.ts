@@ -38,6 +38,8 @@ export class ShowComponent implements OnInit, AfterViewInit {
   postPendientes: any[] = [];
   nombre: string = '';
   imagen: string = '';
+  token: string= '';
+  data: any;
 
   constructor(
     private postService: PostService,
@@ -47,19 +49,31 @@ export class ShowComponent implements OnInit, AfterViewInit {
     private _dialog: MatDialog
     ) { }
   ngAfterViewInit() {
+
     // this.dataSource.paginator = this.paginator;
     this.getAsilosPendientes();
     this.cargarAsilosAprobados();
+    this._auth.traerDataFirebase(this.token)
+        .subscribe((resp: any) => {
+          
+  
+          for (let f of resp.docs) {
+            
+            
+            this.data = f.data();
+          }
+        })
     
   }
 
   ngOnInit(): void {
-
+    this.token = this._cookie.get('uid');
     this._auth.insertName()
     .subscribe((resp) =>{
       this.nombre = resp.displayName;
-      this.imagen = resp.photoURL;
+      // this.imagen = resp.photoURL;
     })
+    
     
     
     /* this.postService.getPosts().subscribe((res)=>{

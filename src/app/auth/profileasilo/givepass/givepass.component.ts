@@ -388,7 +388,7 @@ data: any;
 
     this.postService.getPostByUid(this.uid)
     .subscribe((resp: any) => {
-      
+      this.mostrarImagen = this._auth.insertCorreoAuth().currentUser?.photoURL != null ? this._auth.insertCorreoAuth().currentUser?.photoURL : 'assets/img/no-photo.png';
       
       for(let f of resp.docs){
         
@@ -408,6 +408,7 @@ data: any;
           this.ubicacionForm.setValue({
             address: f.data().address
           });
+          
         });
         this.misionGroup.setValue({
           mision: f.data()?.mision ? f.data()?.mision : '',
@@ -460,7 +461,7 @@ data: any;
         
         this.horaDesde = f.data()?.horaDesde ?f.data()?.horaDesde : '' ;
         this.horaHasta = f.data()?.horaHasta?f.data()?.horaHasta : '';
-       this.mostrarImagen = f.data()?.foto?f.data()?.foto : '';
+       
        this.fourthFormGroup.setValue({
         alimentacion: f.data()?.alimentacion ? f.data()?.alimentacion : '',
         transporte: f.data()?.transporte ?f.data()?.transporte : '', 

@@ -51,11 +51,13 @@ export class ModuleasiloComponent implements OnInit, AfterContentInit, OnDestroy
   }
 
   cargarDatos(){
+    this.mostrarImagen = this._auth.insertCorreoAuth().currentUser?.photoURL != null ? this._auth.insertCorreoAuth().currentUser?.photoURL: 'assets/img/no-photo.png';
     this.subscription.push(
 
       this._auth.insertName()
       .subscribe((resp) =>{
         this.nombre = resp.displayName;
+        // this.mostrarImagen = (resp?.photoURL != '' || resp.photoURL != null) ? resp.photoURL : '' ;
       })
       );
     }
@@ -67,7 +69,7 @@ export class ModuleasiloComponent implements OnInit, AfterContentInit, OnDestroy
         
         if(respData.docs.length > 0){
           for(let f of respData.docs){
-          this.mostrarImagen = f.data().foto;
+          
           this.aprobado = f.data().aprobado;
           
         }
