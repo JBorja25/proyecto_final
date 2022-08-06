@@ -43,13 +43,13 @@ export class CambiarimgComponent implements OnInit {
     if(evento?.target.files.length > 0){
 
       this.img = evento.target.files[0];
-      this.guardarImagenAnterior = evento.target.files[0];
       const obj = URL.createObjectURL(evento.target.files[0]);
       
       
       this.urlimg = (evento.target.files.length > 0) ? this._sanitize.bypassSecurityTrustUrl(obj): '';
-    }{
+    }else{
       
+      this.guardarImagenAnterior = evento.target.files[0];
       
       this._toastr.warning('Se va a guardar la imagen anterior seleccionada', 'Guardar Imagen',{
         closeButton: true,
@@ -74,7 +74,7 @@ export class CambiarimgComponent implements OnInit {
           })
           .then((respPhoto) =>{
             
-            
+            this._auth.updatefoto(url, this.data.id);
             
           })
           .catch((err) =>{});

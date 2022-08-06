@@ -9,7 +9,7 @@
       <div class="row" style="display: block;">
         <div class="col text-center">
 
-          <p-avatar [image]="imagen != null ? imagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle"
+          <p-avatar [image]="(imagen != null || imagen != '') ? imagen : '/assets/img/no-photo.png'" alt="no photo " shape="circle"
             size="xlarge"></p-avatar>
         </div>
       </div>

@@ -96,7 +96,7 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
             this.idDoc = f.id;
             
             
-            this.data = resp;
+            this.data = f.data();
             
             this.dataUser = this._auth.insertCorreoAuth().currentUser;
             this.nombre = this.dataUser.displayName;
@@ -278,7 +278,8 @@ export class ProfileadminComponent implements OnInit, OnDestroy {
     const dialog = this._dialog.open(CambiarimgComponent, {
       disableClose: false,
       data: {
-        data: this.dataUser.displayName
+        data: this.dataUser.displayName,
+        id: this.idDoc
       }
 
     });
