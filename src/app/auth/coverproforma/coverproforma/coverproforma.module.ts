@@ -12,7 +12,11 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    CoverproformaRoutingModule
+  ],
+  exports: [
+    CoverproformaComponent
   ]
 })
 export class CoverproformaModule { }

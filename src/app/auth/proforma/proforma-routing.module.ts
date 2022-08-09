@@ -4,7 +4,7 @@ import { ProformaComponent } from './proforma.component';
 
 const routes: Routes = [
   { 
-    path: 'proforma', 
+    path: '', 
     component: ProformaComponent 
   }
 ];

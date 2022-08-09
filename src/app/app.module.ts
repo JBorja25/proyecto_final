@@ -39,6 +39,8 @@ import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { MessageasiloModule } from './auth/messages/messageasilo/messageasilo.module';
 import { DialogasilosModule } from './home/dialogasilos/dialogasilos/dialogasilos.module';
+import { CoverproformaModule } from './auth/coverproforma/coverproforma/coverproforma.module';
+import { ProformaModule } from './auth/proforma/proforma.module';
 
 
 

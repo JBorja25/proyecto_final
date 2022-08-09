@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { ProformaRoutingModule } from './proforma-routing.module';
 
 
 
@@ -29,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     NavbarModule,
     ReactiveFormsModule,
+    ProformaRoutingModule
   ],
   exports: [
     ProformaComponent
