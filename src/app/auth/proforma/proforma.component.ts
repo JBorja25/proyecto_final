@@ -644,13 +644,16 @@ export class ProformaComponent implements OnInit {
       pdf.add(new Table([
         [
           {
-            text: `${ this.servicioMedAux[i].name }`, 
+            text: ''
+          },
+          {
+            text: `     • ${ this.servicioMedAux[i].name }`, 
           },
           {
             text: '$ ' + this.servicioMedAux[i].value,
           }
         ]
-      ]).layout('noBorders').widths(['70%', '30%']).end);
+      ]).layout('noBorders').widths(['2%','68%', '30%']).end);
     }
     pdf.add(new Table([
       [
@@ -667,13 +670,16 @@ export class ProformaComponent implements OnInit {
       pdf.add(new Table([
         [
           {
-            text: `${ this.servicioAdiAux[i].name }`, 
+            text: ''
+          },
+          {
+            text: `     • ${ this.servicioAdiAux[i].name }`, 
           },
           {
             text: `$ ${this.servicioAdiAux[i].value} `,
           }
         ]
-      ]).layout('noBorders').widths(['70%', '30%']).end);
+      ]).layout('noBorders').widths(['2%','68%', '30%']).end);
     }
     
     pdf.add(new Txt('\n\n\n').end);
@@ -693,7 +699,7 @@ export class ProformaComponent implements OnInit {
           text: 'Valor total por hijo', 
         },
         {
-          text: '$ ' + this.suma/this.numhijos,
+          text: '$ ' + (this.suma/this.numhijos).toFixed(2),
         }
       ]
     ]).layout('noBorders').widths(['70%', '30%']).end);
@@ -707,7 +713,7 @@ export class ProformaComponent implements OnInit {
 
     pdf.add(new Txt('\n\n').end);
 
-    pdf.add((await new Img('../../../assets/img/firma.png').relativePosition(350, 50).height('80').width('60').build()));
+    pdf.add((await new Img('../../../assets/img/firma.png').relativePosition(350, 65).height('80').width('60').build()));
 
 
     pdf.add(new Table([
